@@ -20,6 +20,18 @@ describe("MouseHeroNFT", function () {
     expect(await nft.tokenURI(0)).to.equal(
       "https://nft.mousehaunt.com/hero/1/0"
     );
+    await nft.safeMint(owner.address, "0");
+    expect(await nft.tokenURI(1)).to.equal(
+      "https://nft.mousehaunt.com/hero/0/1"
+    );
+    await nft.safeMint(owner.address, "1");
+    expect(await nft.tokenURI(2)).to.equal(
+      "https://nft.mousehaunt.com/hero/1/2"
+    );
+    await nft.safeMint(owner.address, "0");
+    expect(await nft.tokenURI(3)).to.equal(
+      "https://nft.mousehaunt.com/hero/1/3"
+    );
   });
   it("Should be pausable", async function () {
     const [owner] = await ethers.getSigners();
