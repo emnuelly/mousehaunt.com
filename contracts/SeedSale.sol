@@ -19,8 +19,8 @@ contract SeedSale is Pausable, Ownable {
   IERC20 public mht;
   IERC20 public busd;
   uint256 public mhtToBusd;
-  mapping(address => bool) private isWhitelisted;
-  mapping(address => uint256) private addressToMHTUnlockedAtIDOAmount;
+  mapping(address => uint256) public whitelistAmount;
+  mapping(address => uint256) public addressToMHTUnlockedAtIDOAmount;
 
   bool private _idoLocked;
 
@@ -49,8 +49,11 @@ contract SeedSale is Pausable, Ownable {
   }
 
   function buy(uint256 _mhtAmountTotal) public whenNotPaused {
-    require(isWhitelisted[msg.sender], "SeedSale: not whitelisted");
-    require(_mhtAmountTotal >= 1e18, "SeedSale: invalid MHT purchase");
+    require(
+      _mhtAmountTotal <= whitelistAmount[msg.sender],
+      "SeedSale: amount > whitelisted"
+    );
+    require(_mhtAmountTotal >= 1e18, "SeedSale: minimum 1 MHT");
 
     uint256 busdAmount = _mhtAmountTotal.mul(mhtToBusd).div(1e18);
     uint256 mhtAmount = _mhtAmountTotal.mul(UNLOCKED_BEFORE_IDO_PERCENT).div(
@@ -72,7 +75,7 @@ contract SeedSale is Pausable, Ownable {
     mht.safeTransferFrom(mhtOwner, address(msg.sender), amount);
   }
 
-  function idoUnlock() public onlyOwner {
+  function idoUnlock() public onlyOwner whenNotPaused {
     _idoLocked = false;
     emit IDOUnlocked();
   }
@@ -82,15 +85,23 @@ contract SeedSale is Pausable, Ownable {
     mhtToBusd = _newMHTToBUSD;
   }
 
-  function addToWhitelist(address[] memory buyers) public onlyOwner {
-    for (uint256 i = 0; i < buyers.length; i++) {
-      isWhitelisted[buyers[i]] = true;
+  function addToWhitelist(address[] memory _buyers, uint256 _amount)
+    public
+    onlyOwner
+    whenNotPaused
+  {
+    for (uint256 i = 0; i < _buyers.length; i++) {
+      whitelistAmount[_buyers[i]] = _amount;
     }
   }
 
-  function removeFromWhitelist(address[] memory buyers) public onlyOwner {
-    for (uint256 i = 0; i < buyers.length; i++) {
-      isWhitelisted[buyers[i]] = false;
+  function removeFromWhitelist(address[] memory _buyers)
+    public
+    onlyOwner
+    whenNotPaused
+  {
+    for (uint256 i = 0; i < _buyers.length; i++) {
+      whitelistAmount[_buyers[i]] = 0;
     }
   }
 }
