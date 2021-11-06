@@ -15,10 +15,12 @@ contract WhitelistSale is Pausable, Ownable {
 
   event IDOUnlocked();
 
-  address public mhtOwner;
-  IERC20 public mht;
-  IERC20 public busd;
+  address public immutable mhtOwner;
+  IERC20 public immutable mht;
+  IERC20 public immutable busd;
+
   uint256 public mhtToBusd;
+
   mapping(address => uint256) public whitelistAmount;
   mapping(address => uint256) public addressToMHTUnlockedAtIDOAmount;
 
