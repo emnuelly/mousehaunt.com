@@ -9,7 +9,7 @@ const config = {
       address: "0x514219CEb7097eeA9556603141D2809f49EF428C",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
-    SeedSale: {
+    WhitelistSale: {
       MHTtoBUSD: 0.1,
       address: "0x2D13b76318E04Cc8cfB815f6061D6485353fE92f",
     },
@@ -28,7 +28,7 @@ const config = {
     BUSD: {
       address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     },
-    SeedSale: {
+    WhitelistSale: {
       MHTtoBUSD: 0.1,
       address: "",
     },

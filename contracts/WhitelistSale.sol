@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /// @custom:security-contact security@mousehaunt.com
-contract SeedSale is Pausable, Ownable {
+contract WhitelistSale is Pausable, Ownable {
   using SafeMath for uint256;
   using SafeERC20 for IERC20;
 
@@ -51,9 +51,9 @@ contract SeedSale is Pausable, Ownable {
   function buy(uint256 _mhtAmountTotal) public whenNotPaused {
     require(
       _mhtAmountTotal <= whitelistAmount[msg.sender],
-      "SeedSale: amount > whitelisted"
+      "Sale: amount > whitelisted"
     );
-    require(_mhtAmountTotal >= 1e18, "SeedSale: minimum 1 MHT");
+    require(_mhtAmountTotal >= 1e18, "Sale: minimum 1 MHT");
 
     uint256 busdAmount = _mhtAmountTotal.mul(mhtToBusd).div(1e18);
     uint256 mhtAmount = _mhtAmountTotal.mul(UNLOCKED_BEFORE_IDO_PERCENT).div(
@@ -68,7 +68,7 @@ contract SeedSale is Pausable, Ownable {
   }
 
   function withdraw() public whenNotPaused {
-    require(!_idoLocked, "SeedSale: locked before IDO");
+    require(!_idoLocked, "Sale: locked before IDO");
 
     uint256 amount = addressToMHTUnlockedAtIDOAmount[msg.sender];
     addressToMHTUnlockedAtIDOAmount[msg.sender] = 0;
@@ -81,7 +81,7 @@ contract SeedSale is Pausable, Ownable {
   }
 
   function updateMHTToBUSD(uint256 _newMHTToBUSD) public onlyOwner {
-    require(_newMHTToBUSD > 0, "SeedSale: invalid MHT to BUSD");
+    require(_newMHTToBUSD > 0, "Sale: invalid MHT to BUSD");
     mhtToBusd = _newMHTToBUSD;
   }
 

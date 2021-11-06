@@ -3,19 +3,19 @@ import { ethers } from "hardhat";
 import config from "../../src/config";
 
 async function main() {
-  const SeedSale = await ethers.getContractFactory("SeedSale");
-  const seedSale = await SeedSale.deploy(
+  const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+  const whitelistSale = await WhitelistSale.deploy(
     config.mainnet.MouseHauntToken.owner,
     config.mainnet.MouseHauntToken.address,
     config.mainnet.BUSD.address,
     ethers.utils
-      .parseEther(config.mainnet.SeedSale.MHTtoBUSD.toString())
+      .parseEther(config.mainnet.WhitelistSale.MHTtoBUSD.toString())
       .toString()
   );
 
-  await seedSale.deployed();
+  await whitelistSale.deployed();
 
-  console.log("Seed Sale deployed to:", seedSale.address);
+  console.log("WhitelistSale deployed to:", whitelistSale.address);
 }
 
 main().catch((error) => {

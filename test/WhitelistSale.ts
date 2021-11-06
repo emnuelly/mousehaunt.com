@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
 
-describe("SeedSale", function () {
+describe("WhitelistSale", function () {
   const mhtToBusd = 0.1;
 
   it("Should have owner different than deployer", async function () {
@@ -11,17 +11,17 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(busdOwner.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
-    expect(await seedSale.owner()).to.equal(mhtOwner.address);
+    expect(await whitelistSale.owner()).to.equal(mhtOwner.address);
   });
   it("Should be pausable", async function () {
     const [, mhtOwner, busdOwner] = await ethers.getSigners();
@@ -30,25 +30,27 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(busdOwner.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
-    await seedSale.connect(mhtOwner).pause();
+    await whitelistSale.connect(mhtOwner).pause();
 
     await expect(
-      seedSale.connect(mhtOwner).addToWhitelist([busdOwner.address], 1)
+      whitelistSale.connect(mhtOwner).addToWhitelist([busdOwner.address], 1)
     ).to.be.revertedWith("Pausable: paused");
 
-    await seedSale.connect(mhtOwner).unpause();
+    await whitelistSale.connect(mhtOwner).unpause();
 
-    await seedSale.connect(mhtOwner).addToWhitelist([busdOwner.address], 1);
+    await whitelistSale
+      .connect(mhtOwner)
+      .addToWhitelist([busdOwner.address], 1);
   });
   it("Should buy 20% of MHT with whitelist and approve pattern", async function () {
     const [, mhtOwner, buyer] = await ethers.getSigners();
@@ -57,25 +59,27 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(buyer.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
     const mhtToBuy = ethers.utils.parseEther("3.1415");
     const busdTotal = ethers.utils.parseEther("0.31415");
 
-    await seedSale.connect(mhtOwner).addToWhitelist([buyer.address], mhtToBuy);
+    await whitelistSale
+      .connect(mhtOwner)
+      .addToWhitelist([buyer.address], mhtToBuy);
 
-    await mht.connect(mhtOwner).approve(seedSale.address, mhtToBuy);
-    await busd.connect(buyer).approve(seedSale.address, busdTotal);
+    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
 
-    await seedSale.connect(buyer).buy(mhtToBuy);
+    await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
       ethers.utils.parseEther("0.6283")
@@ -86,10 +90,10 @@ describe("SeedSale", function () {
         .sub(ethers.utils.parseEther("0.6283"))
     );
 
-    await seedSale.connect(mhtOwner).removeFromWhitelist([buyer.address]);
+    await whitelistSale.connect(mhtOwner).removeFromWhitelist([buyer.address]);
 
-    await expect(seedSale.buy(1)).to.be.revertedWith(
-      "SeedSale: amount > whitelisted"
+    await expect(whitelistSale.buy(1)).to.be.revertedWith(
+      "Sale: amount > whitelisted"
     );
   });
   it("Should withdraw remaining MHT after IDO", async function () {
@@ -99,38 +103,40 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(buyer.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
     const mhtToBuy = ethers.utils.parseEther("3.1415");
     const busdTotal = ethers.utils.parseEther("0.31415");
 
-    await seedSale.connect(mhtOwner).addToWhitelist([buyer.address], mhtToBuy);
+    await whitelistSale
+      .connect(mhtOwner)
+      .addToWhitelist([buyer.address], mhtToBuy);
 
-    await mht.connect(mhtOwner).approve(seedSale.address, mhtToBuy);
-    await busd.connect(buyer).approve(seedSale.address, busdTotal);
+    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
 
-    await seedSale.connect(buyer).buy(mhtToBuy);
+    await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
       ethers.utils.parseEther("0.6283")
     );
 
-    await expect(seedSale.connect(buyer).withdraw()).to.be.revertedWith(
-      "SeedSale: locked before IDO"
+    await expect(whitelistSale.connect(buyer).withdraw()).to.be.revertedWith(
+      "Sale: locked before IDO"
     );
 
-    const tx = seedSale.connect(mhtOwner).idoUnlock();
-    await expect(tx).to.emit(seedSale, "IDOUnlocked");
+    const tx = whitelistSale.connect(mhtOwner).idoUnlock();
+    await expect(tx).to.emit(whitelistSale, "IDOUnlocked");
 
-    await seedSale.connect(buyer).withdraw();
+    await whitelistSale.connect(buyer).withdraw();
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
       ethers.utils.parseEther("3.1415")
@@ -143,40 +149,42 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(buyer.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
     const mhtToBuy = ethers.utils.parseEther("2.71828");
     const wrongBusdTotal = ethers.utils.parseEther("0.271828");
 
-    await seedSale.connect(mhtOwner).addToWhitelist([buyer.address], mhtToBuy);
+    await whitelistSale
+      .connect(mhtOwner)
+      .addToWhitelist([buyer.address], mhtToBuy);
 
     const invalidMHTtoUSD = "0";
     await expect(
-      seedSale.connect(mhtOwner).updateMHTToBUSD(invalidMHTtoUSD)
-    ).to.be.revertedWith("SeedSale: invalid MHT to BUSD");
+      whitelistSale.connect(mhtOwner).updateMHTToBUSD(invalidMHTtoUSD)
+    ).to.be.revertedWith("Sale: invalid MHT to BUSD");
 
     const newMHTtoUSD = ethers.utils.parseEther("1.4142");
-    await seedSale.connect(mhtOwner).updateMHTToBUSD(newMHTtoUSD);
+    await whitelistSale.connect(mhtOwner).updateMHTToBUSD(newMHTtoUSD);
 
-    await mht.connect(mhtOwner).approve(seedSale.address, mhtToBuy);
-    await busd.connect(buyer).approve(seedSale.address, wrongBusdTotal);
+    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, wrongBusdTotal);
 
-    await expect(seedSale.connect(buyer).buy(mhtToBuy)).to.be.revertedWith(
+    await expect(whitelistSale.connect(buyer).buy(mhtToBuy)).to.be.revertedWith(
       "ERC20: transfer amount exceeds allowance"
     );
 
     const rightBusdTotal = ethers.utils.parseEther("3.844191576");
-    await busd.connect(buyer).approve(seedSale.address, rightBusdTotal);
+    await busd.connect(buyer).approve(whitelistSale.address, rightBusdTotal);
 
-    await seedSale.connect(buyer).buy(mhtToBuy);
+    await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
       ethers.utils.parseEther("0.543656")
@@ -194,24 +202,24 @@ describe("SeedSale", function () {
     const mht = await MHT.deploy(mhtOwner.address);
     const busd = await MHT.deploy(buyer.address);
 
-    const SeedSale = await ethers.getContractFactory("SeedSale");
-    const seedSale = await SeedSale.deploy(
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    const whitelistSale = await WhitelistSale.deploy(
       mhtOwner.address,
       mht.address,
       busd.address,
       ethers.utils.parseEther(mhtToBusd.toString()).toString()
     );
 
-    await seedSale.deployed();
+    await whitelistSale.deployed();
 
     const lessThan1MHT = ethers.utils.parseEther("0.9");
 
-    await seedSale
+    await whitelistSale
       .connect(mhtOwner)
       .addToWhitelist([buyer.address], lessThan1MHT);
 
-    await expect(seedSale.connect(buyer).buy(lessThan1MHT)).to.be.revertedWith(
-      "SeedSale: minimum 1 MHT"
-    );
+    await expect(
+      whitelistSale.connect(buyer).buy(lessThan1MHT)
+    ).to.be.revertedWith("Sale: minimum 1 MHT");
   });
 });
