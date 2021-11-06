@@ -6,6 +6,28 @@ Mouse Haunt is a kick ass play to earn universe. Built in Unreal Engine 5 and in
 
 <!-- COVERAGE START -->
 
+```
+-------------------------------|----------|----------|----------|----------|----------------|
+File                           |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+-------------------------------|----------|----------|----------|----------|----------------|
+ contracts/                    |      100 |      100 |      100 |      100 |                |
+  MHTTokenRelease.sol          |      100 |      100 |      100 |      100 |                |
+  MouseHauntToken.sol          |      100 |      100 |      100 |      100 |                |
+  MouseHeroNFT.sol             |      100 |      100 |      100 |      100 |                |
+  WhitelistSale.sol            |      100 |      100 |      100 |      100 |                |
+ contracts/booster/            |      100 |      100 |      100 |      100 |                |
+  BMHTE.sol                    |      100 |      100 |      100 |      100 |                |
+  BMHTL.sol                    |      100 |      100 |      100 |      100 |                |
+  BoosterUnpack.sol            |      100 |      100 |      100 |      100 |                |
+  Random.sol                   |      100 |      100 |      100 |      100 |                |
+ contracts/booster/interfaces/ |      100 |      100 |      100 |      100 |                |
+  IBooster.sol                 |      100 |      100 |      100 |      100 |                |
+  IMouseHeroNFT.sol            |      100 |      100 |      100 |      100 |                |
+-------------------------------|----------|----------|----------|----------|----------------|
+All files                      |      100 |      100 |      100 |      100 |                |
+-------------------------------|----------|----------|----------|----------|----------------|
+```
+
 <!-- COVERAGE END -->
 
 ## Addresses (Binance Smart Chain)
