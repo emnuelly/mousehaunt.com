@@ -11,6 +11,7 @@ import Realtime from "../components/Realtime";
 import InnovativeGameplay from "../components/InnovativeGameplay";
 import Bosses from "../components/Bosses";
 import MHT from "../components/MHT";
+import Awards from "../components/Awards";
 import Team from "../components/Team";
 import PoweredBy from "../components/PoweredBy";
 import Roadmap from "../components/Roadmap";
@@ -36,6 +37,7 @@ const Home: NextPage = () => {
         <InnovativeGameplay />
         <Bosses />
         <MHT />
+        <Awards />
         <Team />
         <Roadmap />
         <Ruler />
