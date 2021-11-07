@@ -34,8 +34,10 @@ export const FormDisplay = styled.section`
     border-radius: 4px;
     background-color: #29274b;
   }
-  input::active {
-    color: purple;
+  input:focus {
+    border-color: #f2089f;
+    border-style: solid;
+    border-width: 1px;
   }
   input,
   placehodler {

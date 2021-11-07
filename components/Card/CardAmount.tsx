@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
-import React, { useState } from 'react';
-import { Formik, Field, Form } from 'formik';
+import React, { useState, useEffect } from 'react';
+import { Formik, Field, Form, validateYupSchema } from 'formik';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import Image from 'next/image';
 import button from '../../public/images/button.png';
@@ -26,12 +26,26 @@ interface Props {
 const CardAmount: NextPage = (props: Props) => {
   const [initialValuesState, setInitialValuesState] = useState(1);
   const [itemPrice, setItemPrice] = useState(props.price);
+  const [busd, setBusd] = useState('');
+  const [mht, setMht] = useState('');
+
   const isItBuyingMHT = props.types !== 'buyingItem';
   const calc = itemPrice && initialValuesState * itemPrice;
-  const addZeros = initialValuesState + '.00';
 
-  const eventsFromForm = event => {
-    setInitialValuesState(Number(event.target.value));
+  const onChange = (event: any) => {
+    const { value, id } = event.target;
+    if (!value) {
+      setBusd('');
+      setMht('');
+    } else {
+      if (id === 'amount') {
+        setBusd(Number(value).toString());
+        setMht((Number(value) / 0.15).toFixed(2).toString());
+      } else {
+        setBusd((Number(value) * 0.15).toFixed(2).toString());
+        setMht(Number(value).toString());
+      }
+    }
   };
 
   const displayIncrementalButtons = () => {
@@ -70,10 +84,11 @@ const CardAmount: NextPage = (props: Props) => {
       </>
     );
   };
-
+  // console.log(busd, mht);
   return (
     <>
       <Formik
+        // enableReinitialize
         initialValues={{ amount: 1, amountMHT: 1 }}
         onSubmit={() => {
           alert(
@@ -83,44 +98,58 @@ const CardAmount: NextPage = (props: Props) => {
           );
         }}
       >
-        <ContentForm>
-          <Form onChange={e => eventsFromForm(e)}>
-            <FormMainSection>
-              {isItBuyingMHT ? (
-                <>
-                  <FormDisplay>
-                    <label>Amount of $BUSD:</label> <br />
-                    <Field
-                      id="amountBUSD"
-                      name="amountBUSD"
-                      placeholder={addZeros}
-                    />
-                  </FormDisplay>
-                  <IconStyle>
-                    <BiRightArrowAlt />
-                  </IconStyle>
-                  <FormDisplay>
-                    <label>Amount of $MHT:</label>
-                    <br />
-                    <Field
-                      id="amountBUSD"
-                      name="amountBUSD"
-                      placeholder={addZeros}
-                    />
-                  </FormDisplay>
-                </>
-              ) : (
-                displayIncrementalButtons()
-              )}
-            </FormMainSection>
+        {props => {
+          useEffect(() => {
+            if (props.values.amount) {
+              return props.setFieldValue(
+                'amountMHT',
+                (props.values.amount / 0.15).toFixed(2)
+              );
+            }
+          }, [props.values.amount]);
+          return (
+            <ContentForm>
+              <Form>
+                <FormMainSection>
+                  {isItBuyingMHT ? (
+                    <>
+                      <FormDisplay>
+                        <label>Amount of $BUSD:</label> <br />
+                        <input
+                          onChange={e => onChange(e)}
+                          id="amount"
+                          name="amount"
+                          value={busd}
+                        />
+                      </FormDisplay>
+                      <IconStyle>
+                        <BiRightArrowAlt />
+                      </IconStyle>
+                      <FormDisplay>
+                        <label>Amount of $MHT:</label>
+                        <br />
+                        <input
+                          onChange={e => onChange(e)}
+                          id="amountMHT"
+                          name="amountMHT"
+                          value={mht}
+                        />
+                      </FormDisplay>
+                    </>
+                  ) : (
+                    displayIncrementalButtons()
+                  )}
+                </FormMainSection>
 
-            <ButtonFormat>
-              <button type="submit">
-                <Image src={button}></Image>
-              </button>
-            </ButtonFormat>
-          </Form>
-        </ContentForm>
+                <ButtonFormat>
+                  <button type="submit">
+                    <Image src={button}></Image>
+                  </button>
+                </ButtonFormat>
+              </Form>
+            </ContentForm>
+          );
+        }}
       </Formik>
     </>
   );
