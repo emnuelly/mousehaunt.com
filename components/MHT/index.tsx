@@ -27,9 +27,9 @@ const MHT: NextPage = () => {
   const onClick = async () => {
     const { ethereum } = window;
     const contracts = [
-      config.mainnet.MouseHauntToken,
-      config.mainnet.BMHTL,
-      config.mainnet.BMHTE,
+      config.bsc.MouseHauntToken,
+      config.bsc.BMHTL,
+      config.bsc.BMHTE,
     ];
     for (const contract of contracts) {
       await ethereum.request({
@@ -67,7 +67,7 @@ const MHT: NextPage = () => {
             <br />
             Come to Mouse Haunt now, showcase your skills and have fun{" "}
             <a
-              href={`https://bscscan.com/token/${config.mainnet.MouseHauntToken.address}`}
+              href={`https://bscscan.com/token/${config.bsc.MouseHauntToken.address}`}
               target="_blank"
               rel="noreferrer"
             >
