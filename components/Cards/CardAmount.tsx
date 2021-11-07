@@ -34,12 +34,11 @@ function isNumeric(str: string): boolean {
 const CardAmount: React.FC<Props> = (props: Props) => {
   const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
   const [initialValuesState, setInitialValuesState] = useState(1);
-  const [busdAmount, setBusdAmount] = useState("");
-  const [mhtAmount, setMhtAmount] = useState("");
+  const [busdAmount, setBusdAmount] = useState("75");
+  const [mhtAmount, setMhtAmount] = useState("500");
 
   const isItBuyingMHT = props.types !== "buyingItem";
-
-  const defaultValueBUSD = 75;
+  const calc = props.price && initialValuesState * props.price;
 
   useEffect(() => {
     const provider = new ethers.providers.Web3Provider(
@@ -47,7 +46,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     );
     const signer = provider.getSigner(0);
     const contract = new ethers.Contract(
-      config.bsc.WhitelistSale.PrivateSale.address,
+      config.bscTestnet.WhitelistSale.PrivateSale.address,
       WhitelistSaleJson.abi,
       signer
     ) as WhitelistSale;
@@ -126,46 +125,56 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   // console.log(busd, mht);
   return (
     <>
-      <ContentForm>
-        <Form>
-          <FormMainSection>
-            {isItBuyingMHT ? (
-              <>
-                <FormDisplay>
-                  <label>Amount of $BUSD</label> <br />
-                  <input
-                    onChange={(e) => onChange(e)}
-                    id="amount"
-                    name="amount"
-                    placeholder={defaultValueBUSD.toString()}
-                    value={busdAmount}
-                  />
-                </FormDisplay>
-                <IconStyle>
-                  <BiRightArrowAlt />
-                </IconStyle>
-                <FormDisplay>
-                  <label>Amount of $MHT</label>
-                  <br />
-                  <input
-                    onChange={(e) => onChange(e)}
-                    id="amountMHT"
-                    name="amountMHT"
-                    placeholder={(defaultValueBUSD / MHT_TO_BUSD).toString()}
-                    value={mhtAmount}
-                  />
-                </FormDisplay>
-              </>
-            ) : (
-              displayIncrementalButtons()
-            )}
-          </FormMainSection>
+      <Formik
+        // enableReinitialize
+        initialValues={{ amount: 1, amountMHT: 1 }}
+        onSubmit={() => {
+          alert(
+            `Trying to buy ${initialValuesState} BUSD is equal to  ${
+              calc ? calc : initialValuesState
+            } MTHs`
+          );
+        }}
+      >
+        <ContentForm>
+          <Form>
+            <FormMainSection>
+              {isItBuyingMHT ? (
+                <>
+                  <FormDisplay>
+                    <label>Amount of $BUSD</label> <br />
+                    <input
+                      onChange={(e) => onChange(e)}
+                      id="amount"
+                      name="amount"
+                      value={busdAmount}
+                    />
+                  </FormDisplay>
+                  <IconStyle>
+                    <BiRightArrowAlt />
+                  </IconStyle>
+                  <FormDisplay>
+                    <label>Amount of $MHT</label>
+                    <br />
+                    <input
+                      onChange={(e) => onChange(e)}
+                      id="amountMHT"
+                      name="amountMHT"
+                      value={mhtAmount}
+                    />
+                  </FormDisplay>
+                </>
+              ) : (
+                displayIncrementalButtons()
+              )}
+            </FormMainSection>
 
-          <ButtonFormat>
-            <Button onClick={buy}>BUY NOW</Button>
-          </ButtonFormat>
-        </Form>
-      </ContentForm>
+            <ButtonFormat>
+              <Button onClick={buy}>BUY NOW</Button>
+            </ButtonFormat>
+          </Form>
+        </ContentForm>
+      </Formik>
     </>
   );
 };
