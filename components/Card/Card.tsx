@@ -29,7 +29,7 @@ const ITEMS = [
     image: coffin,
     title: 'EPIC',
     sub: 'BOOSTER',
-    subtitles: ['Price: 1 EPIC BOOSTER = 75 $BUSD', 'Probabilities: 99% Epic Mouse Hero NFT, 1% Legendary Mouse Hero NFT ', 'Maximum purchase: 6 '],
+    subtitles: ['Price: 1 EPIC BOOSTER = 75 $BUSD', 'Probabilities: 99% Epic Mouse Hero NFT', 'Probabilities: 1% Legendary Mouse Hero NFT ', 'Maximum purchase: 6 '],
     icon: <BiRightArrowAlt />,
     price: 250,
   },
