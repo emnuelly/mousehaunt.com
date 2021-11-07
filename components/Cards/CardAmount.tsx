@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, validateYupSchema } from 'formik';
 import { MetaMaskInpageProvider } from '@metamask/providers';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import Image from 'next/image';
-import { ethers } from 'ethers';
-import increment from '../../public/images/increment.png';
-import decrement from '../../public/images/decrement.png';
 import { WhitelistSale } from '../../typechain/WhitelistSale';
 import WhitelistSaleJson from '../../contracts/WhitelistSale.sol/WhitelistSale.json';
 import React, { useState, useEffect } from 'react';
-import { Formik, Field, Form, validateYupSchema } from 'formik';
-import { MetaMaskInpageProvider } from '@metamask/providers';
-import { BiRightArrowAlt } from 'react-icons/bi';
-import Image from 'next/image';
 import { Contract, ethers } from 'ethers';
 import increment from '../../public/images/increment.png';
 import decrement from '../../public/images/decrement.png';
-import { WhitelistSale } from '../../typechain/WhitelistSale';
-import WhitelistSaleJson from '../../contracts/WhitelistSale.sol/WhitelistSale.json';
 import BUSDJson from '../../contracts/MouseHauntToken.sol/MouseHauntToken.json';
 
 import {
