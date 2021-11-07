@@ -93,7 +93,7 @@ describe("WhitelistSale", function () {
     await whitelistSale.connect(mhtOwner).removeFromWhitelist([buyer.address]);
 
     await expect(whitelistSale.buy(1)).to.be.revertedWith(
-      "Sale: amount > whitelisted"
+      "Whitelist: amount > whitelisted"
     );
   });
   it("Should withdraw remaining MHT after IDO", async function () {

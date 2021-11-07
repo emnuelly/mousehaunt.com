@@ -6,8 +6,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
+import "./utils/Whitelist.sol";
+
 /// @custom:security-contact security@mousehaunt.com
-contract WhitelistSale is Pausable, Ownable {
+contract WhitelistSale is Pausable, Ownable, Whitelist {
   using SafeMath for uint256;
   using SafeERC20 for IERC20;
 
@@ -21,7 +23,6 @@ contract WhitelistSale is Pausable, Ownable {
 
   uint256 public mhtToBusd;
 
-  mapping(address => uint256) public whitelistAmount;
   mapping(address => uint256) public addressToMHTUnlockedAtIDOAmount;
 
   bool private _idoLocked;
@@ -50,11 +51,11 @@ contract WhitelistSale is Pausable, Ownable {
     _unpause();
   }
 
-  function buy(uint256 _mhtAmountTotal) public whenNotPaused {
-    require(
-      _mhtAmountTotal <= whitelistAmount[msg.sender],
-      "Sale: amount > whitelisted"
-    );
+  function buy(uint256 _mhtAmountTotal)
+    public
+    whenNotPaused
+    whitelistedWithAmount(msg.sender, _mhtAmountTotal)
+  {
     require(_mhtAmountTotal >= 1e18, "Sale: minimum 1 MHT");
 
     uint256 busdAmount = _mhtAmountTotal.mul(mhtToBusd).div(1e18);
@@ -92,9 +93,7 @@ contract WhitelistSale is Pausable, Ownable {
     onlyOwner
     whenNotPaused
   {
-    for (uint256 i = 0; i < _buyers.length; i++) {
-      whitelistAmount[_buyers[i]] = _amount;
-    }
+    _addToWhitelist(_buyers, _amount);
   }
 
   function removeFromWhitelist(address[] memory _buyers)
@@ -102,8 +101,6 @@ contract WhitelistSale is Pausable, Ownable {
     onlyOwner
     whenNotPaused
   {
-    for (uint256 i = 0; i < _buyers.length; i++) {
-      whitelistAmount[_buyers[i]] = 0;
-    }
+    _removeFromWhitelist(_buyers);
   }
 }
