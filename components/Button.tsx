@@ -4,7 +4,7 @@ export const Button = styled.button`
   color: white;
 
   height: 48px;
-  background: linear-gradient(96.82deg, #1fc6ec 0%, #f2089f 100%);
+  background: linear-gradient(96.82deg, #1fc6ec 0%, #f2089f 100%) !important;
   border: none;
   border-radius: 10px;
 

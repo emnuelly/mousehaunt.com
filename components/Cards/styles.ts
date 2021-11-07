@@ -22,7 +22,7 @@ export const CardSection = styled.section<Props>`
   border-radius: 10px;
   width: 80%;
   overflow: hidden;
-  height: 580px;
+  height: 590px;
 
   
   background: ${props => props.index === 0 ? (
@@ -71,4 +71,8 @@ export const CardImage = styled.section`
   flex-direction:column;
   justify-content: center;
   align-items: center;
+
+  div {
+    margin-top: 20px !important;
+  }
 `;

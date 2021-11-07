@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ContentForm = styled.section`
   position: relative;
-  top: -25%;
+  top: -30%;
 
   button,
   input[type='submit'] {
@@ -88,7 +88,11 @@ export const ButtonFormat = styled.section`
   display: flex;
   justify-content: center;
   margin-top: 30px;
+
   button:hover {
     cursor: pointer;
+  }
+  button {
+    width: 100px;
   }
 `;

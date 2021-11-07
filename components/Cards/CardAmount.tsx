@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, validateYupSchema } from "formik";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
-import button from "../../public/images/button.png";
 import increment from "../../public/images/increment.png";
 import decrement from "../../public/images/decrement.png";
 
@@ -17,6 +16,7 @@ import {
   ButtonFormat,
   FormIncremental,
 } from "./stylesForm";
+import { Button } from "../Button";
 
 interface Props {
   types?: string | undefined;
@@ -24,6 +24,11 @@ interface Props {
 }
 
 const MHT_TO_BUSD = 0.15;
+
+function isNumeric(str: string): boolean {
+  if (typeof str != "string") return false;
+  return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
+}
 
 const CardAmount: React.FC<Props> = (props: Props) => {
   const [initialValuesState, setInitialValuesState] = useState(1);
@@ -41,6 +46,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     if (!value) {
       setBusd("");
       setMht("");
+    } else if (!isNumeric(value)) {
+      return;
     } else {
       if (id === "amount") {
         setBusd(Number(value).toString());
@@ -148,9 +155,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <button type="submit">
-                <Image alt="button" src={button}></Image>
-              </button>
+              <Button>BUY NOW</Button>
             </ButtonFormat>
           </Form>
         </ContentForm>
