@@ -27,7 +27,6 @@ const Awards: NextPage = () => {
         <Subtitle>
             <a 
               href="https://www.youtube.com/watch?v=7lXChVSE3Bc"
-              styles = {{color: "#4c7ea1"}}
             >
               Click here
             </a>
