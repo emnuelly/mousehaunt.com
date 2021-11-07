@@ -81,8 +81,9 @@ const Landing: React.FC<Props> = (props: Props) => {
             </Header>
             <StoreTitle>SHOP</StoreTitle>
             <StorePageSub>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis
-              mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
+              Welcome to the Mouse Haunt Shop! 
+              <br />
+              Here you will find the latest goods on this cheesy universe!
             </StorePageSub>
             <Card />
           </StoreContainer>
