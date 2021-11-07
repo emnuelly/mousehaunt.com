@@ -6,12 +6,13 @@ async function main() {
   const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
 
   const whitelistSale = WhitelistSale.attach(
-    config.mainnet.WhitelistSale.address
+    config.mainnet.WhitelistSale.PrivateSale.address
   );
 
-  await whitelistSale.idoUnlock();
+  const timestamp = 0;
+  await whitelistSale.setIgoTimestamp(timestamp);
 
-  console.log(`WhitelistSale withdraw unlocked at IDO`);
+  console.log(`WhitelistSale set IGO timestamp to ${timestamp}`);
 }
 
 main().catch((error) => {

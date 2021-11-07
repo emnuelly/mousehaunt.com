@@ -7,14 +7,12 @@ async function main() {
   const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
 
   const whitelistSale = WhitelistSale.attach(
-    config.mainnet.WhitelistSale.address
+    config.mainnet.WhitelistSale.PrivateSale.address
   );
-
-  const mht100 = ethers.utils.parseEther("100");
 
   for (const address of whitelist) {
     console.log(`WhitelistSale whitelisting ${address}`);
-    await whitelistSale.addToWhitelist(address, mht100);
+    await whitelistSale.addToWhitelist(address);
   }
 }
 

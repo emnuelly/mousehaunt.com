@@ -9,10 +9,6 @@ const config = {
       address: "0x514219CEb7097eeA9556603141D2809f49EF428C",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
-    WhitelistSale: {
-      MHTtoBUSD: 0.1,
-      address: "0x2D13b76318E04Cc8cfB815f6061D6485353fE92f",
-    },
     BUSD: {
       address: "0x8301f2213c0eed49a7e28ae4c3e91722919b8b47",
     },
@@ -29,8 +25,16 @@ const config = {
       address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     },
     WhitelistSale: {
-      MHTtoBUSD: 0.1,
-      address: "",
+      PrivateSale: {
+        owner: "",
+        MHTtoBUSD: "0.15",
+        minMhtAmount: "500",
+        maxMhtAmount: "4000",
+        unlockAtIGOPercent: "8",
+        cliffMonths: "0",
+        vestingPeriodMonths: "12",
+        address: "",
+      },
     },
     BMHTL: {
       address: "0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C",
