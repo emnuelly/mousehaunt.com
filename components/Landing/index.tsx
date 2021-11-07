@@ -25,7 +25,7 @@ import Image from "next/image";
 import logo from "../../public/images/logo.png";
 import google from "../../public/images/Google_Play.png";
 import apple from "../../public/images/App_Store.png";
-import button_sale from "../../public/images/button-sale.png";
+import buttonSale from "../../public/images/button-sale.png";
 import windows from "../../public/images/Windows.png";
 
 const SECTIONS = [
@@ -71,7 +71,8 @@ const Landing: React.FC<Props> = (props: Props) => {
                 <ButtonRightAbsolute>
                   <Image
                     onClick={() => alert("should do something")}
-                    src={button_sale}
+                    src={buttonSale}
+                    alt="sale"
                     width="130px"
                     height="40px"
                   />
@@ -87,7 +88,7 @@ const Landing: React.FC<Props> = (props: Props) => {
           </StoreContainer>
         </>
       );
-    }
+    } else return <div />;
   };
 
   const landingPage = () => {
