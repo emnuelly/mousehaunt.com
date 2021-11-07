@@ -61,8 +61,12 @@ export const Subtitle = styled.div`
   font-size: 18px;
   line-height: 24px;
   /* or 133% */
-
+  
   text-align: center;
+
+  a {
+    color: "#4c7ea1";
+  }
 
   @media only screen and (max-width: 600px) {
     width: 360px;
