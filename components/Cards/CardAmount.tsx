@@ -63,7 +63,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     return (
       <>
         <FormIncremental>
-          <label>Amount of boosters:</label> <br />
+          <label>Amount of boosters</label> <br />
           <span
             style={{
               margin: "5px",
@@ -125,7 +125,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               {isItBuyingMHT ? (
                 <>
                   <FormDisplay>
-                    <label>Amount of $BUSD:</label> <br />
+                    <label>Amount of $BUSD</label> <br />
                     <input
                       onChange={(e) => onChange(e)}
                       id="amount"
@@ -138,7 +138,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
                     <BiRightArrowAlt />
                   </IconStyle>
                   <FormDisplay>
-                    <label>Amount of $MHT:</label>
+                    <label>Amount of $MHT</label>
                     <br />
                     <input
                       onChange={(e) => onChange(e)}
