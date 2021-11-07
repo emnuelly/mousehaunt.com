@@ -1,15 +1,37 @@
-import type { NextPage } from 'next';
-import Landing from '../Landing/index';
-import { Container, Content } from './styles';
+import type { NextPage } from "next";
+import {
+  Container,
+  Content,
+  StoreContainer,
+  StorePageSub,
+  StoreTitle,
+} from "./styles";
+import Card from "../Card/Card";
+import Header from "../Header";
+import Logo from "../Logo";
+import Sections from "../Sections";
+import { Button } from "../Button";
+
+const sections = ["Store", "Inventory"];
 
 const StoreHome: NextPage = () => {
   return (
     <Container>
       <Content>
-        <Landing
-          location={'storePage'}
-          pageHeaders={['Shop', 'Inventory', 'Marketplace']}
-        />
+        <StoreContainer>
+          <Header>
+            <Logo />
+            <Sections sections={sections} />
+            <Button>CONNECT WALLET</Button>
+          </Header>
+          <StoreTitle>SHOP</StoreTitle>
+          <StorePageSub>
+            Welcome to the Mouse Haunt Shop!
+            <br />
+            Here you will find the latest goods on this cheesy universe!
+          </StorePageSub>
+          <Card />
+        </StoreContainer>
       </Content>
     </Container>
   );

@@ -2,33 +2,26 @@ import React from "react";
 
 import {
   Container,
-  Header,
-  Logo,
   Video,
   Phone,
-  Sections,
   Body,
   Title,
-  StoreTitle,
-  StorePageSub,
   Subtitle,
   Stores,
   BodyContent,
   Left,
   Right,
-  ButtonRightAbsolute,
-  StoreContainer,
 } from "./styles";
 import { Link } from "../Link";
-import Card from "../Card/Card";
 import Image from "next/image";
-import logo from "../../public/images/logo.png";
 import google from "../../public/images/Google_Play.png";
 import apple from "../../public/images/App_Store.png";
-import buttonSale from "../../public/images/button-sale.png";
 import windows from "../../public/images/Windows.png";
+import Header from "../Header";
+import Logo from "../Logo";
+import Sections from "../Sections";
 
-const SECTIONS = [
+const sections = [
   "About",
   "Gameplay",
   "Value Proposition",
@@ -42,172 +35,87 @@ interface Props {
   pageHeaders?: string[] | undefined;
 }
 
-const Landing: React.FC<Props> = (props: Props) => {
-  const displayStorePageHeaders = () => {
-    const { pageHeaders } = props;
-    if (pageHeaders) {
-      return (
-        <>
-          <StoreContainer>
-            <Header>
-              <Logo>
-                <a href="#">
-                  <Image
-                    src={logo}
-                    width="90px"
-                    height="90px"
-                    alt="logo"
-                    priority
-                    placeholder="blur"
-                  />
-                </a>
-              </Logo>
-              <Sections total={pageHeaders.length}>
-                {pageHeaders.map((pageHeader) => (
-                  <a key={pageHeader} href={`#${pageHeader}`}>
-                    {pageHeader}
-                  </a>
-                ))}
-                <ButtonRightAbsolute>
-                  <Image
-                    onClick={() => alert("should do something")}
-                    src={buttonSale}
-                    alt="sale"
-                    width="130px"
-                    height="40px"
-                  />
-                </ButtonRightAbsolute>
-              </Sections>
-            </Header>
-            <StoreTitle>SHOP</StoreTitle>
-            <StorePageSub>
-              Welcome to the Mouse Haunt Shop! 
-              <br />
-              Here you will find the latest goods on this cheesy universe!
-            </StorePageSub>
-            <Card />
-          </StoreContainer>
-        </>
-      );
-    } else return <div />;
-  };
+const Landing: React.FC = () => (
+  <Container id="About">
+    <Header>
+      <Logo />
+      <Sections sections={sections}></Sections>
+      <Link href="https://sweepwidget.com/view/37247-hnmvxit9" target="_blank">
+        JOIN WHITELIST
+      </Link>
+    </Header>
+    <Body>
+      <BodyContent>
+        <Left>
+          <Title>
+            MOUSE
+            <br />
+            HAUNT
+          </Title>
+          <Subtitle>
+            Collect NFTs, farm tokens, breed characters and build levels to earn
+            money! Mouse Haunt is a kick ass play-to-earn universe.
+            <br />
+            Here, fun comes first. Play on!
+          </Subtitle>
+          <Stores>
+            <Link href="https://whitepaper.mousehaunt.com" target="_blank">
+              WHITEPAPER
+            </Link>
 
-  const landingPage = () => {
-    return (
-      <Container id="About">
-        <Header>
-          <Logo>
-            <a href="#">
-              <Image
-                src={logo}
-                width="90px"
-                height="90px"
-                alt="logo"
-                priority
-                placeholder="blur"
-              />
-            </a>
-          </Logo>
-          {
-            <Sections total={SECTIONS.length}>
-              {SECTIONS.map((section) => (
-                <a key={section} href={`#${section}`}>
-                  {section}
-                </a>
-              ))}
-            </Sections>
-          }
-          <Link
-            href="https://sweepwidget.com/view/37247-hnmvxit9"
-            target="_blank"
-          >
-            JOIN WHITELIST
-          </Link>
-        </Header>
-        <Body>
-          <BodyContent>
-            <Left>
-              <Title>
-                MOUSE
-                <br />
-                HAUNT
-              </Title>
-              <Subtitle>
-                Collect NFTs, farm tokens, breed characters and build levels to
-                earn money! Mouse Haunt is a kick ass play-to-earn universe.
-                <br />
-                Here, fun comes first. Play on!
-              </Subtitle>
-              <Stores>
-                <Link href="https://whitepaper.mousehaunt.com" target="_blank">
-                  WHITEPAPER
-                </Link>
-
-                <div>
-                  <span>
-                    <Image
-                      src={google}
-                      width="148px"
-                      height="45px"
-                      alt="Get it on Google Play"
-                      placeholder="blur"
-                      priority
-                    />
-                  </span>
-                  <span>
-                    <Image
-                      src={apple}
-                      width="148px"
-                      height="45px"
-                      alt="Download on the App Store"
-                      placeholder="blur"
-                      priority
-                    />
-                  </span>
-                  <span>
-                    <Image
-                      src={windows}
-                      width="148px"
-                      height="45px"
-                      alt="Available on Windows"
-                      placeholder="blur"
-                      priority
-                    />
-                  </span>
-                </div>
-                <small>
-                  <i>Coming soon</i>
-                </small>
-              </Stores>
-            </Left>
-            <Right>
-              <Video>
-                <Phone />
-                <video
-                  loop
-                  muted
-                  autoPlay
-                  src="https://assets.mousehaunt.com/videos/LandingPage.mp4"
-                  poster="/images/landing-poster.webp"
-                  width="600px"
-                  height="293px"
+            <div>
+              <span>
+                <Image
+                  src={google}
+                  width="148px"
+                  height="45px"
+                  alt="Get it on Google Play"
+                  placeholder="blur"
+                  priority
                 />
-              </Video>
-            </Right>
-          </BodyContent>
-        </Body>
-      </Container>
-    );
-  };
-
-  if (props.location === "landingPage") {
-    return landingPage();
-  }
-
-  if (props.location === "storePage") {
-    return displayStorePageHeaders();
-  }
-  return <div></div>;
-};
-
+              </span>
+              <span>
+                <Image
+                  src={apple}
+                  width="148px"
+                  height="45px"
+                  alt="Download on the App Store"
+                  placeholder="blur"
+                  priority
+                />
+              </span>
+              <span>
+                <Image
+                  src={windows}
+                  width="148px"
+                  height="45px"
+                  alt="Available on Windows"
+                  placeholder="blur"
+                  priority
+                />
+              </span>
+            </div>
+            <small>
+              <i>Coming soon</i>
+            </small>
+          </Stores>
+        </Left>
+        <Right>
+          <Video>
+            <Phone />
+            <video
+              loop
+              muted
+              autoPlay
+              src="https://assets.mousehaunt.com/videos/LandingPage.mp4"
+              poster="/images/landing-poster.webp"
+              width="600px"
+              height="293px"
+            />
+          </Video>
+        </Right>
+      </BodyContent>
+    </Body>
+  </Container>
+);
 export default Landing;

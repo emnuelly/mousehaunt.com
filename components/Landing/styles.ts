@@ -18,70 +18,6 @@ export const Container = styled.section`
   }
 `;
 
-export const StoreContainer = styled.header`
-  top: 0px;
-  left: 0px;
-  height: 70vh;
-  width: 100%;
-
-  background: radial-gradient(
-      100% 100% at 50% 100%,
-      rgba(19, 21, 36, 0%) 100%,
-      #131524 100%
-    ),
-    url('/images/coffins.png');
-  background-size: cover;
-
-  @media only screen and (max-width: 600px) {
-    width: 100vw;
-  }
-`;
-
-export const Header = styled.header`
-  padding-top: 32px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  font-size: 20px;
-  line-height: 23px;
-
-  @media only screen and (max-width: 600px) {
-    width: 100vw;
-    height: 60px;
-    background: #0f0e23;
-    padding: 16px;
-  }
-
-  a {
-    margin-left: auto;
-  }
-`;
-export const Logo = styled.div`
-  margin-right: 42px;
-
-  @media only screen and (max-width: 600px) {
-    width: 42px;
-    height: 42px;
-  }
-`;
-
-interface Props {
-  total: number;
-}
-export const Sections = styled.div<Props>`
-  display: flex;
-  flex-direction: row;
-
-  a {
-    margin-right: 32px;
-    z-index: 1;
-  }
-
-  @media only screen and (max-width: 600px) {
-    display: none;
-  }
-`;
 
 export const Body = styled.div`
   display: flex;
@@ -251,51 +187,5 @@ export const Video = styled.div`
 
       margin-left: unset;
     }
-  }
-`;
-
-export const StoreTitle = styled.div`
-  font-family: 'Bebas Neue Pro';
-  font-weight: 800;
-  font-size: 144px;
-  line-height: 120px;
-  padding-top: 50px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  margin: 0px 0px;
-
-  @media only screen and (max-width: 600px) {
-    justify-content: center;
-
-    font-family: Bebas Neue Pro;
-    font-style: normal;
-    font-size: 80px;
-    line-height: 72px;
-  }
-`;
-
-export const StorePageSub = styled.div`
-  margin: 0 auto;
-  margin-top: 30px;
-
-  width: 522px;
-  font-family: 'SF Pro Display';
-  font-size: 18px;
-  line-height: 29px;
-
-  @media only screen and (max-width: 600px) {
-    width: 343px;
-
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
   }
 `;

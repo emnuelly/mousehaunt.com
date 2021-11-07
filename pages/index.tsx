@@ -26,7 +26,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Content>
-        <Landing location={"landingPage"} />
+        <Landing />
         <Welcome />
         <MouseHeroes />
         <GhostHeroes />
