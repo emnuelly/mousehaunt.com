@@ -10,17 +10,20 @@ export const Container = styled.section`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
+  
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%, 0%;
+  background-position-y: 100%, 100%;
+  background-repeat: repeat, repeat;
+  background-attachment: scroll, scroll;
+  background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%), url("/images/awards_bg.jpg");
+  background-size: auto, auto;
+  background-origin: padding-box, padding-box;
+  background-clip: border-box, border-box;
 
-    
-    background-color: rgba(0, 0, 0, 0);
-    background-position-x: 0%, 0%;
-    background-position-y: 100%, 100%;
-    background-repeat: repeat, repeat;
-    background-attachment: scroll, scroll;
-    background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%), url("/images/awards_bg.jpg");
-    background-size: auto, auto;
-    background-origin: padding-box, padding-box;
-    background-clip: border-box, border-box
+  a {
+    color: #cb61e4;
+  }
 `;
 
 export const Title = styled.div`
@@ -64,9 +67,6 @@ export const Subtitle = styled.div`
   
   text-align: center;
 
-  a {
-    color: "#4c7ea1";
-  }
 
   @media only screen and (max-width: 600px) {
     width: 360px;
