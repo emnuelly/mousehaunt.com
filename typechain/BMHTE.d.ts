@@ -19,7 +19,7 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface MouseHauntTokenInterface extends ethers.utils.Interface {
+interface BMHTEInterface extends ethers.utils.Interface {
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
     "PAUSER_ROLE()": FunctionFragment;
@@ -223,7 +223,7 @@ export type TransferEvent = TypedEvent<
 
 export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
 
-export class MouseHauntToken extends BaseContract {
+export class BMHTE extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -264,7 +264,7 @@ export class MouseHauntToken extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: MouseHauntTokenInterface;
+  interface: BMHTEInterface;
 
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
