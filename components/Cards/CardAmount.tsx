@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, validateYupSchema } from "formik";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
+import { WhitelistSale } from "../../typechain/WhitelistSale";
+import WhitelistSaleJson from "../../contracts/WhitelistSale.sol/WhitelistSale.json";
+import React, { useState, useEffect } from "react";
 import { Contract, ethers } from "ethers";
 import increment from "../../public/images/increment.png";
 import decrement from "../../public/images/decrement.png";
-import { WhitelistSale } from "../../typechain/WhitelistSale";
-import WhitelistSaleJson from "../../contracts/WhitelistSale.sol/WhitelistSale.json";
 import BUSDJson from "../../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 
 import {
@@ -26,6 +26,8 @@ import { isTransactionMined } from "../../utils/blockchain";
 interface Props {
   types?: string | undefined;
   price?: number | undefined;
+  legendary?: string;
+  buyMht?: string;
 }
 
 const MHT_TO_BUSD = Number(
@@ -50,6 +52,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   const [initialValuesState, setInitialValuesState] = useState(1);
   const [busdAmount, setBusdAmount] = useState("75");
   const [mhtAmount, setMhtAmount] = useState("500");
+  const [exceededAmount, setExceededAmount] = useState(false);
 
   const isItBuyingMHT = props.types !== "buyingItem";
   const calc = props.price && initialValuesState * props.price;
@@ -75,6 +78,14 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (Number(busdAmount) < 75 || Number(busdAmount) > 600) {
+      setExceededAmount(true);
+    } else {
+      setExceededAmount(false);
+    }
+  }, [busdAmount || mhtAmount]);
+
   const onChange = (event: any) => {
     const { value, id } = event.target;
     if (!value) {
@@ -85,9 +96,9 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     } else {
       if (id === "amount") {
         setBusdAmount(Number(value).toString());
-        setMhtAmount((Number(value) / MHT_TO_BUSD).toFixed(2).toString());
+        setMhtAmount((Number(value) / MHT_TO_BUSD).toString());
       } else {
-        setBusdAmount((Number(value) * MHT_TO_BUSD).toFixed(2).toString());
+        setBusdAmount((Number(value) * MHT_TO_BUSD).toString());
         setMhtAmount(Number(value).toString());
       }
     }
@@ -120,7 +131,10 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               top: "15%",
               left: "-1%",
             }}
-            onClick={() => setInitialValuesState(initialValuesState - 1)}
+            onClick={() => {
+              if (initialValuesState > 1 && initialValuesState <= 6)
+                setInitialValuesState(initialValuesState - 1);
+            }}
           >
             <Image
               alt="decrement"
@@ -137,7 +151,10 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               top: "15%",
             }}
             onClick={() => {
-              if (initialValuesState >= 1) {
+              let amountMax = 6;
+              if (props.legendary) amountMax = 2;
+
+              if (initialValuesState >= 1 && initialValuesState < amountMax) {
                 setInitialValuesState(initialValuesState + 1);
               }
               return;
@@ -154,31 +171,44 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       </>
     );
   };
-  // console.log(busd, mht);
   return (
     <>
       <Formik
-        // enableReinitialize
         initialValues={{ amount: 1, amountMHT: 1 }}
         onSubmit={() => buy()}
       >
         <ContentForm>
           <Form>
+            {exceededAmount && (
+              <div
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  marginTop: "-19px",
+                }}
+              >
+                Minimum $BSUD is 75, $BSUD maximum 600
+              </div>
+            )}
             <FormMainSection>
               {isItBuyingMHT ? (
                 <>
                   <FormDisplay>
                     <label>Amount of $BUSD</label> <br />
                     <input
-                      onChange={(e) => onChange(e)}
+                      onChange={(e) => {
+                        onChange(e);
+                      }}
                       id="amount"
                       name="amount"
                       value={busdAmount}
+                      type="number"
                     />
                   </FormDisplay>
                   <IconStyle>
                     <BiRightArrowAlt />
                   </IconStyle>
+
                   <FormDisplay>
                     <label>Amount of $MHT</label>
                     <br />
@@ -187,6 +217,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
                       id="amountMHT"
                       name="amountMHT"
                       value={mhtAmount}
+                      type="number"
                     />
                   </FormDisplay>
                 </>
