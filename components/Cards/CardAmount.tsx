@@ -20,6 +20,8 @@ import {
 } from "./stylesForm";
 import { Button } from "../Button";
 import config from "../../utils/config";
+import waitFor from "../../utils/waitFor";
+import { isTransactionMined } from "../../utils/blockchain";
 
 interface Props {
   types?: string | undefined;
@@ -42,6 +44,7 @@ function isNumeric(str: string): boolean {
 }
 
 const CardAmount: React.FC<Props> = (props: Props) => {
+  const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
   const [busd, setBusd] = useState<Contract>();
   const [initialValuesState, setInitialValuesState] = useState(1);
@@ -53,10 +56,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(
-        window.ethereum as any
-      );
-      const signer = provider.getSigner(0);
+      const p = new ethers.providers.Web3Provider(window.ethereum as any);
+      const signer = p.getSigner(0);
       const contract = new ethers.Contract(
         config.bscTestnet.WhitelistSale.PrivateSale.address,
         WhitelistSaleJson.abi,
@@ -67,6 +68,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
         BUSDJson.abi,
         signer
       ) as WhitelistSale;
+
+      setProvider(p);
       setWhitelistSale(contract);
       setBusd(busdContract);
     }
@@ -91,15 +94,17 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   };
 
   const buy = async () => {
-    try {
-      await busd?.approve(
-        config.bscTestnet.WhitelistSale.PrivateSale.address,
-        ethers.utils.parseEther(busdAmount)
-      );
-      await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
-    } catch (err: any) {
-      console.log(err);
-      alert(err.data.message);
+    if (provider) {
+      try {
+        const tx = await busd?.approve(
+          config.bscTestnet.WhitelistSale.PrivateSale.address,
+          ethers.utils.parseEther(busdAmount)
+        );
+        await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
+        await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
+      } catch (err: any) {
+        alert(err.data.message);
+      }
     }
   };
 
