@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import { Button } from 'semantic-ui-react';
-import Link from 'next/link';  
 
 import {
   Container,
@@ -27,9 +25,7 @@ const Awards: NextPage = () => {
           Audience loves us! 
         </Title>
         <Subtitle>
-            <Link href="https://www.youtube.com/watch?v=7lXChVSE3Bc" passHref={true}>
-    <Button>Click here</Button>
-  </Link> to see our Dreamhack Atlanta aftermovie! 
+            Click here to see our Dreamhack Atlanta aftermovie! 
         </Subtitle>
         </Top>
         <Bottom>
