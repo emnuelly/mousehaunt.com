@@ -31,21 +31,19 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
     bscTestnet: {
-      url: process.env.BSC_TESTNET_URL || "",
+      url: process.env.URL_BSC_TESTNET || "",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        process.env.PRIVATE_KEY_BSC_TESTNET !== undefined
+          ? [process.env.PRIVATE_KEY_BSC_TESTNET]
+          : [],
     },
     bsc: {
-      url: process.env.BSC_URL || "",
+      url: process.env.URL_BSC || "",
       accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      gasPrice: 5000000000,
+        process.env.PRIVATE_KEY_BSC !== undefined
+          ? [process.env.PRIVATE_KEY_BSC]
+          : [],
     },
   },
   gasReporter: {

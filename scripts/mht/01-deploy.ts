@@ -1,14 +1,13 @@
 import { ethers } from "hardhat";
 // eslint-disable-next-line node/no-missing-import
-import config from "../../src/config";
+import config, { Network } from "../../src/config";
 
 async function main() {
-  const [deployer] = await ethers.getSigners();
-  console.log("Account balance:", (await deployer.getBalance()).toString());
+  const network: Network = process.env.NETWORK as Network;
 
   const MouseHauntToken = await ethers.getContractFactory("MouseHauntToken");
   const mht = await MouseHauntToken.deploy(
-    config.mainnet.MouseHauntToken.owner
+    config[network].MouseHauntToken.owner
   );
 
   await mht.deployed();

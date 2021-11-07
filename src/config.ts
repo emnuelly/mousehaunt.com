@@ -4,7 +4,7 @@ const config = {
       url: "https://nft.viewer.r2u.io/?nft=",
     },
   },
-  testnet: {
+  bscTestnet: {
     MouseHauntToken: {
       address: "0x514219CEb7097eeA9556603141D2809f49EF428C",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
@@ -12,8 +12,28 @@ const config = {
     BUSD: {
       address: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
     },
+    WhitelistSale: {
+      PrivateSale: {
+        owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+        MHTtoBUSD: "0.15",
+        minMhtAmount: "500",
+        maxMhtAmount: "4000",
+        unlockAtIGOPercent: "8",
+        cliffMonths: "0",
+        vestingPeriodMonths: "12",
+        address: "",
+      },
+    },
+    BMHTL: {
+      address: "",
+      owner: "",
+    },
+    BMHTE: {
+      address: "",
+      owner: "",
+    },
   },
-  mainnet: {
+  bsc: {
     s3: {
       bucket: "nft.mousehaunt.com",
     },
@@ -48,3 +68,5 @@ const config = {
 };
 
 export default config;
+
+export type Network = "bsc" | "bscTestnet";
