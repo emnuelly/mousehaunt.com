@@ -73,7 +73,11 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   };
 
   const buy = async () => {
-    whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
+    try {
+      await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
+    } catch (err: any) {
+      alert(err.data.message);
+    }
   };
 
   const displayIncrementalButtons = () => {
@@ -128,13 +132,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       <Formik
         // enableReinitialize
         initialValues={{ amount: 1, amountMHT: 1 }}
-        onSubmit={() => {
-          alert(
-            `Trying to buy ${initialValuesState} BUSD is equal to  ${
-              calc ? calc : initialValuesState
-            } MTHs`
-          );
-        }}
+        onSubmit={() => buy()}
       >
         <ContentForm>
           <Form>
@@ -170,7 +168,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <Button onClick={buy}>BUY NOW</Button>
+              <Button>BUY NOW</Button>
             </ButtonFormat>
           </Form>
         </ContentForm>
