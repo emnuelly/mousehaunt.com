@@ -8,14 +8,16 @@ async function main() {
   const MHT = await ethers.getContractFactory("MouseHauntToken");
   const mht = MHT.attach(config[network].MouseHauntToken.address);
 
+  const wei = (x: string): string => ethers.utils.parseEther(x).toString();
+
   const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
   const whitelistSale = await WhitelistSale.deploy(
     config[network].WhitelistSale.PrivateSale.owner,
     mht.address,
-    mht.address,
-    config[network].WhitelistSale.PrivateSale.MHTtoBUSD,
-    config[network].WhitelistSale.PrivateSale.minMhtAmount,
-    config[network].WhitelistSale.PrivateSale.maxMhtAmount,
+    config[network].BUSD.address,
+    wei(config[network].WhitelistSale.PrivateSale.MHTtoBUSD),
+    wei(config[network].WhitelistSale.PrivateSale.minMhtAmount),
+    wei(config[network].WhitelistSale.PrivateSale.maxMhtAmount),
     config[network].WhitelistSale.PrivateSale.unlockAtIGOPercent,
     config[network].WhitelistSale.PrivateSale.cliffMonths,
     config[network].WhitelistSale.PrivateSale.vestingPeriodMonths

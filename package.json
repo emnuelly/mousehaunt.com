@@ -10,7 +10,7 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "coverage": "npx hardhat coverage",
-    "script": "npx hardhat run"
+    "scripts": "npx hardhat run"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",

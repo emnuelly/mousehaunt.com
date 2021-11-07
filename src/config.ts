@@ -6,7 +6,7 @@ const config = {
   },
   bscTestnet: {
     MouseHauntToken: {
-      address: "0x514219CEb7097eeA9556603141D2809f49EF428C",
+      address: "0x034d0272AEbCE737B35C61b3Ab709020cEDca808",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
     BUSD: {
@@ -21,7 +21,7 @@ const config = {
         unlockAtIGOPercent: "8",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "",
+        address: "0xbD29a625328F1EB15Ae95D66c948E78b1Ce65203",
       },
     },
     BMHTL: {
