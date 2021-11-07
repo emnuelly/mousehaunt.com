@@ -47,11 +47,18 @@ export const StoreContainer = styled.header`
   @media only screen and (max-width: 600px) {
     width: 100vw;
   }
+
+  header {
+    button {
+      margin-left: 32px;
+    }
+  }
 `;
 
 export const StorePageSub = styled.div`
   margin: 0 auto;
   margin-top: 30px;
+  text-align: center;
 
   width: 522px;
   font-family: 'SF Pro Display';

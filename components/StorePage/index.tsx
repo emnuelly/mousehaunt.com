@@ -10,7 +10,7 @@ import Card from "../Card/Card";
 import Header from "../Header";
 import Logo from "../Logo";
 import Sections from "../Sections";
-import { Button } from "../Button";
+import { ConnectWalletButton } from "../ConnectWalletButton";
 
 const sections = ["Store", "Inventory"];
 
@@ -22,7 +22,7 @@ const StoreHome: NextPage = () => {
           <Header>
             <Logo />
             <Sections sections={sections} />
-            <Button>CONNECT WALLET</Button>
+            <ConnectWalletButton />
           </Header>
           <StoreTitle>SHOP</StoreTitle>
           <StorePageSub>
