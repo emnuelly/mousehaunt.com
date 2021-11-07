@@ -18,6 +18,7 @@ File                           |  % Stmts | % Branch |  % Funcs |  % Lines |Unco
  contracts/booster/            |      100 |      100 |      100 |      100 |                |
   BMHTE.sol                    |      100 |      100 |      100 |      100 |                |
   BMHTL.sol                    |      100 |      100 |      100 |      100 |                |
+  BoosterSale.sol              |      100 |      100 |      100 |      100 |                |
   BoosterUnpack.sol            |      100 |      100 |      100 |      100 |                |
   Random.sol                   |      100 |      100 |      100 |      100 |                |
  contracts/booster/interfaces/ |      100 |      100 |      100 |      100 |                |
