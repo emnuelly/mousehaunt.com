@@ -34,6 +34,9 @@ export const FormDisplay = styled.section`
     border-radius: 4px;
     background-color: #29274b;
   }
+  input::active {
+    color: purple;
+  }
   input,
   placehodler {
     text-align: center;
@@ -53,7 +56,9 @@ export const FormIncremental = styled.section`
     font-size: 13px;
     color: #848484;
   }
-
+  span:hover {
+    cursor: pointer;
+  }
   input {
     width: 30%;
     height: 25px;

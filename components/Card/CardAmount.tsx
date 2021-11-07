@@ -28,6 +28,11 @@ const CardAmount: NextPage = (props: Props) => {
   const [itemPrice, setItemPrice] = useState(props.price);
   const isItBuyingMHT = props.types !== 'buyingItem';
   const calc = itemPrice && initialValuesState * itemPrice;
+  const addZeros = initialValuesState + '.00';
+
+  const eventsFromForm = event => {
+    setInitialValuesState(Number(event.target.value));
+  };
 
   const displayIncrementalButtons = () => {
     return (
@@ -39,23 +44,18 @@ const CardAmount: NextPage = (props: Props) => {
               margin: '5px',
               position: 'relative',
               top: '15%',
-              left: '-3%',
+              left: '-1%',
             }}
             onClick={() => setInitialValuesState(initialValuesState + 1)}
           >
             <Image src={increment} width={'30px'} height={'30px'}></Image>
           </span>
-          <Field
-            id="amountBUSD"
-            name="amountBUSD"
-            placeholder={initialValuesState}
-          />{' '}
+          <Field id="amountBUSD" name="amountBUSD" value={initialValuesState} />{' '}
           <span
             style={{
               margin: '5px',
               position: 'relative',
               top: '15%',
-              left: '3%',
             }}
             onClick={() => {
               if (initialValuesState >= 1) {
@@ -84,7 +84,7 @@ const CardAmount: NextPage = (props: Props) => {
         }}
       >
         <ContentForm>
-          <Form>
+          <Form onChange={e => eventsFromForm(e)}>
             <FormMainSection>
               {isItBuyingMHT ? (
                 <>
@@ -93,10 +93,7 @@ const CardAmount: NextPage = (props: Props) => {
                     <Field
                       id="amountBUSD"
                       name="amountBUSD"
-                      placeholder={initialValuesState}
-                      onChange={e => {
-                        console.log(e);
-                      }}
+                      placeholder={addZeros}
                     />
                   </FormDisplay>
                   <IconStyle>
@@ -108,7 +105,7 @@ const CardAmount: NextPage = (props: Props) => {
                     <Field
                       id="amountBUSD"
                       name="amountBUSD"
-                      placeholder={initialValuesState}
+                      placeholder={addZeros}
                     />
                   </FormDisplay>
                 </>

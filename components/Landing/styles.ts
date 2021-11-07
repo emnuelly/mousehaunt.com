@@ -21,11 +21,12 @@ export const Container = styled.section`
 export const StoreContainer = styled.header`
   top: 0px;
   left: 0px;
-  height: 100vh;
+  height: 70vh;
+  width: 100%;
 
   background: radial-gradient(
-      100% 100% at 50% 50%,
-      rgba(19, 21, 36, 0%) 0%,
+      100% 100% at 50% 100%,
+      rgba(19, 21, 36, 0%) 100%,
       #131524 100%
     ),
     url('/images/coffins.png');
@@ -188,6 +189,17 @@ export const Left = styled.div`
 
 export const Right = styled.div`
   filter: drop-shadow(5px 21px 46px rgba(0, 0, 0, 0.7));
+`;
+
+export const ButtonRightAbsolute = styled.div`
+  position: absolute;
+  left: 85%;
+  &:hover {
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 800px) {
+    left: 80%;
+  }
 `;
 
 export const Phone = styled.div`

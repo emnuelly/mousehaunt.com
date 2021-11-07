@@ -12,11 +12,15 @@ import Image from 'next/image';
 import coffin from '../../public/images/coffin-store.png';
 import CardAmount from './CardAmount';
 
+import Footer from '../Footer/index';
+import { Ruler } from '../Ruler';
+import React from 'react';
+
 const ITEMS = [
   {
     image: coffin,
     title: 'BUY',
-    sub: 'MHT',
+    sub: '$MHT',
     subtitles: ['Lorem ispum dolor sit', 'Lorem ispum dolor sit'],
     icon: <BiRightArrowAlt />,
   },
@@ -42,45 +46,53 @@ const ITEMS = [
 
 const Card: NextPage = () => {
   const iterateThroughItems = () => {
-    return ITEMS.map(item => {
+    return ITEMS.map((item, key) => {
       return (
-        <CardSection>
-          <CardImage>
-            <Image
-              src={item.image}
-              width="250px"
-              height="300px "
-              alt="page-items"
-            />
-          </CardImage>
-          <CardTitle>
-            {item.title}
-            <br />
-            {item.sub}
-          </CardTitle>
-          <CardSubtitle>
-            <ul>
-              {item.subtitles.map(e => {
-                return (
-                  <li>
-                    <IconStyle>{item.icon}</IconStyle>
-                    {e}
-                  </li>
-                );
-              })}
-            </ul>
-          </CardSubtitle>
-          {item.price ? (
-            <CardAmount types={'buyingItem'} price={item.price} />
-          ) : (
-            <CardAmount />
-          )}
-        </CardSection>
+        <React.Fragment key={key}>
+          <CardSection>
+            <CardImage>
+              <Image
+                src={item.image}
+                width="250px"
+                height="300px "
+                alt="page-items"
+              />
+            </CardImage>
+            <CardTitle>
+              {item.title}
+              <br />
+              {item.sub}
+            </CardTitle>
+            <CardSubtitle>
+              <ul>
+                {item.subtitles.map((e, v) => {
+                  return (
+                    <li key={v}>
+                      <IconStyle>{item.icon}</IconStyle>
+                      {e}
+                    </li>
+                  );
+                })}
+              </ul>
+            </CardSubtitle>
+            {item.price ? (
+              <CardAmount types={'buyingItem'} price={item.price} />
+            ) : (
+              <CardAmount />
+            )}
+          </CardSection>
+        </React.Fragment>
       );
     });
   };
 
-  return <CardBody>{iterateThroughItems()}</CardBody>;
+  return (
+    <>
+      <CardBody>{iterateThroughItems()}</CardBody>
+      <Ruler />
+      <Footer />
+    </>
+  );
 };
 
 export default Card;

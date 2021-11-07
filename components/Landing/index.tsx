@@ -16,6 +16,7 @@ import {
   BodyContent,
   Left,
   Right,
+  ButtonRightAbsolute,
   StoreContainer,
 } from './styles';
 import { Link } from '../Link';
@@ -24,8 +25,8 @@ import Image from 'next/image';
 import logo from '../../public/images/logo.png';
 import google from '../../public/images/Google_Play.png';
 import apple from '../../public/images/App_Store.png';
+import button_sale from '../../public/images/button-sale.png';
 import windows from '../../public/images/Windows.png';
-import { Ruler } from '../Ruler';
 
 const SECTIONS = [
   'About',
@@ -67,18 +68,23 @@ const Landing: React.FC<Props> = (props: Props) => {
                     {pageHeader}
                   </a>
                 ))}
+                <ButtonRightAbsolute>
+                  <Image
+                    onClick={() => alert('should do something')}
+                    src={button_sale}
+                    width="130px"
+                    height="40px"
+                  />
+                </ButtonRightAbsolute>
               </Sections>
             </Header>
-            {/* <Body> */}
             <StoreTitle>SHOP</StoreTitle>
             <StorePageSub>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis
               mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
             </StorePageSub>
             <Card />
-            {/* </Body> */}
           </StoreContainer>
-          <Ruler />
         </>
       );
     }

@@ -5,6 +5,7 @@ export const CardBody = styled.section`
   justify-content: space-around;
   margin: 100px;
   overflow: none;
+  filter: drop-shadow(0 0 0.75rem black);
 
   @media only screen and (max-width: 600px) {
     display: block;
