@@ -1,225 +1,318 @@
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import { ethers } from "hardhat";
+import { Contract } from "ethers";
+import { ethers, network } from "hardhat";
+// eslint-disable-next-line node/no-missing-import
+import { now } from "../src/utils/time";
 
 describe("WhitelistSale", function () {
-  const mhtToBusd = 0.1;
+  let mhtOwner: SignerWithAddress;
+  let whitelistSaleWallet: SignerWithAddress;
+  let buyer: SignerWithAddress;
+
+  let mht: Contract;
+  let busd: Contract;
+
+  const mhtToBusd = ethers.utils.parseEther("0.15").toString();
+  const minMhtAmount = ethers.utils.parseEther("500").toString();
+  const maxMhtAmount = ethers.utils.parseEther("4000").toString();
+  const unlockAtIGOPercent = "8";
+  const cliffMonths = "0";
+  const vestingPeriodMonths = "12";
+
+  let whitelistSale: Contract;
+
+  beforeEach(async function () {
+    [, mhtOwner, buyer, whitelistSaleWallet] = await ethers.getSigners();
+
+    const MHT = await ethers.getContractFactory("MouseHauntToken");
+    mht = await MHT.deploy(mhtOwner.address);
+    await mht.deployed();
+
+    const BUSD = await ethers.getContractFactory("MouseHauntToken");
+    busd = await BUSD.deploy(buyer.address);
+    await busd.deployed();
+
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    whitelistSale = await WhitelistSale.deploy(
+      whitelistSaleWallet.address,
+      mht.address,
+      busd.address,
+      mhtToBusd,
+      minMhtAmount,
+      maxMhtAmount,
+      unlockAtIGOPercent,
+      cliffMonths,
+      vestingPeriodMonths
+    );
+    await whitelistSale.deployed();
+  });
 
   it("Should have owner different than deployer", async function () {
-    const [, mhtOwner, busdOwner] = await ethers.getSigners();
-
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(busdOwner.address);
-
-    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
-      mht.address,
-      busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
-    );
-
-    await whitelistSale.deployed();
-
-    expect(await whitelistSale.owner()).to.equal(mhtOwner.address);
+    expect(await whitelistSale.owner()).to.equal(whitelistSaleWallet.address);
   });
+
   it("Should be pausable", async function () {
-    const [, mhtOwner, busdOwner] = await ethers.getSigners();
-
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(busdOwner.address);
-
-    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
-      mht.address,
-      busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
-    );
-
-    await whitelistSale.deployed();
-
-    await whitelistSale.connect(mhtOwner).pause();
+    await whitelistSale.connect(whitelistSaleWallet).pause();
 
     await expect(
-      whitelistSale.connect(mhtOwner).addToWhitelist([busdOwner.address], 1)
+      whitelistSale.connect(whitelistSaleWallet).addToWhitelist([buyer.address])
     ).to.be.revertedWith("Pausable: paused");
 
-    await whitelistSale.connect(mhtOwner).unpause();
+    await whitelistSale.connect(whitelistSaleWallet).unpause();
 
     await whitelistSale
-      .connect(mhtOwner)
-      .addToWhitelist([busdOwner.address], 1);
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
   });
-  it("Should buy 20% of MHT with whitelist and approve pattern", async function () {
-    const [, mhtOwner, buyer] = await ethers.getSigners();
 
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(buyer.address);
+  it("Should buy MHT if whitelisted and approve pattern", async function () {
+    const mhtToBuy = ethers.utils.parseEther("531.415");
+    const busdTotal = ethers.utils.parseEther("79.71225");
 
-    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
-      mht.address,
-      busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
-    );
-
-    await whitelistSale.deployed();
-
-    const mhtToBuy = ethers.utils.parseEther("3.1415");
-    const busdTotal = ethers.utils.parseEther("0.31415");
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
 
     await whitelistSale
-      .connect(mhtOwner)
-      .addToWhitelist([buyer.address], mhtToBuy);
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
 
-    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
     await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
 
     await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
-      ethers.utils.parseEther("0.6283")
-    );
-    expect(await mht.balanceOf(mhtOwner.address)).to.equal(
-      ethers.utils
-        .parseEther("100000000")
-        .sub(ethers.utils.parseEther("0.6283"))
+      ethers.utils.parseEther("0")
     );
 
-    await whitelistSale.connect(mhtOwner).removeFromWhitelist([buyer.address]);
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .removeFromWhitelist([buyer.address]);
 
     await expect(whitelistSale.buy(1)).to.be.revertedWith(
-      "Sale: amount > whitelisted"
+      "Whitelist: not whitelisted"
     );
   });
-  it("Should withdraw remaining MHT after IDO", async function () {
-    const [, mhtOwner, buyer] = await ethers.getSigners();
 
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(buyer.address);
+  it("Should claim cliffed MHT after IGO", async function () {
+    const mhtToBuy = ethers.utils.parseEther("1000");
+    const busdTotal = ethers.utils.parseEther("150");
 
-    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
-      mht.address,
-      busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
-    );
-
-    await whitelistSale.deployed();
-
-    const mhtToBuy = ethers.utils.parseEther("3.1415");
-    const busdTotal = ethers.utils.parseEther("0.31415");
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
 
     await whitelistSale
-      .connect(mhtOwner)
-      .addToWhitelist([buyer.address], mhtToBuy);
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
 
-    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
     await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
 
     await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
-      ethers.utils.parseEther("0.6283")
+      ethers.utils.parseEther("0")
     );
 
-    await expect(whitelistSale.connect(buyer).withdraw()).to.be.revertedWith(
-      "Sale: locked before IDO"
+    await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
+      "Claiming before IGO"
     );
+    const nowTimestamp = await now(ethers);
 
-    const tx = whitelistSale.connect(mhtOwner).idoUnlock();
-    await expect(tx).to.emit(whitelistSale, "IDOUnlocked");
+    const tx = whitelistSale
+      .connect(whitelistSaleWallet)
+      .setIgoTimestamp(nowTimestamp);
+    await expect(tx).to.emit(whitelistSale, "IGO").withArgs(nowTimestamp);
 
-    await whitelistSale.connect(buyer).withdraw();
+    await whitelistSale.connect(buyer).claim();
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
-      ethers.utils.parseEther("3.1415")
+      ethers.utils.parseEther("80")
     );
   });
-  it("Should be possible to update MHT to IDO", async function () {
-    const [, mhtOwner, buyer] = await ethers.getSigners();
 
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(buyer.address);
-
-    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
-      mht.address,
-      busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
-    );
-
-    await whitelistSale.deployed();
-
-    const mhtToBuy = ethers.utils.parseEther("2.71828");
-    const wrongBusdTotal = ethers.utils.parseEther("0.271828");
+  it("Should buy greater than minimum and less than maximum MHT", async function () {
+    const lessThan500MHT = ethers.utils.parseEther("499");
+    const greaterThan4000MHT = ethers.utils.parseEther("4001");
 
     await whitelistSale
-      .connect(mhtOwner)
-      .addToWhitelist([buyer.address], mhtToBuy);
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
 
-    const invalidMHTtoUSD = "0";
     await expect(
-      whitelistSale.connect(mhtOwner).updateMHTToBUSD(invalidMHTtoUSD)
-    ).to.be.revertedWith("Sale: invalid MHT to BUSD");
+      whitelistSale.connect(buyer).buy(lessThan500MHT)
+    ).to.be.revertedWith("Sale: amount less than min");
+    await expect(
+      whitelistSale.connect(buyer).buy(greaterThan4000MHT)
+    ).to.be.revertedWith("Sale: amount greater than max");
+  });
 
-    const newMHTtoUSD = ethers.utils.parseEther("1.4142");
-    await whitelistSale.connect(mhtOwner).updateMHTToBUSD(newMHTtoUSD);
-
-    await mht.connect(mhtOwner).approve(whitelistSale.address, mhtToBuy);
-    await busd.connect(buyer).approve(whitelistSale.address, wrongBusdTotal);
-
-    await expect(whitelistSale.connect(buyer).buy(mhtToBuy)).to.be.revertedWith(
-      "ERC20: transfer amount exceeds allowance"
+  it("Should create release schedule with cliff", async function () {
+    const unlockAtIGOPercent = "0";
+    const cliffMonths = "2";
+    const vestingPeriodMonths = "3";
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    whitelistSale = await WhitelistSale.deploy(
+      whitelistSaleWallet.address,
+      mht.address,
+      busd.address,
+      mhtToBusd,
+      minMhtAmount,
+      maxMhtAmount,
+      unlockAtIGOPercent,
+      cliffMonths,
+      vestingPeriodMonths
     );
+    await whitelistSale.deployed();
 
-    const rightBusdTotal = ethers.utils.parseEther("3.844191576");
-    await busd.connect(buyer).approve(whitelistSale.address, rightBusdTotal);
+    const mhtToBuy = ethers.utils.parseEther("2222");
+    const busdTotal = ethers.utils
+      .parseEther("2222")
+      .mul(ethers.utils.parseEther("0.15"))
+      .div(ethers.utils.parseEther("1"));
+
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
+
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
+
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
 
     await whitelistSale.connect(buyer).buy(mhtToBuy);
 
     expect(await mht.balanceOf(buyer.address)).to.equal(
-      ethers.utils.parseEther("0.543656")
+      ethers.utils.parseEther("0")
     );
-    expect(await mht.balanceOf(mhtOwner.address)).to.equal(
-      ethers.utils
-        .parseEther("100000000")
-        .sub(ethers.utils.parseEther("0.543656"))
+
+    await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
+      "Claiming before IGO"
+    );
+
+    const nowTimestamp = await now(ethers);
+    const tomorrow = nowTimestamp + 60 * 60 * 24;
+
+    const tx = whitelistSale
+      .connect(whitelistSaleWallet)
+      .setIgoTimestamp(tomorrow);
+    await expect(tx).to.emit(whitelistSale, "IGO").withArgs(tomorrow);
+    await network.provider.send("evm_mine", [tomorrow]);
+    await whitelistSale.connect(buyer).claim();
+    expect(await mht.balanceOf(buyer.address)).to.equal("0");
+
+    const month1 = tomorrow + 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month1]);
+    await whitelistSale.connect(buyer).claim();
+    await whitelistSale.connect(buyer).claim();
+    expect(await mht.balanceOf(buyer.address)).to.equal("0");
+
+    const month2 = tomorrow + 2 * 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month2]);
+    await whitelistSale.connect(buyer).claim();
+    expect(await mht.balanceOf(buyer.address)).to.equal("0");
+
+    const month3 = tomorrow + 3 * 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month3]);
+    const claimMonth3 = whitelistSale.connect(buyer).claim();
+    const monthlyAmount = ethers.utils.parseEther("2222").div("3");
+    await expect(claimMonth3)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 3, monthlyAmount);
+    expect(await mht.balanceOf(buyer.address)).to.equal(monthlyAmount);
+
+    const month4 = tomorrow + 4 * 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month4]);
+    const claimMonth4 = whitelistSale.connect(buyer).claim();
+    await expect(claimMonth4)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 4, monthlyAmount);
+    expect(await mht.balanceOf(buyer.address)).to.equal(monthlyAmount.mul(2));
+
+    const month5 = tomorrow + 5 * 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month5]);
+    const claimMonth5 = whitelistSale.connect(buyer).claim();
+    await expect(claimMonth5)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 5, mhtToBuy.sub(monthlyAmount.mul(2)));
+    expect(await mht.balanceOf(buyer.address)).to.equal(mhtToBuy);
+
+    const monthExceeding = tomorrow + 6 * 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [monthExceeding]);
+    await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
+      "Not enough tokens"
     );
   });
-  it("Should buy a minimum of 1 MHT", async function () {
-    const [, mhtOwner, buyer] = await ethers.getSigners();
 
-    const MHT = await ethers.getContractFactory("MouseHauntToken");
-    const mht = await MHT.deploy(mhtOwner.address);
-    const busd = await MHT.deploy(buyer.address);
-
+  it("Should allow users to claim late", async function () {
+    const unlockAtIGOPercent = "0";
+    const cliffMonths = "2";
+    const vestingPeriodMonths = "3";
     const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
-    const whitelistSale = await WhitelistSale.deploy(
-      mhtOwner.address,
+    whitelistSale = await WhitelistSale.deploy(
+      whitelistSaleWallet.address,
       mht.address,
       busd.address,
-      ethers.utils.parseEther(mhtToBusd.toString()).toString()
+      mhtToBusd,
+      minMhtAmount,
+      maxMhtAmount,
+      unlockAtIGOPercent,
+      cliffMonths,
+      vestingPeriodMonths
     );
-
     await whitelistSale.deployed();
 
-    const lessThan1MHT = ethers.utils.parseEther("0.9");
+    const mhtToBuy = ethers.utils.parseEther("600");
+    const busdTotal = ethers.utils.parseEther("90");
+
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
 
     await whitelistSale
-      .connect(mhtOwner)
-      .addToWhitelist([buyer.address], lessThan1MHT);
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
 
-    await expect(
-      whitelistSale.connect(buyer).buy(lessThan1MHT)
-    ).to.be.revertedWith("Sale: minimum 1 MHT");
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy);
+
+    expect(await mht.balanceOf(buyer.address)).to.equal(
+      ethers.utils.parseEther("0")
+    );
+
+    const nowTimestamp = await now(ethers);
+    const tomorrow = nowTimestamp + 60 * 60 * 24;
+    const nextYear = nowTimestamp + 60 * 60 * 24 * 30 * 12;
+
+    const tx = whitelistSale
+      .connect(whitelistSaleWallet)
+      .setIgoTimestamp(tomorrow);
+    await expect(tx).to.emit(whitelistSale, "IGO").withArgs(tomorrow);
+    await network.provider.send("evm_mine", [tomorrow]);
+    await network.provider.send("evm_mine", [nextYear]);
+
+    expect(await mht.balanceOf(buyer.address)).to.equal("0");
+
+    const monthlyAmount = mhtToBuy.div(3);
+    const claim = whitelistSale.connect(buyer).claim();
+    await expect(claim)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 3, monthlyAmount)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 4, monthlyAmount)
+      .to.emit(whitelistSale, "Claimed")
+      .withArgs(buyer.address, 5, monthlyAmount);
+    expect(await mht.balanceOf(buyer.address)).to.equal(mhtToBuy);
+
+    await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
+      "Not enough tokens"
+    );
   });
 });
