@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Image from "next/image";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
 
-import ConvertIcon from "../assets/svg/Convert.svg";
-import busdImage from "../public/images/BUSD.png";
-import mhtImage from "../public/images/logo.png";
-import { Button } from "./Button";
+import ConvertIcon from '../assets/svg/Convert.svg';
+import busdImage from '../public/images/BUSD.png';
+import mhtImage from '../public/images/logo.png';
+import { Button } from './Button';
 
 const Container = styled.div`
   margin: 0;
@@ -124,16 +124,16 @@ interface Props {
 }
 
 const CurrencyConverter: React.FC<Props> = ({ rate }: Props) => {
-  const [busd, setBUSD] = useState("");
-  const [mht, setMHT] = useState("");
+  const [busd, setBUSD] = useState('');
+  const [mht, setMHT] = useState('');
 
   const onChange = (event: any) => {
     const { value, id } = event.target;
     if (!value) {
-      setBUSD("");
-      setMHT("");
+      setBUSD('');
+      setMHT('');
     } else {
-      if (id === "convert-busd") {
+      if (id === 'convert-busd') {
         setBUSD(Number(value).toString());
         setMHT((Number(value) * rate).toString());
       } else {
@@ -154,7 +154,7 @@ const CurrencyConverter: React.FC<Props> = ({ rate }: Props) => {
         </label>
         <InputContainer>
           <input
-            onChange={(event) => onChange(event)}
+            onChange={event => onChange(event)}
             id="convert-busd"
             value={busd}
             type="number"
@@ -172,7 +172,7 @@ const CurrencyConverter: React.FC<Props> = ({ rate }: Props) => {
         <label htmlFor="mht">To</label>
         <InputContainer>
           <input
-            onChange={(event) => onChange(event)}
+            onChange={event => onChange(event)}
             id="convert-mht"
             value={mht}
             type="number"

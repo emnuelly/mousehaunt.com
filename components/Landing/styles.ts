@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.section`
   top: 0px;
@@ -10,7 +10,26 @@ export const Container = styled.section`
       rgba(19, 21, 36, 0.3) 0%,
       #131524 100%
     ),
-    url("/images/fireplace.webp");
+    url('/images/fireplace.webp');
+  background-size: cover;
+
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+  }
+`;
+
+export const StoreContainer = styled.header`
+  top: 0px;
+  left: 0px;
+  height: 70vh;
+  width: 100%;
+
+  background: radial-gradient(
+      100% 100% at 50% 100%,
+      rgba(19, 21, 36, 0%) 100%,
+      #131524 100%
+    ),
+    url('/images/coffins.png');
   background-size: cover;
 
   @media only screen and (max-width: 600px) {
@@ -93,7 +112,7 @@ export const BodyContent = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 144px;
   line-height: 120px;
@@ -122,7 +141,7 @@ export const Subtitle = styled.div`
   margin-bottom: 40px;
 
   width: 522px;
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-size: 18px;
   line-height: 29px;
 
@@ -172,16 +191,27 @@ export const Right = styled.div`
   filter: drop-shadow(5px 21px 46px rgba(0, 0, 0, 0.7));
 `;
 
+export const ButtonRightAbsolute = styled.div`
+  position: absolute;
+  left: 85%;
+  &:hover {
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 800px) {
+    left: 80%;
+  }
+`;
+
 export const Phone = styled.div`
   width: 600px;
   height: 293px;
 
   filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
-  background-image: url("/images/iphone-600.png");
+  background-image: url('/images/iphone-600.png');
   background-repeat: no-repeat;
 
   @media only screen and (max-width: 600px) {
-    background-image: url("/images/iphone-320.png");
+    background-image: url('/images/iphone-320.png');
     width: 320px;
     height: 156px;
   }
@@ -221,5 +251,51 @@ export const Video = styled.div`
 
       margin-left: unset;
     }
+  }
+`;
+
+export const StoreTitle = styled.div`
+  font-family: 'Bebas Neue Pro';
+  font-weight: 800;
+  font-size: 144px;
+  line-height: 120px;
+  padding-top: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+
+    font-family: Bebas Neue Pro;
+    font-style: normal;
+    font-size: 80px;
+    line-height: 72px;
+  }
+`;
+
+export const StorePageSub = styled.div`
+  margin: 0 auto;
+  margin-top: 30px;
+
+  width: 522px;
+  font-family: 'SF Pro Display';
+  font-size: 18px;
+  line-height: 29px;
+
+  @media only screen and (max-width: 600px) {
+    width: 343px;
+
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
   }
 `;
