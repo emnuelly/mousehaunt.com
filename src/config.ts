@@ -10,7 +10,7 @@ const config = {
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
     BUSD: {
-      address: "0x8301f2213c0eed49a7e28ae4c3e91722919b8b47",
+      address: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
     },
   },
   mainnet: {
