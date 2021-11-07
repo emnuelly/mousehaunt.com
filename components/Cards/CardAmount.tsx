@@ -8,6 +8,17 @@ import increment from '../../public/images/increment.png';
 import decrement from '../../public/images/decrement.png';
 import { WhitelistSale } from '../../typechain/WhitelistSale';
 import WhitelistSaleJson from '../../contracts/WhitelistSale.sol/WhitelistSale.json';
+import React, { useState, useEffect } from 'react';
+import { Formik, Field, Form, validateYupSchema } from 'formik';
+import { MetaMaskInpageProvider } from '@metamask/providers';
+import { BiRightArrowAlt } from 'react-icons/bi';
+import Image from 'next/image';
+import { Contract, ethers } from 'ethers';
+import increment from '../../public/images/increment.png';
+import decrement from '../../public/images/decrement.png';
+import { WhitelistSale } from '../../typechain/WhitelistSale';
+import WhitelistSaleJson from '../../contracts/WhitelistSale.sol/WhitelistSale.json';
+import BUSDJson from '../../contracts/MouseHauntToken.sol/MouseHauntToken.json';
 
 import {
   FormDisplay,
@@ -27,7 +38,9 @@ interface Props {
   buyMht?: string;
 }
 
-const MHT_TO_BUSD = 0.15;
+const MHT_TO_BUSD = Number(
+  config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD
+);
 
 declare global {
   interface Window {
@@ -42,6 +55,7 @@ function isNumeric(str: string): boolean {
 
 const CardAmount: React.FC<Props> = (props: Props) => {
   const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
+  const [busd, setBusd] = useState<Contract>();
   const [initialValuesState, setInitialValuesState] = useState(1);
   const [busdAmount, setBusdAmount] = useState('75');
   const [mhtAmount, setMhtAmount] = useState('500');
@@ -61,8 +75,13 @@ const CardAmount: React.FC<Props> = (props: Props) => {
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
-      // signer.getAddress().then(setWallet);
+      const busdContract = new ethers.Contract(
+        config.bscTestnet.BUSD.address,
+        BUSDJson.abi,
+        signer
+      ) as WhitelistSale;
       setWhitelistSale(contract);
+      setBusd(busdContract);
     }
   }, []);
 
@@ -94,8 +113,13 @@ const CardAmount: React.FC<Props> = (props: Props) => {
 
   const buy = async () => {
     try {
+      await busd?.approve(
+        config.bscTestnet.WhitelistSale.PrivateSale.address,
+        ethers.utils.parseEther(busdAmount)
+      );
       await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
     } catch (err: any) {
+      console.log(err);
       alert(err.data.message);
     }
   };

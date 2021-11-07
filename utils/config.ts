@@ -15,13 +15,13 @@ const config = {
     WhitelistSale: {
       PrivateSale: {
         owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
-        MHTtoBUSD: "0.15",
-        minMhtAmount: "500",
-        maxMhtAmount: "4000",
+        MHTtoBUSD: "0.015",
+        minMhtAmount: "50",
+        maxMhtAmount: "400",
         unlockAtIGOPercent: "8",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "0xbD29a625328F1EB15Ae95D66c948E78b1Ce65203",
+        address: "0x5050315BD7d51740F30AFC22fA457a0f57aDf671",
       },
     },
     BMHTL: {

@@ -28,7 +28,7 @@ const Awards: NextPage = () => {
             <a 
               href="https://www.youtube.com/watch?v=7lXChVSE3Bc"
             >
-              Click here
+              Click here ‎
             </a>
             to see our Dreamhack Atlanta aftermovie! 
         </Subtitle>
