@@ -25,7 +25,7 @@ const Awards: NextPage = () => {
           Audience loves us! 
         </Title>
         <Subtitle>
-          <Link href="https://www.youtube.com/watch?v=7lXChVSE3Bc"> <a>Click here</a> </Link> to see our Dreamhack Atlanta aftermovie! 
+          <Link href="https://www.youtube.com/watch?v=7lXChVSE3Bc"> Click here </Link> to see our Dreamhack Atlanta aftermovie! 
         </Subtitle>
         </Top>
         <Bottom>
