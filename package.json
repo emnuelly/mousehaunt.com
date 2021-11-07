@@ -10,8 +10,7 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "coverage": "npx hardhat coverage",
-    "script": "npx hardhat run",
-    "postinstall": "./scripts/postinstall.sh"
+    "script": "npx hardhat run"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
@@ -47,7 +46,6 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.3.2",
-    "BokkyPooBahsDateTimeLibrary": "ssh://git@github.com/bokkypoobah/BokkyPooBahsDateTimeLibrary"
+    "@openzeppelin/contracts": "^4.3.2"
   }
 }
