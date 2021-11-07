@@ -26,7 +26,7 @@ const config = {
     },
     WhitelistSale: {
       PrivateSale: {
-        owner: "",
+        owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
         MHTtoBUSD: "0.15",
         minMhtAmount: "500",
         maxMhtAmount: "4000",
