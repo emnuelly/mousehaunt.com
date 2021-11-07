@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next';
 import {
   CardBody,
   CardTitle,
@@ -6,58 +6,61 @@ import {
   CardImage,
   CardSubtitle,
   IconStyle,
-} from "./styles";
-import { BiRightArrowAlt } from "react-icons/bi";
-import Image from "next/image";
-import coffin from "../../public/images/coffin-store.png";
-import mht from "../../public/images/MHT.png";
-import CardAmount from "./CardAmount";
+} from './styles';
+import { BiRightArrowAlt } from 'react-icons/bi';
+import Image from 'next/image';
+import coffin from '../../public/images/coffin-store.png';
+import mht from '../../public/images/MHT.png';
+import CardAmount from './CardAmount';
 
-import Footer from "../Footer/index";
-import { Ruler } from "../Ruler";
-import React from "react";
+import Footer from '../Footer/index';
+import { Ruler } from '../Ruler';
+import React from 'react';
 
 const ITEMS = [
   {
     image: mht,
-    title: "BUY",
-    sub: "$MHT",
+    title: 'BUY',
+    sub: '$MHT',
+    buyMht: true,
     subtitles: [
-      "Price: 1 $MHT = 0.15 $BUSD",
-      "Minimum purchase: 75 $BUSD",
-      "Maximum purchase: 600 $BUSD",
-      "IDO unlock: 8% ",
-      "Vesting: 12 months",
+      'Price: 1 $MHT = 0.15 $BUSD',
+      'Minimum purchase: 75 $BUSD',
+      'Maximum purchase: 600 $BUSD',
+      'IDO unlock: 8% ',
+      'Vesting: 12 months',
     ],
     icon: <BiRightArrowAlt />,
   },
 
   {
     image: coffin,
-    title: "EPIC",
-    sub: "BOOSTER",
+    title: 'EPIC',
+    sub: 'BOOSTER',
     subtitles: [
-      "Price: 1 EPIC booster = 75 $BUSD",
-      "Probabilities: 99% Epic Mouse Hero NFT",
-      "Probabilities: 1% Legendary Mouse Hero NFT ",
-      "Maximum purchase: 6 ",
-      "",
+      'Price: 1 EPIC booster = 75 $BUSD',
+      'Probabilities: 99% Epic Mouse Hero NFT',
+      'Probabilities: 1% Legendary Mouse Hero NFT ',
+      'Maximum purchase: 6 ',
+      '',
     ],
+    legendary: false,
     icon: <BiRightArrowAlt />,
     price: 250,
   },
 
   {
     image: coffin,
-    title: "LEGENDARY",
-    sub: "BOOSTER",
+    title: 'LEGENDARY',
+    sub: 'BOOSTER',
     subtitles: [
-      "Price: 1 LEGENDARY booster = 250 $BUSD",
-      "Probabilities: 100% Legendary Mouse Hero NFT ",
-      "",
-      "Maximum purchase: 2 ",
-      "",
+      'Price: 1 LEGENDARY booster = 250 $BUSD',
+      'Probabilities: 100% Legendary Mouse Hero NFT ',
+      '',
+      'Maximum purchase: 2 ',
+      '',
     ],
+    legendary: true,
     icon: <BiRightArrowAlt />,
     price: 100,
   },
@@ -97,9 +100,13 @@ const Cards: NextPage = () => {
               </ul>
             </CardSubtitle>
             {item.price ? (
-              <CardAmount types={"buyingItem"} price={item.price} />
+              <CardAmount
+                types={'buyingItem'}
+                price={item.price}
+                legendary={item.legendary}
+              />
             ) : (
-              <CardAmount />
+              <CardAmount buyMht={item.buyMht} />
             )}
           </CardSection>
         </React.Fragment>
