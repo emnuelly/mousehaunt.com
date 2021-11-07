@@ -56,7 +56,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     return (
       <>
         <FormIncremental>
-          <label>Amount of booster:</label> <br />
+          <label>Amount of boosters:</label> <br />
           <span
             style={{
               margin: "5px",
@@ -64,7 +64,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               top: "15%",
               left: "-1%",
             }}
-            onClick={() => setInitialValuesState(initialValuesState + 1)}
+            onClick={() => setInitialValuesState(initialValuesState - 1)}
           >
             <Image
               alt="decrement"
@@ -82,7 +82,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
             }}
             onClick={() => {
               if (initialValuesState >= 1) {
-                setInitialValuesState(initialValuesState - 1);
+                setInitialValuesState(initialValuesState + 1);
               }
               return;
             }}

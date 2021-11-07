@@ -63,7 +63,7 @@ export const FormIncremental = styled.section`
   }
   input {
     width: 30%;
-    height: 25px;
+    height: 30px;
     border: 0;
     border-radius: 4px;
     background-color: #29274b;

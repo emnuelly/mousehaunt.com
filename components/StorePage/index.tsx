@@ -6,7 +6,7 @@ import {
   StorePageSub,
   StoreTitle,
 } from "./styles";
-import Card from "../Card/Card";
+import Cards from "../Cards";
 import Header from "../Header";
 import Logo from "../Logo";
 import Sections from "../Sections";
@@ -30,7 +30,7 @@ const StoreHome: NextPage = () => {
             <br />
             Here you will find the latest goods on this cheesy universe!
           </StorePageSub>
-          <Card />
+          <Cards />
         </StoreContainer>
       </Content>
     </Container>
