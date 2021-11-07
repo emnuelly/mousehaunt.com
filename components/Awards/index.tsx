@@ -22,10 +22,10 @@ const Awards: NextPage = () => {
       <Container>
         <Top>
         <Title>
-          Audiances love us!
+          Audience loves us! 
         </Title>
         <Subtitle>
-          
+            Click here to see our Dreamhack Atlanta aftermovie! 
         </Subtitle>
         </Top>
         <Bottom>
