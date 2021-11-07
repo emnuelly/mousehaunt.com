@@ -12,10 +12,8 @@ async function main() {
     config[network].WhitelistSale.PrivateSale.address
   );
 
-  for (const address of whitelist) {
-    console.log(`WhitelistSale whitelisting ${address}`);
-    await whitelistSale.addToWhitelist(address);
-  }
+  console.log(`WhitelistSale whitelist ${whitelist}`);
+  await whitelistSale.addToWhitelist(whitelist);
 }
 
 main().catch((error) => {
