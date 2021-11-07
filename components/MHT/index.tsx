@@ -17,7 +17,7 @@ import mht from "../../public/images/MHT.png";
 
 declare global {
   interface Window {
-    ethereum: MetaMaskInpageProvider;
+    ethereum?: MetaMaskInpageProvider;
   }
 }
 
@@ -32,7 +32,7 @@ const MHT: NextPage = () => {
       config.bsc.BMHTE,
     ];
     for (const contract of contracts) {
-      await ethereum.request({
+      await ethereum?.request({
         method: "wallet_watchAsset",
         params: {
           type: "ERC20",

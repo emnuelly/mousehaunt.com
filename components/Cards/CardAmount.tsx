@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, validateYupSchema } from "formik";
+import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
 import { ethers } from "ethers";
@@ -26,6 +27,12 @@ interface Props {
 
 const MHT_TO_BUSD = 0.15;
 
+declare global {
+  interface Window {
+    ethereum?: MetaMaskInpageProvider;
+  }
+}
+
 function isNumeric(str: string): boolean {
   if (typeof str != "string") return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
@@ -41,17 +48,19 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   const calc = props.price && initialValuesState * props.price;
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(
-      (window as any).ethereum
-    );
-    const signer = provider.getSigner(0);
-    const contract = new ethers.Contract(
-      config.bscTestnet.WhitelistSale.PrivateSale.address,
-      WhitelistSaleJson.abi,
-      signer
-    ) as WhitelistSale;
-    // signer.getAddress().then(setWallet);
-    setWhitelistSale(contract);
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as any
+      );
+      const signer = provider.getSigner(0);
+      const contract = new ethers.Contract(
+        config.bscTestnet.WhitelistSale.PrivateSale.address,
+        WhitelistSaleJson.abi,
+        signer
+      ) as WhitelistSale;
+      // signer.getAddress().then(setWallet);
+      setWhitelistSale(contract);
+    }
   }, []);
 
   const onChange = (event: any) => {
