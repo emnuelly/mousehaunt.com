@@ -17,6 +17,7 @@ import {
   IconStyle,
   ButtonFormat,
   FormIncremental,
+  Warning,
 } from "./stylesForm";
 import { Button } from "../Button";
 import config from "../../utils/config";
@@ -50,12 +51,22 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
   const [busd, setBusd] = useState<Contract>();
   const [initialValuesState, setInitialValuesState] = useState(1);
-  const [busdAmount, setBusdAmount] = useState("75");
-  const [mhtAmount, setMhtAmount] = useState("500");
+  const [buying, setBuying] = useState(false);
+
+  const minBusdAmount =
+    Number(config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount) *
+    Number(config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD);
+  const maxBusdAmount =
+    Number(config.bscTestnet.WhitelistSale.PrivateSale.maxMhtAmount) *
+    Number(config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD);
+
+  const [busdAmount, setBusdAmount] = useState(minBusdAmount.toString());
+  const [mhtAmount, setMhtAmount] = useState(
+    config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount
+  );
   const [exceededAmount, setExceededAmount] = useState(false);
 
   const isItBuyingMHT = props.types !== "buyingItem";
-  const calc = props.price && initialValuesState * props.price;
 
   useEffect(() => {
     if (window.ethereum) {
@@ -79,12 +90,15 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (Number(busdAmount) < 75 || Number(busdAmount) > 600) {
+    if (
+      Number(busdAmount) < minBusdAmount ||
+      Number(busdAmount) > maxBusdAmount
+    ) {
       setExceededAmount(true);
     } else {
       setExceededAmount(false);
     }
-  }, [busdAmount || mhtAmount]);
+  }, [busdAmount, mhtAmount, minBusdAmount, maxBusdAmount]);
 
   const onChange = (event: any) => {
     const { value, id } = event.target;
@@ -109,13 +123,15 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       try {
         const tx = await busd?.approve(
           config.bscTestnet.WhitelistSale.PrivateSale.address,
-          ethers.utils.parseEther(busdAmount)
+          ethers.utils.parseEther(busdAmount.toString())
         );
+        setBuying(true);
         await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
         await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
       } catch (err: any) {
         alert(err.data.message);
       }
+      setBuying(false);
     }
   };
 
@@ -171,6 +187,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       </>
     );
   };
+
   return (
     <>
       <Formik
@@ -179,17 +196,15 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       >
         <ContentForm>
           <Form>
-            {exceededAmount && (
-              <div
-                style={{
-                  color: "red",
-                  textAlign: "center",
-                  marginTop: "-19px",
-                }}
-              >
-                Minimum $BSUD is 75, $BSUD maximum 600
-              </div>
-            )}
+            <Warning>
+              {exceededAmount && isItBuyingMHT && (
+                <div>
+                  <span>Minimum $BUSD is {minBusdAmount.toFixed(2)}</span>
+                  <br />
+                  <span>Maximum $BUSD is {maxBusdAmount.toFixed(2)}</span>
+                </div>
+              )}
+            </Warning>
             <FormMainSection>
               {isItBuyingMHT ? (
                 <>
@@ -227,7 +242,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <Button>BUY NOW</Button>
+              <Button disabled={buying}>BUY NOW</Button>
             </ButtonFormat>
           </Form>
         </ContentForm>

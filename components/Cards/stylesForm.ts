@@ -108,3 +108,10 @@ export const ButtonFormat = styled.section`
     width: 100px;
   }
 `;
+
+export const Warning = styled.div `
+  color: red;
+  text-align: center;
+  margin-top: -19px;
+  min-height: 40px;
+`;

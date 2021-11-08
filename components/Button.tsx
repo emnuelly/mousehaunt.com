@@ -27,4 +27,8 @@ export const Button = styled.button`
     margin: 0px 10px;
     padding: unset;
   }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 `;

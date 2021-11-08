@@ -17,7 +17,7 @@ export const ConnectWalletButton = () => {
     if (account) {
       setAccount("");
     } else {
-      const accounts = (await window.ethereum.request({
+      const accounts = (await window.ethereum?.request({
         method: "eth_requestAccounts",
       })) as string[];
       setAccount(accounts[0]);
