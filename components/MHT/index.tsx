@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import { Button } from "../Button";
 import mht from "../../public/images/MHT.png";
+import { addToWallet } from "../../utils/blockchain";
 
 declare global {
   interface Window {
@@ -22,30 +23,6 @@ declare global {
 }
 
 const MHT: NextPage = () => {
-  const tokenDecimals = 18;
-
-  const onClick = async () => {
-    const { ethereum } = window;
-    const contracts = [
-      config.bsc.MouseHauntToken,
-      config.bsc.BMHTL,
-      config.bsc.BMHTE,
-    ];
-    for (const contract of contracts) {
-      await ethereum?.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: {
-            address: contract.address,
-            symbol: contract.symbol,
-            image: contract.image,
-            decimals: tokenDecimals,
-          },
-        },
-      });
-    }
-  };
   return (
     <>
       <Container id="Token">
@@ -74,7 +51,7 @@ const MHT: NextPage = () => {
               earning MHT!
             </a>
           </Subtitle>
-          <Button onClick={onClick}>ADD TO WALLET</Button>
+          <Button onClick={addToWallet}>ADD TO WALLET</Button>
         </Right>
       </Container>
       <Ellipse />

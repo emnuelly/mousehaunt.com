@@ -1,3 +1,4 @@
+import React from "react";
 import type { NextPage } from "next";
 import {
   Container,
@@ -12,7 +13,16 @@ import Logo from "../Logo";
 import Sections from "../Sections";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 
-const sections = ["Store", "Inventory"];
+const sections = [
+  {
+    title: "Store",
+    to: "/store",
+  },
+  {
+    title: "Inventory",
+    to: "/inventory",
+  },
+];
 
 const StoreHome: NextPage = () => {
   return (
