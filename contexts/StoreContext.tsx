@@ -18,6 +18,10 @@ export interface UserInfoDetailed {
   remainingTokens: string;
   claimedTokens: string;
   lastClaimMonthIndex: number;
+  boosters: {
+    epic: string;
+    legendary: string;
+  };
 }
 
 interface StoreContextData {
@@ -64,12 +68,22 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
               )
             : "";
         const lastClaimMonthIndex = userInfo ? Number(userInfo[2]) : -1;
+        const legendary = await contracts?.bmhtl.balanceOf(account);
+        const epic = await contracts?.bmhte.balanceOf(account);
+        console.log({ legendary, epic });
+        const boosters = {
+          legendary: ethers.utils
+            .formatEther(legendary ?? "")
+            .replace(".0", ""),
+          epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
+        };
         setUserInfo({
           whitelisted,
           totalTokens,
           remainingTokens,
           claimedTokens,
           lastClaimMonthIndex,
+          boosters,
         });
       })();
     }

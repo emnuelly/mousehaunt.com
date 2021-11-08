@@ -3,18 +3,25 @@ import Image from "next/image";
 import mht from "../../public/images/MHT.png";
 import coffin from "../../public/images/coffin-store.png";
 
-import { Styles, StyleResults } from "./styles";
+import { Styles } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
 
 const Table: React.FC = () => {
-  const { account, setAccount, getAccount, userInfo } =
-    useContext(StoreContext);
+  const { userInfo } = useContext(StoreContext);
 
   const data = [
     {
       item: "BMHTL",
       itemSub: "Mouse Haunt Booster LEGENDARY",
-      type: "2",
+      type: userInfo?.boosters.legendary,
+      typeSub: "Available on wallet",
+      image: coffin,
+      status: 1,
+    },
+    {
+      item: "BMHTE",
+      itemSub: "Mouse Haunt Booster EPIC",
+      type: userInfo?.boosters.epic,
       typeSub: "Available on wallet",
       image: coffin,
       status: 1,
@@ -22,15 +29,7 @@ const Table: React.FC = () => {
     {
       item: "MHT",
       itemSub: "Mouse Haunt Token",
-      type: "LOCKED",
-      typeSub: "Claimable on IGO",
-      image: mht,
-      status: 2,
-    },
-    {
-      item: "MHT",
-      itemSub: "Mouse Haunt Token",
-      type: "LOCKED",
+      type: userInfo?.totalTokens,
       typeSub: "Claimable 1 month after IGO",
       image: mht,
       status: 2,
@@ -51,7 +50,7 @@ const Table: React.FC = () => {
         }}
       >
         <div style={{ fontFamily: "Bebas Neue Pro", fontSize: "20px" }}>
-          Active
+          AVAILABLE
         </div>
       </div>
     ) : (
@@ -67,7 +66,7 @@ const Table: React.FC = () => {
         }}
       >
         <div style={{ fontFamily: "Bebas Neue Pro", fontSize: "20px" }}>
-          Deactivated
+          LOCKED
         </div>
       </div>
     );

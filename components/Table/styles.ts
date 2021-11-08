@@ -7,6 +7,8 @@ width: 100%;
     width: 100%;
     margin-top: 40px;
     border-spacing: 0px;
+    border-collapse: collapse; 
+
     tr {
       &:last-child {
         td {
@@ -28,11 +30,10 @@ width: 100%;
         border-right: 0;
       }
     }
-  }
-`;
 
-export const StyleResults = styled.div`
-  font-family: 'SF PRO Display';
-  font-size: 24px;
-  color: purple;
+    tr {
+      border-radius: 12px;
+
+    }
+  }
 `;
