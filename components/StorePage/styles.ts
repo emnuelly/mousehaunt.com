@@ -101,7 +101,61 @@ export const StoreSuccessContainer = styled.div`
   }
 `;
 
+export const StoreInventoryContainer = styled.div`
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+  }
+
+  header {
+    button {
+      margin-left: 32px;
+    }
+  }
+
+  h1,
+  h2 {
+    font-family: 'Bebas Neue Pro';
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 56px;
+
+    flex: none;
+    flex-grow: 0;
+    order: 0;
+
+    b {
+      order: 1;
+    background-image: linear-gradient(96.82deg, #cb61e4 0%, #be42d7 100%);
+
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+    }
+  }
+
+  h2 {
+    font-size: 32px;
+    line-height: 32px;
+    margin-top: 0px;
+  }
+`;
+
 export const StoreSuccessBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 128px);
+`;
+
+export const StoreInventoryBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

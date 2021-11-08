@@ -3,8 +3,8 @@ import type { NextPage } from "next";
 import {
   Container,
   Content,
-  StoreSuccessBody,
-  StoreSuccessContainer,
+  StoreInventoryBody,
+  StoreInventoryContainer,
   StorePageSub,
 } from "./styles";
 import Header from "../Header";
@@ -12,7 +12,7 @@ import Logo from "../Logo";
 import Sections from "../Sections";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import Footer from "../Footer";
-import StoreInventory from "../../pages/store/inventory";
+import Table from "../Table/Table";
 
 const sections = [
   {
@@ -28,25 +28,25 @@ const sections = [
 const Inventory: NextPage = () => {
   return (
     <Container>
-      {/* <Content>
-        <StoreSuccessContainer>
+      <Content>
+        <StoreInventoryContainer>
           <Header>
             <Logo />
             <Sections sections={sections} />
             <ConnectWalletButton />
           </Header>
-          <StoreSuccessBody>
-            <StoreInventory>Inventory</StoreInventory>
+          <StoreInventoryBody>
+            <h1>Inventory</h1>
             <StorePageSub>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis
               mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
             </StorePageSub>
 
-             <Table /> 
-          </StoreSuccessBody>
+            <Table />
+          </StoreInventoryBody>
           <Footer />
-        </StoreSuccessContainer>
-      </Content> */}
+        </StoreInventoryContainer>
+      </Content>
     </Container>
   );
 };
