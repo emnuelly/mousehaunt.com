@@ -74,12 +74,43 @@ export const StorePageSub = styled.div`
     line-height: 20px;
   }
 `;
+
 export const StoreTitle = styled.div`
   font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 144px;
   line-height: 120px;
   padding-top: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+
+  @media only screen and (max-width: 600px) {
+    justify-content: center;
+
+    font-family: Bebas Neue Pro;
+    font-style: normal;
+    font-size: 80px;
+    line-height: 72px;
+  }
+`;
+
+export const StoreInventory = styled.div`
+  font-family: 'Bebas Neue Pro';
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 56px;
+  padding-top: 50px;
+  background: linear-gradient(#ee0ca1, #d742b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   display: flex;
   justify-content: center;
