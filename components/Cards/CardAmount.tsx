@@ -2,8 +2,12 @@ import { Formik, Field, Form, validateYupSchema } from "formik";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
+
 import { WhitelistSale } from "../../typechain/WhitelistSale";
 import WhitelistSaleJson from "../../contracts/WhitelistSale.sol/WhitelistSale.json";
+import { BoosterSale } from "../../typechain/BoosterSale";
+import BoosterSaleJson from "../../contracts/booster/BoosterSale.sol/BoosterSale.json";
+
 import React, { useState, useEffect } from "react";
 import { Contract, ethers } from "ethers";
 import increment from "../../public/images/increment.png";
@@ -25,10 +29,7 @@ import waitFor from "../../utils/waitFor";
 import { isTransactionMined } from "../../utils/blockchain";
 
 interface Props {
-  types?: string | undefined;
-  price?: number | undefined;
-  legendary?: string;
-  buyMht?: string;
+  index: number;
 }
 
 const MHT_TO_BUSD = Number(
@@ -46,11 +47,12 @@ function isNumeric(str: string): boolean {
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
 }
 
-const CardAmount: React.FC<Props> = (props: Props) => {
+const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
   const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
+  const [boosterSale, setBoosterSale] = useState<BoosterSale>();
   const [busd, setBusd] = useState<Contract>();
-  const [initialValuesState, setInitialValuesState] = useState(1);
+  const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
 
   const minBusdAmount =
@@ -66,17 +68,20 @@ const CardAmount: React.FC<Props> = (props: Props) => {
   );
   const [exceededAmount, setExceededAmount] = useState(false);
 
-  const isItBuyingMHT = props.types !== "buyingItem";
-
   useEffect(() => {
     if (window.ethereum) {
       const p = new ethers.providers.Web3Provider(window.ethereum as any);
       const signer = p.getSigner(0);
-      const contract = new ethers.Contract(
+      const wl = new ethers.Contract(
         config.bscTestnet.WhitelistSale.PrivateSale.address,
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
+      const b = new ethers.Contract(
+        config.bscTestnet.BoosterSale.address,
+        BoosterSaleJson.abi,
+        signer
+      ) as BoosterSale;
       const busdContract = new ethers.Contract(
         config.bscTestnet.BUSD.address,
         BUSDJson.abi,
@@ -84,7 +89,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
       ) as WhitelistSale;
 
       setProvider(p);
-      setWhitelistSale(contract);
+      setWhitelistSale(wl);
+      setBoosterSale(b);
       setBusd(busdContract);
     }
   }, []);
@@ -118,18 +124,53 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     }
   };
 
-  const buy = async () => {
+  const buyMHT = async () => {
     if (provider) {
       try {
+        setBuying(true);
         const tx = await busd?.approve(
           config.bscTestnet.WhitelistSale.PrivateSale.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
-        setBuying(true);
         await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
         await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
       } catch (err: any) {
         alert(err.data.message);
+      }
+      setBuying(false);
+    }
+  };
+
+  const buyBooster = async (index: number) => {
+    if (provider) {
+      try {
+        const booster =
+          index === 1
+            ? config.bscTestnet.BMHTE.address
+            : config.bscTestnet.BMHTL.address;
+        const boosterPrice =
+          index === 1
+            ? config.bscTestnet.BMHTE.busdPrice
+            : config.bscTestnet.BMHTL.busdPrice;
+
+        setBuying(true);
+        console.log(
+          ethers.utils
+            .parseEther(boosterPrice.toString())
+            .mul(boosterAmount)
+            .toString()
+        );
+        const tx = await busd?.approve(
+          config.bscTestnet.BoosterSale.address,
+          ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
+        );
+        await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
+        await boosterSale?.buy(
+          booster,
+          ethers.utils.parseEther(boosterAmount.toString())
+        );
+      } catch (err: any) {
+        alert(err.data ? err.data.message : err.message);
       }
       setBuying(false);
     }
@@ -148,8 +189,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               left: "-1%",
             }}
             onClick={() => {
-              if (initialValuesState > 1 && initialValuesState <= 6)
-                setInitialValuesState(initialValuesState - 1);
+              if (boosterAmount > 1 && boosterAmount <= 6)
+                setBoosterAmount(boosterAmount - 1);
             }}
           >
             <Image
@@ -159,7 +200,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               height={"30px"}
             ></Image>
           </span>
-          <Field id="amountBUSD" name="amountBUSD" value={initialValuesState} />{" "}
+          <Field id="amountBUSD" name="amountBUSD" value={boosterAmount} />{" "}
           <span
             style={{
               margin: "5px",
@@ -168,10 +209,10 @@ const CardAmount: React.FC<Props> = (props: Props) => {
             }}
             onClick={() => {
               let amountMax = 6;
-              if (props.legendary) amountMax = 2;
+              if (index === 2) amountMax = 2;
 
-              if (initialValuesState >= 1 && initialValuesState < amountMax) {
-                setInitialValuesState(initialValuesState + 1);
+              if (boosterAmount >= 1 && boosterAmount < amountMax) {
+                setBoosterAmount(boosterAmount + 1);
               }
               return;
             }}
@@ -192,12 +233,12 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     <>
       <Formik
         initialValues={{ amount: 1, amountMHT: 1 }}
-        onSubmit={() => buy()}
+        onSubmit={() => (index === 0 ? buyMHT() : buyBooster(index))}
       >
         <ContentForm>
           <Form>
             <Warning>
-              {exceededAmount && isItBuyingMHT && (
+              {exceededAmount && index === 0 && (
                 <div>
                   <span>Minimum $BUSD is {minBusdAmount.toFixed(2)}</span>
                   <br />
@@ -206,14 +247,12 @@ const CardAmount: React.FC<Props> = (props: Props) => {
               )}
             </Warning>
             <FormMainSection>
-              {isItBuyingMHT ? (
+              {index === 0 ? (
                 <>
                   <FormDisplay>
                     <label>Amount of $BUSD</label> <br />
                     <input
-                      onChange={(e) => {
-                        onChange(e);
-                      }}
+                      onChange={onChange}
                       id="amount"
                       name="amount"
                       type="number"
@@ -228,7 +267,7 @@ const CardAmount: React.FC<Props> = (props: Props) => {
                     <label>Amount of $MHT</label>
                     <br />
                     <input
-                      onChange={(e) => onChange(e)}
+                      onChange={onChange}
                       id="amountMHT"
                       name="amountMHT"
                       value={mhtAmount}

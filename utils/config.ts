@@ -22,15 +22,32 @@ const config = {
         cliffMonths: "0",
         vestingPeriodMonths: "12",
         address: "0x0FC2dCbD2243877697195af4aF8C762aa0354Bf4",
+        available: "4000000",
       },
     },
     BMHTL: {
-      address: "",
-      owner: "",
+      address: "0xE2AF9395d3cC2A49cC6D1231704Eb21c0799c22A",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+      image:
+        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000001/0000000000000000000000000000000000000000000000000000000000000001.png",
+      symbol: "BMHTL",
+      busdPrice: "2.5",
+      cap: "2",
+      available: "2000",
     },
     BMHTE: {
-      address: "",
-      owner: "",
+      address: "0x7e27F6aD10f883c9aC15049920433f230A86343f",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+      image:
+        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000002/0000000000000000000000000000000000000000000000000000000000000002.png",
+      symbol: "BMHTE",
+      busdPrice: "0.75",
+      cap: "6",
+      available: "6000",
+    },
+    BoosterSale: {
+      address: "0xeEADCd83bDD1a0c36C39C46E296D07b7B31De6A2",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
   },
   bsc: {
@@ -56,6 +73,7 @@ const config = {
         cliffMonths: "0",
         vestingPeriodMonths: "12",
         address: "",
+        available: "4000000",
       },
     },
     BMHTL: {
@@ -64,6 +82,9 @@ const config = {
       image:
         "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000001/0000000000000000000000000000000000000000000000000000000000000001.png",
       symbol: "BMHTL",
+      busdPrice: "250",
+      cap: "2",
+      available: "2000",
     },
     BMHTE: {
       address: "0x2DE83F4243ff0200624a44011777a373aF7E9f72",
@@ -71,6 +92,13 @@ const config = {
       image:
         "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000002/0000000000000000000000000000000000000000000000000000000000000002.png",
       symbol: "BMHTE",
+      busdPrice: "75",
+      cap: "6",
+      available: "6000",
+    },
+    BoosterSale: {
+      address: "",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },
 };

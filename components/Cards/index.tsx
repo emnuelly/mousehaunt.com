@@ -46,7 +46,6 @@ const ITEMS = [
     ],
     legendary: false,
     icon: <BiRightArrowAlt />,
-    price: 250,
   },
 
   {
@@ -62,7 +61,6 @@ const ITEMS = [
     ],
     legendary: true,
     icon: <BiRightArrowAlt />,
-    price: 100,
   },
 ];
 
@@ -99,11 +97,7 @@ const Cards: NextPage = () => {
                 })}
               </ul>
             </CardSubtitle>
-            {item.price ? (
-              <CardAmount types={"buyingItem"} price={item.price} />
-            ) : (
-              <CardAmount />
-            )}
+            <CardAmount index={index} />
           </CardSection>
         </React.Fragment>
       );

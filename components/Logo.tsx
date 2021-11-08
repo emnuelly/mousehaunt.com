@@ -13,7 +13,8 @@ export const Container = styled.div`
 
 const Logo = () => (
   <Container>
-    <a href="#">
+    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+    <a href="/">
       <Image
         src={logo}
         width="90px"
