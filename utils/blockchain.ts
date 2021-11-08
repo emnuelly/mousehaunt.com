@@ -17,8 +17,8 @@ export const addToWallet = async () => {
   const { ethereum } = window;
   const contracts = [
     config.bsc.MouseHauntToken,
-    config.bsc.BMHTL,
-    config.bsc.BMHTE,
+    config.bscTestnet.BMHTL,
+    config.bscTestnet.BMHTE,
   ];
   for (const contract of contracts) {
     await ethereum?.request({

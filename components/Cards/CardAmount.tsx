@@ -1,4 +1,4 @@
-import { Formik, Field, Form, validateYupSchema } from "formik";
+import { Formik, Field, Form } from "formik";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
@@ -48,7 +48,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const contracts = useContracts();
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
-  const { bought, setBought } = useContext(StoreContext);
+  const { updateUserInfo } = useContext(StoreContext);
   const router = useRouter();
 
   const minBusdAmount =
@@ -112,6 +112,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           () => isTransactionMined(contracts?.provider, buy.hash),
           30e3
         );
+        updateUserInfo();
         router.push({
           pathname: "/store/success",
           query: { type: "MHT", amount: boosterAmount },
@@ -154,6 +155,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           () => isTransactionMined(contracts?.provider, buy.hash),
           30e3
         );
+        updateUserInfo();
         router.push({
           pathname: "/store/success",
           query: {
