@@ -17,31 +17,10 @@ import { ConnectWalletButton } from "../ConnectWalletButton";
 
 const sections = [
   { to: "/store", title: "Store" },
-  { to: "/inventory", title: "Inventory" },
-];
-
-const sendData = [
-  {
-    item: "AEEE",
-    itemSub: "aeeee",
-    type: "type",
-    typeSub: "typeSub",
-    status: 1,
-  },
-
-  {
-    item: "AEEE",
-    itemSub: "aeeee",
-    type: "type",
-    typeSub: "typeSub",
-    status: 2,
-  },
+  { to: "/store/inventory", title: "Inventory" },
 ];
 
 const StoreHome: NextPage = () => {
-  const renderTable = () => {
-    return <Table sendData={sendData} />;
-  };
   return (
     <Container>
       <Content>
@@ -58,14 +37,6 @@ const StoreHome: NextPage = () => {
             Here you will find the latest goods on this cheesy universe!
           </StorePageSub>
           <Cards />
-
-          {/* <StoreInventory>Inventory</StoreInventory>
-          <StorePageSub>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris
-            in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
-          </StorePageSub>
-
-          {renderTable()} */}
         </StoreContainer>
       </Content>
     </Container>

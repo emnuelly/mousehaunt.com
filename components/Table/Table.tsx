@@ -1,48 +1,58 @@
-import React, { useMemo, useState, useEffect } from 'react';
-import Image from 'next/image';
-import MHT from '../../public/images/MHT.png';
+import React from "react";
+import Image from "next/image";
+import MHT from "../../public/images/MHT.png";
 
-import { Styles, StyleResults } from './styles';
+import { Styles, StyleResults } from "./styles";
 
-interface Props {
-  type: string;
-  typeSub: string;
-  item: string;
-  itemSub: string;
-  status: number;
-}
+const Table: React.FC = () => {
+  const sendData = [
+    {
+      item: "AEEE",
+      itemSub: "aeeee",
+      type: "type",
+      typeSub: "typeSub",
+      status: 1,
+    },
 
-const Table: React.FC<Props> = ({ sendData }) => {
-  const styleTypeButtons = val => {
+    {
+      item: "AEEE",
+      itemSub: "aeeee",
+      type: "type",
+      typeSub: "typeSub",
+      status: 2,
+    },
+  ];
+
+  const styleTypeButtons = (val) => {
     return val === 1 ? (
       <div
         style={{
-          backgroundColor: '#374A5F',
-          height: '50px',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          border: '2px solid #458B72',
+          backgroundColor: "#374A5F",
+          height: "50px",
+          borderRadius: "10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "2px solid #458B72",
         }}
       >
-        <div style={{ fontFamily: 'Bebas Neue Pro', fontSize: '20px' }}>
+        <div style={{ fontFamily: "Bebas Neue Pro", fontSize: "20px" }}>
           Active
         </div>
       </div>
     ) : (
       <div
         style={{
-          backgroundColor: '#52345D',
-          height: '50px',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          border: '2px solid #A04766',
+          backgroundColor: "#52345D",
+          height: "50px",
+          borderRadius: "10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          border: "2px solid #A04766",
         }}
       >
-        <div style={{ fontFamily: 'Bebas Neue Pro', fontSize: '20px' }}>
+        <div style={{ fontFamily: "Bebas Neue Pro", fontSize: "20px" }}>
           Deactivated
         </div>
       </div>
@@ -50,57 +60,57 @@ const Table: React.FC<Props> = ({ sendData }) => {
   };
 
   const returnAllTables = () => {
-    return sendData.map(e => {
+    return sendData.map((e) => {
       return (
         <>
           <tr
             style={{
-              textAlign: 'center',
-              backgroundColor: '#29274b',
+              textAlign: "center",
+              backgroundColor: "#29274b",
             }}
           >
             <td
               style={{
-                width: '150px',
+                width: "150px",
               }}
             >
               {<Image width="100" height="100" src={MHT}></Image>}
             </td>
             <td
               style={{
-                textAlign: 'left',
+                textAlign: "left",
               }}
             >
               <div
                 style={{
-                  fontFamily: 'SF Pro Display',
+                  fontFamily: "SF Pro Display",
                   fontWeight: 600,
                   fontSize: 24,
-                  textTransform: 'uppercase',
+                  textTransform: "uppercase",
                 }}
               >
                 {e.item}
               </div>
-              <br />{' '}
+              <br />{" "}
               <div
                 style={{
-                  fontFamily: 'SF Pro Display',
+                  fontFamily: "SF Pro Display",
                   fontWeight: 600,
-                  color: '#EE0CA1',
-                  marginBottom: '5px',
-                  marginTop: '-20px',
+                  color: "#EE0CA1",
+                  marginBottom: "5px",
+                  marginTop: "-20px",
                 }}
               >
                 {e.itemSub}
               </div>
             </td>
-            <td style={{ width: '300px' }}>
+            <td style={{ width: "300px" }}>
               <div
                 style={{
-                  fontFamily: 'SF Pro Display',
+                  fontFamily: "SF Pro Display",
                   fontSize: 18,
-                  textTransform: 'uppercase',
-                  textAlign: 'left',
+                  textTransform: "uppercase",
+                  textAlign: "left",
                 }}
               >
                 {e.type}
@@ -108,18 +118,18 @@ const Table: React.FC<Props> = ({ sendData }) => {
               <br />
               <div
                 style={{
-                  fontFamily: 'SF Pro Display',
+                  fontFamily: "SF Pro Display",
                   fontWeight: 600,
-                  color: '#EE0CA1',
-                  marginBottom: '5px',
-                  marginTop: '-20px',
-                  textAlign: 'left',
+                  color: "#EE0CA1",
+                  marginBottom: "5px",
+                  marginTop: "-20px",
+                  textAlign: "left",
                 }}
               >
                 {e.typeSub}
               </div>
             </td>
-            <td style={{ width: '140px' }}>{styleTypeButtons(e.status)}</td>
+            <td style={{ width: "140px" }}>{styleTypeButtons(e.status)}</td>
           </tr>
         </>
       );
@@ -131,8 +141,8 @@ const Table: React.FC<Props> = ({ sendData }) => {
         <tr>
           <th
             style={{
-              width: '40px',
-              fontFamily: 'SF Pro Display',
+              width: "40px",
+              fontFamily: "SF Pro Display",
               fontWeight: 400,
             }}
           >
@@ -141,8 +151,8 @@ const Table: React.FC<Props> = ({ sendData }) => {
           <th></th>
           <th
             style={{
-              textAlign: 'left',
-              fontFamily: 'SF Pro Display',
+              textAlign: "left",
+              fontFamily: "SF Pro Display",
               fontWeight: 400,
             }}
           >
@@ -150,7 +160,7 @@ const Table: React.FC<Props> = ({ sendData }) => {
           </th>
           <th
             style={{
-              fontFamily: 'SF Pro Display',
+              fontFamily: "SF Pro Display",
               fontWeight: 400,
             }}
           >

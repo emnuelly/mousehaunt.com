@@ -19,10 +19,9 @@ import Image from "next/image";
 
 import coffin from "../../public/images/coffin-store.png";
 import mht from "../../public/images/MHT.png";
-import { addToWallet } from "../../utils/blockchain";
+import { addToWallet, getNetwork } from "../../utils/blockchain";
 import { Button } from "../Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
-import { ethers } from "ethers";
 
 const sections = [
   {
@@ -31,7 +30,7 @@ const sections = [
   },
   {
     title: "Inventory",
-    to: "/inventory",
+    to: "/store/inventory",
   },
 ];
 
@@ -72,8 +71,8 @@ const StoreSuccess: NextPage = () => {
   }, [setAccount, getAccount]);
 
   const onClick = async () => {
-    await addToWallet();
-    router.push("/inventory");
+    await addToWallet(getNetwork(router));
+    router.push("/store/inventory");
   };
 
   return (
