@@ -27,6 +27,7 @@ import { Button } from "../Button";
 import config from "../../utils/config";
 import waitFor from "../../utils/waitFor";
 import { isTransactionMined } from "../../utils/blockchain";
+import { useContracts } from "../../hooks/useContracts";
 
 interface Props {
   index: number;
@@ -48,10 +49,7 @@ function isNumeric(str: string): boolean {
 }
 
 const CardAmount: React.FC<Props> = ({ index }: Props) => {
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider>();
-  const [whitelistSale, setWhitelistSale] = useState<WhitelistSale>();
-  const [boosterSale, setBoosterSale] = useState<BoosterSale>();
-  const [busd, setBusd] = useState<Contract>();
+  const contracts = useContracts();
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
 
@@ -67,33 +65,6 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
-
-  useEffect(() => {
-    if (window.ethereum) {
-      const p = new ethers.providers.Web3Provider(window.ethereum as any);
-      const signer = p.getSigner(0);
-      const wl = new ethers.Contract(
-        config.bscTestnet.WhitelistSale.PrivateSale.address,
-        WhitelistSaleJson.abi,
-        signer
-      ) as WhitelistSale;
-      const b = new ethers.Contract(
-        config.bscTestnet.BoosterSale.address,
-        BoosterSaleJson.abi,
-        signer
-      ) as BoosterSale;
-      const busdContract = new ethers.Contract(
-        config.bscTestnet.BUSD.address,
-        BUSDJson.abi,
-        signer
-      ) as WhitelistSale;
-
-      setProvider(p);
-      setWhitelistSale(wl);
-      setBoosterSale(b);
-      setBusd(busdContract);
-    }
-  }, []);
 
   useEffect(() => {
     if (
@@ -125,24 +96,28 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (provider) {
+    if (contracts?.provider) {
       try {
         setBuying(true);
-        const tx = await busd?.approve(
+        const tx = await contracts?.busd?.approve(
           config.bscTestnet.WhitelistSale.PrivateSale.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
-        await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
-        await whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
+        await waitFor(
+          () => isTransactionMined(contracts?.provider, tx.hash),
+          30e3
+        );
+        await contracts?.whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
       } catch (err: any) {
-        alert(err.data.message);
+        const message = err.data ? err.data.message : err.message;
+        alert(message);
       }
       setBuying(false);
     }
   };
 
   const buyBooster = async (index: number) => {
-    if (provider) {
+    if (contracts?.provider) {
       try {
         const booster =
           index === 1
@@ -160,17 +135,21 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             .mul(boosterAmount)
             .toString()
         );
-        const tx = await busd?.approve(
+        const tx = await contracts?.busd?.approve(
           config.bscTestnet.BoosterSale.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
-        await waitFor(() => isTransactionMined(provider, tx.hash), 30e3);
-        await boosterSale?.buy(
+        await waitFor(
+          () => isTransactionMined(contracts?.provider, tx.hash),
+          30e3
+        );
+        await contracts?.boosterSale?.buy(
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
       } catch (err: any) {
-        alert(err.data ? err.data.message : err.message);
+        const message = err.data ? err.data.message : err.message;
+        alert(message);
       }
       setBuying(false);
     }

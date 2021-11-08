@@ -55,8 +55,8 @@ const ITEMS = [
     subtitles: [
       "Price: 1 LEGENDARY booster = 250 $BUSD",
       "Probabilities: 100% Legendary Mouse Hero NFT ",
-      "",
       "Maximum purchase: 2 ",
+      "",
       "",
     ],
     legendary: true,
