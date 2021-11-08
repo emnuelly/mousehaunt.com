@@ -1,5 +1,5 @@
-import React from 'react';
-import type { NextPage } from 'next';
+import React from "react";
+import type { NextPage } from "next";
 import {
   Container,
   Content,
@@ -7,30 +7,33 @@ import {
   StorePageSub,
   StoreTitle,
   StoreInventory,
-} from './styles';
-import Cards from '../Cards';
-import Header from '../Header';
-import Logo from '../Logo';
-import Sections from '../Sections';
-import Table from '../../components/Table/Table';
-import { ConnectWalletButton } from '../ConnectWalletButton';
+} from "./styles";
+import Cards from "../Cards";
+import Header from "../Header";
+import Logo from "../Logo";
+import Sections from "../Sections";
+import Table from "../../components/Table/Table";
+import { ConnectWalletButton } from "../ConnectWalletButton";
 
-const sections = ['Store', 'Inventory'];
+const sections = [
+  { to: "/store", title: "Store" },
+  { to: "/inventory", title: "Inventory" },
+];
 
 const sendData = [
   {
-    item: 'AEEE',
-    itemSub: 'aeeee',
-    type: 'type',
-    typeSub: 'typeSub',
+    item: "AEEE",
+    itemSub: "aeeee",
+    type: "type",
+    typeSub: "typeSub",
     status: 1,
   },
 
   {
-    item: 'AEEE',
-    itemSub: 'aeeee',
-    type: 'type',
-    typeSub: 'typeSub',
+    item: "AEEE",
+    itemSub: "aeeee",
+    type: "type",
+    typeSub: "typeSub",
     status: 2,
   },
 ];
@@ -48,21 +51,21 @@ const StoreHome: NextPage = () => {
             <Sections sections={sections} />
             <ConnectWalletButton />
           </Header>
-          {/* <StoreTitle>SHOP</StoreTitle>
+          <StoreTitle>SHOP</StoreTitle>
           <StorePageSub>
             Welcome to the Mouse Haunt Shop!
             <br />
             Here you will find the latest goods on this cheesy universe!
-          </StorePageSub> */}
-          {/* <Cards /> */}
+          </StorePageSub>
+          <Cards />
 
-          <StoreInventory>Inventory</StoreInventory>
+          {/* <StoreInventory>Inventory</StoreInventory>
           <StorePageSub>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris
             in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
           </StorePageSub>
 
-          {renderTable()}
+          {renderTable()} */}
         </StoreContainer>
       </Content>
     </Container>

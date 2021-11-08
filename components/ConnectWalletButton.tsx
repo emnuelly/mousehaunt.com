@@ -46,10 +46,12 @@ export const ConnectWalletButton = () => {
   };
 
   useEffect(() => {
-    (async () => {
-      setAccount(await getAccount());
-    })();
-  }, [setAccount, getAccount]);
+    if (account) {
+      (async () => {
+        setAccount(await getAccount());
+      })();
+    }
+  }, [account, setAccount, getAccount]);
 
   const buttonText = account ? "DISCONNECT" : "CONNECT TO WALLET";
   const whitelistedText =

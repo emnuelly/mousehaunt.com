@@ -101,7 +101,7 @@ const config = {
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },
-};
+} as any;
 
 export default config;
 

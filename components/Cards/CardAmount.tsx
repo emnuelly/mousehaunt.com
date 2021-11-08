@@ -18,9 +18,9 @@ import {
   Warning,
 } from "./stylesForm";
 import { Button } from "../Button";
-import config from "../../utils/config";
+import config, { Network } from "../../utils/config";
 import waitFor from "../../utils/waitFor";
-import { isTransactionMined } from "../../utils/blockchain";
+import { getNetwork, isTransactionMined } from "../../utils/blockchain";
 import { useContracts } from "../../hooks/useContracts";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
@@ -28,10 +28,6 @@ import { useRouter } from "next/router";
 interface Props {
   index: number;
 }
-
-const MHT_TO_BUSD = Number(
-  config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD
-);
 
 declare global {
   interface Window {
@@ -50,17 +46,22 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [buying, setBuying] = useState(false);
   const router = useRouter();
   const { refresh, userInfo, setRefresh } = useContext(StoreContext);
+  const network = getNetwork(router);
+
+  const MHT_TO_BUSD = Number(
+    config[network].WhitelistSale.PrivateSale.MHTtoBUSD
+  );
 
   const minBusdAmount =
-    Number(config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount) *
-    Number(config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale.minMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale.MHTtoBUSD);
   const maxBusdAmount =
-    Number(config.bscTestnet.WhitelistSale.PrivateSale.maxMhtAmount) *
-    Number(config.bscTestnet.WhitelistSale.PrivateSale.MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale.maxMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale.MHTtoBUSD);
 
   const [busdAmount, setBusdAmount] = useState(minBusdAmount.toString());
   const [mhtAmount, setMhtAmount] = useState(
-    config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount
+    config[network].WhitelistSale.PrivateSale.minMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
 
@@ -98,7 +99,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       try {
         setBuying(true);
         const approve = await contracts?.busd?.approve(
-          config.bscTestnet.WhitelistSale.PrivateSale.address,
+          config[network].WhitelistSale.PrivateSale.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
@@ -131,16 +132,16 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const type = index === 1 ? "EPIC" : "LEGENDARY";
         const booster =
           type === "EPIC"
-            ? config.bscTestnet.BMHTE.address
-            : config.bscTestnet.BMHTL.address;
+            ? config[network].BMHTE.address
+            : config[network].BMHTL.address;
         const boosterPrice =
           type === "EPIC"
-            ? config.bscTestnet.BMHTE.busdPrice
-            : config.bscTestnet.BMHTL.busdPrice;
+            ? config[network].BMHTE.busdPrice
+            : config[network].BMHTL.busdPrice;
 
         setBuying(true);
         const approve = await contracts?.busd?.approve(
-          config.bscTestnet.BoosterSale.address,
+          config[network].BoosterSale.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
         await waitFor(

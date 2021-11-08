@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { MetaMaskInpageProvider } from "@metamask/providers";
-import config from "../../utils/config";
+import config, { Network } from "../../utils/config";
 
 import {
   Container,
@@ -14,7 +14,8 @@ import {
 import Image from "next/image";
 import { Button } from "../Button";
 import mht from "../../public/images/MHT.png";
-import { addToWallet } from "../../utils/blockchain";
+import { addToWallet, getNetwork } from "../../utils/blockchain";
+import { useRouter } from "next/router";
 
 declare global {
   interface Window {
@@ -23,6 +24,8 @@ declare global {
 }
 
 const MHT: NextPage = () => {
+  const router = useRouter();
+  const network = getNetwork(router);
   return (
     <>
       <Container id="Token">
@@ -44,14 +47,14 @@ const MHT: NextPage = () => {
             <br />
             Come to Mouse Haunt now, showcase your skills and have fun{" "}
             <a
-              href={`https://bscscan.com/token/${config.bsc.MouseHauntToken.address}`}
+              href={`https://bscscan.com/token/${config[network].MouseHauntToken.address}`}
               target="_blank"
               rel="noreferrer"
             >
               earning MHT!
             </a>
           </Subtitle>
-          <Button onClick={addToWallet}>ADD TO WALLET</Button>
+          <Button onClick={() => addToWallet(network)}>ADD TO WALLET</Button>
         </Right>
       </Container>
       <Ellipse />

@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
-import config from "./config";
+import { NextRouter } from "next/router";
+import config, { Network } from "./config";
 
 export const isTransactionMined = async (
   provider: ethers.providers.Web3Provider, 
@@ -11,14 +12,20 @@ export const isTransactionMined = async (
   else return false;
 }
 
-export const addToWallet = async () => {
+export const getNetwork = (router: NextRouter): Network => {
+    return typeof router.query.network === "string"
+      ? (router.query.network as Network)
+      : 'bsc';
+}
+
+export const addToWallet = async (network: Network) => {
   const tokenDecimals = 18;
 
   const { ethereum } = window;
   const contracts = [
-    config.bsc.MouseHauntToken,
-    config.bscTestnet.BMHTL,
-    config.bscTestnet.BMHTE,
+    config[network].MouseHauntToken,
+    config[network].BMHTL,
+    config[network].BMHTE,
   ];
   for (const contract of contracts) {
     await ethereum?.request({
