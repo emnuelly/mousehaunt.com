@@ -96,9 +96,9 @@ const CardAmount: React.FC<Props> = (props: Props) => {
     } else {
       if (id === "amount") {
         setBusdAmount(Number(value).toString());
-        setMhtAmount((Number(value) / MHT_TO_BUSD).toString());
+        setMhtAmount((Number(value) / MHT_TO_BUSD).toFixed(2).toString());
       } else {
-        setBusdAmount((Number(value) * MHT_TO_BUSD).toString());
+        setBusdAmount((Number(value) * MHT_TO_BUSD).toFixed(2).toString());
         setMhtAmount(Number(value).toString());
       }
     }
@@ -201,8 +201,8 @@ const CardAmount: React.FC<Props> = (props: Props) => {
                       }}
                       id="amount"
                       name="amount"
-                      value={busdAmount}
                       type="number"
+                      value={busdAmount}
                     />
                   </FormDisplay>
                   <IconStyle>
