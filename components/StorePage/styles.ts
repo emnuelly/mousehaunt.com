@@ -30,7 +30,7 @@ export const Content = styled.section`
   }
 `;
 
-export const StoreContainer = styled.header`
+export const StoreContainer = styled.div`
   top: 0px;
   left: 0px;
   height: 70vh;
@@ -53,6 +53,94 @@ export const StoreContainer = styled.header`
       margin-left: 32px;
     }
   }
+`;
+
+export const StoreSuccessContainer = styled.div`
+  top: 0px;
+  left: 0px;
+  height: 100vh;
+  width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    width: 100vw;
+  }
+
+  header {
+    button {
+      margin-left: 32px;
+    }
+  }
+
+  h1,
+  h2 {
+    font-family: 'Bebas Neue Pro';
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 56px;
+
+    flex: none;
+    flex-grow: 0;
+    order: 0;
+
+    b {
+      order: 1;
+      background-image: linear-gradient(96.82deg, #0882f2 0%, #1fc6ec 100%);
+
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+    }
+  }
+
+  h2 {
+    font-size: 32px;
+    line-height: 32px;
+    margin-top: 0px;
+  }
+`;
+
+export const StoreSuccessBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 128px);
+`;
+
+export const SuccessCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+
+  width: 420px;
+
+  background: #0f0e23;
+  /* Primary/Blue 1 */
+
+  border: 1px solid #29274b;
+  box-sizing: border-box;
+
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+
+  button {
+    width: 180px;
+    align-self: center;
+  }
+`;
+
+export const SuccessCardImage = styled.div`
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+  height: 336px;
+  width: 300px;
 `;
 
 export const StorePageSub = styled.div`

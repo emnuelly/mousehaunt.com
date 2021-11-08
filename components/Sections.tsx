@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import Link from "next/link";
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -16,15 +18,15 @@ const Container = styled.div`
 `;
 
 interface Props {
-  sections: string[];
+  sections: { title: string; to: string }[];
 }
 
 const Sections: React.FC<Props> = (props: Props) => (
   <Container>
     {props.sections.map((section) => (
-      <a key={section} href={`#${section}`}>
-        {section}
-      </a>
+      <Link key={section.to} href={section.to}>
+        {section.title}
+      </Link>
     ))}
   </Container>
 );

@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { StoreContext } from "../contexts/StoreContext";
 import { useContracts } from "../hooks/useContracts";
 import { Button } from "./Button";
 
@@ -33,17 +34,8 @@ const WalletInfo = styled.div`
 `;
 
 export const ConnectWalletButton = () => {
-  const [account, setAccount] = useState("");
-  const [whitelisted, setWhitelisted] = useState(false);
-  const [mhtAmount, setMhtAmount] = useState("");
-  const contracts = useContracts();
-
-  const getAccount = async () => {
-    const accounts = await window.ethereum?.request({
-      method: "eth_requestAccounts",
-    });
-    return accounts ? (accounts as string[])[0] : "";
-  };
+  const { account, userInfo, getAccount, setAccount } =
+    useContext(StoreContext);
 
   const onClick = async () => {
     if (account) {
@@ -54,37 +46,22 @@ export const ConnectWalletButton = () => {
   };
 
   useEffect(() => {
-    window.ethereum?.on("accountsChanged", function (accounts) {
-      setAccount((accounts as string[])[0]);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (account) {
-      (async () => {
-        const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
-          account
-        );
-        setWhitelisted(!!isWhitelisted);
-        const userInfo = await contracts?.whitelistSale.addressToUserInfo(
-          account
-        );
-        const totalAmount = ethers.utils.formatEther(
-          userInfo ? userInfo[0] : ""
-        );
-        setMhtAmount(totalAmount);
-      })();
-    }
-  }, [account, contracts]);
+    (async () => {
+      setAccount(await getAccount());
+    })();
+  }, [setAccount, getAccount]);
 
   const buttonText = account ? "DISCONNECT" : "CONNECT TO WALLET";
-  const whitelistedText = !account
-    ? ""
-    : whitelisted
-    ? "WHITELISTED"
-    : "NOT WHITELISTED";
+  const whitelistedText =
+    account && userInfo
+      ? userInfo?.whitelisted
+        ? "WHITELISTED"
+        : "NOT WHITELISTED"
+      : "";
   const mhtPurchasedText =
-    account && whitelisted ? "| " + mhtAmount + " MHT PURCHASED" : "";
+    account && userInfo?.whitelisted
+      ? userInfo?.totalTokens + " MHT PURCHASED"
+      : "";
 
   return (
     <Container>
@@ -92,6 +69,7 @@ export const ConnectWalletButton = () => {
         <pre>{account}</pre>
         <div>
           <span>{whitelistedText}</span>
+          {mhtPurchasedText ? <span>|</span> : null}
           <span>{mhtPurchasedText}</span>
         </div>
       </WalletInfo>

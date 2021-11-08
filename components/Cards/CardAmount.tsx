@@ -1,18 +1,12 @@
-import { Formik, Field, Form, validateYupSchema } from "formik";
+import { Formik, Field, Form } from "formik";
 import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
 
-import { WhitelistSale } from "../../typechain/WhitelistSale";
-import WhitelistSaleJson from "../../contracts/WhitelistSale.sol/WhitelistSale.json";
-import { BoosterSale } from "../../typechain/BoosterSale";
-import BoosterSaleJson from "../../contracts/booster/BoosterSale.sol/BoosterSale.json";
-
-import React, { useState, useEffect } from "react";
-import { Contract, ethers } from "ethers";
+import React, { useState, useEffect, useContext } from "react";
+import { ethers } from "ethers";
 import increment from "../../public/images/increment.png";
 import decrement from "../../public/images/decrement.png";
-import BUSDJson from "../../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 
 import {
   FormDisplay,
@@ -28,6 +22,8 @@ import config from "../../utils/config";
 import waitFor from "../../utils/waitFor";
 import { isTransactionMined } from "../../utils/blockchain";
 import { useContracts } from "../../hooks/useContracts";
+import { StoreContext } from "../../contexts/StoreContext";
+import { useRouter } from "next/router";
 
 interface Props {
   index: number;
@@ -52,6 +48,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const contracts = useContracts();
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
+  const router = useRouter();
+  const { refresh, userInfo, setRefresh } = useContext(StoreContext);
 
   const minBusdAmount =
     Number(config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount) *
@@ -99,15 +97,26 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     if (contracts?.provider) {
       try {
         setBuying(true);
-        const tx = await contracts?.busd?.approve(
+        const approve = await contracts?.busd?.approve(
           config.bscTestnet.WhitelistSale.PrivateSale.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
-          () => isTransactionMined(contracts?.provider, tx.hash),
+          () => isTransactionMined(contracts?.provider, approve.hash),
           30e3
         );
-        await contracts?.whitelistSale?.buy(ethers.utils.parseEther(mhtAmount));
+        const buy = await contracts?.whitelistSale?.buy(
+          ethers.utils.parseEther(mhtAmount)
+        );
+        await waitFor(
+          () => isTransactionMined(contracts?.provider, buy.hash),
+          30e3
+        );
+        setRefresh(!refresh);
+        router.push({
+          pathname: "/store/success",
+          query: { type: "MHT", amount: boosterAmount },
+        });
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
@@ -119,34 +128,41 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const buyBooster = async (index: number) => {
     if (contracts?.provider) {
       try {
+        const type = index === 1 ? "EPIC" : "LEGENDARY";
         const booster =
-          index === 1
+          type === "EPIC"
             ? config.bscTestnet.BMHTE.address
             : config.bscTestnet.BMHTL.address;
         const boosterPrice =
-          index === 1
+          type === "EPIC"
             ? config.bscTestnet.BMHTE.busdPrice
             : config.bscTestnet.BMHTL.busdPrice;
 
         setBuying(true);
-        console.log(
-          ethers.utils
-            .parseEther(boosterPrice.toString())
-            .mul(boosterAmount)
-            .toString()
-        );
-        const tx = await contracts?.busd?.approve(
+        const approve = await contracts?.busd?.approve(
           config.bscTestnet.BoosterSale.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
         await waitFor(
-          () => isTransactionMined(contracts?.provider, tx.hash),
+          () => isTransactionMined(contracts?.provider, approve.hash),
           30e3
         );
-        await contracts?.boosterSale?.buy(
+        const buy = await contracts?.boosterSale?.buy(
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
+        await waitFor(
+          () => isTransactionMined(contracts?.provider, buy.hash),
+          30e3
+        );
+        setRefresh(!refresh);
+        router.push({
+          pathname: "/store/success",
+          query: {
+            type: `${type} BOOSTER${boosterAmount === 1 ? "" : "S"}`,
+            amount: boosterAmount,
+          },
+        });
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
@@ -260,7 +276,9 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <Button disabled={buying}>BUY NOW</Button>
+              <Button disabled={buying || !userInfo?.whitelisted}>
+                BUY NOW
+              </Button>
             </ButtonFormat>
           </Form>
         </ContentForm>

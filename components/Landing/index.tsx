@@ -22,12 +22,12 @@ import Logo from "../Logo";
 import Sections from "../Sections";
 
 const sections = [
-  "About",
-  "Gameplay",
-  "Value Proposition",
-  "Token",
-  "Team",
-  "Roadmap",
+  { title: "About", to: "#About" },
+  { title: "Gameplay", to: "#Gameplay" },
+  { title: "Value Proposition", to: "Value Proposition" },
+  { title: "Token", to: "Token" },
+  { title: "Team", to: "Team" },
+  { title: "Roadmap", to: "Roadmap" },
 ];
 
 interface Props {
