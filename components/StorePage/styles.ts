@@ -161,7 +161,6 @@ export const StoreInventoryBody = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100% - 128px);
 `;
 
 export const SuccessCard = styled.div`

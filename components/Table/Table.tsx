@@ -1,13 +1,65 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import mht from "../../public/images/MHT.png";
 import coffin from "../../public/images/coffin-store.png";
 
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
+import { ethers } from "ethers";
+import { useContracts } from "../../hooks/useContracts";
+
+function truncate(str: string, maxDecimalDigits = 3) {
+  if (str.includes(".")) {
+    const parts = str.split(".");
+    return parts[0] + "." + parts[1].slice(0, maxDecimalDigits);
+  }
+  return str;
+}
 
 const Table: React.FC = () => {
   const { userInfo } = useContext(StoreContext);
+  const contracts = useContracts();
+  const [igoAmount, setIgoAmount] = useState("");
+  const [monthlyAmount, setMonthlyAmount] = useState("");
+
+  const mhts = Array.from(Array(12).keys()).map((i) => ({
+    item: "MHT",
+    itemSub: "Mouse Haunt Token",
+    type: monthlyAmount,
+    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IGO`,
+    image: mht,
+    status: "LOCKED",
+  }));
+
+  useEffect(() => {
+    (async () => {
+      const unlockAtIGOPercent =
+        await contracts?.whitelistSale.unlockAtIGOPercent();
+      const vestingPeriodMonths =
+        await contracts?.whitelistSale.vestingPeriodMonths();
+      const igo = unlockAtIGOPercent
+        ? ethers.utils.formatEther(
+            ethers.utils
+              .parseEther(userInfo?.totalTokens ?? "")
+              .mul(unlockAtIGOPercent)
+              .div(100)
+              .toString()
+          )
+        : "";
+      const amount = unlockAtIGOPercent
+        ? ethers.utils.formatEther(
+            ethers.utils
+              .parseEther(userInfo?.totalTokens ?? "")
+              .mul(100 - Number(unlockAtIGOPercent))
+              .div(100)
+              .div(vestingPeriodMonths ?? "")
+              .toString()
+          )
+        : "";
+      setIgoAmount(truncate(igo));
+      setMonthlyAmount(truncate(amount));
+    })();
+  }, [contracts, userInfo]);
 
   const data = [
     {
@@ -29,18 +81,14 @@ const Table: React.FC = () => {
     {
       item: "MHT",
       itemSub: "Mouse Haunt Token",
-      type: userInfo?.totalTokens,
-      typeSub: "Claimable 1 month after IGO",
+      type: igoAmount,
+      typeSub: "Claimable on IGO",
       image: mht,
       status: "LOCKED",
     },
+    ...mhts,
   ];
 
-  const returnAllTables = () => {
-    return data.map((e) => {
-      return <></>;
-    });
-  };
   return (
     <Styles>
       <table>
@@ -56,55 +104,18 @@ const Table: React.FC = () => {
               <Image alt="MHT" width="100" height="100" src={e.image} />
             </td>
             <td>
-              <div
-                style={{
-                  fontFamily: "SF Pro Display",
-                  fontWeight: 600,
-                  fontSize: 24,
-                  textTransform: "uppercase",
-                }}
-              >
-                {e.item}
-              </div>
-              <br />{" "}
-              <div
-                style={{
-                  fontFamily: "SF Pro Display",
-                  fontWeight: 600,
-                  color: "#EE0CA1",
-                  marginBottom: "5px",
-                  marginTop: "-20px",
-                }}
-              >
-                {e.itemSub}
+              <div>{e.item}</div>
+              <div>
+                <b>{e.itemSub}</b>
               </div>
             </td>
-            <td style={{ width: "300px" }}>
-              <div
-                style={{
-                  fontFamily: "SF Pro Display",
-                  fontSize: 18,
-                  textTransform: "uppercase",
-                  textAlign: "left",
-                }}
-              >
-                {e.type}
-              </div>
-              <br />
-              <div
-                style={{
-                  fontFamily: "SF Pro Display",
-                  fontWeight: 600,
-                  color: "#EE0CA1",
-                  marginBottom: "5px",
-                  marginTop: "-20px",
-                  textAlign: "left",
-                }}
-              >
-                {e.typeSub}
+            <td>
+              <div>{e.type}</div>
+              <div>
+                <b> {e.typeSub}</b>
               </div>
             </td>
-            <td style={{ width: "140px" }}>
+            <td>
               <StatusBadge status={e.status}>
                 <div>{e.status}</div>
               </StatusBadge>

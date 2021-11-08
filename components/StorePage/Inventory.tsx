@@ -38,8 +38,15 @@ const Inventory: NextPage = () => {
           <StoreInventoryBody>
             <h1>Inventory</h1>
             <StorePageSub>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis
-              mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
+              <div>
+                Boosters will be on your wallet right away! <br />
+                Get the #🧀trade channel ready.
+              </div>
+              <div>
+                $MHT won&apos;t be on your wallet, you will claim $MHT only at
+                IGO! To be compliant with big launchpads, we can only make $MHT
+                available at IGO, not before.
+              </div>
             </StorePageSub>
 
             <Table />

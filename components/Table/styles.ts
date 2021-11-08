@@ -10,6 +10,9 @@ width: 100%;
     border-collapse: collapse; 
 
     tr {
+      border-radius: 12px;
+      margin:10px;
+
       &:last-child {
         td {
           border-bottom: 0;
@@ -26,9 +29,6 @@ width: 100%;
       width: 40px;
       text-align: center;
     }
-    th:nth-child(4) {
-      text-align: center;
-    }
 
     th,
     td {
@@ -41,8 +41,14 @@ width: 100%;
       div {
         font-family: "SF Pro Display";
         font-weight: 600;
-        font-size: 24;
-        text-transform: uppercase;
+        font-size: 24px;
+
+
+        b {
+          font-size: 16px;
+          color: #EE0CA1;
+          margin-top: -20px;
+        }
       }
     }
 
@@ -52,10 +58,29 @@ width: 100%;
       td {
         min-width: 150px;
       }
+      td:nth-child(4){
+        width: 200px;
+      }
     }
     tr:nth-child(1) {
       text-align: center;
       background-color:unset;
+    }
+  }
+  tr:nth-child(2) {
+    td:nth-child(1) {
+      border-radius: 12px 0px 0px 0px;
+    }
+    td:nth-child(4) {
+      border-radius: 0px 12px 0px 0px;
+    }
+  }
+  tr:last-child {
+    td:nth-child(1) {
+      border-radius: 0px 0px 0px 12px;
+    }
+    td:nth-child(4) {
+      border-radius: 0px 0px  12px 0px;
     }
   }
 `;
@@ -66,14 +91,14 @@ interface Props {
 export const StatusBadge = styled.div<Props>`
   background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : "#52345D"};
   height: 50px;
+  width: 160px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : "2px solid #A04766"};
-  margin-right: 10px;
   div {
   font-family: "Bebas Neue Pro";
-  font-size: 20px; 
+  font-size: 20px !important; 
   }
 `
