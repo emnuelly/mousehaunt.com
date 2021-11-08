@@ -49,7 +49,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
   const router = useRouter();
-  const { refresh, setRefresh } = useContext(StoreContext);
+  const { refresh, userInfo, setRefresh } = useContext(StoreContext);
 
   const minBusdAmount =
     Number(config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount) *
@@ -276,7 +276,9 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <Button disabled={buying}>BUY NOW</Button>
+              <Button disabled={buying || !userInfo?.whitelisted}>
+                BUY NOW
+              </Button>
             </ButtonFormat>
           </Form>
         </ContentForm>
