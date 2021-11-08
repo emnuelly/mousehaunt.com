@@ -21,7 +21,7 @@ const config = {
         unlockAtIGOPercent: "8",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "0x5050315BD7d51740F30AFC22fA457a0f57aDf671",
+        address: "0x0FC2dCbD2243877697195af4aF8C762aa0354Bf4",
       },
     },
     BMHTL: {
