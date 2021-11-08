@@ -219,3 +219,19 @@ export const StoreInventory = styled.div`
     line-height: 72px;
   }
 `;
+export const StoreSuccessDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:20px;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    span:first-of-type {
+      color: #848484;
+    }
+  }
+`

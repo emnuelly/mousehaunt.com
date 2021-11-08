@@ -23,7 +23,7 @@ const Table: React.FC = () => {
     },
   ];
 
-  const styleTypeButtons = (val) => {
+  const styleTypeButtons = (val: number) => {
     return val === 1 ? (
       <div
         style={{
