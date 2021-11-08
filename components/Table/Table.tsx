@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import mht from "../../public/images/MHT.png";
 import coffin from "../../public/images/coffin-store.png";
 
 import { Styles, StyleResults } from "./styles";
+import { StoreContext } from "../../contexts/StoreContext";
 
 const Table: React.FC = () => {
+  const { account, setAccount, getAccount, userInfo } =
+    useContext(StoreContext);
+
   const data = [
+    {
+      item: "BMHTL",
+      itemSub: "Mouse Haunt Booster LEGENDARY",
+      type: "2",
+      typeSub: "Available on wallet",
+      image: coffin,
+      status: 1,
+    },
     {
       item: "MHT",
       itemSub: "Mouse Haunt Token",
@@ -16,12 +28,12 @@ const Table: React.FC = () => {
       status: 2,
     },
     {
-      item: "BMHTL",
-      itemSub: "Mouse Haunt Booster LEGENDARY",
-      type: "2",
-      typeSub: "Available on wallet",
-      image: coffin,
-      status: 1,
+      item: "MHT",
+      itemSub: "Mouse Haunt Token",
+      type: "LOCKED",
+      typeSub: "Claimable 1 month after IGO",
+      image: mht,
+      status: 2,
     },
   ];
 
