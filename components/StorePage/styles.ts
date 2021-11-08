@@ -153,6 +153,7 @@ export const StoreSuccessBody = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100% - 128px);
+  width: 100%;
 `;
 
 export const StoreInventoryBody = styled.div`
