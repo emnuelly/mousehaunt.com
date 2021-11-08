@@ -1,25 +1,27 @@
 import React from "react";
 import Image from "next/image";
-import MHT from "../../public/images/MHT.png";
+import mht from "../../public/images/MHT.png";
+import coffin from "../../public/images/coffin-store.png";
 
 import { Styles, StyleResults } from "./styles";
 
 const Table: React.FC = () => {
-  const sendData = [
+  const data = [
     {
-      item: "AEEE",
-      itemSub: "aeeee",
-      type: "type",
-      typeSub: "typeSub",
-      status: 1,
-    },
-
-    {
-      item: "AEEE",
-      itemSub: "aeeee",
-      type: "type",
-      typeSub: "typeSub",
+      item: "MHT",
+      itemSub: "Mouse Haunt Token",
+      type: "LOCKED",
+      typeSub: "Claimable on IGO",
+      image: mht,
       status: 2,
+    },
+    {
+      item: "BMHTL",
+      itemSub: "Mouse Haunt Booster LEGENDARY",
+      type: "2",
+      typeSub: "Available on wallet",
+      image: coffin,
+      status: 1,
     },
   ];
 
@@ -60,7 +62,7 @@ const Table: React.FC = () => {
   };
 
   const returnAllTables = () => {
-    return sendData.map((e) => {
+    return data.map((e) => {
       return (
         <>
           <tr
@@ -74,7 +76,7 @@ const Table: React.FC = () => {
                 width: "150px",
               }}
             >
-              {<Image alt="MHT" width="100" height="100" src={MHT}></Image>}
+              {<Image alt="MHT" width="100" height="100" src={e.image}></Image>}
             </td>
             <td
               style={{
@@ -156,7 +158,7 @@ const Table: React.FC = () => {
               fontWeight: 400,
             }}
           >
-            Type
+            Amount
           </th>
           <th
             style={{

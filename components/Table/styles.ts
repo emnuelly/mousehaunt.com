@@ -8,7 +8,7 @@ width: 100%;
     margin-top: 40px;
     border-spacing: 0px;
     tr {
-      :last-child {
+      &:last-child {
         td {
           border-bottom: 0;
         }
@@ -23,8 +23,8 @@ width: 100%;
     td {
       margin: 0;
       padding: 0.5rem;
-      color: purple
-      :last-child {
+      color: white;
+      &:last-child {
         border-right: 0;
       }
     }
