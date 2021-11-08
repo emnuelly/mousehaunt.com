@@ -84,7 +84,7 @@ const Cards: NextPage = () => {
               {item.sub}
             </CardTitle>
             <CardSubtitle>
-              <ul>
+              <ul key={index}>
                 {item.subtitles.map((text, v) => {
                   return text ? (
                     <li key={v}>

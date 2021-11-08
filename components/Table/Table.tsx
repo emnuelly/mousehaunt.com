@@ -74,7 +74,7 @@ const Table: React.FC = () => {
                 width: "150px",
               }}
             >
-              {<Image width="100" height="100" src={MHT}></Image>}
+              {<Image alt="MHT" width="100" height="100" src={MHT}></Image>}
             </td>
             <td
               style={{

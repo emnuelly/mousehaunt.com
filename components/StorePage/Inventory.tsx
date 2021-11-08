@@ -12,17 +12,7 @@ import Logo from "../Logo";
 import Sections from "../Sections";
 import { ConnectWalletButton } from "../ConnectWalletButton";
 import Footer from "../Footer";
-import { useRouter } from "next/router";
-import Image from "next/image";
-
-import coffin from "../../public/images/coffin-store.png";
-import mht from "../../public/images/MHT.png";
-import { addToWallet, getNetwork } from "../../utils/blockchain";
-import { Button } from "../Button";
-import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
-import { ethers } from "ethers";
 import StoreInventory from "../../pages/store/inventory";
-import Table from "../Table/Table";
 
 const sections = [
   {
@@ -38,7 +28,7 @@ const sections = [
 const Inventory: NextPage = () => {
   return (
     <Container>
-      <Content>
+      {/* <Content>
         <StoreSuccessContainer>
           <Header>
             <Logo />
@@ -52,11 +42,11 @@ const Inventory: NextPage = () => {
               mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
             </StorePageSub>
 
-            <Table />
+             <Table /> 
           </StoreSuccessBody>
           <Footer />
         </StoreSuccessContainer>
-      </Content>
+      </Content> */}
     </Container>
   );
 };
