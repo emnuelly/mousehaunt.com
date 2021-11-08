@@ -16,7 +16,7 @@ export interface Contracts {
 }
 
 export function useContracts() {
-  const [contracts, setContracts] = useState<Contracts>(null);
+  const [contracts, setContracts] = useState<Contracts|null>(null);
 
   useEffect(() => {
     if (window.ethereum) {

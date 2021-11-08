@@ -62,34 +62,40 @@ export const ConnectWalletButton = () => {
   useEffect(() => {
     if (account) {
       (async () => {
-        const isWhitelisted = await contracts.whitelistSale.isWhitelisted(
+        const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
           account
         );
-        setWhitelisted(isWhitelisted);
-        const [totalAmountInWei] =
-          await contracts.whitelistSale.addressToUserInfo(account);
-        const totalAmount = ethers.utils.formatEther(totalAmountInWei);
+        setWhitelisted(!!isWhitelisted);
+        const userInfo = await contracts?.whitelistSale.addressToUserInfo(
+          account
+        );
+        const totalAmount = ethers.utils.formatEther(
+          userInfo ? userInfo[0] : ""
+        );
         setMhtAmount(totalAmount);
       })();
     }
   }, [account, contracts]);
 
-  const text = account ? "DISCONNECT" : "CONNECT TO WALLET";
+  const buttonText = account ? "DISCONNECT" : "CONNECT TO WALLET";
+  const whitelistedText = !account
+    ? ""
+    : whitelisted
+    ? "WHITELISTED"
+    : "NOT WHITELISTED";
+  const mhtPurchasedText =
+    account && whitelisted ? "| " + mhtAmount + " MHT PURCHASED" : "";
 
   return (
     <Container>
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          <span>
-            {!account ? "" : whitelisted ? "WHITELISTED" : "NOT WHITELISTED"}
-          </span>
-          <span>
-            {account && whitelisted ? "| " + mhtAmount + " MHT PURCHASED" : ""}
-          </span>
+          <span>{whitelistedText}</span>
+          <span>{mhtPurchasedText}</span>
         </div>
       </WalletInfo>
-      <Button onClick={onClick}>{text}</Button>
+      <Button onClick={onClick}>{buttonText}</Button>
     </Container>
   );
 };
