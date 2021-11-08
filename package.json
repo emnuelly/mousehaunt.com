@@ -10,6 +10,7 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "coverage": "npx hardhat coverage",
+    "website": "cp -R artifacts/contracts/ ../mousehaunt.com/contracts/ && cp -R typechain/ ../mousehaunt.com/typechain/",
     "scripts": "npx hardhat run"
   },
   "devDependencies": {

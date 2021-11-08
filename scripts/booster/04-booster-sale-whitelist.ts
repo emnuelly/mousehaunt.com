@@ -6,14 +6,11 @@ import whitelist from "../whitelist.json";
 async function main() {
   const network: Network = process.env.NETWORK as Network;
 
-  const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+  const BoosterSale = await ethers.getContractFactory("BoosterSale");
+  const boosterSale = BoosterSale.attach(config[network].BoosterSale.address);
 
-  const whitelistSale = WhitelistSale.attach(
-    config[network].WhitelistSale.PrivateSale.address
-  );
-
-  console.log(`WhitelistSale whitelist ${whitelist}`);
-  await whitelistSale.addToWhitelist(whitelist);
+  console.log(`BoosterSale whitelist ${whitelist}`);
+  await boosterSale.addToWhitelist(whitelist);
 }
 
 main().catch((error) => {
