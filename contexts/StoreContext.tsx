@@ -23,9 +23,10 @@ export interface UserInfoDetailed {
 interface StoreContextData {
   userInfo?: UserInfoDetailed;
   account: string;
-  updateUserInfo: () => Promise<void>;
+  refresh: boolean;
   setAccount: React.Dispatch<string>;
   getAccount: () => Promise<string>;
+  setRefresh: React.Dispatch<boolean>;
 }
 
 export const StoreContext = createContext<StoreContextData>(
@@ -35,39 +36,54 @@ export const StoreContext = createContext<StoreContextData>(
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [account, setAccount] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfoDetailed | undefined>();
+  const [refresh, setRefresh] = useState(false);
   const contracts = useContracts();
 
-  const updateUserInfo = useCallback(async () => {
-    const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(account);
-    const whitelisted = Boolean(isWhitelisted);
-    const userInfo = await contracts?.whitelistSale.addressToUserInfo(account);
-    const totalTokens = ethers.utils.formatEther(userInfo ? userInfo[0] : "");
-    const remainingTokens = ethers.utils.formatEther(
-      userInfo ? userInfo[1] : ""
-    );
-    const claimedTokens =
-      totalTokens && remainingTokens
-        ? ethers.utils.formatEther(
-            ethers.utils
-              .parseEther(totalTokens)
-              .sub(ethers.utils.parseEther(remainingTokens))
-          )
-        : "";
-    const lastClaimMonthIndex = userInfo ? Number(userInfo[2]) : -1;
-    setUserInfo({
-      whitelisted,
-      totalTokens,
-      remainingTokens,
-      claimedTokens,
-      lastClaimMonthIndex,
-    });
-  }, [account, contracts]);
+  const updateUserInfo = useCallback(() => {
+    if (account && contracts) {
+      (async () => {
+        const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
+          account
+        );
+        const whitelisted = Boolean(isWhitelisted);
+        const userInfo = await contracts?.whitelistSale.addressToUserInfo(
+          account
+        );
+        const totalTokens = ethers.utils.formatEther(
+          userInfo ? userInfo[0] : ""
+        );
+        const remainingTokens = ethers.utils.formatEther(
+          userInfo ? userInfo[1] : ""
+        );
+        const claimedTokens =
+          totalTokens && remainingTokens
+            ? ethers.utils.formatEther(
+                ethers.utils
+                  .parseEther(totalTokens)
+                  .sub(ethers.utils.parseEther(remainingTokens))
+              )
+            : "";
+        const lastClaimMonthIndex = userInfo ? Number(userInfo[2]) : -1;
+        setUserInfo({
+          whitelisted,
+          totalTokens,
+          remainingTokens,
+          claimedTokens,
+          lastClaimMonthIndex,
+        });
+      })();
+    }
+  }, [contracts, account]);
 
   useEffect(() => {
     if (account && contracts) {
       updateUserInfo();
     }
   }, [account, contracts, updateUserInfo]);
+
+  useEffect(() => {
+    updateUserInfo();
+  }, [refresh, updateUserInfo]);
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", function (accounts) {
@@ -87,9 +103,10 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       value={{
         account,
         userInfo,
-        updateUserInfo,
+        refresh,
         getAccount,
         setAccount,
+        setRefresh,
       }}
     >
       {children}

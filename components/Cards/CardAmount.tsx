@@ -48,8 +48,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const contracts = useContracts();
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
-  const { updateUserInfo } = useContext(StoreContext);
   const router = useRouter();
+  const { refresh, setRefresh } = useContext(StoreContext);
 
   const minBusdAmount =
     Number(config.bscTestnet.WhitelistSale.PrivateSale.minMhtAmount) *
@@ -112,7 +112,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           () => isTransactionMined(contracts?.provider, buy.hash),
           30e3
         );
-        updateUserInfo();
+        setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
           query: { type: "MHT", amount: boosterAmount },
@@ -155,7 +155,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           () => isTransactionMined(contracts?.provider, buy.hash),
           30e3
         );
-        updateUserInfo();
+        setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
           query: {
