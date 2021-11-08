@@ -118,7 +118,7 @@ describe("WhitelistSale", function () {
     );
 
     await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
-      "Claiming before IGO"
+      "Unavailable before IGO"
     );
     const nowTimestamp = await now(ethers);
 
@@ -148,6 +148,27 @@ describe("WhitelistSale", function () {
     await expect(
       whitelistSale.connect(buyer).buy(greaterThan4000MHT)
     ).to.be.revertedWith("Sale: amount greater than max");
+  });
+
+  it("Should not buy after IGO", async function () {
+    const amount = ethers.utils.parseEther("500");
+
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
+
+    const nowTimestamp = await now(ethers);
+    const tomorrow = nowTimestamp + 60 * 60 * 24;
+
+    const tx = whitelistSale
+      .connect(whitelistSaleWallet)
+      .setIgoTimestamp(tomorrow);
+    await expect(tx).to.emit(whitelistSale, "IGO").withArgs(tomorrow);
+    await network.provider.send("evm_mine", [tomorrow]);
+
+    await expect(whitelistSale.connect(buyer).buy(amount)).to.be.revertedWith(
+      "Unavailable after IGO"
+    );
   });
 
   it("Should create release schedule with cliff", async function () {
@@ -192,7 +213,7 @@ describe("WhitelistSale", function () {
     );
 
     await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
-      "Claiming before IGO"
+      "Unavailable before IGO"
     );
 
     const nowTimestamp = await now(ethers);
@@ -314,5 +335,151 @@ describe("WhitelistSale", function () {
     await expect(whitelistSale.connect(buyer).claim()).to.be.revertedWith(
       "Not enough tokens"
     );
+  });
+
+  it("Should allow users to buy more than once", async function () {
+    const unlockAtIGOPercent = "0";
+    const cliffMonths = "2";
+    const vestingPeriodMonths = "3";
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    whitelistSale = await WhitelistSale.deploy(
+      whitelistSaleWallet.address,
+      mht.address,
+      busd.address,
+      mhtToBusd,
+      minMhtAmount,
+      maxMhtAmount,
+      unlockAtIGOPercent,
+      cliffMonths,
+      vestingPeriodMonths
+    );
+    await whitelistSale.deployed();
+
+    const mhtToBuy = ethers.utils.parseEther("3300");
+    const busdTotal = ethers.utils.parseEther("100000");
+
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
+
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
+
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy.div(3));
+
+    expect(
+      (await whitelistSale.addressToUserInfo(buyer.address)).map((x: any) =>
+        x.toString()
+      )
+    ).to.deep.equal([
+      mhtToBuy.div(3).toString(),
+      mhtToBuy.div(3).toString(),
+      "-1",
+    ]);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy.div(3));
+
+    expect(
+      (await whitelistSale.addressToUserInfo(buyer.address)).map((x: any) =>
+        x.toString()
+      )
+    ).to.deep.equal([
+      mhtToBuy.mul(2).div(3).toString(),
+      mhtToBuy.mul(2).div(3).toString(),
+      "-1",
+    ]);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy.div(3));
+
+    expect(
+      (await whitelistSale.addressToUserInfo(buyer.address)).map((x: any) =>
+        x.toString()
+      )
+    ).to.deep.equal([mhtToBuy.toString(), mhtToBuy.toString(), "-1"]);
+
+    await expect(
+      whitelistSale.connect(buyer).buy(mhtToBuy.div(3))
+    ).to.be.revertedWith("Sale: total greater than max");
+  });
+
+  it("Should not allow users to buy after distrubition has begun", async function () {
+    const unlockAtIGOPercent = "0";
+    const cliffMonths = "0";
+    const vestingPeriodMonths = "3";
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    whitelistSale = await WhitelistSale.deploy(
+      whitelistSaleWallet.address,
+      mht.address,
+      busd.address,
+      mhtToBusd,
+      minMhtAmount,
+      maxMhtAmount,
+      unlockAtIGOPercent,
+      cliffMonths,
+      vestingPeriodMonths
+    );
+    await whitelistSale.deployed();
+
+    const mhtToBuy = ethers.utils.parseEther("3300");
+    const busdTotal = ethers.utils.parseEther("100000");
+
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
+
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
+
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy.div(3));
+
+    expect(
+      (await whitelistSale.addressToUserInfo(buyer.address)).map((x: any) =>
+        x.toString()
+      )
+    ).to.deep.equal([
+      mhtToBuy.div(3).toString(),
+      mhtToBuy.div(3).toString(),
+      "-1",
+    ]);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy.div(3));
+
+    expect(
+      (await whitelistSale.addressToUserInfo(buyer.address)).map((x: any) =>
+        x.toString()
+      )
+    ).to.deep.equal([
+      mhtToBuy.mul(2).div(3).toString(),
+      mhtToBuy.mul(2).div(3).toString(),
+      "-1",
+    ]);
+
+    const nowTimestamp = await now(ethers);
+    const tomorrow = nowTimestamp + 60 * 60 * 24;
+
+    const tx = whitelistSale
+      .connect(whitelistSaleWallet)
+      .setIgoTimestamp(tomorrow);
+    await expect(tx).to.emit(whitelistSale, "IGO").withArgs(tomorrow);
+    await network.provider.send("evm_mine", [tomorrow]);
+
+    const month1 = tomorrow + 60 * 60 * 24 * 30;
+    await network.provider.send("evm_mine", [month1]);
+    await whitelistSale.connect(buyer).claim();
+    expect(await mht.balanceOf(buyer.address)).to.equal(
+      mhtToBuy.mul(2).div(9).toString()
+    );
+
+    await expect(
+      whitelistSale.connect(buyer).buy(mhtToBuy.div(3))
+    ).to.be.revertedWith("Unavailable after IGO");
   });
 });

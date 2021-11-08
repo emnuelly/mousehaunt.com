@@ -66,15 +66,20 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
   function buy(uint256 _mhtAmount)
     public
     whenNotPaused
+    beforeIGO
     whitelisted(msg.sender)
   {
     require(_mhtAmount >= minMhtAmount, "Sale: amount less than min");
     require(_mhtAmount <= maxMhtAmount, "Sale: amount greater than max");
+    require(
+      _getUserTotalTokens(msg.sender) + _mhtAmount <= maxMhtAmount,
+      "Sale: total greater than max"
+    );
 
     uint256 busdAmount = (_mhtAmount * mhtToBusd) / 1e18;
 
     busd.safeTransferFrom(msg.sender, mhtOwner, busdAmount);
-    _addUserToTokenAllocation(msg.sender, _mhtAmount);
+    _updateUserTokenAllocation(msg.sender, _mhtAmount);
   }
 
   function addToWhitelist(address[] memory _buyers)

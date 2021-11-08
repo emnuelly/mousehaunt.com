@@ -49,21 +49,34 @@ contract TokenAllocation {
     igoTimestamp = _igoTimestamp;
   }
 
-  function _addUserToTokenAllocation(address wallet, uint256 totalTokens)
+  function _getUserTotalTokens(address wallet) internal view returns (uint256) {
+    return addressToUserInfo[wallet].totalTokens;
+  }
+
+  function _updateUserTokenAllocation(address wallet, uint256 totalTokens)
     internal
+    beforeIGO
   {
-    addressToUserInfo[wallet] = UserInfo({
-      totalTokens: totalTokens,
-      remainingTokens: totalTokens,
-      lastClaimMonthIndex: -1
-    });
+    UserInfo storage userInfo = addressToUserInfo[wallet];
+    userInfo.totalTokens += totalTokens;
+    userInfo.remainingTokens += totalTokens;
+    userInfo.lastClaimMonthIndex = -1;
+  }
+
+  modifier beforeIGO() {
+    require(
+      // solhint-disable-next-line not-rely-on-time
+      igoTimestamp == 0 || block.timestamp < igoTimestamp,
+      "Unavailable after IGO"
+    );
+    _;
   }
 
   modifier afterIGO() {
     require(
       // solhint-disable-next-line not-rely-on-time
       igoTimestamp > 0 && block.timestamp >= igoTimestamp,
-      "Claiming before IGO"
+      "Unavailable before IGO"
     );
     _;
   }
