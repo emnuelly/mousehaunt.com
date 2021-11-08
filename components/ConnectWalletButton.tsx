@@ -45,15 +45,22 @@ export const ConnectWalletButton = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      setAccount(await getAccount());
+    })();
+  }, [setAccount, getAccount]);
+
   const buttonText = account ? "DISCONNECT" : "CONNECT TO WALLET";
-  const whitelistedText = !account
-    ? ""
-    : userInfo?.whitelisted
-    ? "WHITELISTED"
-    : "NOT WHITELISTED";
+  const whitelistedText =
+    account && userInfo
+      ? userInfo?.whitelisted
+        ? "WHITELISTED"
+        : "NOT WHITELISTED"
+      : "";
   const mhtPurchasedText =
     account && userInfo?.whitelisted
-      ? "| " + userInfo?.totalTokens + " MHT PURCHASED"
+      ? userInfo?.totalTokens + " MHT PURCHASED"
       : "";
 
   return (
@@ -62,6 +69,7 @@ export const ConnectWalletButton = () => {
         <pre>{account}</pre>
         <div>
           <span>{whitelistedText}</span>
+          {mhtPurchasedText ? <span>|</span> : null}
           <span>{mhtPurchasedText}</span>
         </div>
       </WalletInfo>

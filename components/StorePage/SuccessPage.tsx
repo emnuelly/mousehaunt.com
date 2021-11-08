@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import type { NextPage } from "next";
 import {
   Container,
@@ -41,12 +41,12 @@ const DescriptionMHT = (props: {
 }) => (
   <StoreSuccessDescription>
     <div>
-      <span>$MHT Total Amount</span>
-      <span>{props.userInfo?.totalTokens}</span>
-    </div>
-    <div>
       <span>Your address</span>
       <span>{props.account}</span>
+    </div>
+    <div>
+      <span>$MHT Total Amount</span>
+      <span>{props.userInfo?.totalTokens}</span>
     </div>
     <div>
       <span>Claimed</span>
@@ -62,7 +62,14 @@ const DescriptionMHT = (props: {
 const StoreSuccess: NextPage = () => {
   const router = useRouter();
   const image = router.query.type === "MHT" ? mht : coffin;
-  const { account, userInfo } = useContext(StoreContext);
+  const { account, setAccount, getAccount, userInfo } =
+    useContext(StoreContext);
+
+  useEffect(() => {
+    async () => {
+      setAccount(await getAccount());
+    };
+  }, [setAccount, getAccount]);
 
   const onClick = async () => {
     await addToWallet();
