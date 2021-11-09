@@ -115,6 +115,13 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     contracts?.provider.getSigner(0).getAddress().then(setAccount);
   }, [contracts]);
 
+  useEffect(() => {
+    window.ethereum?.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0x38" }],
+    });
+  }, []);
+
   const getAccount = async () => {
     const accounts = await window.ethereum?.request({
       method: "eth_requestAccounts",
