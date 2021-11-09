@@ -17,12 +17,6 @@ import mht from "../../public/images/MHT.png";
 import { addToWallet, getNetwork } from "../../utils/blockchain";
 import { useRouter } from "next/router";
 
-declare global {
-  interface Window {
-    ethereum?: MetaMaskInpageProvider;
-  }
-}
-
 const MHT: NextPage = () => {
   const router = useRouter();
   const network = getNetwork(router);

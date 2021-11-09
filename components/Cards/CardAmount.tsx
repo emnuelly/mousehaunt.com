@@ -29,12 +29,6 @@ interface Props {
   index: number;
 }
 
-declare global {
-  interface Window {
-    ethereum?: MetaMaskInpageProvider;
-  }
-}
-
 function isNumeric(str: string): boolean {
   if (typeof str != "string") return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
