@@ -114,7 +114,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
-          query: { type: "MHT", amount: boosterAmount },
+          query: { type: "MHT", amount: mhtAmount },
         });
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
