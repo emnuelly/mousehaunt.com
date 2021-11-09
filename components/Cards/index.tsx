@@ -9,7 +9,8 @@ import {
 } from "./styles";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
-import coffin from "../../public/images/coffin-store.png";
+import legendary from "../../public/images/legendary.png";
+import epic from "../../public/images/epic.png";
 import mht from "../../public/images/MHT.png";
 import CardAmount from "./CardAmount";
 
@@ -34,7 +35,7 @@ const ITEMS = [
   },
 
   {
-    image: coffin,
+    image: epic,
     title: "EPIC",
     sub: "BOOSTER",
     subtitles: [
@@ -49,7 +50,7 @@ const ITEMS = [
   },
 
   {
-    image: coffin,
+    image: legendary,
     title: "LEGENDARY",
     sub: "BOOSTER",
     subtitles: [

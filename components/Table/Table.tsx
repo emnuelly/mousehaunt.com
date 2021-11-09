@@ -1,12 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import mht from "../../public/images/MHT.png";
-// import legendary from "../../public/images/legendary.png";
-// import epic from "../../public/images/epic.png";
-import coffin from "../../public/images/coffin-store.png";
-
-const legendary = coffin;
-const epic = coffin;
+import legendary from "../../public/images/legendary.png";
+import epic from "../../public/images/epic.png";
 
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
