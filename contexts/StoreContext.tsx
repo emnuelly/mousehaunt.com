@@ -80,10 +80,8 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const sale = "PrivateSale";
 
   const updateUserInfo = () => {
-    console.log("updateUserIn", account, !!contracts);
     if (account && contracts) {
       (async () => {
-        console.log("updating");
         const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
           account
         );
@@ -209,7 +207,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         signer
       ) as BUSD;
 
-      console.log("contracts", whitelistSale);
       setContracts({
         whitelistSale,
         boosterSale,

@@ -42,7 +42,6 @@ export const ConnectWalletButton = () => {
     useContext(StoreContext);
 
   const onClick = async () => {
-    console.log("CLICKED");
     if (account) {
       await (web3?.eth?.currentProvider as any).disconnect();
       setAccount("");
