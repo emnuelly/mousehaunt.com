@@ -35,7 +35,7 @@ const Landing: React.FC = () => (
     <Header>
       <Logo />
       <Sections sections={sections}></Sections>
-      <Link href="/store">STORE</Link>
+      <Link href="/store">PRIVATE SALE</Link>
     </Header>
     <Body>
       <BodyContent>
