@@ -13,6 +13,17 @@ const config = {
       address: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
     },
     WhitelistSale: {
+      SeedSale: {
+        owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+        MHTtoBUSD: "0.00125",
+        minMhtAmount: "80000",
+        maxMhtAmount: "16000000",
+        unlockAtIGOPercent: "4",
+        cliffMonths: "0",
+        vestingPeriodMonths: "12",
+        address: "0x705c4AC0e27F0c23a45DaEA490A056F62A786858",
+        available: "2000000",
+      },
       PrivateSale: {
         owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
         MHTtoBUSD: "0.0015",
@@ -64,6 +75,17 @@ const config = {
       address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
     },
     WhitelistSale: {
+      SeedSale: {
+        owner: "0xb53A11c980f6E3b4725977A69672A373954B0157",
+        MHTtoBUSD: "0.00125",
+        minMhtAmount: "80000",
+        maxMhtAmount: "16000000",
+        unlockAtIGOPercent: "4",
+        cliffMonths: "0",
+        vestingPeriodMonths: "12",
+        address: "0x60Cef40Ada756c426ffaC21CabFb847f357Bcf6F",
+        available: "2000000",
+      },
       PrivateSale: {
         owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
         MHTtoBUSD: "0.15",

@@ -4,6 +4,7 @@ import config, { Network } from "../../src/config";
 
 async function main() {
   const network: Network = process.env.NETWORK as Network;
+  const sale = "SeedSale";
 
   const MHT = await ethers.getContractFactory("MouseHauntToken");
   const mht = MHT.attach(config[network].MouseHauntToken.address);
@@ -12,15 +13,15 @@ async function main() {
 
   const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
   const whitelistSale = await WhitelistSale.deploy(
-    config[network].WhitelistSale.PrivateSale.owner,
+    config[network].WhitelistSale[sale].owner,
     mht.address,
     config[network].BUSD.address,
-    wei(config[network].WhitelistSale.PrivateSale.MHTtoBUSD),
-    wei(config[network].WhitelistSale.PrivateSale.minMhtAmount),
-    wei(config[network].WhitelistSale.PrivateSale.maxMhtAmount),
-    config[network].WhitelistSale.PrivateSale.unlockAtIGOPercent,
-    config[network].WhitelistSale.PrivateSale.cliffMonths,
-    config[network].WhitelistSale.PrivateSale.vestingPeriodMonths
+    wei(config[network].WhitelistSale[sale].MHTtoBUSD),
+    wei(config[network].WhitelistSale[sale].minMhtAmount),
+    wei(config[network].WhitelistSale[sale].maxMhtAmount),
+    config[network].WhitelistSale[sale].unlockAtIGOPercent,
+    config[network].WhitelistSale[sale].cliffMonths,
+    config[network].WhitelistSale[sale].vestingPeriodMonths
   );
 
   await whitelistSale.deployed();
