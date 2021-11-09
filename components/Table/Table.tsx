@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import mht from "../../public/images/MHT.png";
+// import legendary from "../../public/images/legendary.png";
+// import epic from "../../public/images/epic.png";
 import coffin from "../../public/images/coffin-store.png";
+
+const legendary = coffin;
+const epic = coffin;
 
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
@@ -67,7 +72,7 @@ const Table: React.FC = () => {
       itemSub: "Mouse Haunt Booster LEGENDARY",
       type: userInfo?.boosters.legendary,
       typeSub: "Available on wallet",
-      image: coffin,
+      image: legendary,
       status: "AVAILABLE",
     },
     {
@@ -75,7 +80,7 @@ const Table: React.FC = () => {
       itemSub: "Mouse Haunt Booster EPIC",
       type: userInfo?.boosters.epic,
       typeSub: "Available on wallet",
-      image: coffin,
+      image: epic,
       status: "AVAILABLE",
     },
     {
