@@ -48,6 +48,62 @@ describe("WhitelistSale", function () {
     await whitelistSale.deployed();
   });
 
+  it("Should check constructor parameters", async function () {
+    const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
+    await expect(
+      WhitelistSale.deploy(
+        "0x0000000000000000000000000000000000000000",
+        mht.address,
+        busd.address,
+        mhtToBusd,
+        minMhtAmount,
+        maxMhtAmount,
+        unlockAtIGOPercent,
+        cliffMonths,
+        vestingPeriodMonths
+      )
+    ).to.be.revertedWith("zero mhtOwner");
+    await expect(
+      WhitelistSale.deploy(
+        whitelistSaleWallet.address,
+        "0x0000000000000000000000000000000000000000",
+        busd.address,
+        mhtToBusd,
+        minMhtAmount,
+        maxMhtAmount,
+        unlockAtIGOPercent,
+        cliffMonths,
+        vestingPeriodMonths
+      )
+    ).to.be.revertedWith("zero mht");
+    await expect(
+      WhitelistSale.deploy(
+        whitelistSaleWallet.address,
+        mht.address,
+        "0x0000000000000000000000000000000000000000",
+        mhtToBusd,
+        minMhtAmount,
+        maxMhtAmount,
+        unlockAtIGOPercent,
+        cliffMonths,
+        vestingPeriodMonths
+      )
+    ).to.be.revertedWith("zero busd");
+    await expect(
+      WhitelistSale.deploy(
+        whitelistSaleWallet.address,
+        mht.address,
+        busd.address,
+        mhtToBusd,
+        minMhtAmount,
+        maxMhtAmount,
+        101,
+        cliffMonths,
+        vestingPeriodMonths
+      )
+    ).to.be.revertedWith("unlockAtIGOPercent must lte 100");
+  });
+
   it("Should have owner different than deployer", async function () {
     expect(await whitelistSale.owner()).to.equal(whitelistSaleWallet.address);
   });
@@ -64,6 +120,28 @@ describe("WhitelistSale", function () {
     await whitelistSale
       .connect(whitelistSaleWallet)
       .addToWhitelist([buyer.address]);
+  });
+
+  it("Should emit events on addToWhitelist and removeFromWhitelist", async function () {
+    const add = whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address, mhtOwner.address]);
+
+    await expect(add)
+      .to.emit(whitelistSale, "AddedToWhitelist")
+      .withArgs(buyer.address)
+      .to.emit(whitelistSale, "AddedToWhitelist")
+      .withArgs(mhtOwner.address);
+
+    const remove = whitelistSale
+      .connect(whitelistSaleWallet)
+      .removeFromWhitelist([buyer.address, mhtOwner.address]);
+
+    await expect(remove)
+      .to.emit(whitelistSale, "RemovedFromWhitelist")
+      .withArgs(buyer.address)
+      .to.emit(whitelistSale, "RemovedFromWhitelist")
+      .withArgs(mhtOwner.address);
   });
 
   it("Should buy MHT if whitelisted and approve pattern", async function () {
