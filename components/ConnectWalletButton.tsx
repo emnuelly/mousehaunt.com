@@ -49,7 +49,7 @@ export const ConnectWalletButton = () => {
     }
   };
 
-  const buttonText = account ? "DISCONNECT" : "CONNECT WITH METAMASK";
+  const buttonText = account ? "DISCONNECT" : "CONNECT WALLET";
   const whitelistedText =
     account && userInfo
       ? userInfo?.whitelisted
@@ -58,7 +58,7 @@ export const ConnectWalletButton = () => {
       : "";
   const mhtPurchasedText =
     account && userInfo?.whitelisted
-      ? userInfo?.totalTokens + " MHT PURCHASED"
+      ? userInfo?.totalTokens + " $MHT PURCHASED"
       : "";
 
   return (

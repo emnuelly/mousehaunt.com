@@ -1,5 +1,9 @@
 import { ethers } from "ethers";
-import { useRouter } from "next/router";
+import Web3 from "web3";
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Authereum from "authereum";
+
 import React, {
   createContext,
   ReactNode,
@@ -105,13 +109,19 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, [refresh, updateUserInfo]);
 
   useEffect(() => {
-    window.ethereum?.on("accountsChanged", function (accounts) {
-      setAccount((accounts as string[])[0]);
+    window.ethereum?.on("accountsChanged", function (accounts: string[]) {
+      setAccount(accounts[0]);
     });
   }, []);
 
   useEffect(() => {
-    contracts?.provider.getSigner(0).getAddress().then(setAccount);
+    (async () => {
+      try {
+        await contracts?.provider.getSigner(0).getAddress().then(setAccount);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
   }, [contracts]);
 
   useEffect(() => {
@@ -122,10 +132,27 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, []);
 
   const getAccount = async () => {
-    const accounts = await window.ethereum?.request({
-      method: "eth_requestAccounts",
+    const providerOptions = {
+      walletconnect: {
+        package: WalletConnectProvider,
+        options: {
+          rpc: {
+            56: "https://bsc-dataseed.binance.org/",
+          },
+          network: "binance",
+        },
+      },
+    };
+    const web3Modal = new Web3Modal({
+      cacheProvider: true,
+      providerOptions,
     });
-    return accounts ? (accounts as string[])[0] : "";
+    const provider = await web3Modal.connect();
+    const web3 = new Web3(provider);
+
+    const accounts = await web3.eth.getAccounts();
+    const account = accounts[0];
+    return account;
   };
 
   return (
