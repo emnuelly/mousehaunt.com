@@ -45,10 +45,9 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [account, setAccount] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfoDetailed | undefined>();
   const [refresh, setRefresh] = useState(false);
-  const router = useRouter();
   const contracts = useContracts();
 
-  const sale = router.query.seed !== undefined ? "SeedSale" : "PrivateSale";
+  const sale = "PrivateSale";
 
   const updateUserInfo = useCallback(() => {
     if (account && contracts) {

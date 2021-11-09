@@ -32,7 +32,9 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     "isWhitelisted(address)": FunctionFragment;
     "maxMhtAmount()": FunctionFragment;
     "mht()": FunctionFragment;
+    "mhtOnSale()": FunctionFragment;
     "mhtOwner()": FunctionFragment;
+    "mhtSold()": FunctionFragment;
     "mhtToBusd()": FunctionFragment;
     "minMhtAmount()": FunctionFragment;
     "owner()": FunctionFragment;
@@ -79,7 +81,9 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "mht", values?: undefined): string;
+  encodeFunctionData(functionFragment: "mhtOnSale", values?: undefined): string;
   encodeFunctionData(functionFragment: "mhtOwner", values?: undefined): string;
+  encodeFunctionData(functionFragment: "mhtSold", values?: undefined): string;
   encodeFunctionData(functionFragment: "mhtToBusd", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "minMhtAmount",
@@ -146,7 +150,9 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "mht", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mhtOnSale", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mhtOwner", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mhtSold", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mhtToBusd", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "minMhtAmount",
@@ -310,7 +316,11 @@ export class WhitelistSale extends BaseContract {
 
     mht(overrides?: CallOverrides): Promise<[string]>;
 
+    mhtOnSale(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     mhtOwner(overrides?: CallOverrides): Promise<[string]>;
+
+    mhtSold(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mhtToBusd(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -391,7 +401,11 @@ export class WhitelistSale extends BaseContract {
 
   mht(overrides?: CallOverrides): Promise<string>;
 
+  mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+
   mhtOwner(overrides?: CallOverrides): Promise<string>;
+
+  mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
 
   mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -464,7 +478,11 @@ export class WhitelistSale extends BaseContract {
 
     mht(overrides?: CallOverrides): Promise<string>;
 
+    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+
     mhtOwner(overrides?: CallOverrides): Promise<string>;
+
+    mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
 
     mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -609,7 +627,11 @@ export class WhitelistSale extends BaseContract {
 
     mht(overrides?: CallOverrides): Promise<BigNumber>;
 
+    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+
     mhtOwner(overrides?: CallOverrides): Promise<BigNumber>;
+
+    mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
 
     mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -690,7 +712,11 @@ export class WhitelistSale extends BaseContract {
 
     mht(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    mhtOnSale(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     mhtOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    mhtSold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     mhtToBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
