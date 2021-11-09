@@ -45,7 +45,7 @@ const Whitelist: NextPage = () => {
             href="https://sweepwidget.com/view/38985-5ebg0c61"
             target="_blank"
           >
-            JOIN WHITELIST
+            JOIN WHITELIST #2
           </Link>
         </BoxContent>
         <Mice>
