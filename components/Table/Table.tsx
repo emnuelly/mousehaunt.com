@@ -28,7 +28,7 @@ const Table: React.FC = () => {
   const [monthlyAmount, setMonthlyAmount] = useState("");
 
   const mhts = Array.from(Array(12).keys()).map((i) => ({
-    item: "MHT",
+    item: "$MHT",
     itemSub: "Mouse Haunt Token",
     type: monthlyAmount,
     typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IGO`,
@@ -84,7 +84,7 @@ const Table: React.FC = () => {
       status: "AVAILABLE",
     },
     {
-      item: "MHT",
+      item: "$MHT",
       itemSub: "Mouse Haunt Token",
       type: igoAmount,
       typeSub: "Claimable on IGO",

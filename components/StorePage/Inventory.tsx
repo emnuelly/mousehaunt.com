@@ -42,9 +42,11 @@ const Inventory: NextPage = () => {
                 Boosters will be on your wallet right away! <br />
                 Get the #🧀trade channel ready.
               </div>
+              <br />
               <div>
                 $MHT won&apos;t be on your wallet, you will claim $MHT only at
-                IGO! To be compliant with big launchpads, we can only make $MHT
+                IGO! <br />
+                To be compliant with big launchpads, we can only make $MHT
                 available at IGO, not before.
               </div>
             </StorePageSub>
