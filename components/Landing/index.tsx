@@ -30,19 +30,12 @@ const sections = [
   { title: "Roadmap", to: "Roadmap" },
 ];
 
-interface Props {
-  location: string;
-  pageHeaders?: string[] | undefined;
-}
-
 const Landing: React.FC = () => (
   <Container id="About">
     <Header>
       <Logo />
       <Sections sections={sections}></Sections>
-      <Link href="/store" target="_blank">
-        STORE
-      </Link>
+      <Link href="/store">STORE</Link>
     </Header>
     <Body>
       <BodyContent>
