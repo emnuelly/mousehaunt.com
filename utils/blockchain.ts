@@ -18,6 +18,14 @@ export const getNetwork = (router: NextRouter): Network => {
       : 'bsc';
 }
 
+type Sale = 'SeedSale' | 'PrivateSale'
+
+export const getSale = (router: NextRouter): Sale => {
+    return router.query.seed !== undefined
+      ? 'SeedSale'
+      : 'PrivateSale';
+}
+
 export const addToWallet = async (network: Network) => {
   const tokenDecimals = 18;
 

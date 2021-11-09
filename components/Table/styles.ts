@@ -27,7 +27,6 @@ width: 100%;
     }
     th:nth-child(1) {
       width: 40px;
-      text-align: center;
     }
 
     th,

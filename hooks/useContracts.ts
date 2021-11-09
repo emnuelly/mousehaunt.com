@@ -12,7 +12,7 @@ import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import { useRouter } from "next/router";
-import { getNetwork } from "../utils/blockchain";
+import { getNetwork, getSale } from "../utils/blockchain";
 import { StoreContext } from "../contexts/StoreContext";
 
 export interface Contracts {
@@ -28,13 +28,14 @@ export function useContracts() {
   const [contracts, setContracts] = useState<Contracts|null>(null);
   const router = useRouter();
   const network = getNetwork(router)
+  const sale = getSale(router)
 
   useEffect(() => {
     if (window.ethereum) {
       const provider = new ethers.providers.Web3Provider(window.ethereum as any);
       const signer = provider.getSigner(0);
       const whitelistSale = new ethers.Contract(
-        config[network].WhitelistSale.PrivateSale.address,
+        config[network].WhitelistSale[sale].address,
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
@@ -68,7 +69,7 @@ export function useContracts() {
         busd
       });
     }
-  }, [network]);
+  }, [network, sale]);
 
   return contracts;
 }

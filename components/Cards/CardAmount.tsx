@@ -20,7 +20,11 @@ import {
 import { Button } from "../Button";
 import config, { Network } from "../../utils/config";
 import waitFor from "../../utils/waitFor";
-import { getNetwork, isTransactionMined } from "../../utils/blockchain";
+import {
+  getNetwork,
+  getSale,
+  isTransactionMined,
+} from "../../utils/blockchain";
 import { useContracts } from "../../hooks/useContracts";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
@@ -47,21 +51,20 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const router = useRouter();
   const { refresh, userInfo, setRefresh } = useContext(StoreContext);
   const network = getNetwork(router);
+  const sale = getSale(router);
 
-  const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale.MHTtoBUSD
-  );
+  const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const minBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale.minMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale.MHTtoBUSD);
+    Number(config[network].WhitelistSale[sale].minMhtAmount) *
+    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
   const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale.MHTtoBUSD);
+    Number(config[network].WhitelistSale[sale].maxMhtAmount) *
+    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const [busdAmount, setBusdAmount] = useState(minBusdAmount.toString());
   const [mhtAmount, setMhtAmount] = useState(
-    config[network].WhitelistSale.PrivateSale.minMhtAmount
+    config[network].WhitelistSale[sale].minMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
 
@@ -99,7 +102,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       try {
         setBuying(true);
         const approve = await contracts?.busd?.approve(
-          config[network].WhitelistSale.PrivateSale.address,
+          config[network].WhitelistSale[sale].address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(

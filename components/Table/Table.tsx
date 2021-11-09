@@ -38,25 +38,27 @@ const Table: React.FC = () => {
         await contracts?.whitelistSale.unlockAtIGOPercent();
       const vestingPeriodMonths =
         await contracts?.whitelistSale.vestingPeriodMonths();
-      const igo = unlockAtIGOPercent
-        ? ethers.utils.formatEther(
-            ethers.utils
-              .parseEther(userInfo?.totalTokens ?? "")
-              .mul(unlockAtIGOPercent)
-              .div(100)
-              .toString()
-          )
-        : "";
-      const amount = unlockAtIGOPercent
-        ? ethers.utils.formatEther(
-            ethers.utils
-              .parseEther(userInfo?.totalTokens ?? "")
-              .mul(100 - Number(unlockAtIGOPercent))
-              .div(100)
-              .div(vestingPeriodMonths ?? "")
-              .toString()
-          )
-        : "";
+      const igo =
+        unlockAtIGOPercent && userInfo?.totalTokens
+          ? ethers.utils.formatEther(
+              ethers.utils
+                .parseEther(userInfo.totalTokens)
+                .mul(unlockAtIGOPercent)
+                .div(100)
+                .toString()
+            )
+          : "";
+      const amount =
+        unlockAtIGOPercent && userInfo?.totalTokens && vestingPeriodMonths
+          ? ethers.utils.formatEther(
+              ethers.utils
+                .parseEther(userInfo.totalTokens)
+                .mul(100 - Number(unlockAtIGOPercent))
+                .div(100)
+                .div(vestingPeriodMonths)
+                .toString()
+            )
+          : "";
       setIgoAmount(truncate(igo));
       setMonthlyAmount(truncate(amount));
     })();
@@ -99,8 +101,8 @@ const Table: React.FC = () => {
           <th>Amount</th>
           <th>Status</th>
         </tr>
-        {data.map((e) => (
-          <tr key={e.item}>
+        {data.map((e, index) => (
+          <tr key={index}>
             <td>
               <Image alt="MHT" width="100" height="100" src={e.image} />
             </td>

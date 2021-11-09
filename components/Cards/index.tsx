@@ -17,55 +17,66 @@ import CardAmount from "./CardAmount";
 import Footer from "../Footer/index";
 import { Ruler } from "../Ruler";
 import React from "react";
-
-const ITEMS = [
-  {
-    image: mht,
-    title: "BUY",
-    sub: "$MHT",
-    buyMht: true,
-    subtitles: [
-      "Price: 1 $MHT = 0.15 $BUSD",
-      "Minimum purchase: 75 $BUSD",
-      "Maximum purchase: 600 $BUSD",
-      "IDO unlock: 8% ",
-      "Vesting: 12 months",
-    ],
-    icon: <BiRightArrowAlt />,
-  },
-
-  {
-    image: epic,
-    title: "EPIC",
-    sub: "BOOSTER",
-    subtitles: [
-      "Price: 1 EPIC booster = 75 $BUSD",
-      "Probabilities: 99% Epic Mouse Hero NFT",
-      "Probabilities: 1% Legendary Mouse Hero NFT ",
-      "Maximum purchase: 6 ",
-      "",
-    ],
-    legendary: false,
-    icon: <BiRightArrowAlt />,
-  },
-
-  {
-    image: legendary,
-    title: "LEGENDARY",
-    sub: "BOOSTER",
-    subtitles: [
-      "Price: 1 LEGENDARY booster = 250 $BUSD",
-      "Probabilities: 100% Legendary Mouse Hero NFT ",
-      "Maximum purchase: 2 ",
-      "",
-      "",
-    ],
-    legendary: true,
-    icon: <BiRightArrowAlt />,
-  },
-];
+import config from "../../utils/config";
+import { useRouter } from "next/router";
+import { getNetwork, getSale } from "../../utils/blockchain";
 
 const Cards: NextPage = () => {
+  const router = useRouter();
+  const network = getNetwork(router);
+  const sale = getSale(router);
+  const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
+
+  const minBusdAmount =
+    Number(config[network].WhitelistSale[sale].minMhtAmount) *
+    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
+  const maxBusdAmount =
+    Number(config[network].WhitelistSale[sale].maxMhtAmount) *
+    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
+  const idoUnlock = config[network].WhitelistSale[sale].unlockAtIGOPercent;
+  const vesting = config[network].WhitelistSale[sale].vestingPeriodMonths;
+  const ITEMS = [
+    {
+      image: mht,
+      title: "BUY",
+      sub: "$MHT",
+      buyMht: true,
+      subtitles: [
+        `Price: 1 $MHT = ${MHT_TO_BUSD} $BUSD`,
+        `Minimum purchase: ${minBusdAmount} $BUSD`,
+        `Maximum purchase: ${maxBusdAmount} $BUSD`,
+        `IDO unlock: ${idoUnlock}%`,
+        `Vesting: ${vesting} months`,
+      ],
+    },
+
+    {
+      image: epic,
+      title: "EPIC",
+      sub: "BOOSTER",
+      subtitles: [
+        "Price: 1 EPIC booster = 75 $BUSD",
+        "Probabilities: 99% Epic Mouse Hero NFT",
+        "Probabilities: 1% Legendary Mouse Hero NFT ",
+        "Maximum purchase: 6 ",
+        "",
+      ],
+    },
+
+    {
+      image: legendary,
+      title: "LEGENDARY",
+      sub: "BOOSTER",
+      subtitles: [
+        "Price: 1 LEGENDARY booster = 250 $BUSD",
+        "Probabilities: 100% Legendary Mouse Hero NFT ",
+        "Maximum purchase: 2 ",
+        "",
+        "",
+      ],
+    },
+  ];
+
   const iterateThroughItems = () => {
     return ITEMS.map((item, index) => {
       return (
@@ -89,7 +100,9 @@ const Cards: NextPage = () => {
                 {item.subtitles.map((text, v) => {
                   return text ? (
                     <li key={v}>
-                      <IconStyle>{item.icon}</IconStyle>
+                      <IconStyle>
+                        <BiRightArrowAlt />
+                      </IconStyle>
                       {text}
                     </li>
                   ) : (
