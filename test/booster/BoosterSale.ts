@@ -50,15 +50,15 @@ describe("BoosterSale", function () {
   it("Should be pausable", async function () {
     await boosterSale.connect(boosterOwner).pause();
 
-    await expect(boosterSale.getBoosterIndex(bmhtl.address)).to.be.revertedWith(
+    await expect(boosterSale.buy(bmhtl.address, 1)).to.be.revertedWith(
       "Pausable: paused"
     );
 
     await boosterSale.connect(boosterOwner).unpause();
 
-    await expect(
-      boosterSale.getBoosterIndex(bmhtl.address)
-    ).to.not.be.revertedWith("Pausable: paused");
+    await expect(boosterSale.buy(bmhtl.address, 1)).to.not.be.revertedWith(
+      "Pausable: paused"
+    );
   });
 
   it("configure", async function () {
@@ -112,18 +112,6 @@ describe("BoosterSale", function () {
 
     expect(await boosterSale.boosters(0)).to.equal(boosters[1]);
     expect(await boosterSale.boosters(1)).to.equal(boosters[0]);
-  });
-
-  it("getBoosterIndex", async function () {
-    await boosterSale
-      .connect(boosterOwner)
-      .configure(boosters, busdPricePerBoosterInWei, capPerBoosterInWei);
-
-    expect(await boosterSale.getBoosterIndex(bmhtl.address)).to.equal(0);
-    expect(await boosterSale.getBoosterIndex(bmhte.address)).to.equal(1);
-    await expect(
-      boosterSale.getBoosterIndex(boosterOwner.address)
-    ).to.be.revertedWith("BoosterSale: invalid booster");
   });
 
   it("buy: invalid booster amount", async function () {

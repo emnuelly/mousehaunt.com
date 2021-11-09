@@ -19,6 +19,7 @@ contract BoosterSale is Pausable, Ownable {
   uint256[] public capPerBoosterInWei;
 
   mapping(address => bool) public isWhitelisted;
+  mapping(IERC20 => uint256) public boosterToBoosterIndex;
 
   constructor(address _boosterOwner, IERC20 _busd) {
     transferOwnership(_boosterOwner);
@@ -55,25 +56,8 @@ contract BoosterSale is Pausable, Ownable {
       boosters.push(_boosters[i]);
       busdPricePerBoosterInWei.push(_busdPricePerBoosterInWei[i]);
       capPerBoosterInWei.push(_capPerBoosterInWei[i]);
+      boosterToBoosterIndex[_boosters[i]] = i;
     }
-  }
-
-  function getBoosterIndex(IERC20 booster)
-    public
-    view
-    whenNotPaused
-    returns (uint256 _index)
-  {
-    int256 index = -1;
-    for (uint256 i = 0; i < boosters.length; i++) {
-      if (boosters[i] == booster) {
-        index = int256(i);
-      }
-    }
-    require(index != -1, "BoosterSale: invalid booster");
-
-    uint256 uindex = uint256(index);
-    return uindex;
   }
 
   function buy(IERC20 booster, uint256 _numberOfBoostersInWei)
@@ -86,7 +70,7 @@ contract BoosterSale is Pausable, Ownable {
       "BoosterSale: invalid amount"
     );
 
-    uint256 index = getBoosterIndex(booster);
+    uint256 index = boosterToBoosterIndex[booster];
 
     uint256 capInWei = capPerBoosterInWei[index];
     require(_numberOfBoostersInWei <= capInWei, "BoosterSale: above cap");

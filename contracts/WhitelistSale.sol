@@ -38,6 +38,7 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
       _vestingPeriodMonths
     )
   {
+    require(_busd != IERC20(address(0)), "zero busd");
     transferOwnership(_mhtOwner);
 
     busd = _busd;

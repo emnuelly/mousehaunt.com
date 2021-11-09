@@ -38,6 +38,10 @@ contract TokenAllocation {
     uint256 _cliffMonths,
     uint256 _vestingPeriodMonths
   ) {
+    require(_mhtOwner != address(0), "zero mhtOwner");
+    require(_mht != IERC20(address(0)), "zero mht");
+    require(_unlockAtIGOPercent <= 100, "unlockAtIGOPercent must lte 100");
+
     mhtOwner = _mhtOwner;
     mht = _mht;
     unlockAtIGOPercent = _unlockAtIGOPercent;

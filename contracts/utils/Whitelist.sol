@@ -5,6 +5,9 @@ pragma solidity ^0.8.2;
 abstract contract Whitelist {
   mapping(address => bool) private _whitelist;
 
+  event AddedToWhitelist(address wallet);
+  event RemovedFromWhitelist(address wallet);
+
   modifier whitelisted(address wallet) {
     require(isWhitelisted(wallet), "Whitelist: not whitelisted");
     _;
@@ -17,12 +20,14 @@ abstract contract Whitelist {
   function _addToWhitelist(address[] memory wallets) internal virtual {
     for (uint256 i = 0; i < wallets.length; i++) {
       _whitelist[wallets[i]] = true;
+      emit AddedToWhitelist(wallets[i]);
     }
   }
 
   function _removeFromWhitelist(address[] memory wallets) internal virtual {
     for (uint256 i = 0; i < wallets.length; i++) {
       _whitelist[wallets[i]] = false;
+      emit RemovedFromWhitelist(wallets[i]);
     }
   }
 }
