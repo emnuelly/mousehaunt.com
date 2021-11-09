@@ -7,7 +7,6 @@ import epic from "../../public/images/epic.png";
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
 import { ethers } from "ethers";
-import { useContracts } from "../../hooks/useContracts";
 
 function truncate(str: string, maxDecimalDigits = 3) {
   if (str.includes(".")) {
@@ -18,8 +17,7 @@ function truncate(str: string, maxDecimalDigits = 3) {
 }
 
 const Table: React.FC = () => {
-  const { userInfo } = useContext(StoreContext);
-  const contracts = useContracts();
+  const { userInfo, contracts } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
 

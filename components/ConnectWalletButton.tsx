@@ -1,8 +1,6 @@
-import { ethers } from "ethers";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import { StoreContext } from "../contexts/StoreContext";
-import { useContracts } from "../hooks/useContracts";
 import { Button } from "./Button";
 
 const Container = styled.div`
