@@ -16,15 +16,16 @@ import CardAmount from "./CardAmount";
 
 import Footer from "../Footer/index";
 import { Ruler } from "../Ruler";
-import React from "react";
+import React, { useContext } from "react";
 import config from "../../utils/config";
 import { useRouter } from "next/router";
-import { getNetwork, getSale } from "../../utils/blockchain";
+import { getNetwork } from "../../utils/blockchain";
+import { StoreContext } from "../../contexts/StoreContext";
 
 const Cards: NextPage = () => {
   const router = useRouter();
   const network = getNetwork(router);
-  const sale = getSale(router);
+  const { sale } = useContext(StoreContext);
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const minBusdAmount =

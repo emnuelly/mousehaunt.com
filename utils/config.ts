@@ -77,13 +77,13 @@ const config = {
     WhitelistSale: {
       SeedSale: {
         owner: "0xb53A11c980f6E3b4725977A69672A373954B0157",
-        MHTtoBUSD: "0.00125",
+        MHTtoBUSD: "0.125",
         minMhtAmount: "80000",
         maxMhtAmount: "16000000",
         unlockAtIGOPercent: "4",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "0x60Cef40Ada756c426ffaC21CabFb847f357Bcf6F",
+        address: "0x95597B4395F17e76042a7e1c8114B8B7BAF27EF6",
         available: "2000000",
       },
       PrivateSale: {

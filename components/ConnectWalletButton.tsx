@@ -45,15 +45,7 @@ export const ConnectWalletButton = () => {
     }
   };
 
-  useEffect(() => {
-    if (account) {
-      (async () => {
-        setAccount(await getAccount());
-      })();
-    }
-  }, [account, setAccount, getAccount]);
-
-  const buttonText = account ? "DISCONNECT" : "CONNECT TO WALLET";
+  const buttonText = account ? "DISCONNECT" : "CONNECT WITH METAMASK";
   const whitelistedText =
     account && userInfo
       ? userInfo?.whitelisted

@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { useRouter } from "next/router";
 import React, {
   createContext,
   ReactNode,
@@ -6,7 +7,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Contracts, useContracts } from "../hooks/useContracts";
+import { useContracts } from "../hooks/useContracts";
 
 interface Props {
   children: ReactNode;
@@ -24,6 +25,8 @@ export interface UserInfoDetailed {
   };
 }
 
+export type Sale = "SeedSale" | "PrivateSale";
+
 interface StoreContextData {
   userInfo?: UserInfoDetailed;
   account: string;
@@ -31,17 +34,21 @@ interface StoreContextData {
   setAccount: React.Dispatch<string>;
   getAccount: () => Promise<string>;
   setRefresh: React.Dispatch<boolean>;
+  sale: Sale;
 }
 
-export const StoreContext = createContext<StoreContextData>(
-  {} as StoreContextData
-);
+export const StoreContext = createContext<StoreContextData>({
+  sale: "PrivateSale",
+} as StoreContextData);
 
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [account, setAccount] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfoDetailed | undefined>();
   const [refresh, setRefresh] = useState(false);
+  const router = useRouter();
   const contracts = useContracts();
+
+  const sale = router.query.seed !== undefined ? "SeedSale" : "PrivateSale";
 
   const updateUserInfo = useCallback(() => {
     if (account && contracts) {
@@ -70,7 +77,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         const lastClaimMonthIndex = userInfo ? Number(userInfo[2]) : -1;
         const legendary = await contracts?.bmhtl.balanceOf(account);
         const epic = await contracts?.bmhte.balanceOf(account);
-        console.log({ legendary, epic });
         const boosters = {
           legendary: ethers.utils
             .formatEther(legendary ?? "")
@@ -105,6 +111,10 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     });
   }, []);
 
+  useEffect(() => {
+    contracts?.provider.getSigner(0).getAddress().then(setAccount);
+  }, [contracts]);
+
   const getAccount = async () => {
     const accounts = await window.ethereum?.request({
       method: "eth_requestAccounts",
@@ -121,6 +131,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         getAccount,
         setAccount,
         setRefresh,
+        sale,
       }}
     >
       {children}

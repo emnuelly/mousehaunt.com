@@ -12,7 +12,7 @@ import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import { useRouter } from "next/router";
-import { getNetwork, getSale } from "../utils/blockchain";
+import { getNetwork } from "../utils/blockchain";
 import { StoreContext } from "../contexts/StoreContext";
 
 export interface Contracts {
@@ -28,7 +28,7 @@ export function useContracts() {
   const [contracts, setContracts] = useState<Contracts|null>(null);
   const router = useRouter();
   const network = getNetwork(router)
-  const sale = getSale(router)
+  const { sale } = useContext(StoreContext);
 
   useEffect(() => {
     if (window.ethereum) {

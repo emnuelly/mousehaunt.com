@@ -20,11 +20,7 @@ import {
 import { Button } from "../Button";
 import config, { Network } from "../../utils/config";
 import waitFor from "../../utils/waitFor";
-import {
-  getNetwork,
-  getSale,
-  isTransactionMined,
-} from "../../utils/blockchain";
+import { getNetwork, isTransactionMined } from "../../utils/blockchain";
 import { useContracts } from "../../hooks/useContracts";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
@@ -49,9 +45,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
   const router = useRouter();
-  const { refresh, userInfo, setRefresh } = useContext(StoreContext);
+  const { refresh, userInfo, setRefresh, sale } = useContext(StoreContext);
   const network = getNetwork(router);
-  const sale = getSale(router);
 
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
