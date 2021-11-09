@@ -13,14 +13,12 @@ async function main() {
     config[network].WhitelistSale.PrivateSale.address
   );
 
-  console.log(`WhitelistSale approve`);
-
   const wei = (x: string): string => ethers.utils.parseEther(x).toString();
+  const amount = wei(config[network].WhitelistSale.PrivateSale.available);
 
-  await mht.approve(
-    whitelistSale.address,
-    wei(config[network].WhitelistSale.PrivateSale.available)
-  );
+  console.log(`WhitelistSale approve`, whitelistSale.address, amount);
+
+  await mht.approve(whitelistSale.address, amount);
 }
 
 main().catch((error) => {

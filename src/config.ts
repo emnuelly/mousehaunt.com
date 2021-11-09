@@ -72,7 +72,7 @@ const config = {
         unlockAtIGOPercent: "8",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "",
+        address: "0x020FC06F4a4e87c29fa7f0A9164fb613BE716a21",
         available: "4000000",
       },
     },
@@ -97,7 +97,7 @@ const config = {
       available: "6000",
     },
     BoosterSale: {
-      address: "",
+      address: "0xCd18dC13B0D2bB941fEb3372aAAFb025d48E7303",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },
