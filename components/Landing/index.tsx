@@ -40,8 +40,8 @@ const Landing: React.FC = () => (
     <Header>
       <Logo />
       <Sections sections={sections}></Sections>
-      <Link href="https://sweepwidget.com/view/37247-hnmvxit9" target="_blank">
-        JOIN WHITELIST
+      <Link href="/store" target="_blank">
+        STORE
       </Link>
     </Header>
     <Body>
