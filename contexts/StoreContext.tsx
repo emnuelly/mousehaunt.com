@@ -114,15 +114,15 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     });
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        await contracts?.provider.getSigner(0).getAddress().then(setAccount);
-      } catch (err) {
-        console.error(err);
-      }
-    })();
-  }, [contracts]);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       await contracts?.provider.getSigner(0).getAddress().then(setAccount);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   })();
+  // }, [contracts]);
 
   useEffect(() => {
     window.ethereum?.request({
