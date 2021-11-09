@@ -28,7 +28,6 @@ export const Right = styled.div`
   width: 478px;
 
   a {
-    width: 156px;
     align-self: start;
 
     @media only screen and (max-width: 600px) {
