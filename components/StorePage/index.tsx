@@ -33,7 +33,7 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "SEED SALE ENDED";
+    document.getElementById("ends")!.innerText = "PRIVATE SALE ENDED";
     document.getElementById("ended-ul")!.style.display = "none";
     return;
   }
@@ -54,7 +54,7 @@ function countdown() {
 
 const Countdown = () => (
   <CountdownContainer>
-    <span id="ends">SEED SALE ENDS IN</span>
+    <span id="ends">PRIVATE SALE ENDS IN</span>
     <ul id="ended-ul">
       <li>
         <span id="days"></span>DAYS
