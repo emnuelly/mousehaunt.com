@@ -9,10 +9,12 @@ describe("WhitelistSale", function () {
   let mhtOwner: SignerWithAddress;
   let whitelistSaleWallet: SignerWithAddress;
   let buyer: SignerWithAddress;
+  let buyer2: SignerWithAddress;
 
   let mht: Contract;
   let busd: Contract;
 
+  const mhtOnSale = ethers.utils.parseEther("5000").toString();
   const mhtToBusd = ethers.utils.parseEther("0.15").toString();
   const minMhtAmount = ethers.utils.parseEther("500").toString();
   const maxMhtAmount = ethers.utils.parseEther("4000").toString();
@@ -23,7 +25,8 @@ describe("WhitelistSale", function () {
   let whitelistSale: Contract;
 
   beforeEach(async function () {
-    [, mhtOwner, buyer, whitelistSaleWallet] = await ethers.getSigners();
+    [, mhtOwner, buyer, buyer2, whitelistSaleWallet] =
+      await ethers.getSigners();
 
     const MHT = await ethers.getContractFactory("MouseHauntToken");
     mht = await MHT.deploy(mhtOwner.address);
@@ -32,12 +35,16 @@ describe("WhitelistSale", function () {
     const BUSD = await ethers.getContractFactory("MouseHauntToken");
     busd = await BUSD.deploy(buyer.address);
     await busd.deployed();
+    await busd
+      .connect(buyer)
+      .transfer(buyer2.address, "50000000000000000000000000");
 
     const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
     whitelistSale = await WhitelistSale.deploy(
       whitelistSaleWallet.address,
       mht.address,
       busd.address,
+      mhtOnSale,
       mhtToBusd,
       minMhtAmount,
       maxMhtAmount,
@@ -55,6 +62,7 @@ describe("WhitelistSale", function () {
         "0x0000000000000000000000000000000000000000",
         mht.address,
         busd.address,
+        mhtOnSale,
         mhtToBusd,
         minMhtAmount,
         maxMhtAmount,
@@ -68,6 +76,7 @@ describe("WhitelistSale", function () {
         whitelistSaleWallet.address,
         "0x0000000000000000000000000000000000000000",
         busd.address,
+        mhtOnSale,
         mhtToBusd,
         minMhtAmount,
         maxMhtAmount,
@@ -81,6 +90,7 @@ describe("WhitelistSale", function () {
         whitelistSaleWallet.address,
         mht.address,
         "0x0000000000000000000000000000000000000000",
+        mhtOnSale,
         mhtToBusd,
         minMhtAmount,
         maxMhtAmount,
@@ -94,6 +104,7 @@ describe("WhitelistSale", function () {
         whitelistSaleWallet.address,
         mht.address,
         busd.address,
+        mhtOnSale,
         mhtToBusd,
         minMhtAmount,
         maxMhtAmount,
@@ -120,6 +131,30 @@ describe("WhitelistSale", function () {
     await whitelistSale
       .connect(whitelistSaleWallet)
       .addToWhitelist([buyer.address]);
+  });
+
+  it("Should not allow users to purchase more MHT than what is on sale", async function () {
+    const mhtToBuy = ethers.utils.parseEther("4000");
+    const busdTotal = ethers.utils.parseEther("300000");
+
+    await mht.connect(mhtOwner).transfer(whitelistSaleWallet.address, mhtToBuy);
+
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address, buyer2.address]);
+
+    await mht
+      .connect(whitelistSaleWallet)
+      .approve(whitelistSale.address, mhtToBuy);
+
+    await busd.connect(buyer).approve(whitelistSale.address, busdTotal);
+    await busd.connect(buyer2).approve(whitelistSale.address, busdTotal);
+
+    await whitelistSale.connect(buyer).buy(mhtToBuy);
+
+    await expect(
+      whitelistSale.connect(buyer2).buy(mhtToBuy)
+    ).to.be.revertedWith("Sale: total MHT on sale reached");
   });
 
   it("Should emit events on addToWhitelist and removeFromWhitelist", async function () {
@@ -258,6 +293,7 @@ describe("WhitelistSale", function () {
       whitelistSaleWallet.address,
       mht.address,
       busd.address,
+      mhtOnSale,
       mhtToBusd,
       minMhtAmount,
       maxMhtAmount,
@@ -357,6 +393,7 @@ describe("WhitelistSale", function () {
       whitelistSaleWallet.address,
       mht.address,
       busd.address,
+      mhtOnSale,
       mhtToBusd,
       minMhtAmount,
       maxMhtAmount,
@@ -424,6 +461,7 @@ describe("WhitelistSale", function () {
       whitelistSaleWallet.address,
       mht.address,
       busd.address,
+      mhtOnSale,
       mhtToBusd,
       minMhtAmount,
       maxMhtAmount,
@@ -493,6 +531,7 @@ describe("WhitelistSale", function () {
       whitelistSaleWallet.address,
       mht.address,
       busd.address,
+      mhtOnSale,
       mhtToBusd,
       minMhtAmount,
       maxMhtAmount,

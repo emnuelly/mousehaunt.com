@@ -15,14 +15,18 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
   event IGO(uint256 indexed timestamp);
 
   IERC20 public immutable busd;
+  uint256 public immutable mhtOnSale;
   uint256 public immutable mhtToBusd;
   uint256 public immutable minMhtAmount;
   uint256 public immutable maxMhtAmount;
+
+  uint256 public mhtSold;
 
   constructor(
     address _mhtOwner,
     IERC20 _mht,
     IERC20 _busd,
+    uint256 _mhtOnSale,
     uint256 _mhtToBusd,
     uint256 _minMhtAmount,
     uint256 _maxMhtAmount,
@@ -42,6 +46,7 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
     transferOwnership(_mhtOwner);
 
     busd = _busd;
+    mhtOnSale = _mhtOnSale;
     mhtToBusd = _mhtToBusd;
     minMhtAmount = _minMhtAmount;
     maxMhtAmount = _maxMhtAmount;
@@ -76,6 +81,12 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
       _getUserTotalTokens(msg.sender) + _mhtAmount <= maxMhtAmount,
       "Sale: total greater than max"
     );
+    require(
+      mhtSold + _mhtAmount <= mhtOnSale,
+      "Sale: total MHT on sale reached"
+    );
+
+    mhtSold += _mhtAmount;
 
     uint256 busdAmount = (_mhtAmount * mhtToBusd) / 1e18;
 
