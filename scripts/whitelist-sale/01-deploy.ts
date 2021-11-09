@@ -4,7 +4,7 @@ import config, { Network } from "../../src/config";
 
 async function main() {
   const network: Network = process.env.NETWORK as Network;
-  const sale = "SeedSale";
+  const sale = "PrivateSale";
 
   const MHT = await ethers.getContractFactory("MouseHauntToken");
   const mht = MHT.attach(config[network].MouseHauntToken.address);
@@ -16,6 +16,7 @@ async function main() {
     config[network].WhitelistSale[sale].owner,
     mht.address,
     config[network].BUSD.address,
+    wei(config[network].WhitelistSale[sale].available),
     wei(config[network].WhitelistSale[sale].MHTtoBUSD),
     wei(config[network].WhitelistSale[sale].minMhtAmount),
     wei(config[network].WhitelistSale[sale].maxMhtAmount),

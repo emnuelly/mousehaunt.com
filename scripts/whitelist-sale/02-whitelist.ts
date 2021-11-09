@@ -5,11 +5,12 @@ import whitelist from "../whitelist.json";
 
 async function main() {
   const network: Network = process.env.NETWORK as Network;
+  const sale = "PrivateSale";
 
   const WhitelistSale = await ethers.getContractFactory("WhitelistSale");
 
   const whitelistSale = WhitelistSale.attach(
-    config[network].WhitelistSale.PrivateSale.address
+    config[network].WhitelistSale[sale].address
   );
 
   console.log(`WhitelistSale whitelist ${whitelist}`);

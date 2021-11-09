@@ -4,7 +4,7 @@ import config, { Network } from "../../src/config";
 
 async function main() {
   const network: Network = process.env.NETWORK as Network;
-  const sale = "SeedSale";
+  const sale = "PrivateSale";
 
   const MouseHauntToken = await ethers.getContractFactory("MouseHauntToken");
   const mht = MouseHauntToken.attach(config[network].MouseHauntToken.address);
