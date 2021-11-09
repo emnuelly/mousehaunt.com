@@ -23,13 +23,13 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
   functions: {
     "addToWhitelist(address[])": FunctionFragment;
     "boosterOwner()": FunctionFragment;
+    "boosterToBoosterIndex(address)": FunctionFragment;
     "boosters(uint256)": FunctionFragment;
     "busd()": FunctionFragment;
     "busdPricePerBoosterInWei(uint256)": FunctionFragment;
     "buy(address,uint256)": FunctionFragment;
     "capPerBoosterInWei(uint256)": FunctionFragment;
     "configure(address[],uint256[],uint256[])": FunctionFragment;
-    "getBoosterIndex(address)": FunctionFragment;
     "isWhitelisted(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "pause()": FunctionFragment;
@@ -47,6 +47,10 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "boosterOwner",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "boosterToBoosterIndex",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "boosters",
@@ -68,10 +72,6 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "configure",
     values: [string[], BigNumberish[], BigNumberish[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getBoosterIndex",
-    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "isWhitelisted",
@@ -102,6 +102,10 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     functionFragment: "boosterOwner",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "boosterToBoosterIndex",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "boosters", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "busd", data: BytesLike): Result;
   decodeFunctionResult(
@@ -114,10 +118,6 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "configure", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getBoosterIndex",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "isWhitelisted",
     data: BytesLike
@@ -209,6 +209,11 @@ export class BoosterSale extends BaseContract {
 
     boosterOwner(overrides?: CallOverrides): Promise<[string]>;
 
+    boosterToBoosterIndex(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     boosters(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     busd(overrides?: CallOverrides): Promise<[string]>;
@@ -235,11 +240,6 @@ export class BoosterSale extends BaseContract {
       _capPerBoosterInWei: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    getBoosterIndex(
-      booster: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { _index: BigNumber }>;
 
     isWhitelisted(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -277,6 +277,11 @@ export class BoosterSale extends BaseContract {
 
   boosterOwner(overrides?: CallOverrides): Promise<string>;
 
+  boosterToBoosterIndex(
+    arg0: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   boosters(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   busd(overrides?: CallOverrides): Promise<string>;
@@ -303,11 +308,6 @@ export class BoosterSale extends BaseContract {
     _capPerBoosterInWei: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  getBoosterIndex(
-    booster: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   isWhitelisted(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -342,6 +342,11 @@ export class BoosterSale extends BaseContract {
 
     boosterOwner(overrides?: CallOverrides): Promise<string>;
 
+    boosterToBoosterIndex(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     boosters(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     busd(overrides?: CallOverrides): Promise<string>;
@@ -368,11 +373,6 @@ export class BoosterSale extends BaseContract {
       _capPerBoosterInWei: BigNumberish[],
       overrides?: CallOverrides
     ): Promise<void>;
-
-    getBoosterIndex(
-      booster: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     isWhitelisted(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
@@ -435,6 +435,11 @@ export class BoosterSale extends BaseContract {
 
     boosterOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
+    boosterToBoosterIndex(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     boosters(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     busd(overrides?: CallOverrides): Promise<BigNumber>;
@@ -460,11 +465,6 @@ export class BoosterSale extends BaseContract {
       _busdPricePerBoosterInWei: BigNumberish[],
       _capPerBoosterInWei: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    getBoosterIndex(
-      booster: string,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     isWhitelisted(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -504,6 +504,11 @@ export class BoosterSale extends BaseContract {
 
     boosterOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    boosterToBoosterIndex(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     boosters(
       arg0: BigNumberish,
       overrides?: CallOverrides
@@ -532,11 +537,6 @@ export class BoosterSale extends BaseContract {
       _busdPricePerBoosterInWei: BigNumberish[],
       _capPerBoosterInWei: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    getBoosterIndex(
-      booster: string,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     isWhitelisted(

@@ -182,19 +182,25 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
   ): Result;
 
   events: {
+    "AddedToWhitelist(address)": EventFragment;
     "Claimed(address,uint256,uint256)": EventFragment;
     "IGO(uint256)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "Paused(address)": EventFragment;
+    "RemovedFromWhitelist(address)": EventFragment;
     "Unpaused(address)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "AddedToWhitelist"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Claimed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "IGO"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemovedFromWhitelist"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
 }
+
+export type AddedToWhitelistEvent = TypedEvent<[string] & { wallet: string }>;
 
 export type ClaimedEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
@@ -211,6 +217,10 @@ export type OwnershipTransferredEvent = TypedEvent<
 >;
 
 export type PausedEvent = TypedEvent<[string] & { account: string }>;
+
+export type RemovedFromWhitelistEvent = TypedEvent<
+  [string] & { wallet: string }
+>;
 
 export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
 
@@ -491,6 +501,14 @@ export class WhitelistSale extends BaseContract {
   };
 
   filters: {
+    "AddedToWhitelist(address)"(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
+    AddedToWhitelist(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
     "Claimed(address,uint256,uint256)"(
       wallet?: string | null,
       monthIndex?: BigNumberish | null,
@@ -538,6 +556,14 @@ export class WhitelistSale extends BaseContract {
     ): TypedEventFilter<[string], { account: string }>;
 
     Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+
+    "RemovedFromWhitelist(address)"(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
+    RemovedFromWhitelist(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
 
     "Unpaused(address)"(
       account?: null

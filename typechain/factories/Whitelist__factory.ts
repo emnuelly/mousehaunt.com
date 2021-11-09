@@ -8,6 +8,32 @@ import type { Whitelist, WhitelistInterface } from "../Whitelist";
 
 const _abi = [
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "wallet",
+        type: "address",
+      },
+    ],
+    name: "AddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "wallet",
+        type: "address",
+      },
+    ],
+    name: "RemovedFromWhitelist",
+    type: "event",
+  },
+  {
     inputs: [
       {
         internalType: "address",

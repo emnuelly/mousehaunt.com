@@ -33,8 +33,20 @@ interface WhitelistInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
 
-  events: {};
+  events: {
+    "AddedToWhitelist(address)": EventFragment;
+    "RemovedFromWhitelist(address)": EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: "AddedToWhitelist"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RemovedFromWhitelist"): EventFragment;
 }
+
+export type AddedToWhitelistEvent = TypedEvent<[string] & { wallet: string }>;
+
+export type RemovedFromWhitelistEvent = TypedEvent<
+  [string] & { wallet: string }
+>;
 
 export class Whitelist extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -92,7 +104,23 @@ export class Whitelist extends BaseContract {
     isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>;
   };
 
-  filters: {};
+  filters: {
+    "AddedToWhitelist(address)"(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
+    AddedToWhitelist(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
+    "RemovedFromWhitelist(address)"(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+
+    RemovedFromWhitelist(
+      wallet?: null
+    ): TypedEventFilter<[string], { wallet: string }>;
+  };
 
   estimateGas: {
     isWhitelisted(
