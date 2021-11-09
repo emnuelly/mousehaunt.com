@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CardBody = styled.section`
+export const CardBody = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 40px;
@@ -16,13 +16,13 @@ interface Props {
   index: number
 }
 
-export const CardSection = styled.section<Props>`
+export const CardSection = styled.div<Props>`
   margin: 20px;
   background: linear-gradient(180deg, rgba(15, 14, 35, 0) 0%, #0f0e23 0.71%);
   border-radius: 10px;
   width: 80%;
   overflow: hidden;
-  height: 600px;
+  height: 620px;
 
   
   background: ${props => props.index === 0 ? (
@@ -32,7 +32,7 @@ export const CardSection = styled.section<Props>`
 
 `;
 
-export const CardTitle = styled.section`
+export const CardTitle = styled.div`
   position: relative;
   top: -30%;
   left: 5%;
@@ -44,13 +44,13 @@ export const CardTitle = styled.section`
   margin-top: 80px;
 `;
 
-export const IconStyle = styled.section`
+export const IconStyle = styled.div`
   color: #cb61e4;
   display: inline;
   padding: 5px;
 `;
 
-export const CardSubtitle = styled.section`
+export const CardSubtitle = styled.div`
   position: relative;
   top: -30%;
   font-family: 'SF Pro Display';
@@ -67,7 +67,7 @@ export const CardSubtitle = styled.section`
   }
 `;
 
-export const CardImage = styled.section`
+export const CardImage = styled.div`
   display: flex;
   flex-direction:column;
   justify-content: center;

@@ -21,7 +21,7 @@ const sections = [
   },
   {
     title: "Inventory",
-    to: "/inventory",
+    to: "/store/inventory",
   },
 ];
 

@@ -86,8 +86,8 @@ const Cards: NextPage = () => {
             <CardImage>
               <Image
                 src={item.image}
-                width="250px"
-                height="300px "
+                width={index === 0 ? "280.5px" : "250px"}
+                height={index === 0 ? "320" : "300px"}
                 alt="page-items"
               />
             </CardImage>

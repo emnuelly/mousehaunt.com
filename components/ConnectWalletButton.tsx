@@ -31,6 +31,10 @@ const WalletInfo = styled.div`
       margin-left: 10px;
     }
   }
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const ConnectWalletButton = () => {

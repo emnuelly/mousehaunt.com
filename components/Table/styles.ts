@@ -13,6 +13,7 @@ width: 100%;
       border-radius: 12px;
       margin:10px;
 
+
       &:last-child {
         td {
           border-bottom: 0;
@@ -56,6 +57,10 @@ width: 100%;
       background-color: #29274b;
       td {
         min-width: 150px;
+
+        @media only screen and (max-width: 600px) {
+          min-width: 75px;
+        }
       }
       td:nth-child(4){
         width: 200px;
@@ -99,5 +104,12 @@ export const StatusBadge = styled.div<Props>`
   div {
   font-family: "Bebas Neue Pro";
   font-size: 20px !important; 
+  }
+
+  @media only screen and (max-width: 600px) {
+    width: 80px;
+    div {
+    font-size: 12px !important; 
+    }
   }
 `
