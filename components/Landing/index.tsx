@@ -24,10 +24,7 @@ import Sections from "../Sections";
 const sections = [
   { title: "About", to: "#About" },
   { title: "Gameplay", to: "#Gameplay" },
-  { title: "Value Proposition", to: "Value Proposition" },
-  { title: "Token", to: "Token" },
-  { title: "Team", to: "Team" },
-  { title: "Roadmap", to: "Roadmap" },
+
 ];
 
 const Landing: React.FC = () => (
