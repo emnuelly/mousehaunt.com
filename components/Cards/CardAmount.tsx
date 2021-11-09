@@ -21,7 +21,6 @@ import { Button } from "../Button";
 import config, { Network } from "../../utils/config";
 import waitFor from "../../utils/waitFor";
 import { getNetwork, isTransactionMined } from "../../utils/blockchain";
-import { useContracts } from "../../hooks/useContracts";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
 
@@ -35,11 +34,11 @@ function isNumeric(str: string): boolean {
 }
 
 const CardAmount: React.FC<Props> = ({ index }: Props) => {
-  const contracts = useContracts();
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
   const router = useRouter();
-  const { refresh, userInfo, setRefresh, sale } = useContext(StoreContext);
+  const { refresh, userInfo, setRefresh, contracts, provider, sale } =
+    useContext(StoreContext);
   const network = getNetwork(router);
 
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
@@ -87,24 +86,24 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (contracts?.provider) {
+    if (provider && contracts) {
       try {
         setBuying(true);
-        const approve = await contracts?.busd?.approve(
+        const ethersProvider = new ethers.providers.Web3Provider(
+          provider as any
+        );
+        const approve = await contracts.busd.approve(
           config[network].WhitelistSale[sale].address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
-          () => isTransactionMined(contracts?.provider, approve.hash),
+          () => isTransactionMined(ethersProvider, approve.hash),
           30e3
         );
-        const buy = await contracts?.whitelistSale?.buy(
+        const buy = await contracts.whitelistSale.buy(
           ethers.utils.parseEther(mhtAmount)
         );
-        await waitFor(
-          () => isTransactionMined(contracts?.provider, buy.hash),
-          30e3
-        );
+        await waitFor(() => isTransactionMined(ethersProvider, buy.hash), 30e3);
         setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
@@ -119,8 +118,12 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyBooster = async (index: number) => {
-    if (contracts?.provider) {
+    if (provider && contracts) {
       try {
+        setBuying(true);
+        const ethersProvider = new ethers.providers.Web3Provider(
+          provider as any
+        );
         const type = index === 1 ? "EPIC" : "LEGENDARY";
         const booster =
           type === "EPIC"
@@ -131,21 +134,20 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             ? config[network].BMHTE.busdPrice
             : config[network].BMHTL.busdPrice;
 
-        setBuying(true);
-        const approve = await contracts?.busd?.approve(
+        const approve = await contracts.busd.approve(
           config[network].BoosterSale.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
         await waitFor(
-          () => isTransactionMined(contracts?.provider, approve.hash),
+          () => isTransactionMined(ethersProvider, approve.hash),
           30e3
         );
-        const buy = await contracts?.boosterSale?.buy(
+        const buy = await contracts.boosterSale.buy(
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
         await waitFor(
-          () => isTransactionMined(contracts?.provider, buy.hash),
+          () => isTransactionMined(ethersProvider, buy?.hash),
           30e3
         );
         setRefresh(!refresh);

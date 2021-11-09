@@ -1,8 +1,21 @@
 import { ethers } from "ethers";
 import Web3 from "web3";
+import { provider } from "web3-core";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import Authereum from "authereum";
+import config from "../utils/config";
+import { WhitelistSale } from "../typechain/WhitelistSale";
+import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
+import { BoosterSale } from "../typechain/BoosterSale";
+import BoosterSaleJson from "../contracts/booster/BoosterSale.sol/BoosterSale.json";
+import { BMHTL } from "../typechain/BMHTL";
+import BMHTLJson from "../contracts/booster/BMHTL.sol/BMHTL.json";
+import { BMHTE } from "../typechain/BMHTE";
+import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
+import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
+import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
+import { useRouter } from "next/router";
+import { getNetwork } from "../utils/blockchain";
 
 import React, {
   createContext,
@@ -11,7 +24,6 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useContracts } from "../hooks/useContracts";
 
 interface Props {
   children: ReactNode;
@@ -29,16 +41,27 @@ export interface UserInfoDetailed {
   };
 }
 
+export interface Contracts {
+  whitelistSale: WhitelistSale;
+  boosterSale: BoosterSale;
+  busd: BUSD;
+  bmhtl: BMHTL;
+  bmhte: BMHTE;
+}
+
 export type Sale = "SeedSale" | "PrivateSale";
 
 interface StoreContextData {
   userInfo?: UserInfoDetailed;
   account: string;
+  provider?: provider;
+  web3?: Web3;
   refresh: boolean;
   setAccount: React.Dispatch<string>;
   getAccount: () => Promise<string>;
   setRefresh: React.Dispatch<boolean>;
   sale: Sale;
+  contracts?: Contracts;
 }
 
 export const StoreContext = createContext<StoreContextData>({
@@ -46,16 +69,21 @@ export const StoreContext = createContext<StoreContextData>({
 } as StoreContextData);
 
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
+  const [web3, setWeb3] = useState<Web3 | undefined>();
+  const [contracts, setContracts] = useState<Contracts | undefined>();
+  const [provider, setProvider] = useState<provider | undefined>();
   const [account, setAccount] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfoDetailed | undefined>();
   const [refresh, setRefresh] = useState(false);
-  const contracts = useContracts();
-
+  const router = useRouter();
+  const network = getNetwork(router);
   const sale = "PrivateSale";
 
-  const updateUserInfo = useCallback(() => {
+  const updateUserInfo = () => {
+    console.log("updateUserIn", account, !!contracts);
     if (account && contracts) {
       (async () => {
+        console.log("updating");
         const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
           account
         );
@@ -96,17 +124,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         });
       })();
     }
-  }, [contracts, account]);
-
-  useEffect(() => {
-    if (account && contracts) {
-      updateUserInfo();
-    }
-  }, [account, contracts, updateUserInfo]);
+  };
 
   useEffect(() => {
     updateUserInfo();
-  }, [refresh, updateUserInfo]);
+  }, [account, contracts, refresh]);
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", function (accounts: string[]) {
@@ -147,13 +169,56 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       cacheProvider: true,
       providerOptions,
     });
-    const provider = await web3Modal.connect();
-    const web3 = new Web3(provider);
+    const p = await web3Modal.connect();
+    setProvider(p);
+    const w = new Web3(p);
+    setWeb3(w);
 
-    const accounts = await web3.eth.getAccounts();
+    const accounts = await w.eth.getAccounts();
     const account = accounts[0];
     return account;
   };
+
+  useEffect(() => {
+    if (provider && account) {
+      const ethersProvider = new ethers.providers.Web3Provider(provider as any);
+      const signer = ethersProvider.getSigner(0);
+      const whitelistSale = new ethers.Contract(
+        config[network].WhitelistSale[sale].address,
+        WhitelistSaleJson.abi,
+        signer
+      ) as WhitelistSale;
+      const boosterSale = new ethers.Contract(
+        config[network].BoosterSale.address,
+        BoosterSaleJson.abi,
+        signer
+      ) as BoosterSale;
+      const bmhtl = new ethers.Contract(
+        config[network].BMHTL.address,
+        BMHTLJson.abi,
+        signer
+      ) as BMHTL;
+      const bmhte = new ethers.Contract(
+        config[network].BMHTE.address,
+        BMHTEJson.abi,
+        signer
+      ) as BMHTE;
+      const busd = new ethers.Contract(
+        config[network].BUSD.address,
+        BUSDJson.abi,
+        signer
+      ) as BUSD;
+
+      console.log("contracts", whitelistSale);
+      setContracts({
+        whitelistSale,
+        boosterSale,
+        bmhtl,
+        bmhte,
+        busd,
+      });
+    }
+  }, [network, sale, provider, account]);
 
   return (
     <StoreContext.Provider
@@ -164,7 +229,10 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         getAccount,
         setAccount,
         setRefresh,
+        provider,
+        web3,
         sale,
+        contracts,
       }}
     >
       {children}

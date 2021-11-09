@@ -74,6 +74,7 @@ export const CardImage = styled.div`
   align-items: center;
 
   div {
+  min-height:320px;
     margin-top: 20px !important;
   }
 `;

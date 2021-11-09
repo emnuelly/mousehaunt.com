@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 import { NextRouter } from "next/router";
-import { Sale } from "../contexts/StoreContext";
 import config, { Network } from "./config";
 
 export const isTransactionMined = async (

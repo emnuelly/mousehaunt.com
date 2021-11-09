@@ -38,11 +38,13 @@ const WalletInfo = styled.div`
 `;
 
 export const ConnectWalletButton = () => {
-  const { account, userInfo, getAccount, setAccount } =
+  const { account, userInfo, getAccount, web3, setAccount } =
     useContext(StoreContext);
 
   const onClick = async () => {
+    console.log("CLICKED");
     if (account) {
+      await (web3?.eth?.currentProvider as any).disconnect();
       setAccount("");
     } else {
       setAccount(await getAccount());
