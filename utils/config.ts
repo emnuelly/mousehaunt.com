@@ -41,8 +41,7 @@ const config = {
     BMHTL: {
       address: "0xf2F504fdAd751a0eB81A2cf88Fe90E5E57a199db",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
-      image:
-        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000001/0000000000000000000000000000000000000000000000000000000000000001.png",
+      image: "https://mousehaunt.com/images/legendary.png",
       symbol: "BMHTL",
       busdPrice: "0.025",
       cap: "2",
@@ -51,8 +50,7 @@ const config = {
     BMHTE: {
       address: "0x2C76EE45C38F7d4c482302feea88ff7E33010355",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
-      image:
-        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000002/0000000000000000000000000000000000000000000000000000000000000002.png",
+      image: "https://mousehaunt.com/images/epic.png",
       symbol: "BMHTE",
       busdPrice: "0.075",
       cap: "6",
@@ -103,8 +101,7 @@ const config = {
     BMHTL: {
       address: "0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
-      image:
-        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000001/0000000000000000000000000000000000000000000000000000000000000001.png",
+      image: "https://mousehaunt.com/images/legendary.png",
       symbol: "BMHTL",
       busdPrice: "250",
       cap: "2",
@@ -113,8 +110,7 @@ const config = {
     BMHTE: {
       address: "0x2DE83F4243ff0200624a44011777a373aF7E9f72",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
-      image:
-        "https://nft.mousehaunt.com/booster/0000000000000000000000000000000000000000000000000000000000000002/0000000000000000000000000000000000000000000000000000000000000002.png",
+      image: "https://mousehaunt.com/images/epic.png",
       symbol: "BMHTE",
       busdPrice: "75",
       cap: "6",
