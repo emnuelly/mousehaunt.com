@@ -42,7 +42,7 @@ const Whitelist: NextPage = () => {
             <span className="second"></span>
           </Text>
           <Link
-            href="https://sweepwidget.com/view/37247-hnmvxit9"
+            href="https://sweepwidget.com/view/38985-5ebg0c61"
             target="_blank"
           >
             JOIN WHITELIST
