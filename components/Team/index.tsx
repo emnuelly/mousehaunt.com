@@ -41,7 +41,7 @@ const Team: NextPage = () => {
     },
     {
       name: "Matheus Vilano",
-      role: "Co-Founder & Head of Production",
+      role: "Lead Software Engineer",
       description:
         "Matheus started as a musician and audio experience designer. But his project management skills and deep understanding of game development allowed him to become a Game Dev Instructor and Mentor",
       src: matheus,
