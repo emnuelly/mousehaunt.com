@@ -19,7 +19,6 @@ import matheus from "../../public/images/matheus.jpeg";
 import lan from "../../public/images/lan.png";
 import petri from "../../public/images/petri.png";
 import luis from "../../public/images/luis.png";
-import juan from "../../public/images/juan.png";
 import sinan from "../../public/images/sinan.png";
 import hiring from "../../public/images/hiring.png";
 import andres from "../../public/images/andres.jpeg";
@@ -78,16 +77,6 @@ const Team: NextPage = () => {
       src: luis,
       social: {
         linkedin: "https://www.linkedin.com/in/luis-matamoros-1a854715a/",
-      },
-    },
-    {
-      name: "Juan Valencia",
-      role: "Software Engineer",
-      description:
-        "Juan is a talented software engineer who worked in Magic the Gathering Arena. An original creator of Mouse Haunt",
-      src: juan,
-      social: {
-        linkedin: "https://www.linkedin.com/in/juanvalenciagd/",
       },
     },
     {
