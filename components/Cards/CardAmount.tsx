@@ -1,5 +1,4 @@
 import { Formik, Field, Form } from "formik";
-import { MetaMaskInpageProvider } from "@metamask/providers";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
 
@@ -32,6 +31,8 @@ function isNumeric(str: string): boolean {
   if (typeof str != "string") return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
 }
+
+const NETWORK_TIMEOUT = 60e3;
 
 const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [boosterAmount, setBoosterAmount] = useState(1);
@@ -98,12 +99,15 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, approve.hash),
-          30e3
+          NETWORK_TIMEOUT
         );
         const buy = await contracts.whitelistSale.buy(
           ethers.utils.parseEther(mhtAmount)
         );
-        await waitFor(() => isTransactionMined(ethersProvider, buy.hash), 30e3);
+        await waitFor(
+          () => isTransactionMined(ethersProvider, buy.hash),
+          NETWORK_TIMEOUT
+        );
         setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
@@ -140,7 +144,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, approve.hash),
-          30e3
+          NETWORK_TIMEOUT
         );
         const buy = await contracts.boosterSale.buy(
           booster,
@@ -148,7 +152,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, buy?.hash),
-          30e3
+          NETWORK_TIMEOUT
         );
         setRefresh(!refresh);
         router.push({
