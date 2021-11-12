@@ -222,4 +222,30 @@ describe("BoosterSale", function () {
 
     expect(await bmhte.balanceOf(buyer.address)).to.equal(sixBoostersInWei);
   });
+
+  it("buy: cannot hold above cap", async function () {
+    await boosterSale.connect(boosterOwner).addToWhitelist([buyer.address]);
+
+    await boosterSale
+      .connect(boosterOwner)
+      .configure(boosters, busdPricePerBoosterInWei, capPerBoosterInWei);
+
+    const twoBoosters = "2";
+    const twoBoostersInWei = ethers.utils.parseEther(twoBoosters);
+    const busdPriceInWei = busdPricePerBoosterInWei[0].mul(twoBoosters);
+    await busd.connect(buyer).approve(boosterSale.address, busdPriceInWei);
+    await bmhtl
+      .connect(boosterOwner)
+      .approve(boosterSale.address, twoBoostersInWei);
+
+    expect(await bmhtl.balanceOf(buyer.address)).to.equal("0");
+
+    await boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei);
+
+    expect(await bmhtl.balanceOf(buyer.address)).to.equal(twoBoostersInWei);
+
+    await expect(
+      boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei)
+    ).to.be.revertedWith("BoosterSale: above cap");
+  });
 });
