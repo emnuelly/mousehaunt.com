@@ -117,7 +117,7 @@ const config = {
       available: "6000",
     },
     BoosterSale: {
-      address: "0xf047A663fA1A6Ffb402c49800F9072D5475408A0",
+      address: "0x00954898ACb198CCeB8003D344Dc2814BB0c57Dc",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },
