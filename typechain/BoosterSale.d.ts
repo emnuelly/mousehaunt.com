@@ -38,6 +38,7 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     "renounceOwnership()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "unpause()": FunctionFragment;
+    "walletToBoosterIndexToBoughtInWei(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -93,6 +94,10 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "walletToBoosterIndexToBoughtInWei",
+    values: [string, BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "addToWhitelist",
@@ -138,6 +143,10 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "walletToBoosterIndexToBoughtInWei",
+    data: BytesLike
+  ): Result;
 
   events: {
     "OwnershipTransferred(address,address)": EventFragment;
@@ -268,6 +277,12 @@ export class BoosterSale extends BaseContract {
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    walletToBoosterIndexToBoughtInWei(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
   };
 
   addToWhitelist(
@@ -337,6 +352,12 @@ export class BoosterSale extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  walletToBoosterIndexToBoughtInWei(
+    arg0: string,
+    arg1: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   callStatic: {
     addToWhitelist(_buyers: string[], overrides?: CallOverrides): Promise<void>;
 
@@ -395,6 +416,12 @@ export class BoosterSale extends BaseContract {
     ): Promise<void>;
 
     unpause(overrides?: CallOverrides): Promise<void>;
+
+    walletToBoosterIndexToBoughtInWei(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {
@@ -494,6 +521,12 @@ export class BoosterSale extends BaseContract {
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    walletToBoosterIndexToBoughtInWei(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -568,6 +601,12 @@ export class BoosterSale extends BaseContract {
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    walletToBoosterIndexToBoughtInWei(
+      arg0: string,
+      arg1: BigNumberish,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
 }
