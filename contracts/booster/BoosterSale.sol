@@ -20,6 +20,8 @@ contract BoosterSale is Pausable, Ownable {
 
   mapping(address => bool) public isWhitelisted;
   mapping(IERC20 => uint256) public boosterToBoosterIndex;
+  mapping(address => mapping(uint256 => uint256))
+    public walletToBoosterIndexToBoughtInWei;
 
   constructor(address _boosterOwner, IERC20 _busd) {
     transferOwnership(_boosterOwner);
@@ -74,7 +76,10 @@ contract BoosterSale is Pausable, Ownable {
 
     uint256 capInWei = capPerBoosterInWei[index];
     require(
-      booster.balanceOf(msg.sender) + _numberOfBoostersInWei <= capInWei,
+      booster.balanceOf(msg.sender) +
+        walletToBoosterIndexToBoughtInWei[msg.sender][index] +
+        _numberOfBoostersInWei <=
+        capInWei,
       "BoosterSale: above cap"
     );
 
@@ -85,6 +90,10 @@ contract BoosterSale is Pausable, Ownable {
 
     busd.safeTransferFrom(msg.sender, boosterOwner, busdAmountInWei);
     booster.safeTransferFrom(boosterOwner, msg.sender, _numberOfBoostersInWei);
+
+    walletToBoosterIndexToBoughtInWei[msg.sender][
+      index
+    ] += _numberOfBoostersInWei;
   }
 
   function addToWhitelist(address[] memory _buyers)

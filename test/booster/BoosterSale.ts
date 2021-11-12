@@ -6,6 +6,7 @@ import { ethers } from "hardhat";
 describe("BoosterSale", function () {
   let boosterOwner: SignerWithAddress;
   let buyer: SignerWithAddress;
+  let buyer2: SignerWithAddress;
 
   let busd: Contract;
   let boosterSale: Contract;
@@ -23,7 +24,7 @@ describe("BoosterSale", function () {
   ];
 
   beforeEach(async function () {
-    [, boosterOwner, buyer] = await ethers.getSigners();
+    [, boosterOwner, buyer, buyer2] = await ethers.getSigners();
 
     const BUSD = await ethers.getContractFactory("MouseHauntToken");
     busd = await BUSD.deploy(buyer.address);
@@ -243,6 +244,38 @@ describe("BoosterSale", function () {
     await boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei);
 
     expect(await bmhtl.balanceOf(buyer.address)).to.equal(twoBoostersInWei);
+
+    await expect(
+      boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei)
+    ).to.be.revertedWith("BoosterSale: above cap");
+  });
+
+  it("buy: cannot buy transfer buy", async function () {
+    await boosterSale.connect(boosterOwner).addToWhitelist([buyer.address]);
+
+    await boosterSale
+      .connect(boosterOwner)
+      .configure(boosters, busdPricePerBoosterInWei, capPerBoosterInWei);
+
+    const twoBoosters = "2";
+    const twoBoostersInWei = ethers.utils.parseEther(twoBoosters);
+    const busdPriceInWei = busdPricePerBoosterInWei[0].mul(twoBoosters).mul(2);
+    await busd.connect(buyer).approve(boosterSale.address, busdPriceInWei);
+    await bmhtl
+      .connect(boosterOwner)
+      .approve(boosterSale.address, twoBoostersInWei.mul(2));
+
+    expect(await bmhtl.balanceOf(buyer.address)).to.equal("0");
+
+    await boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei);
+
+    expect(await bmhtl.balanceOf(buyer.address)).to.equal(twoBoostersInWei);
+
+    await expect(
+      boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei)
+    ).to.be.revertedWith("BoosterSale: above cap");
+
+    await bmhtl.connect(buyer).transfer(buyer2.address, twoBoostersInWei);
 
     await expect(
       boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei)
