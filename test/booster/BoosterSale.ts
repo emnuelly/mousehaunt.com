@@ -281,4 +281,32 @@ describe("BoosterSale", function () {
       boosterSale.connect(buyer).buy(bmhtl.address, twoBoostersInWei)
     ).to.be.revertedWith("BoosterSale: above cap");
   });
+
+  it("buy: can buy in multiple rounds", async function () {
+    await boosterSale.connect(boosterOwner).addToWhitelist([buyer.address]);
+
+    await boosterSale
+      .connect(boosterOwner)
+      .configure(boosters, busdPricePerBoosterInWei, capPerBoosterInWei);
+
+    const five = "5";
+    const fiveInWei = ethers.utils.parseEther(five);
+    const oneInWei = ethers.utils.parseEther("1");
+    const sixInWei = ethers.utils.parseEther("6");
+    const busdPriceInWei = busdPricePerBoosterInWei[0].mul(five).mul(2);
+    await busd.connect(buyer).approve(boosterSale.address, busdPriceInWei);
+    await bmhte
+      .connect(boosterOwner)
+      .approve(boosterSale.address, fiveInWei.mul(2));
+
+    expect(await bmhte.balanceOf(buyer.address)).to.equal("0");
+
+    await boosterSale.connect(buyer).buy(bmhte.address, fiveInWei);
+
+    expect(await bmhte.balanceOf(buyer.address)).to.equal(fiveInWei);
+
+    await boosterSale.connect(buyer).buy(bmhte.address, oneInWei);
+
+    expect(await bmhte.balanceOf(buyer.address)).to.equal(sixInWei);
+  });
 });

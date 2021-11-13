@@ -75,13 +75,10 @@ contract BoosterSale is Pausable, Ownable {
     uint256 index = boosterToBoosterIndex[booster];
 
     uint256 capInWei = capPerBoosterInWei[index];
-    require(
-      booster.balanceOf(msg.sender) +
-        walletToBoosterIndexToBoughtInWei[msg.sender][index] +
-        _numberOfBoostersInWei <=
-        capInWei,
-      "BoosterSale: above cap"
-    );
+    uint256 balance = booster.balanceOf(msg.sender);
+    uint256 bought = walletToBoosterIndexToBoughtInWei[msg.sender][index];
+    uint256 max = balance > bought ? balance : bought;
+    require(max + _numberOfBoostersInWei <= capInWei, "BoosterSale: above cap");
 
     uint256 busdPriceInWei = busdPricePerBoosterInWei[index];
 
