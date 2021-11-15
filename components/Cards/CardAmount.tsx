@@ -275,9 +275,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
-              <Button disabled={buying || !userInfo?.whitelisted}>
-                BUY NOW
-              </Button>
+ 
             </ButtonFormat>
           </Form>
         </ContentForm>
