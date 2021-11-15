@@ -93,9 +93,14 @@ const StoreHome: NextPage = () => {
           <StorePageSub>
             Welcome to the Mouse Haunt Shop!
             <br />
-            Here you will find the latest goods on this cheesy universe!
+            Join our second whitelist to buy cheesy goods!
+           <a 
+              href="https://sweepwidget.com/view/38985-5ebg0c61"
+            >
+              Click here ‎
+            </a>
           </StorePageSub>
-          <Countdown />
+          
           <Cards />
         </StoreContainer>
       </Content>
