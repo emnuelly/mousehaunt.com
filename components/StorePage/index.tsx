@@ -97,6 +97,7 @@ const StoreHome: NextPage = () => {
            <a 
               href="https://sweepwidget.com/view/38985-5ebg0c61"
             >
+<br />
               Click here ‎
             </a>
           </StorePageSub>
