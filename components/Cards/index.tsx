@@ -43,9 +43,6 @@ const Cards: NextPage = () => {
       sub: "$MHT",
       buyMht: true,
       subtitles: [
-        `Price: 1 $MHT = ${MHT_TO_BUSD} $BUSD`,
-        `Minimum purchase: ${minBusdAmount} $BUSD`,
-        `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
       ],
@@ -56,10 +53,8 @@ const Cards: NextPage = () => {
       title: "EPIC",
       sub: "BOOSTER",
       subtitles: [
-        "Price: 1 EPIC booster = 75 $BUSD",
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        "Maximum purchase: 6 ",
         "",
       ],
     },
@@ -69,9 +64,8 @@ const Cards: NextPage = () => {
       title: "LEGENDARY",
       sub: "BOOSTER",
       subtitles: [
-        "Price: 1 LEGENDARY booster = 250 $BUSD",
+        
         "Probabilities: 100% Legendary Mouse Hero NFT ",
-        "Maximum purchase: 2 ",
         "",
         "",
       ],
