@@ -9,7 +9,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MouseHeroNFT is
+import "./Rarity.sol";
+
+contract MouseHero is
   ERC721,
   ERC721Enumerable,
   ERC721URIStorage,
@@ -20,17 +22,18 @@ contract MouseHeroNFT is
   using Counters for Counters.Counter;
   using Strings for uint256;
 
+  event Mint(address indexed to, Rarity rarity);
+
   Counters.Counter private _tokenIdCounter;
 
-  address public boosterUnpack;
+  address public minter;
 
-  // solhint-disable-next-line no-empty-blocks
-  constructor(address owner) ERC721("Mouse Hero NFT", "MHN") {
+  constructor(address owner) ERC721("Mouse Hero", "MOUSE") {
     transferOwnership(owner);
   }
 
-  function configure(address _boosterUnpack) public onlyOwner {
-    boosterUnpack = _boosterUnpack;
+  function setMinter(address _minter) public onlyOwner {
+    minter = _minter;
   }
 
   function _baseURI() internal pure override returns (string memory) {
@@ -45,16 +48,15 @@ contract MouseHeroNFT is
     _unpause();
   }
 
-  function safeMint(address to, string memory rarity) public whenNotPaused {
-    require(msg.sender == boosterUnpack, "Only BoosterUnpack can mint");
-    uint256 tokenId = _tokenIdCounter.current();
-    _safeMint(to, tokenId);
-    _setTokenURI(
-      tokenId,
-      string(abi.encodePacked(rarity, "/", tokenId.toString()))
-    );
+  function safeMint(address to, Rarity rarity) public whenNotPaused {
+    require(minter != address(0), "Minter not set");
+    require(msg.sender == minter, "Not minter");
 
+    uint256 tokenId = _tokenIdCounter.current();
     _tokenIdCounter.increment();
+    _safeMint(to, tokenId);
+
+    emit Mint(to, rarity);
   }
 
   function _beforeTokenTransfer(

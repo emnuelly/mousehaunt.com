@@ -8,14 +8,19 @@ describe("BoosterUnpack", function () {
   let boosterUnpack: Contract;
   let bmhtl: Contract;
   let bmhte: Contract;
-  let mouseHeroNFT: Contract;
+  let nft: Contract;
+
+  /* eslint-disable no-unused-vars */
+  enum Rarity {
+    LEGENDARY,
+    EPIC,
+    RARE,
+    COMMON,
+  }
+  /* eslint-enable no-unused-vars */
 
   beforeEach(async function () {
     [, mhtOwner] = await ethers.getSigners();
-
-    const BoosterUnpack = await ethers.getContractFactory("BoosterUnpack");
-    boosterUnpack = await BoosterUnpack.deploy(mhtOwner.address);
-    await boosterUnpack.deployed();
 
     const BMHTL = await ethers.getContractFactory("BMHTL");
     bmhtl = await BMHTL.deploy(mhtOwner.address);
@@ -25,9 +30,20 @@ describe("BoosterUnpack", function () {
     bmhte = await BMHTE.deploy(mhtOwner.address);
     await bmhte.deployed();
 
-    const MouseHeroNFT = await ethers.getContractFactory("MouseHeroNFT");
-    mouseHeroNFT = await MouseHeroNFT.deploy(mhtOwner.address);
-    await mouseHeroNFT.deployed();
+    const MouseHero = await ethers.getContractFactory("MouseHero");
+    nft = await MouseHero.deploy(mhtOwner.address);
+    await nft.deployed();
+
+    const BoosterUnpack = await ethers.getContractFactory("BoosterUnpack");
+    boosterUnpack = await BoosterUnpack.deploy(
+      mhtOwner.address,
+      nft.address,
+      bmhtl.address,
+      bmhte.address
+    );
+    await boosterUnpack.deployed();
+
+    await nft.connect(mhtOwner).setMinter(boosterUnpack.address);
   });
 
   it("Should have owner different than deployer", async function () {
@@ -47,32 +63,7 @@ describe("BoosterUnpack", function () {
     ).to.be.revertedWith("Not enough boosters");
   });
 
-  it("configure", async function () {
-    const boosters = [bmhtl.address, bmhte.address];
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure(boosters, mouseHeroNFT.address);
-
-    expect(await boosterUnpack.boosters(0)).to.equal(boosters[0]);
-    expect(await boosterUnpack.boosters(1)).to.equal(boosters[1]);
-    expect(await boosterUnpack.nft()).to.equal(mouseHeroNFT.address);
-
-    const boostersReverted = boosters.slice().reverse();
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure(boostersReverted, mhtOwner.address);
-
-    expect(await boosterUnpack.boosters(0)).to.equal(boosters[1]);
-    expect(await boosterUnpack.boosters(1)).to.equal(boosters[0]);
-    expect(await boosterUnpack.nft()).to.equal(mhtOwner.address);
-  });
-
   it("unpack not enough boosters", async function () {
-    const boosters = [bmhtl.address, bmhte.address];
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure(boosters, mouseHeroNFT.address);
-
     await expect(
       boosterUnpack.unpack(bmhtl.address, ethers.utils.parseEther("1"))
     ).to.be.revertedWith("Not enough boosters");
@@ -87,23 +78,19 @@ describe("BoosterUnpack", function () {
   });
 
   it("unpack invalid booster", async function () {
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure([bmhtl.address], mouseHeroNFT.address);
+    const BMHTInvalid = await ethers.getContractFactory("BMHTE");
+    const bmhtinvalid = await BMHTInvalid.deploy(mhtOwner.address);
+    await bmhtinvalid.deployed();
+
     const oneBooster = ethers.utils.parseEther("1");
     await bmhte.connect(mhtOwner).approve(boosterUnpack.address, oneBooster);
 
     await expect(
-      boosterUnpack.connect(mhtOwner).unpack(bmhte.address, oneBooster)
+      boosterUnpack.connect(mhtOwner).unpack(bmhtinvalid.address, oneBooster)
     ).to.be.revertedWith("Invalid booster");
   });
 
   it("unpack 2 boosters", async function () {
-    await mouseHeroNFT.connect(mhtOwner).configure(boosterUnpack.address);
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure([bmhtl.address, bmhte.address], mouseHeroNFT.address);
-
     const twoBoosters = ethers.utils.parseEther("2");
 
     await bmhtl.connect(mhtOwner).approve(boosterUnpack.address, twoBoosters);
@@ -119,44 +106,38 @@ describe("BoosterUnpack", function () {
         "0x0000000000000000000000000000000000000000",
         twoBoosters
       )
-      .to.emit(mouseHeroNFT, "Transfer")
+      .to.emit(nft, "Transfer")
       .withArgs(
         "0x0000000000000000000000000000000000000000",
         mhtOwner.address,
         "0"
       )
-      .to.emit(mouseHeroNFT, "Transfer")
+      .to.emit(nft, "Transfer")
       .withArgs(
         "0x0000000000000000000000000000000000000000",
         mhtOwner.address,
         "1"
-      );
+      )
+      .to.emit(nft, "Mint")
+      .withArgs(mhtOwner.address, Rarity.LEGENDARY);
   });
 
-  it("unpack boosters EPIC and get LEGENDARY NFT with 5% chance", async function () {
-    await mouseHeroNFT.connect(mhtOwner).configure(boosterUnpack.address);
-    await boosterUnpack
-      .connect(mhtOwner)
-      .configure([bmhtl.address, bmhte.address], mouseHeroNFT.address);
-
-    const hundred = 100;
-    const thousandboosters = ethers.utils.parseEther(hundred.toString());
+  it("unpack boosters EPIC and get LEGENDARY NFT with 1% chance", async function () {
+    const twoHundred = 200;
+    const thousandboosters = ethers.utils.parseEther(twoHundred.toString());
 
     await bmhte
       .connect(mhtOwner)
       .approve(boosterUnpack.address, thousandboosters);
 
-    await boosterUnpack
+    const tx = boosterUnpack
       .connect(mhtOwner)
       .unpack(bmhte.address, thousandboosters);
 
-    const legendary = "0";
-    const nfts = await Promise.all(
-      Array.from(Array(hundred).keys()).map((i) => mouseHeroNFT.tokenURI(i))
-    );
-    const legendaryNFT = new RegExp(
-      `https://nft.mousehaunt.com/hero/${legendary}/`
-    );
-    expect(nfts).match(legendaryNFT);
+    await expect(tx)
+      .to.emit(nft, "Mint")
+      .withArgs(mhtOwner.address, Rarity.EPIC)
+      .to.emit(nft, "Mint")
+      .withArgs(mhtOwner.address, Rarity.LEGENDARY);
   });
 });
