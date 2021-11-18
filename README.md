@@ -17,6 +17,7 @@ File                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lin
   BMHTE.sol           |      100 |      100 |      100 |      100 |                |
   BMHTL.sol           |      100 |      100 |      100 |      100 |                |
   BoosterSale.sol     |      100 |      100 |      100 |      100 |                |
+  BoosterSale2.sol    |      100 |      100 |      100 |      100 |                |
  contracts/utils/     |      100 |      100 |      100 |      100 |                |
   TokenAllocation.sol |      100 |      100 |      100 |      100 |                |
   Whitelist.sol       |      100 |      100 |      100 |      100 |                |
