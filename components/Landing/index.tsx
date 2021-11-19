@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Container,
@@ -11,23 +11,23 @@ import {
   BodyContent,
   Left,
   Right,
-} from "./styles";
-import { Link } from "../Link";
-import Image from "next/image";
-import google from "../../public/images/Google_Play.png";
-import apple from "../../public/images/App_Store.png";
-import windows from "../../public/images/Windows.png";
-import Header from "../Header";
-import Logo from "../Logo";
-import Sections from "../Sections";
+} from './styles';
+import { Link } from '../Link';
+import Image from 'next/image';
+import google from '../../public/images/Google_Play.png';
+import apple from '../../public/images/App_Store.png';
+import windows from '../../public/images/Windows.png';
+import Header from '../Header';
+import Logo from '../Logo';
+import Sections from '../Sections';
 
 const sections = [
-  { title: "About", to: "#About" },
-  { title: "Gameplay", to: "#Gameplay" },
-  { title: "Value Proposition", to: "#Value Proposition" },
-  { title: "Token", to: "#Token" },
-  { title: "Team", to: "#Team" },
-  { title: "Roadmap", to: "#Roadmap" },
+  { title: 'About', to: '#About' },
+  { title: 'Gameplay', to: '#Gameplay' },
+  { title: 'Value Proposition', to: '#Value Proposition' },
+  { title: 'Token', to: '#Token' },
+  { title: 'Team', to: '#Team' },
+  { title: 'Roadmap', to: '#Roadmap' },
 ];
 
 const Landing: React.FC = () => (
