@@ -215,6 +215,10 @@ export const StorePageSub = styled.div`
     font-size: 16px;
     line-height: 20px;
   }
+  a {
+    width: 180px;
+    margin:auto;
+  }
 `;
 
 export const StoreTitle = styled.div`

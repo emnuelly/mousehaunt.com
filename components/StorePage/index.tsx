@@ -13,6 +13,7 @@ import Header from "../Header";
 import Logo from "../Logo";
 import Sections from "../Sections";
 import { ConnectWalletButton } from "../ConnectWalletButton";
+import { Link } from "../Link";
 
 const sections = [
   { to: "/store", title: "Store" },
@@ -73,12 +74,12 @@ const Countdown = () => (
 );
 
 const StoreHome: NextPage = () => {
-  useEffect(() => {
-    const interval = setInterval(() => {
-      countdown();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     countdown();
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <Container>
@@ -94,14 +95,11 @@ const StoreHome: NextPage = () => {
             Welcome to the Mouse Haunt Shop!
             <br />
             Join our second whitelist to buy cheesy goods!
-           <a 
-              href="https://sweepwidget.com/view/38985-5ebg0c61"
-            >
-<br />
-              Click here ‎
-            </a>
+            <Link href="https://sweepwidget.com/view/38985-5ebg0c61">
+              Click here 🧀
+            </Link>
           </StorePageSub>
-          
+
           <Cards />
         </StoreContainer>
       </Content>

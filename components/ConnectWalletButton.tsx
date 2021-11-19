@@ -65,8 +65,8 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          <span>{whitelistedText}</span>
-          {mhtPurchasedText ? <span>|</span> : null}
+          {/* <span>{whitelistedText}</span> */}
+          {/* {mhtPurchasedText ? <span>|</span> : null} */}
           <span>{mhtPurchasedText}</span>
         </div>
       </WalletInfo>

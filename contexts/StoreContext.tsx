@@ -6,8 +6,8 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import config from "../utils/config";
 import { WhitelistSale } from "../typechain/WhitelistSale";
 import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
-import { BoosterSale } from "../typechain/BoosterSale";
-import BoosterSaleJson from "../contracts/booster/BoosterSale.sol/BoosterSale.json";
+import { BoosterSale2 } from "../typechain/BoosterSale2";
+import BoosterSale2Json from "../contracts/booster/BoosterSale2.sol/BoosterSale2.json";
 import { BMHTL } from "../typechain/BMHTL";
 import BMHTLJson from "../contracts/booster/BMHTL.sol/BMHTL.json";
 import { BMHTE } from "../typechain/BMHTE";
@@ -17,13 +17,7 @@ import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import { useRouter } from "next/router";
 import { getNetwork } from "../utils/blockchain";
 
-import React, {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 interface Props {
   children: ReactNode;
@@ -43,7 +37,7 @@ export interface UserInfoDetailed {
 
 export interface Contracts {
   whitelistSale: WhitelistSale;
-  boosterSale: BoosterSale;
+  boosterSale2: BoosterSale2;
   busd: BUSD;
   bmhtl: BMHTL;
   bmhte: BMHTE;
@@ -145,11 +139,13 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   // }, [contracts]);
 
   useEffect(() => {
-    window.ethereum?.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: "0x38" }],
-    });
-  }, []);
+    if (!["bsc", "bscTestnet"].includes(network)) {
+      window.ethereum?.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x38" }],
+      });
+    }
+  }, [network]);
 
   const getAccount = async () => {
     const providerOptions = {
@@ -186,11 +182,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
-      const boosterSale = new ethers.Contract(
-        config[network].BoosterSale.address,
-        BoosterSaleJson.abi,
+      const boosterSale2 = new ethers.Contract(
+        config[network].BoosterSale2.address,
+        BoosterSale2Json.abi,
         signer
-      ) as BoosterSale;
+      ) as BoosterSale2;
       const bmhtl = new ethers.Contract(
         config[network].BMHTL.address,
         BMHTLJson.abi,
@@ -209,7 +205,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
       setContracts({
         whitelistSale,
-        boosterSale,
+        boosterSale2,
         bmhtl,
         bmhte,
         busd,

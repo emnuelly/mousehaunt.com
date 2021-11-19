@@ -16,7 +16,7 @@ import CardAmount from "./CardAmount";
 
 import Footer from "../Footer/index";
 import { Ruler } from "../Ruler";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import config from "../../utils/config";
 import { useRouter } from "next/router";
 import { getNetwork } from "../../utils/blockchain";
@@ -25,7 +25,7 @@ import { StoreContext } from "../../contexts/StoreContext";
 const Cards: NextPage = () => {
   const router = useRouter();
   const network = getNetwork(router);
-  const { sale } = useContext(StoreContext);
+  const { sale, contracts, account } = useContext(StoreContext);
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const minBusdAmount =
@@ -36,16 +36,42 @@ const Cards: NextPage = () => {
     Number(config[network].WhitelistSale[sale].MHTtoBUSD);
   const idoUnlock = config[network].WhitelistSale[sale].unlockAtIGOPercent;
   const vesting = config[network].WhitelistSale[sale].vestingPeriodMonths;
+
+  const [legendaryAllowance, setLegendaryAllowance] = useState("");
+  const [epicAllowance, setEpicAllowance] = useState("");
+
+  useEffect(() => {
+    if (contracts?.boosterSale2.address && account) {
+      (async () => {
+        try {
+          const legendary = await contracts?.boosterSale2.whitelist(
+            account,
+            config[network].BMHTL.address
+          );
+          const epic = await contracts?.boosterSale2.whitelist(
+            account,
+            config[network].BMHTE.address
+          );
+          if (legendary) {
+            setLegendaryAllowance(legendary.toString());
+          }
+          if (epic) {
+            setEpicAllowance(epic.toString());
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    }
+  }, [account, contracts, network]);
+
   const ITEMS = [
     {
       image: mht,
       title: "BUY",
       sub: "$MHT",
       buyMht: true,
-      subtitles: [
-        `IDO unlock: ${idoUnlock}%`,
-        `Vesting: ${vesting} months`,
-      ],
+      subtitles: [`IDO unlock: ${idoUnlock}%`, `Vesting: ${vesting} months`],
     },
 
     {
@@ -55,7 +81,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        "",
+        `Allowance: ${epicAllowance}`,
       ],
     },
 
@@ -64,10 +90,9 @@ const Cards: NextPage = () => {
       title: "LEGENDARY",
       sub: "BOOSTER",
       subtitles: [
-        
         "Probabilities: 100% Legendary Mouse Hero NFT ",
         "",
-        "",
+        `Allowance: ${legendaryAllowance}`,
       ],
     },
   ];

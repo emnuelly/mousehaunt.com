@@ -16,12 +16,12 @@ import {
   FormIncremental,
   Warning,
 } from "./stylesForm";
-import { Button } from "../Button";
-import config, { Network } from "../../utils/config";
+import config from "../../utils/config";
 import waitFor from "../../utils/waitFor";
 import { getNetwork, isTransactionMined } from "../../utils/blockchain";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
+import { Button } from "../Button";
 
 interface Props {
   index: number;
@@ -139,14 +139,14 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             : config[network].BMHTL.busdPrice;
 
         const approve = await contracts.busd.approve(
-          config[network].BoosterSale.address,
+          config[network].BoosterSale2.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, approve.hash),
           NETWORK_TIMEOUT
         );
-        const buy = await contracts.boosterSale.buy(
+        const buy = await contracts.boosterSale2.buy(
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
@@ -275,7 +275,11 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             </FormMainSection>
 
             <ButtonFormat>
- 
+              {index === 0 ? null : (
+                <Button disabled={buying || !userInfo?.whitelisted}>
+                  BUY NOW
+                </Button>
+              )}
             </ButtonFormat>
           </Form>
         </ContentForm>
