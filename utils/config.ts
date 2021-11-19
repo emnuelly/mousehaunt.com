@@ -56,8 +56,8 @@ const config = {
       cap: "6",
       available: "6000",
     },
-    BoosterSale: {
-      address: "0x8213baC9695ceF5F16Ad01dCd49b854297E426dB",
+    BoosterSale2: {
+      address: "0x6Bb9c33F26Ba1CFbdaA1192484682469776019D8",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
   },
@@ -116,8 +116,8 @@ const config = {
       cap: "6",
       available: "6000",
     },
-    BoosterSale: {
-      address: "0x1aca88D39c0870a33b0592B3e7587a21839fAb3f",
+    BoosterSale2: {
+      address: "",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },

@@ -45,6 +45,38 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC20__factory>;
     getContractFactory(
+      name: "ERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721__factory>;
+    getContractFactory(
+      name: "ERC721Burnable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Burnable__factory>;
+    getContractFactory(
+      name: "ERC721Enumerable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721Enumerable__factory>;
+    getContractFactory(
+      name: "ERC721URIStorage",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.ERC721URIStorage__factory>;
+    getContractFactory(
+      name: "IERC721Enumerable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Enumerable__factory>;
+    getContractFactory(
+      name: "IERC721Metadata",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Metadata__factory>;
+    getContractFactory(
+      name: "IERC721",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721__factory>;
+    getContractFactory(
+      name: "IERC721Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IERC721Receiver__factory>;
+    getContractFactory(
       name: "ERC165",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.ERC165__factory>;
@@ -61,13 +93,33 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BMHTL__factory>;
     getContractFactory(
-      name: "BoosterSale",
+      name: "BoosterSale2",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BoosterSale__factory>;
+    ): Promise<Contracts.BoosterSale2__factory>;
+    getContractFactory(
+      name: "IBooster",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IBooster__factory>;
+    getContractFactory(
+      name: "IMouseHero",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IMouseHero__factory>;
+    getContractFactory(
+      name: "LegendaryEpicBoosterUnpack",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LegendaryEpicBoosterUnpack__factory>;
+    getContractFactory(
+      name: "Random",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Random__factory>;
     getContractFactory(
       name: "MouseHauntToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MouseHauntToken__factory>;
+    getContractFactory(
+      name: "MouseHero",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MouseHero__factory>;
     getContractFactory(
       name: "TokenAllocation",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -122,6 +174,46 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC20>;
     getContractAt(
+      name: "ERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721>;
+    getContractAt(
+      name: "ERC721Burnable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Burnable>;
+    getContractAt(
+      name: "ERC721Enumerable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721Enumerable>;
+    getContractAt(
+      name: "ERC721URIStorage",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.ERC721URIStorage>;
+    getContractAt(
+      name: "IERC721Enumerable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Enumerable>;
+    getContractAt(
+      name: "IERC721Metadata",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Metadata>;
+    getContractAt(
+      name: "IERC721",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721>;
+    getContractAt(
+      name: "IERC721Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IERC721Receiver>;
+    getContractAt(
       name: "ERC165",
       address: string,
       signer?: ethers.Signer
@@ -142,15 +234,40 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BMHTL>;
     getContractAt(
-      name: "BoosterSale",
+      name: "BoosterSale2",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.BoosterSale>;
+    ): Promise<Contracts.BoosterSale2>;
+    getContractAt(
+      name: "IBooster",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IBooster>;
+    getContractAt(
+      name: "IMouseHero",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IMouseHero>;
+    getContractAt(
+      name: "LegendaryEpicBoosterUnpack",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LegendaryEpicBoosterUnpack>;
+    getContractAt(
+      name: "Random",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Random>;
     getContractAt(
       name: "MouseHauntToken",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.MouseHauntToken>;
+    getContractAt(
+      name: "MouseHero",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MouseHero>;
     getContractAt(
       name: "TokenAllocation",
       address: string,
