@@ -28,21 +28,25 @@ describe("MouseHero", function () {
     expect(await nft.tokenURI(0)).to.equal("https://nft.mousehaunt.com/hero/0");
     await expect(legendary)
       .to.emit(nft, "Mint")
-      .withArgs(to.address, Rarity.LEGENDARY);
+      .withArgs(to.address, 0, Rarity.LEGENDARY);
 
     const epic = nft.safeMint(to.address, Rarity.EPIC);
     expect(await nft.tokenURI(1)).to.equal("https://nft.mousehaunt.com/hero/1");
-    await expect(epic).to.emit(nft, "Mint").withArgs(to.address, Rarity.EPIC);
+    await expect(epic)
+      .to.emit(nft, "Mint")
+      .withArgs(to.address, 1, Rarity.EPIC);
 
     const rare = nft.safeMint(to.address, Rarity.RARE);
     expect(await nft.tokenURI(2)).to.equal("https://nft.mousehaunt.com/hero/2");
-    await expect(rare).to.emit(nft, "Mint").withArgs(to.address, Rarity.RARE);
+    await expect(rare)
+      .to.emit(nft, "Mint")
+      .withArgs(to.address, 2, Rarity.RARE);
 
     const common = nft.safeMint(to.address, Rarity.COMMON);
     expect(await nft.tokenURI(3)).to.equal("https://nft.mousehaunt.com/hero/3");
     await expect(common)
       .to.emit(nft, "Mint")
-      .withArgs(to.address, Rarity.COMMON);
+      .withArgs(to.address, 3, Rarity.COMMON);
   });
   it("Should be pausable", async function () {
     const [owner] = await ethers.getSigners();

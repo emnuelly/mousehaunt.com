@@ -11,11 +11,17 @@ import "./interfaces/IMouseHero.sol";
 import "./Random.sol";
 
 /// @custom:security-contact security@mousehaunt.com
-contract BoosterUnpack is Pausable, Ownable, Random {
+contract LegendaryEpicBoosterUnpack is Pausable, Ownable, Random {
   using SafeERC20 for IBooster;
   using Strings for uint256;
 
   uint256 public constant PERCENTAGE_THOUSAND_EPIC = 99000;
+
+  event Unpack(
+    IBooster indexed booster,
+    address indexed to,
+    Rarity indexed rarity
+  );
 
   IMouseHero public nft;
   IBooster public immutable legendaryBooster;
@@ -56,6 +62,7 @@ contract BoosterUnpack is Pausable, Ownable, Random {
     uint256 numberOfNFTs = amount / 1e18;
     for (uint256 i = 0; i < numberOfNFTs; i++) {
       Rarity rarity = _getRarityFromBooster(booster);
+      emit Unpack(booster, msg.sender, rarity);
       nft.safeMint(msg.sender, rarity);
     }
   }

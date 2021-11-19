@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { Contract } from "ethers";
 import { ethers } from "hardhat";
 
-describe("BoosterUnpack", function () {
+describe("LegendaryEpicBoosterUnpack", function () {
   let mhtOwner: SignerWithAddress;
   let boosterUnpack: Contract;
   let bmhtl: Contract;
@@ -34,8 +34,10 @@ describe("BoosterUnpack", function () {
     nft = await MouseHero.deploy(mhtOwner.address);
     await nft.deployed();
 
-    const BoosterUnpack = await ethers.getContractFactory("BoosterUnpack");
-    boosterUnpack = await BoosterUnpack.deploy(
+    const LegendaryEpicBoosterUnpack = await ethers.getContractFactory(
+      "LegendaryEpicBoosterUnpack"
+    );
+    boosterUnpack = await LegendaryEpicBoosterUnpack.deploy(
       mhtOwner.address,
       nft.address,
       bmhtl.address,
@@ -119,7 +121,7 @@ describe("BoosterUnpack", function () {
         "1"
       )
       .to.emit(nft, "Mint")
-      .withArgs(mhtOwner.address, Rarity.LEGENDARY);
+      .withArgs(mhtOwner.address, 0, Rarity.LEGENDARY);
   });
 
   it("unpack boosters EPIC and get LEGENDARY NFT with 1% chance", async function () {
@@ -135,9 +137,9 @@ describe("BoosterUnpack", function () {
       .unpack(bmhte.address, thousandboosters);
 
     await expect(tx)
-      .to.emit(nft, "Mint")
-      .withArgs(mhtOwner.address, Rarity.EPIC)
-      .to.emit(nft, "Mint")
-      .withArgs(mhtOwner.address, Rarity.LEGENDARY);
+      .to.emit(boosterUnpack, "Unpack")
+      .withArgs(bmhte.address, mhtOwner.address, Rarity.EPIC)
+      .to.emit(boosterUnpack, "Unpack")
+      .withArgs(bmhte.address, mhtOwner.address, Rarity.LEGENDARY);
   });
 });

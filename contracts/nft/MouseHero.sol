@@ -22,7 +22,7 @@ contract MouseHero is
   using Counters for Counters.Counter;
   using Strings for uint256;
 
-  event Mint(address indexed to, Rarity rarity);
+  event Mint(address indexed to, uint256 indexed tokenId, Rarity rarity);
 
   Counters.Counter private _tokenIdCounter;
 
@@ -56,7 +56,7 @@ contract MouseHero is
     _tokenIdCounter.increment();
     _safeMint(to, tokenId);
 
-    emit Mint(to, rarity);
+    emit Mint(to, tokenId, rarity);
   }
 
   function _beforeTokenTransfer(
