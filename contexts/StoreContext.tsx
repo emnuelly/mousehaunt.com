@@ -76,9 +76,17 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const updateUserInfo = () => {
     if (account && contracts) {
       (async () => {
-        const isWhitelisted = await contracts?.whitelistSale.isWhitelisted(
-          account
+        const legendaryAllowance = await contracts?.boosterSale2.whitelist(
+          account,
+          config[network].BMHTL.address
         );
+        const epicAllowance = await contracts?.boosterSale2.whitelist(
+          account,
+          config[network].BMHTE.address
+        );
+
+        const isWhitelisted =
+          legendaryAllowance?.toNumber() > 0 || epicAllowance?.toNumber() > 0;
         const whitelisted = Boolean(isWhitelisted);
         const userInfo = await contracts?.whitelistSale.addressToUserInfo(
           account
