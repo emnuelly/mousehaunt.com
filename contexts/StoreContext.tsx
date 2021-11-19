@@ -87,10 +87,12 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
         const isWhitelisted =
           legendaryAllowance?.toNumber() > 0 || epicAllowance?.toNumber() > 0;
+
         const whitelisted = Boolean(isWhitelisted);
         const userInfo = await contracts?.whitelistSale.addressToUserInfo(
           account
         );
+        console.log(userInfo);
         const totalTokens = ethers.utils.formatEther(
           userInfo ? userInfo[0] : ""
         );

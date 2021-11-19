@@ -52,8 +52,8 @@ export const ConnectWalletButton = () => {
   const whitelistedText =
     account && userInfo
       ? userInfo?.whitelisted
-        ? "WHITELISTED"
-        : "NOT WHITELISTED"
+        ? "WHITELISTED (PRIVATE SALE FORMS)"
+        : "NOT WHITELISTED (PRIVATE SALE FORMS)"
       : "";
   const mhtPurchasedText =
     account && userInfo?.whitelisted
@@ -65,8 +65,8 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {/* <span>{whitelistedText}</span> */}
-          {/* {mhtPurchasedText ? <span>|</span> : null} */}
+          <span>{whitelistedText}</span>
+          {mhtPurchasedText ? <span>|</span> : null}
           <span>{mhtPurchasedText}</span>
         </div>
       </WalletInfo>

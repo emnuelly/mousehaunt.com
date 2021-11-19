@@ -34,7 +34,7 @@ const config = {
         unlockAtIGOPercent: "8",
         cliffMonths: "0",
         vestingPeriodMonths: "12",
-        address: "",
+        address: "0x693348553511106405a0544f98765b0332daF507",
         available: "4000000",
       },
     },

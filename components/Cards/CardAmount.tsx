@@ -42,6 +42,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     useContext(StoreContext);
   const network = getNetwork(router);
 
+  console.log(userInfo);
+
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const minBusdAmount =
