@@ -11,62 +11,44 @@ export const sections = [
 
 export const jobPostings = [
   {
+    id: 1,
     name: 'Back-end Engineer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 2,
     name: 'UI/ UX Designeer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 3,
     name: 'Back-end Engineer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 4,
     name: 'UI/ UX Designeer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 5,
     name: 'Back-end Engineer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 6,
     name: 'UI/ UX Designeer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
   {
+    id: 7,
     name: 'Back-end Engineer',
-    type: 'Full Time',
-    location: 'Brazil, Sao Paulo',
-  },
-  {
-    name: 'UI/ UX Designeer',
-    type: 'Full Time',
-    location: 'Brazil, Sao Paulo',
-  },
-  {
-    name: 'Back-end Engineer',
-    type: 'Full Time',
-    location: 'Brazil, Sao Paulo',
-  },
-  {
-    name: 'UI/ UX Designeer',
-    type: 'Full Time',
-    location: 'Brazil, Sao Paulo',
-  },
-  {
-    name: 'Back-end Engineer',
-    type: 'Full Time',
-    location: 'Brazil, Sao Paulo',
-  },
-  {
-    name: 'UI/ UX Designeer',
     type: 'Full Time',
     location: 'Brazil, Sao Paulo',
   },
