@@ -16,7 +16,6 @@ File                             |  % Stmts | % Branch |  % Funcs |  % Lines |Un
  contracts/booster/              |      100 |      100 |      100 |      100 |                |
   BMHTE.sol                      |      100 |      100 |      100 |      100 |                |
   BMHTL.sol                      |      100 |      100 |      100 |      100 |                |
-  BoosterSale.sol                |      100 |      100 |      100 |      100 |                |
   BoosterSale2.sol               |      100 |      100 |      100 |      100 |                |
   LegendaryEpicBoosterUnpack.sol |      100 |      100 |      100 |      100 |                |
   Random.sol                     |      100 |      100 |      100 |      100 |                |
