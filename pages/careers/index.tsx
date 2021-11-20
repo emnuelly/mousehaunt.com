@@ -4,7 +4,7 @@ import Career from '../../components/Career';
 const CareerPage: NextPage = () => {
   return (
     <>
-      <Career location={'job-posting'} />
+      <Career />
     </>
   );
 };
