@@ -128,7 +128,7 @@ const Team: NextPage = () => {
     {
       name: "Antonio Viggiano",
       description:
-        "Bitcoin enthusiast since 2013\nFounded and coded 2 crypto exchanges himself",
+        "Bitcoin enthusiast since 2013\nCofounded and coded 2 crypto exchanges himself",
       src: antonio,
       social: {
         linkedin: "https://www.linkedin.com/in/aviggiano/",

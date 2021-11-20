@@ -17,9 +17,10 @@ import Footer from "../Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import coffin from "../../public/images/coffin-store.png";
+import legendary from "../../public/images/legendary.png";
+import epic from "../../public/images/epic.png";
 import mht from "../../public/images/MHT.png";
-import { addToWallet, getNetwork } from "../../utils/blockchain";
+import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
 
@@ -60,8 +61,13 @@ const DescriptionMHT = (props: {
 
 const StoreSuccess: NextPage = () => {
   const router = useRouter();
-  const image = router.query.type === "MHT" ? mht : coffin;
-  const { account, setAccount, getAccount, userInfo } =
+  const image =
+    router.query.type === "MHT"
+      ? mht
+      : router.query.type?.includes("LEGENDARY")
+      ? legendary
+      : epic;
+  const { account, setAccount, getAccount, userInfo, network } =
     useContext(StoreContext);
 
   useEffect(() => {
@@ -71,7 +77,7 @@ const StoreSuccess: NextPage = () => {
   }, [setAccount, getAccount]);
 
   const onClick = async () => {
-    await addToWallet(getNetwork(router));
+    await addToWallet(network);
     router.push("/store/inventory");
   };
 

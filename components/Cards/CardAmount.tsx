@@ -18,7 +18,7 @@ import {
 } from "./stylesForm";
 import config from "../../utils/config";
 import waitFor from "../../utils/waitFor";
-import { getNetwork, isTransactionMined } from "../../utils/blockchain";
+import { isTransactionMined } from "../../utils/blockchain";
 import { StoreContext } from "../../contexts/StoreContext";
 import { useRouter } from "next/router";
 import { Button } from "../Button";
@@ -38,9 +38,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buying, setBuying] = useState(false);
   const router = useRouter();
-  const { refresh, userInfo, setRefresh, contracts, provider, sale } =
+  const { refresh, userInfo, setRefresh, contracts, provider, sale, network } =
     useContext(StoreContext);
-  const network = getNetwork(router);
 
   console.log(userInfo);
 

@@ -19,13 +19,10 @@ import { Ruler } from "../Ruler";
 import React, { useContext, useEffect, useState } from "react";
 import config from "../../utils/config";
 import { useRouter } from "next/router";
-import { getNetwork } from "../../utils/blockchain";
 import { StoreContext } from "../../contexts/StoreContext";
 
 const Cards: NextPage = () => {
-  const router = useRouter();
-  const network = getNetwork(router);
-  const { sale, contracts, account } = useContext(StoreContext);
+  const { sale, network, contracts, account } = useContext(StoreContext);
   const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
 
   const minBusdAmount =

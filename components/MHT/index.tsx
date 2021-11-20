@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { MetaMaskInpageProvider } from "@metamask/providers";
-import config, { Network } from "../../utils/config";
+import config from "../../utils/config";
 
 import {
   Container,
@@ -14,12 +13,13 @@ import {
 import Image from "next/image";
 import { Button } from "../Button";
 import mht from "../../public/images/MHT.png";
-import { addToWallet, getNetwork } from "../../utils/blockchain";
-import { useRouter } from "next/router";
+import { addToWallet } from "../../utils/blockchain";
+import { useContext } from "react";
+import { StoreContext } from "../../contexts/StoreContext";
 
 const MHT: NextPage = () => {
-  const router = useRouter();
-  const network = getNetwork(router);
+  const { network } = useContext(StoreContext);
+
   return (
     <>
       <Container id="Token">

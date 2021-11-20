@@ -12,12 +12,6 @@ export const isTransactionMined = async (
   else return false;
 }
 
-export const getNetwork = (router: NextRouter): Network => {
-    return typeof router.query.network === "string"
-      ? (router.query.network as Network)
-      : 'bsc';
-}
-
 
 export const addToWallet = async (network: Network) => {
   const tokenDecimals = 18;
@@ -42,4 +36,11 @@ export const addToWallet = async (network: Network) => {
       },
     });
   }
+}
+
+export const changeNetwork = async (network: Network) => {
+  window.ethereum?.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: network === 'bscTestnet' ? '0x61': "0x38" }],
+  });
 }

@@ -3,7 +3,7 @@ import Web3 from "web3";
 import { provider } from "web3-core";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import config from "../utils/config";
+import config, { Network } from "../utils/config";
 import { WhitelistSale } from "../typechain/WhitelistSale";
 import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
 import { BoosterSale2 } from "../typechain/BoosterSale2";
@@ -15,9 +15,9 @@ import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import { useRouter } from "next/router";
-import { getNetwork } from "../utils/blockchain";
 
 import React, { createContext, ReactNode, useEffect, useState } from "react";
+import { changeNetwork } from "../utils/blockchain";
 
 interface Props {
   children: ReactNode;
@@ -55,11 +55,14 @@ interface StoreContextData {
   getAccount: () => Promise<string>;
   setRefresh: React.Dispatch<boolean>;
   sale: Sale;
+  network: Network;
+  setNetwork: React.Dispatch<Network>;
   contracts?: Contracts;
 }
 
 export const StoreContext = createContext<StoreContextData>({
   sale: "PrivateSale",
+  network: "bsc",
 } as StoreContextData);
 
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
@@ -69,8 +72,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [account, setAccount] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserInfoDetailed | undefined>();
   const [refresh, setRefresh] = useState(false);
-  const router = useRouter();
-  const network = getNetwork(router);
+  const [network, setNetwork] = useState<Network>("bsc");
   const sale = "PrivateSale";
 
   const updateUserInfo = () => {
@@ -92,7 +94,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         const userInfo = await contracts?.whitelistSale.addressToUserInfo(
           account
         );
-        console.log(userInfo);
         const totalTokens = ethers.utils.formatEther(
           userInfo ? userInfo[0] : ""
         );
@@ -130,7 +131,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
   useEffect(() => {
     updateUserInfo();
-  }, [account, contracts, refresh]);
+  }, [account, contracts, network, refresh]);
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", function (accounts: string[]) {
@@ -150,10 +151,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
   useEffect(() => {
     if (!["bsc", "bscTestnet"].includes(network)) {
-      window.ethereum?.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x38" }],
-      });
+      changeNetwork("bsc");
     }
   }, [network]);
 
@@ -235,6 +233,8 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         provider,
         web3,
         sale,
+        network,
+        setNetwork,
         contracts,
       }}
     >
