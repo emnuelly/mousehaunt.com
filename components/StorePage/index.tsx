@@ -26,7 +26,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-11-14T23:59:59.000Z");
+  const final = new Date("2021-11-22T14:00:00.000Z");
 
   const countDown = new Date(final).getTime();
 
@@ -34,7 +34,7 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "PRIVATE SALE ENDED";
+    document.getElementById("ends")!.innerText = "PRIVATE SALE (FORMS) ENDED";
     document.getElementById("ended-ul")!.style.display = "none";
     return;
   }
@@ -55,7 +55,7 @@ function countdown() {
 
 const Countdown = () => (
   <CountdownContainer>
-    <span id="ends">PRIVATE SALE ENDS IN</span>
+    <span id="ends">PRIVATE SALE (FORMS) ENDS IN</span>
     <ul id="ended-ul">
       <li>
         <span id="days"></span>DAYS
@@ -74,12 +74,12 @@ const Countdown = () => (
 );
 
 const StoreHome: NextPage = () => {
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     countdown();
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      countdown();
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Container>
@@ -99,7 +99,7 @@ const StoreHome: NextPage = () => {
               Click here 🧀
             </Link>
           </StorePageSub>
-
+          <Countdown />
           <Cards />
         </StoreContainer>
       </Content>
