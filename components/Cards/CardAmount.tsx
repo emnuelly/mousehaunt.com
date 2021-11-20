@@ -32,7 +32,7 @@ function isNumeric(str: string): boolean {
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
 }
 
-const NETWORK_TIMEOUT = 60e3;
+const NETWORK_TIMEOUT = 120e3;
 
 const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [boosterAmount, setBoosterAmount] = useState(1);
