@@ -11,25 +11,21 @@ async function main() {
   const BMHTE = await ethers.getContractFactory("BMHTE");
   const bmhte = BMHTE.attach(config[network].BMHTE.address);
 
-  const BoosterSale = await ethers.getContractFactory("BoosterSale");
-  const boosterSale = BoosterSale.attach(config[network].BoosterSale.address);
+  const wei = ethers.utils.parseEther;
 
-  const wei = (x: string): string => ethers.utils.parseEther(x).toString();
-
-  console.log(
-    "BoosterSale approve",
-    wei(config[network].BMHTL.available),
-    wei(config[network].BMHTE.available)
+  const BoosterSale2 = await ethers.getContractFactory("BoosterSale2");
+  const boosterSale2 = await BoosterSale2.deploy(
+    config[network].BoosterSale2.owner,
+    config[network].BUSD.address,
+    bmhtl.address,
+    bmhte.address,
+    wei(config[network].BMHTL.busdPrice),
+    wei(config[network].BMHTE.busdPrice)
   );
 
-  await bmhtl.approve(
-    boosterSale.address,
-    wei(config[network].BMHTL.available)
-  );
-  await bmhte.approve(
-    boosterSale.address,
-    wei(config[network].BMHTE.available)
-  );
+  await boosterSale2.deployed();
+
+  console.log("BoosterSale2 deployed to:", boosterSale2.address);
 }
 
 main().catch((error) => {

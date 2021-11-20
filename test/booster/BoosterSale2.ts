@@ -5,14 +5,14 @@ import { ethers } from "hardhat";
 
 const toWei = ethers.utils.parseEther;
 
-describe("Booster Sale 2", function () {
+describe("BoosterSale2", function () {
   let boosterOwner: SignerWithAddress;
   let buyer: SignerWithAddress; // whitelisted to buy both tokens
   let buyer2: SignerWithAddress; // whitelisted to buy legendary tokens, but not epic
   let buyer3: SignerWithAddress; // not whitelisted
 
   let busd: Contract;
-  let boosterSale: Contract;
+  let boosterSale2: Contract;
   let bmhtl: Contract;
   let bmhte: Contract;
 
@@ -36,9 +36,9 @@ describe("Booster Sale 2", function () {
     bmhte = await BMHTE.deploy(boosterOwner.address);
     await bmhte.deployed();
 
-    const BoosterSale = await ethers.getContractFactory("BoosterSale2");
+    const BoosterSale2 = await ethers.getContractFactory("BoosterSale2");
 
-    boosterSale = await BoosterSale.deploy(
+    boosterSale2 = await BoosterSale2.deploy(
       boosterOwner.address,
       busd.address,
       bmhtl.address,
@@ -46,33 +46,33 @@ describe("Booster Sale 2", function () {
       legendaryPrice,
       epicPrice
     );
-    await boosterSale.deployed();
+    await boosterSale2.deployed();
   });
 
   describe("Initial values", async function () {
     it("Should have owner different than deployer", async function () {
-      expect(await boosterSale.owner()).to.equal(boosterOwner.address);
+      expect(await boosterSale2.owner()).to.equal(boosterOwner.address);
     });
 
     it("Should have initial values correctly set", async function () {
-      expect(await boosterSale.boosterOwner()).to.equal(boosterOwner.address);
-      expect(await boosterSale.busd()).to.equal(busd.address);
-      expect(await boosterSale.legendaryBooster()).to.equal(bmhtl.address);
-      expect(await boosterSale.epicBooster()).to.equal(bmhte.address);
-      expect(await boosterSale.prices(bmhtl.address)).to.equal(legendaryPrice);
-      expect(await boosterSale.prices(bmhte.address)).to.equal(epicPrice);
+      expect(await boosterSale2.boosterOwner()).to.equal(boosterOwner.address);
+      expect(await boosterSale2.busd()).to.equal(busd.address);
+      expect(await boosterSale2.legendaryBooster()).to.equal(bmhtl.address);
+      expect(await boosterSale2.epicBooster()).to.equal(bmhte.address);
+      expect(await boosterSale2.prices(bmhtl.address)).to.equal(legendaryPrice);
+      expect(await boosterSale2.prices(bmhte.address)).to.equal(epicPrice);
     });
 
     it("Should be pausable", async function () {
-      await boosterSale.connect(boosterOwner).pause();
+      await boosterSale2.connect(boosterOwner).pause();
 
-      await expect(boosterSale.buy(bmhtl.address, 1)).to.be.revertedWith(
+      await expect(boosterSale2.buy(bmhtl.address, 1)).to.be.revertedWith(
         "Pausable: paused"
       );
 
-      await boosterSale.connect(boosterOwner).unpause();
+      await boosterSale2.connect(boosterOwner).unpause();
 
-      await expect(boosterSale.buy(bmhtl.address, 1)).to.not.be.revertedWith(
+      await expect(boosterSale2.buy(bmhtl.address, 1)).to.not.be.revertedWith(
         "Pausable: paused"
       );
     });
@@ -80,60 +80,60 @@ describe("Booster Sale 2", function () {
 
   describe("Whitelist", async function () {
     it("should set the whitelist correctly", async function () {
-      await boosterSale
+      await boosterSale2
         .connect(boosterOwner)
         .setWhitelist([buyer.address, buyer2.address], [2, 3], [5, 0]);
 
       expect(
-        await boosterSale.whitelist(buyer.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer.address, bmhtl.address)
       ).to.equal(2);
       expect(
-        await boosterSale.whitelist(buyer.address, bmhte.address)
+        await boosterSale2.whitelist(buyer.address, bmhte.address)
       ).to.equal(5);
 
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer2.address, bmhtl.address)
       ).to.equal(3);
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhte.address)
+        await boosterSale2.whitelist(buyer2.address, bmhte.address)
       ).to.equal(0);
     });
 
     it("should allow the owner to reset the whitelist", async function () {
-      await boosterSale
+      await boosterSale2
         .connect(boosterOwner)
         .setWhitelist([buyer.address, buyer2.address], [2, 3], [5, 0]);
 
       expect(
-        await boosterSale.whitelist(buyer.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer.address, bmhtl.address)
       ).to.equal(2);
       expect(
-        await boosterSale.whitelist(buyer.address, bmhte.address)
+        await boosterSale2.whitelist(buyer.address, bmhte.address)
       ).to.equal(5);
 
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer2.address, bmhtl.address)
       ).to.equal(3);
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhte.address)
+        await boosterSale2.whitelist(buyer2.address, bmhte.address)
       ).to.equal(0);
 
-      await boosterSale
+      await boosterSale2
         .connect(boosterOwner)
         .setWhitelist([buyer.address, buyer2.address], [0, 10], [0, 10]);
 
       expect(
-        await boosterSale.whitelist(buyer.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer.address, bmhtl.address)
       ).to.equal(0);
       expect(
-        await boosterSale.whitelist(buyer.address, bmhte.address)
+        await boosterSale2.whitelist(buyer.address, bmhte.address)
       ).to.equal(0);
 
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer2.address, bmhtl.address)
       ).to.equal(10);
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhte.address)
+        await boosterSale2.whitelist(buyer2.address, bmhte.address)
       ).to.equal(10);
     });
   });
@@ -146,7 +146,7 @@ describe("Booster Sale 2", function () {
       const buyer2EpicAllowance = 0;
 
       // add users 1 and 2 to the whitelist:
-      await boosterSale
+      await boosterSale2
         .connect(boosterOwner)
         .setWhitelist(
           [buyer.address, buyer2.address],
@@ -163,23 +163,23 @@ describe("Booster Sale 2", function () {
         .add(epicPrice.mul(buyer2EpicAllowance));
       await busd
         .connect(buyer)
-        .approve(boosterSale.address, buyer1DesiredAllowance);
+        .approve(boosterSale2.address, buyer1DesiredAllowance);
       await busd
         .connect(buyer2)
-        .approve(boosterSale.address, buyer2DesiredAllowance);
+        .approve(boosterSale2.address, buyer2DesiredAllowance);
 
       // BoosterOwner approve the max allowance
       await bmhtl
         .connect(boosterOwner)
         .approve(
-          boosterSale.address,
+          boosterSale2.address,
           await bmhtl.balanceOf(boosterOwner.address)
         );
 
       await bmhte
         .connect(boosterOwner)
         .approve(
-          boosterSale.address,
+          boosterSale2.address,
           await bmhte.balanceOf(boosterOwner.address)
         );
     });
@@ -192,20 +192,20 @@ describe("Booster Sale 2", function () {
       const epicBalanceBefore = await bmhte.balanceOf(boosterOwner.address);
 
       // get whitelist allowance and buy as much Legendaries as I can
-      const maxLegendaries = await boosterSale.whitelist(
+      const maxLegendaries = await boosterSale2.whitelist(
         buyer.address,
         bmhtl.address
       );
-      await boosterSale
+      await boosterSale2
         .connect(buyer)
         .buy(bmhtl.address, toWei(maxLegendaries.toString()));
 
       // get whitelist allowance and buy as much Epics as I can
-      const maxEpics = await boosterSale.whitelist(
+      const maxEpics = await boosterSale2.whitelist(
         buyer.address,
         bmhte.address
       );
-      await boosterSale
+      await boosterSale2
         .connect(buyer)
         .buy(bmhte.address, toWei(maxEpics.toString()));
 
@@ -223,10 +223,10 @@ describe("Booster Sale 2", function () {
 
       // make sure the allowance has been consumed
       expect(
-        await boosterSale.whitelist(buyer.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer.address, bmhtl.address)
       ).to.equal(0);
       expect(
-        await boosterSale.whitelist(buyer.address, bmhte.address)
+        await boosterSale2.whitelist(buyer.address, bmhte.address)
       ).to.equal(0);
     });
 
@@ -241,18 +241,18 @@ describe("Booster Sale 2", function () {
       const epicBalanceBefore = await bmhte.balanceOf(boosterOwner.address);
 
       // get whitelist allowance and buy as much Legendaries as I can
-      const maxLegendaries = await boosterSale.whitelist(
+      const maxLegendaries = await boosterSale2.whitelist(
         buyer2.address,
         bmhtl.address
       );
-      await boosterSale
+      await boosterSale2
         .connect(buyer2)
         .buy(bmhtl.address, toWei(maxLegendaries.toString()));
 
       // try to buy Epics and fail because there is no whitelist allowance
       await expect(
-        boosterSale.connect(buyer2).buy(bmhte.address, toWei("1"))
-      ).to.be.revertedWith("BoosterSale: above cap");
+        boosterSale2.connect(buyer2).buy(bmhte.address, toWei("1"))
+      ).to.be.revertedWith("BoosterSale2: above cap");
 
       // get balances after
       const legendaryBalanceAfter = await bmhtl.balanceOf(boosterOwner.address);
@@ -266,20 +266,20 @@ describe("Booster Sale 2", function () {
 
       // make sure the whitelist allowance has been consumed
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer2.address, bmhtl.address)
       ).to.equal(0);
       expect(
-        await boosterSale.whitelist(buyer2.address, bmhte.address)
+        await boosterSale2.whitelist(buyer2.address, bmhte.address)
       ).to.equal(0);
     });
 
     it("should revert when a non-whitelisted user tries to buy tokens", async function () {
       // make sure the whitelist allowance is zero
       expect(
-        await boosterSale.whitelist(buyer3.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer3.address, bmhtl.address)
       ).to.equal(0);
       expect(
-        await boosterSale.whitelist(buyer3.address, bmhte.address)
+        await boosterSale2.whitelist(buyer3.address, bmhte.address)
       ).to.equal(0);
 
       // transfer some money to buyer3
@@ -293,13 +293,13 @@ describe("Booster Sale 2", function () {
 
       // try to buy Legendaries and fail because there is no whitelist allowance
       await expect(
-        boosterSale.connect(buyer3).buy(bmhtl.address, toWei("1"))
-      ).to.be.revertedWith("BoosterSale: above cap");
+        boosterSale2.connect(buyer3).buy(bmhtl.address, toWei("1"))
+      ).to.be.revertedWith("BoosterSale2: above cap");
 
       // try to buy Epics and fail because there is no whitelist allowance
       await expect(
-        boosterSale.connect(buyer3).buy(bmhte.address, toWei("1"))
-      ).to.be.revertedWith("BoosterSale: above cap");
+        boosterSale2.connect(buyer3).buy(bmhte.address, toWei("1"))
+      ).to.be.revertedWith("BoosterSale2: above cap");
 
       // get balances after
       const legendaryBalanceAfter = await bmhtl.balanceOf(boosterOwner.address);
@@ -311,10 +311,10 @@ describe("Booster Sale 2", function () {
 
       // make sure the whitelist allowance has not changed
       expect(
-        await boosterSale.whitelist(buyer3.address, bmhtl.address)
+        await boosterSale2.whitelist(buyer3.address, bmhtl.address)
       ).to.equal(0);
       expect(
-        await boosterSale.whitelist(buyer3.address, bmhte.address)
+        await boosterSale2.whitelist(buyer3.address, bmhte.address)
       ).to.equal(0);
     });
   });

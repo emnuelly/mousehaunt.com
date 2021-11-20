@@ -1,1 +1,8 @@
-[]
+{
+  "buyers": [
+    "0x343BD4e802BaE35F89e043299B82067aab38dfd3",
+    "0x087B58029f7251E7054153Bc8775e14A68490286"
+  ],
+  "legendaryAllowances": [2, 1],
+  "epicAllowances": [6, 3]
+}

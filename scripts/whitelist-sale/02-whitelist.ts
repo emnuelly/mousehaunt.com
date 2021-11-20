@@ -13,8 +13,8 @@ async function main() {
     config[network].WhitelistSale[sale].address
   );
 
-  console.log(`WhitelistSale whitelist ${whitelist}`);
-  await whitelistSale.addToWhitelist(whitelist);
+  console.log("WhitelistSale whitelist", whitelist);
+  await whitelistSale.addToWhitelist(whitelist.buyers);
 }
 
 main().catch((error) => {

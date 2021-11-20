@@ -65,11 +65,11 @@ contract BoosterSale2 is Pausable, Ownable {
     uint256 _numberOfBoosters = _numberOfBoostersInWei / 1e18;
     require(
       whitelist[msg.sender][booster] >= _numberOfBoosters,
-      "BoosterSale: above cap"
+      "BoosterSale2: above cap"
     );
     require(
       _numberOfBoostersInWei >= 1e18 && _numberOfBoostersInWei % 1e18 == 0,
-      "BoosterSale: invalid amount"
+      "BoosterSale2: invalid amount"
     );
 
     whitelist[msg.sender][booster] -= _numberOfBoosters;
