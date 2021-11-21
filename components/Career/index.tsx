@@ -111,7 +111,7 @@ const CareerPage: React.FC = () => {
               <CardsColumn>{displayPostings()}</CardsColumn>
             </>
           ) : (
-            <JobDescription object={jobObject} goBack={returnToCareerPage} />
+            <JobDescription job={jobObject} goBack={returnToCareerPage} />
           )}
 
           <Ruler />

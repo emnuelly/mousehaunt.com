@@ -11,106 +11,55 @@ import {
   ButtonStyle,
   DisplayButtons,
 } from './jobDescriptionStyles';
-import { FiBriefcase, FiDollarSign } from 'react-icons/fi';
-import { BsBarChart } from 'react-icons/bs';
-import { RiMapPinLine } from 'react-icons/ri';
 import { Fragment, useEffect } from 'react';
 import { Link } from '../Link';
+import { Props } from './jobListings.functions';
+import HeaderJobInfo from './HeaderJobInfo';
+import DisplayJobDescription from './DisplayJobDescription';
 
-interface Props {
-  object: any;
-  goBack: any;
-}
-
-const JobDescription: React.FC<Props> = ({ object, goBack }: Props) => {
+const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const displayHeaderJobInfo = () => {
-    const { jobInfo } = object;
-    const keys = 'icon';
-    const icons = [
-      <FiBriefcase key={keys} />,
-      <BsBarChart key={keys} />,
-      <RiMapPinLine key={keys} />,
-      <FiDollarSign key={keys} />,
-    ];
-
-    return Object.entries(jobInfo).map((e: any, k: number) => {
-      return (
-        <JobDescriptionText key={k}>
-          <IconStyle>
-            {icons[k]}
-            <IconPadding>{e[0]}</IconPadding>
-          </IconStyle>
-          <br />
-          <IconTextSub>{e[1]}</IconTextSub>
-        </JobDescriptionText>
-      );
-    });
-  };
-
-  const displayJobDescription = () => {
-    const { paragraphs } = object.jobDescription;
-    return Object.values(paragraphs).map((e, k) => (
-      <>
-        <div key={k}>{e}</div> <br />
-      </>
-    ));
-  };
-
-  const displayJobResponsibilities = () => {
-    const { responsibilities } = object.jobResponsibilities;
-    return <div>{responsibilities}</div>;
-  };
-
-  const displayResponsibilitiesBullet = () => {
-    const { bulletPoints } = object.jobResponsibilities;
-
-    return Object.values(bulletPoints).map((e, k) => (
-      <Fragment key={k}>
-        <SectionBullet>{e}</SectionBullet>
-      </Fragment>
-    ));
-  };
-
-  const displayRequirementsBullet = () => {
-    const { bulletPoints } = object.jobRequirements;
-
-    return Object.values(bulletPoints).map((e, k) => (
-      <Fragment key={k}>
-        <SectionBullet>{e}</SectionBullet>
-      </Fragment>
-    ));
-  };
-
-  const displayJobRequirements = () => {
-    const { paragraphs } = object.jobRequirements;
-    return Object.values(paragraphs).map((e, k) => (
-      <>
-        <div key={k}>{e}</div>
-      </>
-    ));
-  };
-
   return (
     <>
       <JobTitle>
-        {object.jobRole.role} - {object.jobRole.extra}
+        {job.jobRole.role} - {job.jobRole.extra}
       </JobTitle>
-      <JobDescriptionHeader>{displayHeaderJobInfo()}</JobDescriptionHeader>
+      <JobDescriptionHeader>
+        <HeaderJobInfo jobListingHeader={job} />
+      </JobDescriptionHeader>
 
       <SectionTitle>Job Description</SectionTitle>
-      <SectionParagraph>{displayJobDescription()}</SectionParagraph>
+      <SectionParagraph>
+        <DisplayJobDescription
+          paragraphs={job.jobDescription.paragraphs}
+          needBreakLine
+        />
+      </SectionParagraph>
 
       <SectionTitle>Responsibilities</SectionTitle>
-      <SectionParagraph>{displayJobResponsibilities()}</SectionParagraph>
-      <ul>{displayResponsibilitiesBullet()}</ul>
+      <SectionParagraph>
+        <DisplayJobDescription
+          paragraphs={job.jobResponsibilities.responsibilities}
+        />
+      </SectionParagraph>
+      <ul>
+        <DisplayJobDescription
+          bulletPoints={job.jobResponsibilities.bulletPoints}
+        />
+      </ul>
 
       <SectionTitle>Job Requirements</SectionTitle>
-      <SectionParagraph>{displayJobRequirements()}</SectionParagraph>
-      <ul>{displayRequirementsBullet()}</ul>
+      <SectionParagraph>
+        <DisplayJobDescription paragraphs={job.jobRequirements.paragraphs} />
+      </SectionParagraph>
+      <ul>
+        <DisplayJobDescription
+          bulletPoints={job.jobRequirements.bulletPoints}
+        />
+      </ul>
 
       <DisplayButtons>
         <Link
@@ -126,20 +75,3 @@ const JobDescription: React.FC<Props> = ({ object, goBack }: Props) => {
 };
 
 export default JobDescription;
-
-{
-  /* <JobDescriptionText>
-          Icon Level <br />
-          {jobInfo.level}
-        </JobDescriptionText>
-        <div>
-          Icon Location <br />
-          {jobInfo.location}
-        </div>
-        
-        <div>
-          Icon Salary <br />
-          {jobInfo.salary}
-        </div>
-      </JobDescriptionHeader> */
-}
