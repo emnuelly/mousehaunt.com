@@ -77,13 +77,13 @@ export const CareerPageSubText = styled.p`
   display: flex;
   width: 70%;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 50px;
   justify-content: center;
 
   text-align: left;
   font-family: 'SF Pro Display';
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 28px;
 
   color: #ffff;
@@ -136,6 +136,7 @@ export const Cards = styled.div`
   border-radius: 10px;
   flex: 0 0 30%;
   margin: 0 15px 40px;
+  margin-bottom: 25%;
 
   @media screen and (max-width: 600px) {
     flex: 0 0 100%;
