@@ -85,7 +85,7 @@ export const ConnectWalletButton = () => {
         : "NOT WHITELISTED OR ABOVE CAP (PRIVATE SALE FORMS)"
       : "";
   const mhtPurchasedText =
-    account && userInfo?.whitelisted
+    account && userInfo?.totalTokens
       ? userInfo?.totalTokens + " $MHT PURCHASED"
       : "";
 
