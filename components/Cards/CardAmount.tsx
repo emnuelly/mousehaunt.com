@@ -275,13 +275,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
               )}
             </FormMainSection>
 
-            <ButtonFormat>
-              {index === 0 ? null : (
-                <Button disabled={buying || !userInfo?.whitelisted}>
-                  BUY NOW
-                </Button>
-              )}
-            </ButtonFormat>
+
           </Form>
         </ContentForm>
       </Formik>
