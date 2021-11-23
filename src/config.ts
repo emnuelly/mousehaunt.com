@@ -60,6 +60,14 @@ const config = {
       address: "0x6Bb9c33F26Ba1CFbdaA1192484682469776019D8",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     },
+    MouseHero: {
+      address: "",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+    },
+    LegendaryEpicBoosterUnpack: {
+      address: "",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+    },
   },
   bsc: {
     s3: {
@@ -118,6 +126,14 @@ const config = {
     },
     BoosterSale2: {
       address: "0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+    },
+    MouseHero: {
+      address: "",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+    },
+    LegendaryEpicBoosterUnpack: {
+      address: "",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     },
   },
