@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@metamask/providers": "^8.1.1",
+    "@types/react-gtm-module": "^2.0.1",
     "@types/react-table": "^7.7.7",
     "@types/styled-components": "^5.1.15",
     "@walletconnect/web3-provider": "^1.6.6",
