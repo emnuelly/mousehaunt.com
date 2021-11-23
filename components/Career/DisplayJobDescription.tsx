@@ -20,7 +20,7 @@ const DisplayJobDescription: React.FC<Props> = ({
         </>
       ));
     }
-    return;
+    return null;
   };
 
   const displayBulletPoints = () => {
@@ -31,10 +31,15 @@ const DisplayJobDescription: React.FC<Props> = ({
         </Fragment>
       ));
     }
-    return;
+    return null;
   };
 
-  return displayJobParagraphs() || displayBulletPoints();
+  return (
+    <>
+      {displayJobParagraphs()}
+      {displayBulletPoints()}
+    </>
+  );
 };
 
 export default DisplayJobDescription;
