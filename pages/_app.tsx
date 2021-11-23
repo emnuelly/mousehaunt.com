@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    TagManager.initialize({ gtmId: process.env.GTM_ID! });
+    TagManager.initialize({ gtmId: process.env.GA_MEASUREMENT_ID! });
   }, []);
 
   return (
