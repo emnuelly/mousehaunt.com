@@ -1,10 +1,11 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import React from "react";
+import React, { useEffect } from "react";
 // import { MoralisProvider } from "react-moralis";
 // import config from "../utils/config";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { StoreProvider } from "../contexts/StoreContext";
+import TagManager from "react-gtm-module";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,6 +34,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    TagManager.initialize({ gtmId: process.env.GTM_ID });
+  }, []);
+
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyle />
