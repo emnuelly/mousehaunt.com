@@ -62,7 +62,7 @@ const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
       </ul>
 
       <DisplayButtons>
-        <a href={job.jobInfo.link}>
+        <a href={job.jobInfo.link} target="_blank" rel="noreferrer">
           <Link>APPLY NOW</Link>
         </a>
         <ButtonStyle onClick={() => goBack()}>GO BACK</ButtonStyle>
