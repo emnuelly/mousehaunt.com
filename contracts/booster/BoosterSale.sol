@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /**
- * @title Booster Sale 2
+ * @title Booster Sale
  * @dev This contract sells tokens to a specific user base, limiting
  *      how many tokens each user may buy
  * @dev We'll reuse the sale contract employed in the first sale,
  *      making minimal changes only
  */
 /// @custom:security-contact security@mousehaunt.com
-contract BoosterSale2 is Pausable, Ownable {
+contract BoosterSale is Pausable, Ownable {
   using SafeERC20 for IERC20;
 
   address public immutable boosterOwner;
@@ -65,11 +65,11 @@ contract BoosterSale2 is Pausable, Ownable {
     uint256 _numberOfBoosters = _numberOfBoostersInWei / 1e18;
     require(
       whitelist[msg.sender][booster] >= _numberOfBoosters,
-      "BoosterSale2: above cap"
+      "BoosterSale: above cap"
     );
     require(
       _numberOfBoostersInWei >= 1e18 && _numberOfBoostersInWei % 1e18 == 0,
-      "BoosterSale2: invalid amount"
+      "BoosterSale: invalid amount"
     );
 
     whitelist[msg.sender][booster] -= _numberOfBoosters;

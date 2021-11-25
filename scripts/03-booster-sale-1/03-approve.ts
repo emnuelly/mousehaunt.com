@@ -11,29 +11,29 @@ async function main() {
   const BMHTE = await ethers.getContractFactory("BMHTE");
   const bmhte = BMHTE.attach(config[network].BMHTE.address);
 
-  const BoosterSale2 = await ethers.getContractFactory("BoosterSale2");
-  const boosterSale2 = BoosterSale2.attach(
-    config[network].BoosterSale2.address
+  const BoosterSale = await ethers.getContractFactory("BoosterSale");
+  const boosterSale = BoosterSale.attach(
+    config[network].BoosterSale.PrivateSale1.address
   );
 
   const wei = (x: string): string => ethers.utils.parseEther(x).toString();
 
   console.log(
-    "BoosterSale2 approve",
-    boosterSale2.address,
+    "BoosterSale approve",
+    boosterSale.address,
     bmhtl.address,
-    wei(config[network].BMHTL.available),
+    wei(config[network].BoosterSale.PrivateSale1.BMHTL.available),
     bmhte.address,
-    wei(config[network].BMHTE.available)
+    wei(config[network].BoosterSale.PrivateSale1.BMHTE.available)
   );
 
   await bmhtl.approve(
-    boosterSale2.address,
-    wei(config[network].BMHTL.available)
+    boosterSale.address,
+    wei(config[network].BoosterSale.PrivateSale1.BMHTL.available)
   );
   await bmhte.approve(
-    boosterSale2.address,
-    wei(config[network].BMHTE.available)
+    boosterSale.address,
+    wei(config[network].BoosterSale.PrivateSale1.BMHTE.available)
   );
 }
 

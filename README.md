@@ -16,7 +16,7 @@ File                             |  % Stmts | % Branch |  % Funcs |  % Lines |Un
  contracts/booster/              |      100 |      100 |      100 |      100 |                |
   BMHTE.sol                      |      100 |      100 |      100 |      100 |                |
   BMHTL.sol                      |      100 |      100 |      100 |      100 |                |
-  BoosterSale2.sol               |      100 |      100 |      100 |      100 |                |
+  BoosterSale.sol               |      100 |      100 |      100 |      100 |                |
   LegendaryEpicBoosterUnpack.sol |      100 |      100 |      100 |      100 |                |
   Random.sol                     |      100 |      100 |      100 |      100 |                |
  contracts/booster/interfaces/   |      100 |      100 |      100 |      100 |                |
@@ -42,7 +42,7 @@ All files                        |      100 |      100 |      100 |      100 |  
 | Mouse Haunt Token (MHT)               | [`0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B`](https://bscscan.com/token/0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B)   | 100,000,000  |
 | Mouse Haunt Booster LEGENDARY (BMHTL) | [`0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C`](https://bscscan.com/token/0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C)   | 8,250        |
 | Mouse Haunt Booster EPIC (BMHTE)      | [`0x2DE83F4243ff0200624a44011777a373aF7E9f72`](https://bscscan.com/token/0x2DE83F4243ff0200624a44011777a373aF7E9f72)   | 66,000       |
-| Booster Sale 2                        | [`0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C`](https://bscscan.com/address/0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C) |              |
+| Booster Sale                          | [`0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C`](https://bscscan.com/address/0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C) |              |
 | Whitelist Sale (Private Sale)         | [`0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F`](https://bscscan.com/address/0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F) |              |
 
 ## Code audits
