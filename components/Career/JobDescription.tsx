@@ -11,7 +11,7 @@ import {
   ButtonStyle,
   DisplayButtons,
 } from './jobDescriptionStyles';
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from '../Link';
 import { Props } from './jobListings.functions';
 import HeaderJobInfo from './HeaderJobInfo';
@@ -62,12 +62,9 @@ const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
       </ul>
 
       <DisplayButtons>
-        <Link
-          style={{ width: '15%' }}
-          onClick={() => alert("I don't know where to go.")}
-        >
-          APPLY NOW
-        </Link>
+        <a href={job.jobInfo.link} target="_blank" rel="noreferrer">
+          <Link>APPLY NOW</Link>
+        </a>
         <ButtonStyle onClick={() => goBack()}>GO BACK</ButtonStyle>
       </DisplayButtons>
     </>
