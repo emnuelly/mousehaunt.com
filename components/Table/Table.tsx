@@ -7,6 +7,7 @@ import epic from "../../public/images/epic.png";
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
 import { ethers } from "ethers";
+import config from "../../utils/config";
 
 function truncate(str: string, maxDecimalDigits = 3) {
   if (str.includes(".")) {
@@ -17,7 +18,7 @@ function truncate(str: string, maxDecimalDigits = 3) {
 }
 
 const Table: React.FC = () => {
-  const { userInfo, contracts } = useContext(StoreContext);
+  const { userInfoDetailed, contracts, network } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
 
@@ -33,24 +34,26 @@ const Table: React.FC = () => {
   useEffect(() => {
     (async () => {
       const unlockAtIGOPercent =
-        await contracts?.whitelistSale.unlockAtIGOPercent();
+        config[network].WhitelistSale.PrivateSale2.unlockAtIGOPercent;
       const vestingPeriodMonths =
-        await contracts?.whitelistSale.vestingPeriodMonths();
+        config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
       const igo =
-        unlockAtIGOPercent && userInfo?.totalTokens
+        unlockAtIGOPercent && userInfoDetailed?.totalTokens
           ? ethers.utils.formatEther(
               ethers.utils
-                .parseEther(userInfo.totalTokens)
+                .parseEther(userInfoDetailed.totalTokens)
                 .mul(unlockAtIGOPercent)
                 .div(100)
                 .toString()
             )
           : "";
       const amount =
-        unlockAtIGOPercent && userInfo?.totalTokens && vestingPeriodMonths
+        unlockAtIGOPercent &&
+        userInfoDetailed?.totalTokens &&
+        vestingPeriodMonths
           ? ethers.utils.formatEther(
               ethers.utils
-                .parseEther(userInfo.totalTokens)
+                .parseEther(userInfoDetailed.totalTokens)
                 .mul(100 - Number(unlockAtIGOPercent))
                 .div(100)
                 .div(vestingPeriodMonths)
@@ -60,13 +63,13 @@ const Table: React.FC = () => {
       setIgoAmount(truncate(igo));
       setMonthlyAmount(truncate(amount));
     })();
-  }, [contracts, userInfo]);
+  }, [contracts, userInfoDetailed, network]);
 
   const data = [
     {
       item: "BMHTL",
       itemSub: "Mouse Haunt Booster LEGENDARY",
-      type: userInfo?.boosters.legendary,
+      type: userInfoDetailed?.boosters.legendary,
       typeSub: "Available on wallet",
       image: legendary,
       status: "AVAILABLE",
@@ -74,7 +77,7 @@ const Table: React.FC = () => {
     {
       item: "BMHTE",
       itemSub: "Mouse Haunt Booster EPIC",
-      type: userInfo?.boosters.epic,
+      type: userInfoDetailed?.boosters.epic,
       typeSub: "Available on wallet",
       image: epic,
       status: "AVAILABLE",

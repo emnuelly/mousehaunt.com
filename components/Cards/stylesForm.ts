@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const ContentForm = styled.section`
+export const ContentForm = styled.div`
   position: relative;
-  top: -30%;
+  top: -27.5%;
 
   button,
   input[type='submit'] {
@@ -106,6 +106,8 @@ export const ButtonFormat = styled.section`
   }
   button {
     width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
 

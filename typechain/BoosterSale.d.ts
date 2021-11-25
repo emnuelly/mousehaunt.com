@@ -19,7 +19,7 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
-interface BoosterSale2Interface extends ethers.utils.Interface {
+interface BoosterSaleInterface extends ethers.utils.Interface {
   functions: {
     "boosterOwner()": FunctionFragment;
     "busd()": FunctionFragment;
@@ -128,7 +128,7 @@ export type PausedEvent = TypedEvent<[string] & { account: string }>;
 
 export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
 
-export class BoosterSale2 extends BaseContract {
+export class BoosterSale extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -169,7 +169,7 @@ export class BoosterSale2 extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: BoosterSale2Interface;
+  interface: BoosterSaleInterface;
 
   functions: {
     boosterOwner(overrides?: CallOverrides): Promise<[string]>;

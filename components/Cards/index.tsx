@@ -18,22 +18,27 @@ import Footer from "../Footer/index";
 import { Ruler } from "../Ruler";
 import React, { useContext, useEffect, useState } from "react";
 import config from "../../utils/config";
-import { useRouter } from "next/router";
 import { StoreContext } from "../../contexts/StoreContext";
 
 const Cards: NextPage = () => {
-  const { sale, network, contracts, account } = useContext(StoreContext);
-  const MHT_TO_BUSD = Number(config[network].WhitelistSale[sale].MHTtoBUSD);
+  const { network, contracts, account, userInfoDetailed } =
+    useContext(StoreContext);
+  const MHT_TO_BUSD = Number(
+    config[network].WhitelistSale.PrivateSale2.MHTtoBUSD
+  );
 
   const minBusdAmount =
-    Number(config[network].WhitelistSale[sale].minMhtAmount) *
-    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale2.minMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
   const maxBusdAmount =
-    Number(config[network].WhitelistSale[sale].maxMhtAmount) *
-    Number(config[network].WhitelistSale[sale].MHTtoBUSD);
-  const idoUnlock = config[network].WhitelistSale[sale].unlockAtIGOPercent;
-  const vesting = config[network].WhitelistSale[sale].vestingPeriodMonths;
+    Number(config[network].WhitelistSale.PrivateSale2.maxMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
+  const idoUnlock =
+    config[network].WhitelistSale.PrivateSale2.unlockAtIGOPercent;
+  const vesting =
+    config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
 
+  const mhtAllowance = userInfoDetailed?.mhtAllowancePrivateSale2 ?? "";
   const [legendaryAllowance, setLegendaryAllowance] = useState("");
   const [epicAllowance, setEpicAllowance] = useState("");
 
@@ -68,7 +73,14 @@ const Cards: NextPage = () => {
       title: "BUY",
       sub: "$MHT",
       buyMht: true,
-      subtitles: [`IDO unlock: ${idoUnlock}%`, `Vesting: ${vesting} months`],
+      subtitles: [
+        `Price: 1 $MHT = ${MHT_TO_BUSD} $BUSD`,
+        `Minimum purchase: ${minBusdAmount} $BUSD`,
+        `Maximum purchase: ${maxBusdAmount} $BUSD`,
+        `IDO unlock: ${idoUnlock}%`,
+        `Vesting: ${vesting} months`,
+        `Allowance: ${mhtAllowance}`,
+      ],
     },
 
     {
@@ -78,7 +90,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        `Price: $${config[network].BMHTE.busdPrice}`,
+        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
         `Allowance: ${epicAllowance}`,
       ],
     },
@@ -90,7 +102,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 100% Legendary Mouse Hero NFT ",
         "",
-        `Price: $${config[network].BMHTL.busdPrice}`,
+        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice}`,
         `Allowance: ${legendaryAllowance}`,
       ],
     },

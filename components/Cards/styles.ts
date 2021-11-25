@@ -22,7 +22,7 @@ export const CardSection = styled.div<Props>`
   border-radius: 10px;
   width: 80%;
   overflow: hidden;
-  height: 620px;
+  height: 640px;
 
   
   background: ${props => props.index === 0 ? (

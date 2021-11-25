@@ -67,8 +67,13 @@ const StoreSuccess: NextPage = () => {
       : router.query.type?.includes("LEGENDARY")
       ? legendary
       : epic;
-  const { account, setAccount, getAccount, userInfo, network } =
-    useContext(StoreContext);
+  const {
+    account,
+    setAccount,
+    getAccount,
+    userInfoDetailed: userInfo,
+    network,
+  } = useContext(StoreContext);
 
   useEffect(() => {
     async () => {

@@ -1,8 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import React, { useEffect } from "react";
-// import { MoralisProvider } from "react-moralis";
-// import config from "../utils/config";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { StoreProvider } from "../contexts/StoreContext";
 

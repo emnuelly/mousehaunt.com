@@ -93,9 +93,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BMHTL__factory>;
     getContractFactory(
-      name: "BoosterSale2",
+      name: "BoosterSale",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BoosterSale2__factory>;
+    ): Promise<Contracts.BoosterSale__factory>;
     getContractFactory(
       name: "IBooster",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -234,10 +234,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BMHTL>;
     getContractAt(
-      name: "BoosterSale2",
+      name: "BoosterSale",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.BoosterSale2>;
+    ): Promise<Contracts.BoosterSale>;
     getContractAt(
       name: "IBooster",
       address: string,

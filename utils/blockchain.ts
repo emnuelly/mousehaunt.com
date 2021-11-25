@@ -1,5 +1,4 @@
 import { ethers } from "ethers";
-import { NextRouter } from "next/router";
 import config, { Network } from "./config";
 
 export const isTransactionMined = async (
