@@ -98,10 +98,14 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {whitelistedText && [whitelistedText, mhtPurchasedText, busdOnWalletText]
-            .filter((x) => x)
-            .map((text) => <span key={text}>{text}</span>)
-            .reduce((prev, curr) => [prev, <span>|</span>, curr])}
+          {whitelistedText &&
+            [whitelistedText, mhtPurchasedText, busdOnWalletText]
+              .filter((x) => x)
+              .map((text) => <span key={text}>{text}</span>)
+              .reduce(
+                (prev, curr, index) =>
+                  [prev, <span key={index}>|</span>, curr] as any
+              )}
         </div>
       </WalletInfo>
       <Button onClick={onClick}>{buttonText}</Button>
