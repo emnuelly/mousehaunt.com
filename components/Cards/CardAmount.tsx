@@ -273,7 +273,10 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   return (
     <>
-      <Formik initialValues={{ amount: 1, amountMHT: 1 }}>
+      <Formik
+        onSubmit={() => undefined}
+        initialValues={{ amount: 1, amountMHT: 1 }}
+      >
         <ContentForm>
           <Form>
             <Warning>
