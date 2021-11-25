@@ -13,7 +13,7 @@ async function main() {
 
   const BoosterSale = await ethers.getContractFactory("BoosterSale");
   const boosterSale = BoosterSale.attach(
-    config[network].BoosterSale.PrivateSale1.address
+    config[network].BoosterSale.PrivateSale2.address
   );
 
   const wei = ethers.utils.parseEther;
@@ -22,18 +22,18 @@ async function main() {
     "BoosterSale approve",
     boosterSale.address,
     bmhtl.address,
-    wei(config[network].BoosterSale.PrivateSale1.BMHTL.available),
+    wei(config[network].BoosterSale.PrivateSale2.BMHTL.available).toString(),
     bmhte.address,
-    wei(config[network].BoosterSale.PrivateSale1.BMHTE.available)
+    wei(config[network].BoosterSale.PrivateSale2.BMHTE.available).toString()
   );
 
   await bmhtl.approve(
     boosterSale.address,
-    wei(config[network].BoosterSale.PrivateSale1.BMHTL.available)
+    wei(config[network].BoosterSale.PrivateSale2.BMHTL.available)
   );
   await bmhte.approve(
     boosterSale.address,
-    wei(config[network].BoosterSale.PrivateSale1.BMHTE.available)
+    wei(config[network].BoosterSale.PrivateSale2.BMHTE.available)
   );
 }
 

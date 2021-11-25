@@ -6,7 +6,9 @@ import { ethers } from "hardhat";
 const toWei = ethers.utils.parseEther;
 
 describe("BoosterSale", function () {
+  let deployer: SignerWithAddress;
   let boosterOwner: SignerWithAddress;
+  let boosterOperations: SignerWithAddress;
   let buyer: SignerWithAddress; // whitelisted to buy both tokens
   let buyer2: SignerWithAddress; // whitelisted to buy legendary tokens, but not epic
   let buyer3: SignerWithAddress; // not whitelisted
@@ -20,7 +22,8 @@ describe("BoosterSale", function () {
   const epicPrice: BigNumber = toWei("75");
 
   before(async function () {
-    [, boosterOwner, buyer, buyer2, buyer3] = await ethers.getSigners();
+    [deployer, boosterOwner, boosterOperations, buyer, buyer2, buyer3] =
+      await ethers.getSigners();
   });
 
   beforeEach(async function () {
@@ -51,7 +54,13 @@ describe("BoosterSale", function () {
 
   describe("Initial values", async function () {
     it("Should have owner different than deployer", async function () {
-      expect(await boosterSale.owner()).to.equal(boosterOwner.address);
+      const adminRole = await boosterSale.DEFAULT_ADMIN_ROLE();
+      expect(await boosterSale.hasRole(adminRole, deployer.address)).to.equal(
+        false
+      );
+      expect(
+        await boosterSale.hasRole(adminRole, boosterOwner.address)
+      ).to.equal(true);
     });
 
     it("Should have initial values correctly set", async function () {
@@ -65,6 +74,27 @@ describe("BoosterSale", function () {
 
     it("Should be pausable", async function () {
       await boosterSale.connect(boosterOwner).pause();
+
+      await expect(boosterSale.buy(bmhtl.address, 1)).to.be.revertedWith(
+        "Pausable: paused"
+      );
+
+      await boosterSale.connect(boosterOwner).unpause();
+
+      await expect(boosterSale.buy(bmhtl.address, 1)).to.not.be.revertedWith(
+        "Pausable: paused"
+      );
+    });
+
+    it("Should have roles", async function () {
+      await boosterSale
+        .connect(boosterOwner)
+        .grantRole(
+          ethers.utils.id("OPERATIONS_ROLE"),
+          boosterOperations.address
+        );
+
+      await boosterSale.connect(boosterOperations).pause();
 
       await expect(boosterSale.buy(bmhtl.address, 1)).to.be.revertedWith(
         "Pausable: paused"

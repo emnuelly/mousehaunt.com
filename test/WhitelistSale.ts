@@ -6,6 +6,8 @@ import { ethers, network } from "hardhat";
 import { now } from "../src/utils/time";
 
 describe("WhitelistSale", function () {
+  let deployer: SignerWithAddress;
+  let whitelistOperations: SignerWithAddress;
   let mhtOwner: SignerWithAddress;
   let whitelistSaleWallet: SignerWithAddress;
   let buyer: SignerWithAddress;
@@ -25,8 +27,14 @@ describe("WhitelistSale", function () {
   let whitelistSale: Contract;
 
   beforeEach(async function () {
-    [, mhtOwner, buyer, buyer2, whitelistSaleWallet] =
-      await ethers.getSigners();
+    [
+      deployer,
+      whitelistOperations,
+      mhtOwner,
+      buyer,
+      buyer2,
+      whitelistSaleWallet,
+    ] = await ethers.getSigners();
 
     const MHT = await ethers.getContractFactory("MouseHauntToken");
     mht = await MHT.deploy(mhtOwner.address);
@@ -116,7 +124,13 @@ describe("WhitelistSale", function () {
   });
 
   it("Should have owner different than deployer", async function () {
-    expect(await whitelistSale.owner()).to.equal(whitelistSaleWallet.address);
+    const adminRole = await whitelistSale.DEFAULT_ADMIN_ROLE();
+    expect(await whitelistSale.hasRole(adminRole, deployer.address)).to.equal(
+      false
+    );
+    expect(
+      await whitelistSale.hasRole(adminRole, whitelistSaleWallet.address)
+    ).to.equal(true);
   });
 
   it("Should be pausable", async function () {
@@ -130,6 +144,27 @@ describe("WhitelistSale", function () {
 
     await whitelistSale
       .connect(whitelistSaleWallet)
+      .addToWhitelist([buyer.address]);
+  });
+
+  it("Should have roles", async function () {
+    await whitelistSale
+      .connect(whitelistSaleWallet)
+      .grantRole(
+        ethers.utils.id("OPERATIONS_ROLE"),
+        whitelistOperations.address
+      );
+
+    await whitelistSale.connect(whitelistOperations).pause();
+
+    await expect(
+      whitelistSale.connect(whitelistOperations).addToWhitelist([buyer.address])
+    ).to.be.revertedWith("Pausable: paused");
+
+    await whitelistSale.connect(whitelistOperations).unpause();
+
+    await whitelistSale
+      .connect(whitelistOperations)
       .addToWhitelist([buyer.address]);
   });
 

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.2;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 /**
@@ -13,8 +13,10 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
  *      making minimal changes only
  */
 /// @custom:security-contact security@mousehaunt.com
-contract BoosterSale is Pausable, Ownable {
+contract BoosterSale is Pausable, AccessControl {
   using SafeERC20 for IERC20;
+
+  bytes32 public constant OPERATIONS_ROLE = keccak256("OPERATIONS_ROLE");
 
   address public immutable boosterOwner;
   IERC20 public immutable busd;
@@ -39,7 +41,8 @@ contract BoosterSale is Pausable, Ownable {
     uint256 legendaryBoosterPrice,
     uint256 epicBoosterPrice
   ) {
-    transferOwnership(_boosterOwner);
+    _setupRole(DEFAULT_ADMIN_ROLE, _boosterOwner);
+    _setupRole(OPERATIONS_ROLE, _boosterOwner);
 
     boosterOwner = _boosterOwner;
     busd = _busd;
@@ -50,11 +53,11 @@ contract BoosterSale is Pausable, Ownable {
     prices[_epicBooster] = epicBoosterPrice;
   }
 
-  function pause() public onlyOwner {
+  function pause() public onlyRole(OPERATIONS_ROLE) {
     _pause();
   }
 
-  function unpause() public onlyOwner {
+  function unpause() public onlyRole(OPERATIONS_ROLE) {
     _unpause();
   }
 
@@ -87,7 +90,7 @@ contract BoosterSale is Pausable, Ownable {
     address[] calldata _buyers,
     uint256[] calldata legendaryAllowances,
     uint256[] calldata epicAllowances
-  ) public onlyOwner whenNotPaused {
+  ) public onlyRole(OPERATIONS_ROLE) whenNotPaused {
     for (uint256 i = 0; i < _buyers.length; i++) {
       whitelist[_buyers[i]][legendaryBooster] = legendaryAllowances[i];
       whitelist[_buyers[i]][epicBooster] = epicAllowances[i];
