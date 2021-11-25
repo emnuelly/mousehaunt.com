@@ -2,17 +2,19 @@
 pragma solidity ^0.8.2;
 
 import "@openzeppelin/contracts/security/Pausable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import "./utils/Whitelist.sol";
 import "./utils/TokenAllocation.sol";
 
 /// @custom:security-contact security@mousehaunt.com
-contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
+contract WhitelistSale is Pausable, AccessControl, Whitelist, TokenAllocation {
   using SafeERC20 for IERC20;
 
   event IGO(uint256 indexed timestamp);
+
+  bytes32 public constant OPERATIONS_ROLE = keccak256("OPERATIONS_ROLE");
 
   IERC20 public immutable busd;
   uint256 public immutable mhtOnSale;
@@ -43,7 +45,9 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
     )
   {
     require(_busd != IERC20(address(0)), "zero busd");
-    transferOwnership(_mhtOwner);
+
+    _setupRole(DEFAULT_ADMIN_ROLE, _mhtOwner);
+    _setupRole(OPERATIONS_ROLE, _mhtOwner);
 
     busd = _busd;
     mhtOnSale = _mhtOnSale;
@@ -52,17 +56,17 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
     maxMhtAmount = _maxMhtAmount;
   }
 
-  function pause() public onlyOwner {
+  function pause() public onlyRole(OPERATIONS_ROLE) {
     _pause();
   }
 
-  function unpause() public onlyOwner {
+  function unpause() public onlyRole(OPERATIONS_ROLE) {
     _unpause();
   }
 
   function setIgoTimestamp(uint256 _igoTimestamp)
     public
-    onlyOwner
+    onlyRole(OPERATIONS_ROLE)
     whenNotPaused
   {
     _setIgoTimestamp(_igoTimestamp);
@@ -96,7 +100,7 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
 
   function addToWhitelist(address[] memory _buyers)
     public
-    onlyOwner
+    onlyRole(OPERATIONS_ROLE)
     whenNotPaused
   {
     _addToWhitelist(_buyers);
@@ -104,7 +108,7 @@ contract WhitelistSale is Pausable, Ownable, Whitelist, TokenAllocation {
 
   function removeFromWhitelist(address[] memory _buyers)
     public
-    onlyOwner
+    onlyRole(OPERATIONS_ROLE)
     whenNotPaused
   {
     _removeFromWhitelist(_buyers);
