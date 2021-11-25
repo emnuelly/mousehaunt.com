@@ -24,6 +24,7 @@ const bsc = {
       available: "2000000",
     },
     PrivateSale1: {
+      address: "0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F",
       owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
       MHTtoBUSD: "0.15",
       minMhtAmount: "500",
@@ -31,8 +32,18 @@ const bsc = {
       unlockAtIGOPercent: "8",
       cliffMonths: "0",
       vestingPeriodMonths: "12",
-      address: "0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F",
       available: "4000000",
+    },
+    PrivateSale2: {
+      address: "",
+      owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
+      MHTtoBUSD: "0.175",
+      minMhtAmount: "57",
+      maxMhtAmount: "114",
+      unlockAtIGOPercent: "8",
+      cliffMonths: "0",
+      vestingPeriodMonths: "12",
+      available: "571500",
     },
   },
   BMHTL: {
@@ -60,6 +71,20 @@ const bsc = {
         busdPrice: "75",
         cap: "6",
         available: "6000",
+      },
+    },
+    PrivateSale2: {
+      address: "",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+      BMHTL: {
+        busdPrice: "500",
+        cap: "1",
+        available: "500",
+      },
+      BMHTE: {
+        busdPrice: "150",
+        cap: "1",
+        available: "5000",
       },
     },
   },
