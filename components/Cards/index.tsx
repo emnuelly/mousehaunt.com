@@ -90,7 +90,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
+        
         `Allowance: ${epicAllowance}`,
       ],
     },
@@ -102,7 +102,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 100% Legendary Mouse Hero NFT ",
         "",
-        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice}`,
+        
         `Allowance: ${legendaryAllowance}`,
       ],
     },
