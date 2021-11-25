@@ -110,29 +110,33 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const updateUserInfo = () => {
     if (account && contracts) {
       (async () => {
-        const isWhitelisted = await contracts?.privateSale2.isWhitelisted(
-          account
-        );
+        try {
+          const isWhitelisted = await contracts?.privateSale2.isWhitelisted(
+            account
+          );
 
-        const whitelisted = Boolean(isWhitelisted);
-        const userInfo = await getUserInfo(contracts, account);
-        const legendary = await contracts?.bmhtl.balanceOf(account);
-        const epic = await contracts?.bmhte.balanceOf(account);
-        const boosters = {
-          legendary: ethers.utils
-            .formatEther(legendary ?? "")
-            .replace(".0", ""),
-          epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
-        };
-        const busdOnWallet = ethers.utils.formatEther(
-          await contracts?.busd.balanceOf(account)
-        );
-        setUserInfoDetailed({
-          ...userInfo,
-          busdOnWallet,
-          whitelisted,
-          boosters,
-        });
+          const whitelisted = Boolean(isWhitelisted);
+          const userInfo = await getUserInfo(contracts, account);
+          const legendary = await contracts?.bmhtl.balanceOf(account);
+          const epic = await contracts?.bmhte.balanceOf(account);
+          const boosters = {
+            legendary: ethers.utils
+              .formatEther(legendary ?? "")
+              .replace(".0", ""),
+            epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
+          };
+          const busdOnWallet = ethers.utils.formatEther(
+            await contracts?.busd.balanceOf(account)
+          );
+          setUserInfoDetailed({
+            ...userInfo,
+            busdOnWallet,
+            whitelisted,
+            boosters,
+          });
+        } catch (err) {
+          console.error(err, "Error trying to updateUserInfo");
+        }
       })();
     }
   };
@@ -220,29 +224,34 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, [network]);
 
   const getAccount = async () => {
-    const providerOptions = {
-      walletconnect: {
-        package: WalletConnectProvider,
-        options: {
-          rpc: {
-            56: "https://bsc-dataseed.binance.org/",
+    try {
+      const providerOptions = {
+        walletconnect: {
+          package: WalletConnectProvider,
+          options: {
+            rpc: {
+              56: "https://bsc-dataseed.binance.org/",
+            },
+            network: "binance",
           },
-          network: "binance",
         },
-      },
-    };
-    const web3Modal = new Web3Modal({
-      cacheProvider: true,
-      providerOptions,
-    });
-    const p = await web3Modal.connect();
-    setProvider(p);
-    const w = new Web3(p);
-    setWeb3(w);
+      };
+      const web3Modal = new Web3Modal({
+        cacheProvider: true,
+        providerOptions,
+      });
+      const p = await web3Modal.connect();
+      setProvider(p);
+      const w = new Web3(p);
+      setWeb3(w);
 
-    const accounts = await w.eth.getAccounts();
-    const account = accounts[0];
-    return account;
+      const accounts = await w.eth.getAccounts();
+      const account = accounts[0];
+      return account;
+    } catch (err) {
+      console.error(err, "Error trying to updateUserInfo");
+      return "";
+    }
   };
 
   return (
