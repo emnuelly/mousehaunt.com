@@ -43,7 +43,7 @@ const Roadmap: NextPage = () => {
                 <br />
                 $MHT Pre-Sale rounds (Whitelist)
                 <br />
-                Pancake Swap Listing
+                Pancake Swap Listing Dec 21st
                 <br />
                 Mouse Heroes Booster Sale
                 <br />
