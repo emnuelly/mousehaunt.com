@@ -75,7 +75,7 @@ const Cards: NextPage = () => {
       buyMht: true,
       subtitles: [
         `Price: 1 $MHT = ${MHT_TO_BUSD} $BUSD`,
-        `Minimum purchase: ${minBusdAmount} $BUSD`,
+        
         `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
