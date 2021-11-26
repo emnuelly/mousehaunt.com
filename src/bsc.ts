@@ -35,7 +35,7 @@ const bsc = {
       available: "4000000",
     },
     PrivateSale2: {
-      address: "",
+      address: "0x7a5390CFda7C68A3503613577702925191e26384",
       owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
       MHTtoBUSD: "0.175",
       minMhtAmount: "57",
@@ -74,15 +74,15 @@ const bsc = {
       },
     },
     PrivateSale2: {
-      address: "",
+      address: "0xd10fe236c990e423b35383c2a574992FE11B89c6",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
       BMHTL: {
-        busdPrice: "500",
+        busdPrice: "350",
         cap: "1",
         available: "500",
       },
       BMHTE: {
-        busdPrice: "150",
+        busdPrice: "105",
         cap: "1",
         available: "5000",
       },

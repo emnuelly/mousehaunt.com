@@ -42,8 +42,10 @@ All files                        |      100 |      100 |      100 |      100 |  
 | Mouse Haunt Token (MHT)               | [`0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B`](https://bscscan.com/token/0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B)   | 100,000,000  |
 | Mouse Haunt Booster LEGENDARY (BMHTL) | [`0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C`](https://bscscan.com/token/0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C)   | 8,250        |
 | Mouse Haunt Booster EPIC (BMHTE)      | [`0x2DE83F4243ff0200624a44011777a373aF7E9f72`](https://bscscan.com/token/0x2DE83F4243ff0200624a44011777a373aF7E9f72)   | 66,000       |
-| Booster Sale                          | [`0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C`](https://bscscan.com/address/0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C) |              |
-| Whitelist Sale (Private Sale)         | [`0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F`](https://bscscan.com/address/0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F) |              |
+| Booster Sale 1                        | [`0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C`](https://bscscan.com/address/0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C) |              |
+| Private Sale 1                        | [`0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F`](https://bscscan.com/address/0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F) |              |
+| Booster Sale 2                        | [`0xd10fe236c990e423b35383c2a574992FE11B89c6`](https://bscscan.com/address/0xd10fe236c990e423b35383c2a574992FE11B89c6) |              |
+| Private Sale 2                        | [`0x7a5390CFda7C68A3503613577702925191e26384`](https://bscscan.com/address/0x7a5390CFda7C68A3503613577702925191e26384) |              |
 
 ## Code audits
 
