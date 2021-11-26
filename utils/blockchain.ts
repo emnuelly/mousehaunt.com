@@ -43,3 +43,11 @@ export const changeNetwork = async (network: Network) => {
     params: [{ chainId: network === 'bscTestnet' ? '0x61': "0x38" }],
   });
 }
+
+export function truncate(str: string, maxDecimalDigits = 3) {
+  if (str.includes(".")) {
+    const parts = str.split(".");
+    return parts[0] + "." + parts[1].slice(0, maxDecimalDigits);
+  }
+  return str;
+}

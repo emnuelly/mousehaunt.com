@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { StoreContext } from "../contexts/StoreContext";
-import { changeNetwork } from "../utils/blockchain";
+import { changeNetwork, truncate } from "../utils/blockchain";
 import { Button } from "./Button";
 
 const Container = styled.div`
@@ -86,11 +86,11 @@ export const ConnectWalletButton = () => {
   //   : "";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens
-      ? userInfoDetailed?.totalTokens + " $MHT PURCHASED"
+      ? truncate(userInfoDetailed?.totalTokens) + " $MHT PURCHASED"
       : "";
   const busdOnWalletText =
     account && userInfoDetailed?.busdOnWallet
-      ? userInfoDetailed?.busdOnWallet + " BUSD"
+      ? truncate(userInfoDetailed?.busdOnWallet) + " BUSD"
       : "";
 
   return (
@@ -98,13 +98,15 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {mhtPurchasedText && busdOnWalletText ? [mhtPurchasedText, busdOnWalletText]
-            .filter((x) => x)
-            .map((text) => <span key={text}>{text}</span>)
-            .reduce(
-              (prev, curr, index) =>
-                [prev, <span key={index}>|</span>, curr] as any
-            ) : null}
+          {mhtPurchasedText && busdOnWalletText
+            ? [mhtPurchasedText, busdOnWalletText]
+                .filter((x) => x)
+                .map((text) => <span key={text}>{text}</span>)
+                .reduce(
+                  (prev, curr, index) =>
+                    [prev, <span key={index}>|</span>, curr] as any
+                )
+            : null}
         </div>
       </WalletInfo>
       <Button onClick={onClick}>{buttonText}</Button>

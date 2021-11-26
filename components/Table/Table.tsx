@@ -8,14 +8,7 @@ import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../utils/config";
-
-function truncate(str: string, maxDecimalDigits = 3) {
-  if (str.includes(".")) {
-    const parts = str.split(".");
-    return parts[0] + "." + parts[1].slice(0, maxDecimalDigits);
-  }
-  return str;
-}
+import { truncate } from "../../utils/blockchain";
 
 const Table: React.FC = () => {
   const { userInfoDetailed, contracts, network } = useContext(StoreContext);
