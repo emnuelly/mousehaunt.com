@@ -21,6 +21,8 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface WhitelistSaleInterface extends ethers.utils.Interface {
   functions: {
+    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
+    "OPERATIONS_ROLE()": FunctionFragment;
     "THIRTY_DAYS_IN_SECONDS()": FunctionFragment;
     "addToWhitelist(address[])": FunctionFragment;
     "addressToUserInfo(address)": FunctionFragment;
@@ -28,6 +30,9 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     "buy(uint256)": FunctionFragment;
     "claim()": FunctionFragment;
     "cliffMonths()": FunctionFragment;
+    "getRoleAdmin(bytes32)": FunctionFragment;
+    "grantRole(bytes32,address)": FunctionFragment;
+    "hasRole(bytes32,address)": FunctionFragment;
     "igoTimestamp()": FunctionFragment;
     "isWhitelisted(address)": FunctionFragment;
     "maxMhtAmount()": FunctionFragment;
@@ -37,18 +42,26 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     "mhtSold()": FunctionFragment;
     "mhtToBusd()": FunctionFragment;
     "minMhtAmount()": FunctionFragment;
-    "owner()": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
     "removeFromWhitelist(address[])": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
+    "renounceRole(bytes32,address)": FunctionFragment;
+    "revokeRole(bytes32,address)": FunctionFragment;
     "setIgoTimestamp(uint256)": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
+    "supportsInterface(bytes4)": FunctionFragment;
     "unlockAtIGOPercent()": FunctionFragment;
     "unpause()": FunctionFragment;
     "vestingPeriodMonths()": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "OPERATIONS_ROLE",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "THIRTY_DAYS_IN_SECONDS",
     values?: undefined
@@ -67,6 +80,18 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "cliffMonths",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "igoTimestamp",
@@ -89,7 +114,6 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     functionFragment: "minMhtAmount",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
   encodeFunctionData(
@@ -97,16 +121,20 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     values: [string[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "renounceRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole",
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "setIgoTimestamp",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
+    functionFragment: "supportsInterface",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "unlockAtIGOPercent",
@@ -118,6 +146,14 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "OPERATIONS_ROLE",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "THIRTY_DAYS_IN_SECONDS",
     data: BytesLike
@@ -137,6 +173,12 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     functionFragment: "cliffMonths",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "igoTimestamp",
     data: BytesLike
@@ -158,7 +200,6 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     functionFragment: "minMhtAmount",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
   decodeFunctionResult(
@@ -166,15 +207,16 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "renounceRole",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setIgoTimestamp",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "transferOwnership",
+    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -191,18 +233,22 @@ interface WhitelistSaleInterface extends ethers.utils.Interface {
     "AddedToWhitelist(address)": EventFragment;
     "Claimed(address,uint256,uint256)": EventFragment;
     "IGO(uint256)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
     "Paused(address)": EventFragment;
     "RemovedFromWhitelist(address)": EventFragment;
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
+    "RoleGranted(bytes32,address,address)": EventFragment;
+    "RoleRevoked(bytes32,address,address)": EventFragment;
     "Unpaused(address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AddedToWhitelist"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Claimed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "IGO"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RemovedFromWhitelist"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
 }
 
@@ -218,14 +264,26 @@ export type ClaimedEvent = TypedEvent<
 
 export type IGOEvent = TypedEvent<[BigNumber] & { timestamp: BigNumber }>;
 
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string] & { previousOwner: string; newOwner: string }
->;
-
 export type PausedEvent = TypedEvent<[string] & { account: string }>;
 
 export type RemovedFromWhitelistEvent = TypedEvent<
   [string] & { wallet: string }
+>;
+
+export type RoleAdminChangedEvent = TypedEvent<
+  [string, string, string] & {
+    role: string;
+    previousAdminRole: string;
+    newAdminRole: string;
+  }
+>;
+
+export type RoleGrantedEvent = TypedEvent<
+  [string, string, string] & { role: string; account: string; sender: string }
+>;
+
+export type RoleRevokedEvent = TypedEvent<
+  [string, string, string] & { role: string; account: string; sender: string }
 >;
 
 export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
@@ -274,6 +332,10 @@ export class WhitelistSale extends BaseContract {
   interface: WhitelistSaleInterface;
 
   functions: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
     THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     addToWhitelist(
@@ -305,6 +367,20 @@ export class WhitelistSale extends BaseContract {
 
     cliffMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     igoTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isWhitelisted(
@@ -326,8 +402,6 @@ export class WhitelistSale extends BaseContract {
 
     minMhtAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
-
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -339,7 +413,15 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -348,10 +430,10 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     unlockAtIGOPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -361,6 +443,10 @@ export class WhitelistSale extends BaseContract {
 
     vestingPeriodMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
+
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+  OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
 
   THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -393,6 +479,20 @@ export class WhitelistSale extends BaseContract {
 
   cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+  grantRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  hasRole(
+    role: BytesLike,
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
   isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>;
@@ -411,8 +511,6 @@ export class WhitelistSale extends BaseContract {
 
   minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  owner(overrides?: CallOverrides): Promise<string>;
-
   pause(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -424,7 +522,15 @@ export class WhitelistSale extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  renounceOwnership(
+  renounceRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  revokeRole(
+    role: BytesLike,
+    account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -433,10 +539,10 @@ export class WhitelistSale extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  supportsInterface(
+    interfaceId: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -447,6 +553,10 @@ export class WhitelistSale extends BaseContract {
   vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+
     THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
 
     addToWhitelist(_buyers: string[], overrides?: CallOverrides): Promise<void>;
@@ -470,6 +580,20 @@ export class WhitelistSale extends BaseContract {
 
     cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
     igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
     isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>;
@@ -488,8 +612,6 @@ export class WhitelistSale extends BaseContract {
 
     minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    owner(overrides?: CallOverrides): Promise<string>;
-
     pause(overrides?: CallOverrides): Promise<void>;
 
     paused(overrides?: CallOverrides): Promise<boolean>;
@@ -499,17 +621,27 @@ export class WhitelistSale extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setIgoTimestamp(
       _igoTimestamp: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    transferOwnership(
-      newOwner: string,
+    supportsInterface(
+      interfaceId: BytesLike,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<boolean>;
 
     unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -553,22 +685,6 @@ export class WhitelistSale extends BaseContract {
       timestamp?: BigNumberish | null
     ): TypedEventFilter<[BigNumber], { timestamp: BigNumber }>;
 
-    "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
-    OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
     "Paused(address)"(
       account?: null
     ): TypedEventFilter<[string], { account: string }>;
@@ -583,6 +699,60 @@ export class WhitelistSale extends BaseContract {
       wallet?: null
     ): TypedEventFilter<[string], { wallet: string }>;
 
+    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; previousAdminRole: string; newAdminRole: string }
+    >;
+
+    RoleAdminChanged(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; previousAdminRole: string; newAdminRole: string }
+    >;
+
+    "RoleGranted(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    RoleGranted(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    "RoleRevoked(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    RoleRevoked(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
     "Unpaused(address)"(
       account?: null
     ): TypedEventFilter<[string], { account: string }>;
@@ -591,6 +761,10 @@ export class WhitelistSale extends BaseContract {
   };
 
   estimateGas: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
     THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
 
     addToWhitelist(
@@ -616,6 +790,23 @@ export class WhitelistSale extends BaseContract {
 
     cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
 
     isWhitelisted(
@@ -637,8 +828,6 @@ export class WhitelistSale extends BaseContract {
 
     minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
-
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -650,7 +839,15 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -659,9 +856,9 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
@@ -674,6 +871,12 @@ export class WhitelistSale extends BaseContract {
   };
 
   populateTransaction: {
+    DEFAULT_ADMIN_ROLE(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     THIRTY_DAYS_IN_SECONDS(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -701,6 +904,23 @@ export class WhitelistSale extends BaseContract {
 
     cliffMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     igoTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isWhitelisted(
@@ -722,8 +942,6 @@ export class WhitelistSale extends BaseContract {
 
     minMhtAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
@@ -735,7 +953,15 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -744,9 +970,9 @@ export class WhitelistSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     unlockAtIGOPercent(

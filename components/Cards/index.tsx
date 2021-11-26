@@ -38,7 +38,6 @@ const Cards: NextPage = () => {
   const vesting =
     config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
 
-  const mhtAllowance = userInfoDetailed?.mhtAllowancePrivateSale2 ?? "";
   const [legendaryAllowance, setLegendaryAllowance] = useState("");
   const [epicAllowance, setEpicAllowance] = useState("");
 
@@ -75,7 +74,6 @@ const Cards: NextPage = () => {
       buyMht: true,
       subtitles: [
         `Price: 1 $MHT = ${MHT_TO_BUSD} $BUSD`,
-        `Minimum purchase: ${maxBusdAmount} $BUSD`,
         `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
@@ -90,7 +88,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        
+        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
         `Allowance: ${epicAllowance}`,
       ],
     },
@@ -102,7 +100,7 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 100% Legendary Mouse Hero NFT ",
         "",
-        
+        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice}`,
         `Allowance: ${legendaryAllowance}`,
       ],
     },

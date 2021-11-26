@@ -57,12 +57,10 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     config[network].WhitelistSale.PrivateSale2.MHTtoBUSD
   );
 
-  const minBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale2.minMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
   const maxBusdAmount =
     Number(config[network].WhitelistSale.PrivateSale2.maxMhtAmount) *
     Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
+  const minBusdAmount = maxBusdAmount;
 
   const [busdAmount, setBusdAmount] = useState(maxBusdAmount.toString());
   const [mhtAmount, setMhtAmount] = useState(
@@ -294,6 +292,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   <FormDisplay>
                     <label>Amount of $BUSD</label> <br />
                     <input
+                      disabled
                       onChange={onChange}
                       id="amount"
                       name="amount"
@@ -309,6 +308,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                     <label>Amount of $MHT</label>
                     <br />
                     <input
+                      disabled
                       onChange={onChange}
                       id="amountMHT"
                       name="amountMHT"

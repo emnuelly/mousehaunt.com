@@ -21,22 +21,35 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface BoosterSaleInterface extends ethers.utils.Interface {
   functions: {
+    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
+    "OPERATIONS_ROLE()": FunctionFragment;
     "boosterOwner()": FunctionFragment;
     "busd()": FunctionFragment;
     "buy(address,uint256)": FunctionFragment;
     "epicBooster()": FunctionFragment;
+    "getRoleAdmin(bytes32)": FunctionFragment;
+    "grantRole(bytes32,address)": FunctionFragment;
+    "hasRole(bytes32,address)": FunctionFragment;
     "legendaryBooster()": FunctionFragment;
-    "owner()": FunctionFragment;
     "pause()": FunctionFragment;
     "paused()": FunctionFragment;
     "prices(address)": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
+    "renounceRole(bytes32,address)": FunctionFragment;
+    "revokeRole(bytes32,address)": FunctionFragment;
     "setWhitelist(address[],uint256[],uint256[])": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
+    "supportsInterface(bytes4)": FunctionFragment;
     "unpause()": FunctionFragment;
     "whitelist(address,address)": FunctionFragment;
   };
 
+  encodeFunctionData(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "OPERATIONS_ROLE",
+    values?: undefined
+  ): string;
   encodeFunctionData(
     functionFragment: "boosterOwner",
     values?: undefined
@@ -51,24 +64,39 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "getRoleAdmin",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "legendaryBooster",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(functionFragment: "pause", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused", values?: undefined): string;
   encodeFunctionData(functionFragment: "prices", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
+    functionFragment: "renounceRole",
+    values: [BytesLike, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole",
+    values: [BytesLike, string]
   ): string;
   encodeFunctionData(
     functionFragment: "setWhitelist",
     values: [string[], BigNumberish[], BigNumberish[]]
   ): string;
   encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
+    functionFragment: "supportsInterface",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
   encodeFunctionData(
@@ -76,6 +104,14 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     values: [string, string]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "DEFAULT_ADMIN_ROLE",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "OPERATIONS_ROLE",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "boosterOwner",
     data: BytesLike
@@ -87,44 +123,66 @@ interface BoosterSaleInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getRoleAdmin",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(
     functionFragment: "legendaryBooster",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "prices", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "renounceOwnership",
+    functionFragment: "renounceRole",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "setWhitelist",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "transferOwnership",
+    functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
 
   events: {
-    "OwnershipTransferred(address,address)": EventFragment;
     "Paused(address)": EventFragment;
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
+    "RoleGranted(bytes32,address,address)": EventFragment;
+    "RoleRevoked(bytes32,address,address)": EventFragment;
     "Unpaused(address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
 }
 
-export type OwnershipTransferredEvent = TypedEvent<
-  [string, string] & { previousOwner: string; newOwner: string }
+export type PausedEvent = TypedEvent<[string] & { account: string }>;
+
+export type RoleAdminChangedEvent = TypedEvent<
+  [string, string, string] & {
+    role: string;
+    previousAdminRole: string;
+    newAdminRole: string;
+  }
 >;
 
-export type PausedEvent = TypedEvent<[string] & { account: string }>;
+export type RoleGrantedEvent = TypedEvent<
+  [string, string, string] & { role: string; account: string; sender: string }
+>;
+
+export type RoleRevokedEvent = TypedEvent<
+  [string, string, string] & { role: string; account: string; sender: string }
+>;
 
 export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
 
@@ -172,6 +230,10 @@ export class BoosterSale extends BaseContract {
   interface: BoosterSaleInterface;
 
   functions: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<[string]>;
+
     boosterOwner(overrides?: CallOverrides): Promise<[string]>;
 
     busd(overrides?: CallOverrides): Promise<[string]>;
@@ -184,9 +246,21 @@ export class BoosterSale extends BaseContract {
 
     epicBooster(overrides?: CallOverrides): Promise<[string]>;
 
-    legendaryBooster(overrides?: CallOverrides): Promise<[string]>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    legendaryBooster(overrides?: CallOverrides): Promise<[string]>;
 
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -196,7 +270,15 @@ export class BoosterSale extends BaseContract {
 
     prices(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -207,10 +289,10 @@ export class BoosterSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -222,6 +304,10 @@ export class BoosterSale extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
   };
+
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+  OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
 
   boosterOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -235,9 +321,21 @@ export class BoosterSale extends BaseContract {
 
   epicBooster(overrides?: CallOverrides): Promise<string>;
 
-  legendaryBooster(overrides?: CallOverrides): Promise<string>;
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
-  owner(overrides?: CallOverrides): Promise<string>;
+  grantRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  hasRole(
+    role: BytesLike,
+    account: string,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
+  legendaryBooster(overrides?: CallOverrides): Promise<string>;
 
   pause(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -247,7 +345,15 @@ export class BoosterSale extends BaseContract {
 
   prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  renounceOwnership(
+  renounceRole(
+    role: BytesLike,
+    account: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  revokeRole(
+    role: BytesLike,
+    account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -258,10 +364,10 @@ export class BoosterSale extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  supportsInterface(
+    interfaceId: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   unpause(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -274,6 +380,10 @@ export class BoosterSale extends BaseContract {
   ): Promise<BigNumber>;
 
   callStatic: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+
     boosterOwner(overrides?: CallOverrides): Promise<string>;
 
     busd(overrides?: CallOverrides): Promise<string>;
@@ -286,9 +396,21 @@ export class BoosterSale extends BaseContract {
 
     epicBooster(overrides?: CallOverrides): Promise<string>;
 
-    legendaryBooster(overrides?: CallOverrides): Promise<string>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
-    owner(overrides?: CallOverrides): Promise<string>;
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    legendaryBooster(overrides?: CallOverrides): Promise<string>;
 
     pause(overrides?: CallOverrides): Promise<void>;
 
@@ -296,7 +418,17 @@ export class BoosterSale extends BaseContract {
 
     prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    renounceOwnership(overrides?: CallOverrides): Promise<void>;
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setWhitelist(
       _buyers: string[],
@@ -305,10 +437,10 @@ export class BoosterSale extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    transferOwnership(
-      newOwner: string,
+    supportsInterface(
+      interfaceId: BytesLike,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<boolean>;
 
     unpause(overrides?: CallOverrides): Promise<void>;
 
@@ -320,27 +452,65 @@ export class BoosterSale extends BaseContract {
   };
 
   filters: {
-    "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
-    OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
-    ): TypedEventFilter<
-      [string, string],
-      { previousOwner: string; newOwner: string }
-    >;
-
     "Paused(address)"(
       account?: null
     ): TypedEventFilter<[string], { account: string }>;
 
     Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+
+    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; previousAdminRole: string; newAdminRole: string }
+    >;
+
+    RoleAdminChanged(
+      role?: BytesLike | null,
+      previousAdminRole?: BytesLike | null,
+      newAdminRole?: BytesLike | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; previousAdminRole: string; newAdminRole: string }
+    >;
+
+    "RoleGranted(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    RoleGranted(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    "RoleRevoked(bytes32,address,address)"(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
+
+    RoleRevoked(
+      role?: BytesLike | null,
+      account?: string | null,
+      sender?: string | null
+    ): TypedEventFilter<
+      [string, string, string],
+      { role: string; account: string; sender: string }
+    >;
 
     "Unpaused(address)"(
       account?: null
@@ -350,6 +520,10 @@ export class BoosterSale extends BaseContract {
   };
 
   estimateGas: {
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+
     boosterOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
     busd(overrides?: CallOverrides): Promise<BigNumber>;
@@ -362,9 +536,24 @@ export class BoosterSale extends BaseContract {
 
     epicBooster(overrides?: CallOverrides): Promise<BigNumber>;
 
-    legendaryBooster(overrides?: CallOverrides): Promise<BigNumber>;
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    legendaryBooster(overrides?: CallOverrides): Promise<BigNumber>;
 
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -374,7 +563,15 @@ export class BoosterSale extends BaseContract {
 
     prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -385,9 +582,9 @@ export class BoosterSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     unpause(
@@ -402,6 +599,12 @@ export class BoosterSale extends BaseContract {
   };
 
   populateTransaction: {
+    DEFAULT_ADMIN_ROLE(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     boosterOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     busd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -414,9 +617,24 @@ export class BoosterSale extends BaseContract {
 
     epicBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    legendaryBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getRoleAdmin(
+      role: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    grantRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    hasRole(
+      role: BytesLike,
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    legendaryBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -429,7 +647,15 @@ export class BoosterSale extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    renounceOwnership(
+    renounceRole(
+      role: BytesLike,
+      account: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    revokeRole(
+      role: BytesLike,
+      account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -440,9 +666,9 @@ export class BoosterSale extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+    supportsInterface(
+      interfaceId: BytesLike,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     unpause(

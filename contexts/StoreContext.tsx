@@ -27,8 +27,6 @@ interface UserInfo {
   remainingTokens: string;
   claimedTokens: string;
   lastClaimMonthIndex: number;
-
-  mhtAllowancePrivateSale2: string;
 }
 
 export interface UserInfoDetailed extends UserInfo {
@@ -83,16 +81,12 @@ async function getUserInfo(
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
   const lastClaimMonthIndex = userInfo1 ? Number(userInfo1[2]) : -1;
-  const mhtAllowancePrivateSale2 = ethers.utils.formatEther(
-    (await contracts.privateSale2.maxMhtAmount()).sub(userInfo2[0])
-  );
 
   return {
     totalTokens: ethers.utils.formatEther(totalTokens),
     remainingTokens: ethers.utils.formatEther(remainingTokens),
     claimedTokens: ethers.utils.formatEther(claimedTokens),
     lastClaimMonthIndex,
-    mhtAllowancePrivateSale2,
   };
 }
 
