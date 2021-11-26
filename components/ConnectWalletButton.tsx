@@ -98,7 +98,7 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {[mhtPurchasedText, busdOnWalletText]
+          {mhtPurchasedText && busdOnWalletText ? [mhtPurchasedText, busdOnWalletText]
             .filter((x) => x)
             .map((text) => <span key={text}>{text}</span>)
             .reduce(
