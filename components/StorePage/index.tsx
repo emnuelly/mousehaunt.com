@@ -26,7 +26,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-11-22T14:00:00.000Z");
+  const final = new Date("2021-11-27T11:00:00.000Z");
 
   const countDown = new Date(final).getTime();
 
@@ -34,7 +34,7 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "PRIVATE SALE (#2) ENDED";
+    document.getElementById("ends")!.innerText = "PRIVATE SALE (#2) STARTED";
     document.getElementById("ended-ul")!.style.display = "none";
     return;
   }
@@ -55,7 +55,7 @@ function countdown() {
 
 const Countdown = () => (
   <CountdownContainer>
-    <span id="ends">PRIVATE SALE (#2) ENDS IN</span>
+    <span id="ends">PRIVATE SALE (#2) STARTS IN</span>
     <ul id="ended-ul">
       <li>
         <span id="days"></span>DAYS
@@ -94,10 +94,10 @@ const StoreHome: NextPage = () => {
           <StorePageSub>
             Welcome to the Mouse Haunt Shop!
             <br />
-            Join our second whitelist to buy cheesy goods!
-            <Link href="https://sweepwidget.com/view/38985-5ebg0c61">
-              Click here 🧀
-            </Link>
+            <b>
+              The Whitelist 2 smart contracts unpause at November 27th 11a.m.
+              GMT
+            </b>
           </StorePageSub>
           <Countdown />
           <Cards />
