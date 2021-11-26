@@ -77,7 +77,6 @@ const Cards: NextPage = () => {
         `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
-        `Allowance: ${mhtAllowance}`,
       ],
     },
 
