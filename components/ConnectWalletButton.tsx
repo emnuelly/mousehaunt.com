@@ -78,12 +78,12 @@ export const ConnectWalletButton = () => {
   }, [account]);
 
   const buttonText = account ? "DISCONNECT" : "CONNECT WALLET";
-  const whitelistedText =
-    account && userInfoDetailed
-      ? userInfoDetailed?.whitelisted
-        ? "WHITELISTED (#2)"
-        : "NOT WHITELISTED (#2)"
-      : "";
+  const whitelistedText = "";
+  // account && userInfoDetailed
+  //   ? userInfoDetailed?.whitelisted
+  //     ? "WHITELISTED (#2)"
+  //     : "NOT WHITELISTED (#2)"
+  //   : "";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens
       ? userInfoDetailed?.totalTokens + " $MHT PURCHASED"
@@ -98,14 +98,13 @@ export const ConnectWalletButton = () => {
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {whitelistedText &&
-            [whitelistedText, mhtPurchasedText, busdOnWalletText]
-              .filter((x) => x)
-              .map((text) => <span key={text}>{text}</span>)
-              .reduce(
-                (prev, curr, index) =>
-                  [prev, <span key={index}>|</span>, curr] as any
-              )}
+          {[mhtPurchasedText, busdOnWalletText]
+            .filter((x) => x)
+            .map((text) => <span key={text}>{text}</span>)
+            .reduce(
+              (prev, curr, index) =>
+                [prev, <span key={index}>|</span>, curr] as any
+            )}
         </div>
       </WalletInfo>
       <Button onClick={onClick}>{buttonText}</Button>
