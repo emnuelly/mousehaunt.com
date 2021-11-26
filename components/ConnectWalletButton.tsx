@@ -104,7 +104,7 @@ export const ConnectWalletButton = () => {
             .reduce(
               (prev, curr, index) =>
                 [prev, <span key={index}>|</span>, curr] as any
-            )}
+            ) : null}
         </div>
       </WalletInfo>
       <Button onClick={onClick}>{buttonText}</Button>
