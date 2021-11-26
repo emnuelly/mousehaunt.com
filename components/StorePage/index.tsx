@@ -95,7 +95,7 @@ const StoreHome: NextPage = () => {
             Welcome to the Mouse Haunt Shop!
             <br />
             <b>
-              The Whitelist 2 smart contracts unpause <br/> on November 27th 11a.m.
+              The Whitelist 2 smart contracts unpauses <br/> on November 27th 11a.m.
               GMT
             </b>
           </StorePageSub>
