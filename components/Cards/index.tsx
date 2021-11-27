@@ -19,6 +19,9 @@ import { Ruler } from "../Ruler";
 import React, { useContext, useEffect, useState } from "react";
 import config from "../../utils/config";
 import { StoreContext } from "../../contexts/StoreContext";
+import { ethers } from "ethers";
+
+const BOOSTER_OWNER = "0x2124b4912532f6cD235081fEA2223EB3C0Af301d";
 
 const Cards: NextPage = () => {
   const { network, contracts, account, userInfoDetailed } =
@@ -41,6 +44,9 @@ const Cards: NextPage = () => {
   const [legendaryAllowance, setLegendaryAllowance] = useState("");
   const [epicAllowance, setEpicAllowance] = useState("");
 
+  const [legendaryLimit, setLegendaryLimit] = useState("");
+  const [epicLimit, setepicLimit] = useState("");
+
   useEffect(() => {
     if (contracts?.boosterSale2.address && account) {
       (async () => {
@@ -58,6 +64,33 @@ const Cards: NextPage = () => {
           }
           if (epic) {
             setEpicAllowance(epic.toString());
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    }
+  }, [account, contracts, network]);
+
+  useEffect(() => {
+    if (contracts?.bmhtl.address && contracts?.bmhte.address && account) {
+      (async () => {
+        try {
+          const legendary = await contracts?.bmhtl.allowance(
+            BOOSTER_OWNER,
+            config[network].BoosterSale.PrivateSale2.address
+          );
+          const epic = await contracts?.bmhte.allowance(
+            BOOSTER_OWNER,
+            config[network].BoosterSale.PrivateSale2.address
+          );
+          if (legendary) {
+            setLegendaryLimit(
+              ethers.utils.formatEther(legendary).replace(/\..*/, "")
+            );
+          }
+          if (epic) {
+            setepicLimit(ethers.utils.formatEther(epic).replace(/\..*/, ""));
           }
         } catch (err) {
           console.log(err);
@@ -88,7 +121,9 @@ const Cards: NextPage = () => {
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
         `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
-        //`Allowance: ${epicAllowance}`,
+        "",
+        `Remaining boosters: ${epicLimit}`,
+        `Allowance: ${epicAllowance}`,
       ],
     },
 
@@ -100,7 +135,9 @@ const Cards: NextPage = () => {
         "Probabilities: 100% Legendary Mouse Hero NFT ",
         "",
         `Price: $${config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice}`,
-        //`Allowance: ${legendaryAllowance}`,
+        "",
+        `Remaining boosters: ${legendaryLimit}`,
+        `Allowance: ${legendaryAllowance}`,
       ],
     },
   ];
