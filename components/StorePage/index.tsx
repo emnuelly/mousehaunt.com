@@ -26,7 +26,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-11-27T11:00:00.000Z");
+  const final = new Date("2021-11-29T13:00:00.000Z");
 
   const countDown = new Date(final).getTime();
 
@@ -95,8 +95,7 @@ const StoreHome: NextPage = () => {
             Welcome to the Mouse Haunt Shop!
             <br />
             <b>
-              The Whitelist 2 smart contracts unpauses <br/> on November 27th 11a.m.
-              GMT
+              The Whitelist 2 ends <br /> on November 29th 1p.m. GMT
             </b>
           </StorePageSub>
           <Countdown />
