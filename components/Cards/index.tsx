@@ -45,7 +45,6 @@ const Cards: NextPage = () => {
   const [epicAllowance, setEpicAllowance] = useState("");
 
   const [legendaryLimit, setLegendaryLimit] = useState("");
-  const [epicLimit, setepicLimit] = useState("");
 
   useEffect(() => {
     if (contracts?.boosterSale2.address && account) {
@@ -73,14 +72,10 @@ const Cards: NextPage = () => {
   }, [account, contracts, network]);
 
   useEffect(() => {
-    if (contracts?.bmhtl.address && contracts?.bmhte.address && account) {
+    if (contracts?.bmhtl.address && account) {
       (async () => {
         try {
           const legendary = await contracts?.bmhtl.allowance(
-            BOOSTER_OWNER,
-            config[network].BoosterSale.PrivateSale2.address
-          );
-          const epic = await contracts?.bmhte.allowance(
             BOOSTER_OWNER,
             config[network].BoosterSale.PrivateSale2.address
           );
@@ -88,9 +83,6 @@ const Cards: NextPage = () => {
             setLegendaryLimit(
               ethers.utils.formatEther(legendary).replace(/\..*/, "")
             );
-          }
-          if (epic) {
-            setepicLimit(ethers.utils.formatEther(epic).replace(/\..*/, ""));
           }
         } catch (err) {
           console.log(err);
@@ -122,7 +114,7 @@ const Cards: NextPage = () => {
         "Probabilities: 1% Legendary Mouse Hero NFT ",
         `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
         "",
-        `Remaining boosters: ${epicLimit}`,
+        ``,
         `Allowance: ${epicAllowance}`,
       ],
     },
