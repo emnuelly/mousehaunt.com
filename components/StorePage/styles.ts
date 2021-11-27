@@ -99,6 +99,20 @@ export const StoreSuccessContainer = styled.div`
     line-height: 32px;
     margin-top: 0px;
   }
+
+  a {
+
+    b {
+      order: 1;
+      background-image: linear-gradient(96.82deg, #0882f2 0%, #1fc6ec 100%);
+
+      background-size: 100%;
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -moz-text-fill-color: transparent;
+    }
+  }
 `;
 
 export const StoreInventoryContainer = styled.div`

@@ -3,12 +3,12 @@ import config, { Network } from "./config";
 
 export const isTransactionMined = async (
   provider: ethers.providers.Web3Provider, 
-  transactionHash: string) => {
+  transactionHash: string): Promise<string> => {
   const txReceipt = await provider.getTransactionReceipt(transactionHash);
   if (txReceipt && txReceipt.blockNumber) {
-    return true;
+    return txReceipt.transactionHash;
   }
-  else return false;
+  else return "";
 }
 
 

@@ -67,6 +67,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     config[network].WhitelistSale.PrivateSale2.maxMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
+  const [tx, setTx] = useState("");
 
   useEffect(() => {
     if (
@@ -131,14 +132,14 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const buy = await contracts.privateSale2.buy(
           ethers.utils.parseEther(mhtAmount)
         );
-        await waitFor(
+        const tx = await waitFor(
           () => isTransactionMined(ethersProvider, buy.hash),
           NETWORK_TIMEOUT
         );
         setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
-          query: { type: "MHT", amount: mhtAmount },
+          query: { type: "MHT", amount: mhtAmount, tx },
         });
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
@@ -195,7 +196,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
-        await waitFor(
+        const tx = await waitFor(
           () => isTransactionMined(ethersProvider, buy?.hash),
           NETWORK_TIMEOUT
         );
@@ -205,6 +206,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           query: {
             type: `${type} BOOSTER${boosterAmount === 1 ? "" : "S"}`,
             amount: boosterAmount,
+            tx,
           },
         });
       } catch (err: any) {

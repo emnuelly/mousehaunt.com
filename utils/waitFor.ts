@@ -1,7 +1,7 @@
-export default function waitFor(
-  conditionFunction: () => Promise<boolean>,
+export default function waitFor<T>(
+  conditionFunction: () => Promise<T>,
   timeout = 10e3
-): Promise<unknown> {
+): Promise<T> {
   return new Promise((resolve, reject) => {
     const t0 = Date.now()
     const dt = 100

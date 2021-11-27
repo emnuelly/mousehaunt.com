@@ -64,8 +64,10 @@ interface StoreContextData {
   contracts?: Contracts;
 }
 
+const DEFAULT_NETWORK: Network = "bscTestnet";
+
 export const StoreContext = createContext<StoreContextData>({
-  network: "bsc",
+  network: DEFAULT_NETWORK,
 } as StoreContextData);
 
 async function getUserInfo(
@@ -99,7 +101,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     UserInfoDetailed | undefined
   >();
   const [refresh, setRefresh] = useState(false);
-  const [network, setNetwork] = useState<Network>("bsc");
+  const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
 
   const updateUserInfo = () => {
     if (account && contracts) {

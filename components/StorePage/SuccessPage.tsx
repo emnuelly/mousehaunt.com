@@ -67,6 +67,7 @@ const StoreSuccess: NextPage = () => {
       : router.query.type?.includes("LEGENDARY")
       ? legendary
       : epic;
+  const tx = router.query.tx;
   const {
     account,
     setAccount,
@@ -114,6 +115,16 @@ const StoreSuccess: NextPage = () => {
               {router.query.type === "MHT" ? (
                 <DescriptionMHT userInfo={userInfo} account={account} />
               ) : null}
+              {tx ? (
+                <a
+                  href={`https://www.bscscan.com/tx/${tx}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <b>View on bscscan</b>
+                </a>
+              ) : null}
+              <br />
               <Button onClick={onClick}>ADD TO WALLET</Button>
             </SuccessCard>
           </StoreSuccessBody>
