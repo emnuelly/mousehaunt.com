@@ -64,7 +64,7 @@ interface StoreContextData {
   contracts?: Contracts;
 }
 
-const DEFAULT_NETWORK: Network = "bscTestnet";
+const DEFAULT_NETWORK: Network = "bsc";
 
 export const StoreContext = createContext<StoreContextData>({
   network: DEFAULT_NETWORK,
