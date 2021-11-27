@@ -80,9 +80,9 @@ const Cards: NextPage = () => {
             config[network].BoosterSale.PrivateSale2.address
           );
           if (legendary) {
-            // setLegendaryLimit(
-            //   ethers.utils.formatEther(legendary).replace(/\..*/, "")
-            // );
+            setLegendaryLimit(
+              ethers.utils.formatEther(legendary).replace(/\..*/, "")
+            );
           }
         } catch (err) {
           console.log(err);
