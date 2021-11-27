@@ -271,80 +271,82 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   return (
     <>
-      <Formik
-        onSubmit={() => undefined}
-        initialValues={{ amount: 1, amountMHT: 1 }}
-      >
-        <ContentForm>
-          <Form>
-            <Warning>
-              {exceededAmount && index === 0 && (
-                <div>
-                  <span>Minimum $BUSD is {minBusdAmount.toFixed(2)}</span>
-                  <br />
-                  <span>Maximum $BUSD is {maxBusdAmount.toFixed(2)}</span>
-                </div>
-              )}
-            </Warning>
-            <FormMainSection>
-              {index === 0 ? (
-                <>
-                  <FormDisplay>
-                    <label>Amount of $BUSD</label> <br />
-                    <input
-                      disabled
-                      onChange={onChange}
-                      id="amount"
-                      name="amount"
-                      type="number"
-                      value={busdAmount}
-                    />
-                  </FormDisplay>
-                  <IconStyle>
-                    <BiRightArrowAlt />
-                  </IconStyle>
-
-                  <FormDisplay>
-                    <label>Amount of $MHT</label>
+      {index === 2 ? null : (
+        <Formik
+          onSubmit={() => undefined}
+          initialValues={{ amount: 1, amountMHT: 1 }}
+        >
+          <ContentForm>
+            <Form>
+              <Warning>
+                {exceededAmount && index === 0 && (
+                  <div>
+                    <span>Minimum $BUSD is {minBusdAmount.toFixed(2)}</span>
                     <br />
-                    <input
-                      disabled
-                      onChange={onChange}
-                      id="amountMHT"
-                      name="amountMHT"
-                      value={mhtAmount}
-                      type="number"
-                    />
-                  </FormDisplay>
-                </>
-              ) : (
-                displayIncrementalButtons()
-              )}
-            </FormMainSection>
+                    <span>Maximum $BUSD is {maxBusdAmount.toFixed(2)}</span>
+                  </div>
+                )}
+              </Warning>
+              <FormMainSection>
+                {index === 0 ? (
+                  <>
+                    <FormDisplay>
+                      <label>Amount of $BUSD</label> <br />
+                      <input
+                        disabled
+                        onChange={onChange}
+                        id="amount"
+                        name="amount"
+                        type="number"
+                        value={busdAmount}
+                      />
+                    </FormDisplay>
+                    <IconStyle>
+                      <BiRightArrowAlt />
+                    </IconStyle>
 
-            <ButtonFormat>
-              <Button
-                disabled={
-                  buyStep !== BUY_STEP.APPROVE || !userInfoDetailed?.whitelisted
-                }
-                onClick={() =>
-                  index === 0 ? approveMHT() : approveBooster(index)
-                }
-              >
-                APPROVE BUSD
-              </Button>
-              <Button
-                disabled={
-                  buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
-                }
-                onClick={() => (index === 0 ? buyMHT() : buyBooster(index))}
-              >
-                BUY
-              </Button>
-            </ButtonFormat>
-          </Form>
-        </ContentForm>
-      </Formik>
+                    <FormDisplay>
+                      <label>Amount of $MHT</label>
+                      <br />
+                      <input
+                        disabled
+                        onChange={onChange}
+                        id="amountMHT"
+                        name="amountMHT"
+                        value={mhtAmount}
+                        type="number"
+                      />
+                    </FormDisplay>
+                  </>
+                ) : (
+                  displayIncrementalButtons()
+                )}
+              </FormMainSection>
+              <ButtonFormat>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.APPROVE ||
+                    !userInfoDetailed?.whitelisted
+                  }
+                  onClick={() =>
+                    index === 0 ? approveMHT() : approveBooster(index)
+                  }
+                >
+                  APPROVE BUSD
+                </Button>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
+                  }
+                  onClick={() => (index === 0 ? buyMHT() : buyBooster(index))}
+                >
+                  BUY
+                </Button>
+              </ButtonFormat>
+            </Form>
+          </ContentForm>
+        </Formik>
+      )}
     </>
   );
 };
