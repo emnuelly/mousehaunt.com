@@ -17,6 +17,7 @@ import Image from "next/image";
 import { Link } from "../Link";
 import mouse1 from "../../public/images/mouse-1.png";
 import mouse2 from "../../public/images/mouse-2.png";
+import { SWEEPWIDGET_URL } from "../../utils/sweepwidget";
 
 const Whitelist: NextPage = () => {
   return (
@@ -41,10 +42,7 @@ const Whitelist: NextPage = () => {
             <br />
             <span className="second"></span>
           </Text>
-          <Link
-            href="https://sweepwidget.com/view/38985-5ebg0c61"
-            target="_blank"
-          >
+          <Link href={SWEEPWIDGET_URL} target="_blank">
             JOIN WHITELIST #2
           </Link>
         </BoxContent>

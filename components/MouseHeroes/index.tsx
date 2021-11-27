@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import { Link } from "../Link";
 import hero from "../../public/images/hero.png";
+import { SWEEPWIDGET_URL } from "../../utils/sweepwidget";
 
 const MouseHeroes: NextPage = () => {
   return (
@@ -37,10 +38,7 @@ const MouseHeroes: NextPage = () => {
           <br />
           Click the button to join our Whitelist!
         </Subtitle>
-        <Link
-          href="https://sweepwidget.com/view/38985-5ebg0c61"
-          target="_blank"
-        >
+        <Link href={SWEEPWIDGET_URL} target="_blank">
           JOIN WHITELIST #2
         </Link>
       </Right>
