@@ -13,53 +13,13 @@ import * as Contracts from ".";
 declare module "hardhat/types/runtime" {
   interface HardhatEthersHelpers extends HardhatEthersHelpersBase {
     getContractFactory(
-      name: "PauserRole",
+      name: "AccessControl",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PauserRole__factory>;
+    ): Promise<Contracts.AccessControl__factory>;
     getContractFactory(
-      name: "Crowdsale",
+      name: "IAccessControl",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Crowdsale__factory>;
-    getContractFactory(
-      name: "UnstableTokenVault",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.UnstableTokenVault__factory>;
-    getContractFactory(
-      name: "PostDeliveryCrowdsale",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PostDeliveryCrowdsale__factory>;
-    getContractFactory(
-      name: "AllowanceCrowdsale",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.AllowanceCrowdsale__factory>;
-    getContractFactory(
-      name: "PausableCrowdsale",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.PausableCrowdsale__factory>;
-    getContractFactory(
-      name: "TimedCrowdsale",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.TimedCrowdsale__factory>;
-    getContractFactory(
-      name: "Context",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Context__factory>;
-    getContractFactory(
-      name: "Pausable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Pausable__factory>;
-    getContractFactory(
-      name: "Secondary",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.Secondary__factory>;
-    getContractFactory(
-      name: "IERC20",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC20__factory>;
-    getContractFactory(
-      name: "ReentrancyGuard",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ReentrancyGuard__factory>;
+    ): Promise<Contracts.IAccessControl__factory>;
     getContractFactory(
       name: "Ownable",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -68,26 +28,6 @@ declare module "hardhat/types/runtime" {
       name: "Pausable",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Pausable__factory>;
-    getContractFactory(
-      name: "ERC1155",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC1155__factory>;
-    getContractFactory(
-      name: "ERC1155Burnable",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ERC1155Burnable__factory>;
-    getContractFactory(
-      name: "IERC1155MetadataURI",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC1155MetadataURI__factory>;
-    getContractFactory(
-      name: "IERC1155",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC1155__factory>;
-    getContractFactory(
-      name: "IERC1155Receiver",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.IERC1155Receiver__factory>;
     getContractFactory(
       name: "ERC20",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -145,82 +85,64 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IERC165__factory>;
     getContractFactory(
-      name: "MHTPrivateSale",
+      name: "BMHTE",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MHTPrivateSale__factory>;
+    ): Promise<Contracts.BMHTE__factory>;
     getContractFactory(
-      name: "MouseHauntBooster",
+      name: "BMHTL",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MouseHauntBooster__factory>;
+    ): Promise<Contracts.BMHTL__factory>;
     getContractFactory(
-      name: "MouseHauntMouse",
+      name: "BoosterSale",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.MouseHauntMouse__factory>;
+    ): Promise<Contracts.BoosterSale__factory>;
+    getContractFactory(
+      name: "IBooster",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IBooster__factory>;
+    getContractFactory(
+      name: "IMouseHero",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IMouseHero__factory>;
+    getContractFactory(
+      name: "LegendaryEpicBoosterUnpack",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.LegendaryEpicBoosterUnpack__factory>;
+    getContractFactory(
+      name: "Random",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Random__factory>;
     getContractFactory(
       name: "MouseHauntToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.MouseHauntToken__factory>;
+    getContractFactory(
+      name: "MouseHero",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MouseHero__factory>;
+    getContractFactory(
+      name: "TokenAllocation",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TokenAllocation__factory>;
+    getContractFactory(
+      name: "Whitelist",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Whitelist__factory>;
+    getContractFactory(
+      name: "WhitelistSale",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.WhitelistSale__factory>;
 
     getContractAt(
-      name: "PauserRole",
+      name: "AccessControl",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.PauserRole>;
+    ): Promise<Contracts.AccessControl>;
     getContractAt(
-      name: "Crowdsale",
+      name: "IAccessControl",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.Crowdsale>;
-    getContractAt(
-      name: "UnstableTokenVault",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.UnstableTokenVault>;
-    getContractAt(
-      name: "PostDeliveryCrowdsale",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.PostDeliveryCrowdsale>;
-    getContractAt(
-      name: "AllowanceCrowdsale",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.AllowanceCrowdsale>;
-    getContractAt(
-      name: "PausableCrowdsale",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.PausableCrowdsale>;
-    getContractAt(
-      name: "TimedCrowdsale",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.TimedCrowdsale>;
-    getContractAt(
-      name: "Context",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Context>;
-    getContractAt(
-      name: "Pausable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Pausable>;
-    getContractAt(
-      name: "Secondary",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.Secondary>;
-    getContractAt(
-      name: "IERC20",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC20>;
-    getContractAt(
-      name: "ReentrancyGuard",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ReentrancyGuard>;
+    ): Promise<Contracts.IAccessControl>;
     getContractAt(
       name: "Ownable",
       address: string,
@@ -231,31 +153,6 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Pausable>;
-    getContractAt(
-      name: "ERC1155",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC1155>;
-    getContractAt(
-      name: "ERC1155Burnable",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ERC1155Burnable>;
-    getContractAt(
-      name: "IERC1155MetadataURI",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC1155MetadataURI>;
-    getContractAt(
-      name: "IERC1155",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC1155>;
-    getContractAt(
-      name: "IERC1155Receiver",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.IERC1155Receiver>;
     getContractAt(
       name: "ERC20",
       address: string,
@@ -327,25 +224,65 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IERC165>;
     getContractAt(
-      name: "MHTPrivateSale",
+      name: "BMHTE",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.MHTPrivateSale>;
+    ): Promise<Contracts.BMHTE>;
     getContractAt(
-      name: "MouseHauntBooster",
+      name: "BMHTL",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.MouseHauntBooster>;
+    ): Promise<Contracts.BMHTL>;
     getContractAt(
-      name: "MouseHauntMouse",
+      name: "BoosterSale",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.MouseHauntMouse>;
+    ): Promise<Contracts.BoosterSale>;
+    getContractAt(
+      name: "IBooster",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IBooster>;
+    getContractAt(
+      name: "IMouseHero",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IMouseHero>;
+    getContractAt(
+      name: "LegendaryEpicBoosterUnpack",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.LegendaryEpicBoosterUnpack>;
+    getContractAt(
+      name: "Random",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Random>;
     getContractAt(
       name: "MouseHauntToken",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.MouseHauntToken>;
+    getContractAt(
+      name: "MouseHero",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MouseHero>;
+    getContractAt(
+      name: "TokenAllocation",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TokenAllocation>;
+    getContractAt(
+      name: "Whitelist",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Whitelist>;
+    getContractAt(
+      name: "WhitelistSale",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.WhitelistSale>;
 
     // default types
     getContractFactory(

@@ -1,21 +1,22 @@
-import type { NextPage } from 'next';
-import Head from 'next/head';
+import type { NextPage } from "next";
+import Head from "next/head";
 
-import { Container, Content } from '../styles/Home';
-import Landing from '../components/Landing';
-import Welcome from '../components/Welcome';
-import MouseHeroes from '../components/MouseHeroes';
-import GhostHeroes from '../components/GhostHeroes';
-import Whitelist from '../components/Whitelist';
-import Realtime from '../components/Realtime';
-import InnovativeGameplay from '../components/InnovativeGameplay';
-import Bosses from '../components/Bosses';
-import MHT from '../components/MHT';
-import Team from '../components/Team';
-import PoweredBy from '../components/PoweredBy';
-import Roadmap from '../components/Roadmap';
-import Footer from '../components/Footer';
-import { Ruler } from '../components/Ruler';
+import { Container, Content } from "../styles/Home";
+import Landing from "../components/common/Landing";
+import Welcome from "../components/common/Welcome";
+import MouseHeroes from "../components/common/MouseHeroes";
+import GhostHeroes from "../components/common/GhostHeroes";
+import Whitelist from "../components/common/Whitelist";
+import Realtime from "../components/common/Realtime";
+import InnovativeGameplay from "../components/common/InnovativeGameplay";
+import Bosses from "../components/common/Bosses";
+import MHT from "../components/common/MHT";
+import Awards from "../components/common/Awards";
+import Team from "../components/common/Team";
+import PoweredBy from "../components/common/PoweredBy";
+import Roadmap from "../components/common/Roadmap";
+import Footer from "../components/common/Footer";
+import { Ruler } from "../components/common/Ruler";
 
 const Home: NextPage = () => {
   return (
@@ -25,7 +26,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Content>
-        <Landing location={'landingPage'} />
+        <Landing />
         <Welcome />
         <MouseHeroes />
         <GhostHeroes />
@@ -36,6 +37,7 @@ const Home: NextPage = () => {
         <InnovativeGameplay />
         <Bosses />
         <MHT />
+        <Awards />
         <Team />
         <Roadmap />
         <Ruler />

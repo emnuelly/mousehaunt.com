@@ -1,9 +1,8 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import React from "react";
-// import { MoralisProvider } from "react-moralis";
-// import config from "../utils/config";
+import React, { useEffect } from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { StoreProvider } from "../contexts/StoreContext";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -35,12 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={{}}>
       <GlobalStyle />
-      {/* <MoralisProvider
-        appId={config.moralis.appId}
-        serverUrl={config.moralis.serverUrl}
-      > */}
-      <Component {...pageProps} />
-      {/* </MoralisProvider> */}
+      <StoreProvider>
+        <Component {...pageProps} />
+      </StoreProvider>
     </ThemeProvider>
   );
 }

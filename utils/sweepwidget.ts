@@ -1,0 +1,1 @@
+export const SWEEPWIDGET_URL = 'https://sweepwidget.com/view/41369-phn93rl2?utm_source=organic&utm_medium=referral&utm_campaign=whitelist3'
