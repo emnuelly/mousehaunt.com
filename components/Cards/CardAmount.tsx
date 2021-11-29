@@ -324,27 +324,6 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
-              <ButtonFormat>
-                <Button
-                  disabled={
-                    buyStep !== BUY_STEP.APPROVE ||
-                    !userInfoDetailed?.whitelisted
-                  }
-                  onClick={() =>
-                    index === 0 ? approveMHT() : approveBooster(index)
-                  }
-                >
-                  APPROVE BUSD
-                </Button>
-                <Button
-                  disabled={
-                    buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
-                  }
-                  onClick={() => (index === 0 ? buyMHT() : buyBooster(index))}
-                >
-                  BUY
-                </Button>
-              </ButtonFormat>
             </Form>
           </ContentForm>
         </Formik>
