@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import StorePage from "../../components/StorePage";
+import StorePage from "../../components/store";
 
 const StoreHome: NextPage = () => {
   return (
