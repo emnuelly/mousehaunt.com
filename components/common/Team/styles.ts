@@ -61,7 +61,7 @@ export const Social = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 3px;
   min-height: 21px;
 
   a {
@@ -108,6 +108,21 @@ export const Member = styled.div`
     font-weight: 800;
     font-size: 18px;
     line-height: 21px;
+  }
+
+  h4 {
+    margin-top: -15px;
+
+    background-image: linear-gradient(96.82deg, #0882f2 10%, #1fc6ec 20%);
+
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+
+    font-family: "Bebas Neue Pro Bold";
+    font-size: 18px;
   }
   span {
     width: 200px;

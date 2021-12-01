@@ -20,7 +20,7 @@ const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
   return (
     <>
       <JobTitle>
-        {job.jobRole.role} - {job.jobRole.extra}
+        {job.jobRole.role} {job.jobRole.extra}
       </JobTitle>
       <JobDescriptionHeader>
         <HeaderJobInfo jobListingHeader={job} />

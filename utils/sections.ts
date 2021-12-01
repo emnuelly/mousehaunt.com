@@ -6,7 +6,7 @@ export const sections = [
   { to: '/#Token', title: 'Token' },
   { to: '/#Team', title: 'Team' },
   { to: '/#Roadmap', title: 'Roadmap' },
-  { to: '/career', title: 'Career' },
+  { to: '/careers', title: 'Career' },
 ];
 
 export default sections;

@@ -23,17 +23,7 @@ import mht from "../../public/images/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
-
-const sections = [
-  {
-    title: "Store",
-    to: "/store",
-  },
-  {
-    title: "Inventory",
-    to: "/store/inventory",
-  },
-];
+import {sections} from '../../utils/sections'
 
 const DescriptionMHT = (props: {
   userInfo?: UserInfoDetailed;

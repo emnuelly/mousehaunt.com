@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Container,
@@ -11,24 +11,16 @@ import {
   BodyContent,
   Left,
   Right,
-} from "./styles";
-import { Link } from "../Link";
-import Image from "next/image";
-import google from "../../../public/images/other/Google_Play.png";
-import apple from "../../../public/images/other/App_Store.png";
-import windows from "../../../public/images/other/Windows.png";
-import Header from "../Header";
-import Logo from "../Logo";
-import Sections from "../Sections";
-
-const sections = [
-  { title: "About", to: "#About" },
-  { title: "Gameplay", to: "#Gameplay" },
-  { title: "Value Proposition", to: "#Value Proposition" },
-  { title: "Token", to: "#Token" },
-  { title: "Team", to: "#Team" },
-  { title: "Roadmap", to: "#Roadmap" },
-];
+} from './styles';
+import { sections } from '../../../utils/sections';
+import { Link } from '../Link';
+import Image from 'next/image';
+import google from '../../../public/images/other/Google_Play.png';
+import apple from '../../../public/images/other/App_Store.png';
+import windows from '../../../public/images/other/Windows.png';
+import Header from '../Header';
+import Logo from '../Logo';
+import Sections from '../Sections';
 
 const Landing: React.FC = () => (
   <Container id="About">

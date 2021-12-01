@@ -13,12 +13,7 @@ import Header from "../common/Header";
 import Logo from "../common/Logo";
 import Sections from "../common/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
-import { Link } from "../common/Link";
-
-const sections = [
-  { to: "/store", title: "Store" },
-  { to: "/store/inventory", title: "Inventory" },
-];
+import {sections} from '../../utils/sections'
 
 function countdown() {
   const second = 1000;

@@ -13,17 +13,8 @@ import Sections from "../common/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Footer from "../common/Footer";
 import Table from "../common/Table/Table";
+import {sections} from '../../utils/sections'
 
-const sections = [
-  {
-    title: "Store",
-    to: "/store",
-  },
-  {
-    title: "Inventory",
-    to: "/store/inventory",
-  },
-];
 
 const Inventory: NextPage = () => {
   return (
