@@ -96,7 +96,7 @@ export default class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/images/iphone-600.png"
+            href="/images/phone-frames/iphone-600.png"
             as="image"
             media="(min-width: 601px)"
           />
@@ -120,7 +120,7 @@ export default class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/images/iphone-320.png"
+            href="/images/phone-frames/iphone-320.png"
             as="image"
             media="(max-width: 600px)"
           />
