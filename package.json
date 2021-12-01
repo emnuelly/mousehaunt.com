@@ -49,5 +49,21 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.3",
     "@pancakeswap-libs/pancake-swap-core": "^0.1.0"
-  }
+  },
+  "description": "Mouse Haunt is a kick ass play to earn universe. Built in Unreal Engine 5 and integrated with Binance Chain, you will be able to enjoy different ways to earn with amazing game play. Play on!",
+  "version": "1.0.0",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mousehaunt/contracts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/mousehaunt/contracts/issues"
+  },
+  "homepage": "https://github.com/mousehaunt/contracts#readme"
 }
