@@ -18,7 +18,7 @@ export const jobListings = [
     jobRole: {
       role: 'Economy Designer',
       // extra is what goes next to the role in the title
-      extra: ' ',
+      extra: ' - Game Development',
     },
     jobInfo: {
       type: 'Full-time',
