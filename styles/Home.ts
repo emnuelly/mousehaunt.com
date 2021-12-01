@@ -148,3 +148,23 @@ export const Ellipse = styled.div`
     display: none;
   }
 `;
+
+export const Ellipse2 = styled.div`
+  position: relative;
+
+  width: 518.86px;
+  height: 518.86px;
+
+  left: calc(100px + 518px);
+  top: calc(100px - 518px);
+
+  background: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
+  mix-blend-mode: overlay;
+  filter: blur(187px);
+
+  opacity: 30%;
+
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
+`;

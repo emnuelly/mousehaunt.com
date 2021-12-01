@@ -23,8 +23,10 @@ export const MiceTitle = styled.div`
 
 export const BackgroundEffect = styled.div`
   position: relative;
-  bottom: 80px;
   overflow: none;
+  @media only screen and (max-width: 600px) {
+    bottom: 80px;
+  }
 `;
 
 export const ImageStack = styled.div`
@@ -69,6 +71,15 @@ export const MiceLikeButton = styled.div`
 
   display: flex;
   align-items: center;
+
+  div {
+    font-size: 32px;
+    margin: 0 auto;
+    color: #ff005c;
+    svg {
+      margin-top: 6px;
+    }
+  }
 `;
 
 export const ButtonGroup = styled.div`

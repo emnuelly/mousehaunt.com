@@ -29,25 +29,59 @@ import NumberFormat from '../common/NumberFormat';
 
 const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
   const [hoveredIcon, setHoveredIcon] = useState(0);
-  const [chosenMice, setChosenMice] = useState([]);
+  const [chosenMice, setChosenMice] = useState<any[]>([]);
+  const [trackFavouriteMice, setTrackFavouriteMice] = useState<Array<number>>(
+    []
+  );
 
   const hoverState = (id: number) => {
     return setHoveredIcon(id);
   };
 
-  const clickedChosenMice = (mice: object) => {
-    return setChosenMice(chosenMice => [...chosenMice, mice]);
+  const displayHeart = (id?: number) => {
+    if (trackFavouriteMice.some(e => e === id))
+      return (
+        <AiFillHeart
+          onClick={() => {
+            checkIfNotThere(id);
+          }}
+        />
+      );
+    if (hoveredIcon >= 0 && hoveredIcon === id)
+      return (
+        <AiFillHeart
+          onClick={() => {
+            checkIfNotThere(id);
+          }}
+        />
+      );
+    return <AiOutlineHeart />;
   };
 
-  console.log(JSON.stringify(chosenMice, null, 2));
+  const checkIfNotThere = (id: number) => {
+    if (trackFavouriteMice.some(e => e === id)) {
+      setTrackFavouriteMice(trackFavouriteMice.filter(r => r !== id));
+    } else {
+      setTrackFavouriteMice(add => [...add, id]);
+    }
+  };
+
+  const clickedChosenMice = (mice: any) => {
+    if (chosenMice.some(e => e.id === mice.id)) {
+      setChosenMice(chosenMice.filter(r => r.id !== mice.id));
+    } else {
+      setChosenMice(chosenMice => [...chosenMice, mice]);
+    }
+  };
 
   const displayMices = () => {
     if (!mices) return <div>No mices found.</div>;
+
     const sizeStyle = { width: '380px', height: '430px' };
     return Object.values(mices).map(e => (
       <Cards
         key={e.id}
-        style={{ backgroundColor: '#29274B', marginBottom: '15%', marginTop:'5%' }}
+        style={{ backgroundColor: '#29274B', marginBottom: '5%' }}
       >
         <CardsBody>
           <MiceContainerImage style={decideColour(e.rarity)}>
@@ -57,18 +91,12 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
                   <div
                     onMouseEnter={() => hoverState(e.id)}
                     onMouseLeave={() => hoverState(0)}
-                    onClick={() => clickedChosenMice(e)}
-                    style={{
-                      fontSize: '32px',
-                      margin: '0 auto',
-                      color: '#FF005C',
+                    onClick={() => {
+                      clickedChosenMice(e);
+                      displayHeart(e.id);
                     }}
                   >
-                    {hoveredIcon >= 0 && hoveredIcon === e.id ? (
-                      <AiFillHeart style={{ marginTop: '6px' }} />
-                    ) : (
-                      <AiOutlineHeart style={{ marginTop: '6px' }} />
-                    )}
+                    {displayHeart(e.id)}
                   </div>
                 </MiceLikeButton>
                 <BackgroundEffect>
@@ -96,7 +124,6 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
             <MiceTitle>{e.name}</MiceTitle>
             <MiceSubTitle>posted: {formatTimeDays(e.date_posted)}</MiceSubTitle>
           </CardsTitle>
-
           <ButtonGroup>
             <ColorHighlight>
               <FormatMHT>
@@ -143,8 +170,14 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
 
   return (
     <>
-      <div style={{ backgroundColor: '#0F0E23' }}>
-        <CardsColumn style={{ marginBottom: '30%' }}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '25%' }}>
+          Filters
+
+          <br />
+          <div>{JSON.stringify(chosenMice, null, 2)}</div>
+        </div>
+        <CardsColumn style={{ marginBottom: '20%' }}>
           {displayMices()}
         </CardsColumn>
       </div>
