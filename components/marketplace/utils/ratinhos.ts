@@ -72,7 +72,7 @@ export const ratinhos = [
   },
 ];
 
-interface Rats {
+export interface Rats {
   id: number;
   name: string;
   date_posted: Date;
