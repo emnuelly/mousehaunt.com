@@ -54,6 +54,38 @@ export const members = [
     },
   },
   {
+    name: 'Thomas Francis',
+    role: 'Lead VFX/UI Artist',
+    team: 'Game Development',
+    description:
+      'Thomas is Visual Effects Artist and Tech artist experienced in creating high quality AAA visual effects for mobile and PC platforms, delivering amazing VFX for games like Darkest Dungeon and Darkest Dungeon 2',
+    src: thomas,
+    social: {
+      artstation: 'https://www.artstation.com/thomasfrancis',
+    },
+  },
+  {
+    name: 'Arthur Larsen',
+    role: 'Marketing Head',
+    description:
+      'Digital Marketing, Inbound Marketing, Data Analysis, Growth Hacking, Performance Marketing, Copywriting, Product Launches, Content Marketing, Sales Funnel.',
+    src: arthur,
+    team: 'Marketing',
+    social: {
+      linkedin: 'https://www.linkedin.com/in/arthurmachado23/',
+    },
+  },
+  {
+    name: 'Rohit Mukherjee',
+    role: 'Software Engineer',
+    description: 'Unreal Developer with a background in Cyber Security',
+    src: rohit,
+    team: 'Game Development',
+    social: {
+      linkedin: 'https://www.linkedin.com/in/rohit-mukherjee-5986a4a6/',
+    },
+  },
+  {
     name: 'Lan Tong',
     role: '2D Artist',
     description:
@@ -95,17 +127,7 @@ export const members = [
       linkedin: 'https://www.linkedin.com/in/sinanozer7/',
     },
   },
-  {
-    name: 'Thomas Francis',
-    role: 'Lead VFX/UI Artist',
-    team: 'Game Development',
-    description:
-      'Thomas is Visual Effects Artist and Tech artist experienced in creating high quality AAA visual effects for mobile and PC platforms, delivering amazing VFX for games like Darkest Dungeon and Darkest Dungeon 2',
-    src: thomas,
-    social: {
-      artstation: 'https://www.artstation.com/thomasfrancis',
-    },
-  },
+  
   {
     name: 'Rafael Dabrowski',
     role: 'Audio Designer',
@@ -128,16 +150,7 @@ export const members = [
       linkedin: 'https://www.linkedin.com/in/marinalucio/',
     },
   },
-  {
-    name: 'Rohit Mukherjee',
-    role: 'Software Engineer',
-    description: 'Unreal Developer with a bacground in Cyber Security',
-    src: rohit,
-    team: 'Game Development',
-    social: {
-      linkedin: 'https://www.linkedin.com/in/rohit-mukherjee-5986a4a6/',
-    },
-  },
+  
   {
     name: 'Ian Pellon',
     role: 'UI Engineer',
@@ -164,23 +177,13 @@ export const members = [
     description:
       'Community Manager, specialist in SEO, copywriting and advertising writing. Columnist for Blockchain Games',
     src: breno,
-    role: 'Blockchain Advisor',
-    team: 'Blockchain',
+    role: 'Community Manager',
+    team: 'Marketing',
     social: {
       linkedin: 'https://www.linkedin.com/in/breno-mazza-966823111/',
     },
   },
-  {
-    name: 'Arthur Larsen',
-    role: 'Marketing Head',
-    description:
-      'Digital Marketing, Inbound Marketing, Data Analysis, Growth Hacking, Performance Marketing, Copywriting, Product Launches, Content Marketing, Sales Funnel.',
-    src: arthur,
-    team: 'Marketing',
-    social: {
-      linkedin: 'https://www.linkedin.com/in/arthurmachado23/',
-    },
-  },
+  
   {
     name: 'Daniel Cantor',
     role: 'Intern',

@@ -53,7 +53,7 @@ export const Team: NextPage = () => {
                 </Photo>
                 <h1>{member.name}</h1>
                 <h3>{member.role}</h3>
-                <h4>{member.team}</h4>
+                {/* <h4>{member.team}</h4> */}
                 <Social>
                   {Object.keys(member.social).map(network => (
                     <a
