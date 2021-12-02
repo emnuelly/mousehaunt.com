@@ -185,16 +185,6 @@ export const members = [
   },
   
   {
-    name: 'Daniel Cantor',
-    role: 'Intern',
-    description: '',
-    src: daniel_cantor,
-    team: 'Marketing',
-    social: {
-      linkedin: 'https://www.linkedin.com/in/daniel-fernando-cantor-baez/',
-    },
-  },
-  {
     name: 'You!',
     role: 'Chief Rat Officer',
     description:
