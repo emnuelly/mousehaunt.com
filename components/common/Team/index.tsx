@@ -82,7 +82,7 @@ export const Team: NextPage = () => {
         <Members
           id="advisors"
           className="advisors"
-          style={{ gridTemplateColumns: 'repeat(5, 1fr)' }}
+          style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}
         >
           {advisors
             .filter(a => a.src)
