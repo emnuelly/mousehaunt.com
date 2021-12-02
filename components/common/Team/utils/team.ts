@@ -165,7 +165,7 @@ export const members = [
     name: 'Gabriel Barreto',
     role: 'Full-stack Engineer',
     description:
-      'Full-stack developer at Kyte App, graduated in Computer Science at Langara College in Vancouver',
+      'Full-stack developer engaged in web and application development, graduated in Computer Science at Langara College, Vancouver',
     src: gabriel,
     team: 'Web Development',
     social: {
