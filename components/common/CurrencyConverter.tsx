@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Image from 'next/image';
 
 import ConvertIcon from '../assets/svg/Convert.svg';
-import busdImage from '../public/images/BUSD.png';
-import mhtImage from '../public/images/logo.png';
+import busdImage from '../../public/images/other/BUSD.png';
+import mhtImage from '../../public/images/other/logo.png';
 import { Button } from './Button';
 
 const Container = styled.div`

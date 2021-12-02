@@ -41,7 +41,7 @@ export const StoreContainer = styled.div`
       rgba(19, 21, 36, 0%) 100%,
       #131524 100%
     ),
-    url('/images/coffins.png');
+    url('/images/game-related/coffins.png');
   background-size: cover;
 
   @media only screen and (max-width: 600px) {

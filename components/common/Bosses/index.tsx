@@ -42,7 +42,7 @@ const Bosses: NextPage = () => {
             muted
             autoPlay
             src="https://assets.mousehaunt.com/videos/EnvironmentalBosses.mp4"
-            poster="/images/bosses-poster.webp"
+            poster="../../../public/images/game-related/bosses-poster.webp"
             width="851px"
             height="416px"
           />

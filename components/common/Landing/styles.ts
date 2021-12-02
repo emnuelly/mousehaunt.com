@@ -10,7 +10,7 @@ export const Container = styled.section`
       rgba(19, 21, 36, 0.3) 0%,
       #131524 100%
     ),
-    url('/images/fireplace.webp');
+    url('/images/game-related/fireplace.webp');
   background-size: cover;
 
   @media only screen and (max-width: 600px) {

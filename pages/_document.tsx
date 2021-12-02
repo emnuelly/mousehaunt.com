@@ -88,7 +88,7 @@ export default class MyDocument extends Document {
           <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <meta name="language" content="English" />
           <link rel="icon" href="/favicon.ico" />
-          <link rel="preload" href="/images/fireplace.webp" as="image" />
+          <link rel="preload" href="/images/game-related/fireplace.webp" as="image" />
           <link
             rel="preload"
             href="https://assets.mousehaunt.com/videos/LandingPage.mp4"

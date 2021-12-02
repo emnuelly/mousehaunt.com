@@ -93,7 +93,7 @@ const Landing: React.FC = () => (
               muted
               autoPlay
               src="https://assets.mousehaunt.com/videos/LandingPage.mp4"
-              poster="/images/landing-poster.webp"
+              poster="../../../public/images/game-related/landing-poster.jpeg"
               width="600px"
               height="293px"
             />

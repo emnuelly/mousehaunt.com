@@ -16,7 +16,7 @@ export const Container = styled.section`
   background-position-y: 100%, 100%;
   background-repeat: repeat, repeat;
   background-attachment: scroll, scroll;
-  background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%), url("/images/awards_bg.jpg");
+  background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%), url("/images/other/awards_bg.jpg");
   background-size: auto, auto;
   background-origin: padding-box, padding-box;
   background-clip: border-box, border-box;
