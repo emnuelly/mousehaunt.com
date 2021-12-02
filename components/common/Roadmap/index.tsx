@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { NextPage } from 'next';
 
 import {
   Container,
@@ -10,12 +10,12 @@ import {
   RoadmapImage,
   Upward,
   Downward,
-} from "./styles";
-import Image from "next/image";
-import roadmapDesktop from "../../../public/images/other/roadmap.png";
-import roadmapMobile from "../../../public/images/other/roadmap-mobile.png";
+} from './styles';
+import Image from 'next/image';
 
 const Roadmap: NextPage = () => {
+  const roadmapDesktop = '/images/other/roadmap.png';
+  const roadmapMobile = '/images/other/roadmap-mobile.png';
   return (
     <>
       <Container id="Roadmap">
