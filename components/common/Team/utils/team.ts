@@ -25,7 +25,7 @@ export const members = [
     role: 'CEO',
     team: 'Project CEO',
     description:
-      'Pedro started his career at Bandai Namco, working on titles like Tekken and moved on to AAA gaming. Worked as a designer on titles such as Halo Infinite and Gears of Wars 5',
+      'Pedro started his career at Bandai Namco, working on titles like Tekken and moved on to AAA gaming. Worked as a designer on titles such as Halo Infinite and Gears of War 5',
     src: pedro,
     social: {
       linkedin: 'https://www.linkedin.com/in/pedrocamachodandrea/',
@@ -36,7 +36,7 @@ export const members = [
     role: 'CTO',
     team: 'Blockchain',
     description:
-      'Dani started his career as a Game Developer back in 2006. Since then he has had a multitude of experiences - Software Engineer, IT Lead and worked in Publicity. Lately Dani has been working as a Senior Solidity Engineer, doing Ethereum, solidity and multi-blockchain as well as being a Teaching Facilitator at MIT for the Blockchain: Disruptive Technology course',
+      'Dani started his career as a Game Developer back in 2006. Since then he has had a multitude of experiences - Software Engineer, IT Lead and advertising Project Manager. Lately Dani has been working as a Senior Solidity Engineer, doing Ethereum, Solidity and multi-blockchain as well as being a Learning Facilitator at MIT for the Blockchain: Disruptive Technology course',
     src: daniel,
     social: {
       linkedin: 'https://www.linkedin.com/in/danielportugal/',
