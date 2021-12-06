@@ -36,7 +36,7 @@ export const members = [
     role: 'CTO',
     team: 'Blockchain',
     description:
-      'Daniel is a Senior Solidity Engineer, doing Ethereum, solidity and multi-blockchain contracts since 2017. Teaching Facilitator at MIT for the Blockchain: Disruptive Technology course',
+      'Dani started his career as a Game Developer back in 2006. Since then he has had a multitude of experiences - Software Engineer, IT Lead and worked in Publicity. Lately Dani has been working as a Senior Solidity Engineer, doing Ethereum, solidity and multi-blockchain as well as being a Teaching Facilitator at MIT for the Blockchain: Disruptive Technology course',
     src: daniel,
     social: {
       linkedin: 'https://www.linkedin.com/in/danielportugal/',
@@ -44,7 +44,7 @@ export const members = [
   },
   {
     name: 'Matheus Vilano',
-    role: 'Lead Software Engineer',
+    role: 'Producer',
     team: 'Game Development',
     description:
       'Matheus started as a musician and audio experience designer. But his project management skills and deep understanding of game development allowed him to become a Game Dev Instructor and Mentor',
@@ -107,7 +107,7 @@ export const members = [
   },
   {
     name: 'Luis Matamoros',
-    role: '3D Artist',
+    role: 'Lead 3D Artist',
     team: 'Game Development',
     description:
       'Luis Matamoros is a 3D artist and texturer that worked in Far Cry 6. An original creator of Mouse Haunt.',
@@ -127,7 +127,7 @@ export const members = [
       linkedin: 'https://www.linkedin.com/in/sinanozer7/',
     },
   },
-  
+
   {
     name: 'Rafael Dabrowski',
     role: 'Audio Designer',
@@ -150,7 +150,7 @@ export const members = [
       linkedin: 'https://www.linkedin.com/in/marinalucio/',
     },
   },
-  
+
   {
     name: 'Ian Pellon',
     role: 'UI Engineer',
@@ -183,7 +183,7 @@ export const members = [
       linkedin: 'https://www.linkedin.com/in/breno-mazza-966823111/',
     },
   },
-  
+
   {
     name: 'You!',
     role: 'Chief Rat Officer',

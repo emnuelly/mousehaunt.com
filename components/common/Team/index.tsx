@@ -21,6 +21,7 @@ export const Team: NextPage = () => {
       document.documentElement.clientWidth || 0,
       window.innerWidth || 0
     );
+    const fixDanielDescription = {fontSize: '10px'}
 
     const width = 200;
     const gap = (vw - width) / 2;
@@ -66,7 +67,7 @@ export const Team: NextPage = () => {
                     </a>
                   ))}
                 </Social>
-                <span>{member.description}</span>
+                <span style={member.name === "Daniel Portugal" ? { width: '300px', fontSize: '16px' } : null}>{member.description}</span>
               </Member>
             ))}
         </Members>

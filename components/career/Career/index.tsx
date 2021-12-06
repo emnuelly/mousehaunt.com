@@ -35,7 +35,7 @@ const CareerPage: React.FC = () => {
   const displayJobPostings = () => {
     return (
       <CareerContainer>
-        <CareerTitle>Career</CareerTitle>
+        <CareerTitle>Careers</CareerTitle>
         <CareerPageSub>
           <CareerPageSubText>
             Our team is filled with people that are humans and are very good at

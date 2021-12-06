@@ -37,8 +37,7 @@ export const CareerPageSub = styled.div`
   font-family: 'SF Pro Display';
   font-size: 18px;
   line-height: 29px;
-  height: 50%;
-  overflow: auto;
+  height: auto;
   border: 1px solid #29274B;
   border-radius: 10px;
 
@@ -59,6 +58,7 @@ export const CareerPageSubText = styled.p`
   padding-top: 50px;
   justify-content: center;
 
+  margin-bottom: 50px;
   text-align: left;
   font-family: 'SF Pro Display';
   font-weight: 400;
