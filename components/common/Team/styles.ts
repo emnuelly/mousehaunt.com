@@ -66,7 +66,8 @@ export const Social = styled.div`
 
   a {
     z-index: 1;
-    margin-right: 16px;
+    margin-left: 8px;
+    margin-right: 8px;
   }
 
   svg {
