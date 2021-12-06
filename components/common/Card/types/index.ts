@@ -6,24 +6,11 @@ export interface Props {
   cardsStyle?: object | undefined;
   ratMarketPlace?: {
     mices: Rats;
-    decideColour: (rarity: string) => string;
     hoverState: (id: number) => void;
     clickedChosenMice: (id: number) => void;
-    displayHeart: (id: number) => React.Component;
+    displayHeart: (id: number) => JSX.Element;
     sizeStyle: { height: number; width: number };
-    formatTimeDays: (data: object) => string | undefined
+    formatTimeDays: (data: object) => string | undefined;
+    pagination: number;
   }
 }
-
-
-// export interface Data {
-//   thousands: string;
-//   thousandsSeparator: boolean;
-//   decimalSeparator?:  string | undefined;
-//   suffix: string;
-//   value?: number | undefined;
-//   icon: boolean;
-//   displayType: "input" | "text" | undefined;
-//   marginTop: string;
-//   fontSize: string;
-// }

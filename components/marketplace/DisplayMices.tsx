@@ -3,16 +3,24 @@ import { formatTimeDays } from './utils/ratinhos';
 import Card from '../common/Card';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { Props } from './utils/ratinhos';
+import { Link } from '../common/Link';
+import FilterMices from './FilterMices';
 
 const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
   const [hoveredIcon, setHoveredIcon] = useState(0);
   const [chosenMice, setChosenMice] = useState<any[]>([]);
+  const [pagination, setPagination] = useState(6);
+  const [filters, setFilters] = useState({});
   const [trackFavouriteMice, setTrackFavouriteMice] = useState<Array<number>>(
     []
   );
 
   const hoverState = (id: number) => {
     return setHoveredIcon(id);
+  };
+
+  const filterOptions = (filter: object) => {
+    return setFilters(filter);
   };
 
   const displayHeart = (id?: number) => {
@@ -33,6 +41,10 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
         />
       );
     return <AiOutlineHeart />;
+  };
+
+  const increasePagination = () => {
+    return setPagination(pagination + pagination);
   };
 
   const checkIfNotThere = (id: number) => {
@@ -56,116 +68,43 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
 
     const sizeStyle = { width: '380px', height: '430px' };
     const ratObject = {
-      mices,
+      mices: mices.map(e => {
+        const priceFilters = e.priceMTH >= filters.priceMTH;
+        const nameFilters = e.name === filters.name;
+
+        return priceFilters ? e : null;
+      }),
       hoverState,
       clickedChosenMice,
       displayHeart,
       sizeStyle,
       formatTimeDays,
+      pagination,
     };
 
     return <Card ratMarketPlace={ratObject} />;
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ width: '25%' }}>
-        Filters
-        <br />
-        <div>{JSON.stringify(chosenMice, null, 2)}</div>
+    <>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '25%' }}>
+          <FilterMices setFilters={filterOptions} />
+          <br />
+          <div>{JSON.stringify(chosenMice, null, 2)}</div>
+        </div>
+        <div>
+          {displayCards()}
+          <Link
+            style={{ width: '30%', margin: '0 auto', marginBottom: '200px' }}
+            onClick={() => increasePagination()}
+          >
+            Load More
+          </Link>
+        </div>
       </div>
-      {displayCards()}
-    </div>
+    </>
   );
 };
 
 export default DisplayMices;
-
-// return Object.values(mices).map(e => (
-//   <Cards
-//     key={e.id}
-//     style={{ backgroundColor: '#29274B', marginBottom: '5%' }}
-//   >
-//     <CardsBody>
-//       <MiceContainerImage style={decideColour(e.rarity)}>
-//         <AlignItemsCenter>
-//           <ImageStack>
-//             <MiceLikeButton>
-//               <div
-//                 onMouseEnter={() => hoverState(e.id)}
-//                 onMouseLeave={() => hoverState(0)}
-//                 onClick={() => {
-//                   clickedChosenMice(e);
-//                   displayHeart(e.id);
-//                 }}
-//               >
-//                 {displayHeart(e.id)}
-//               </div>
-//             </MiceLikeButton>
-//             <BackgroundEffect>
-//               <Image
-//                 alt={'decor'}
-//                 width={'300px'}
-//                 height={'300px'}
-//                 src="/../public/images/other/store-effect.png"
-//                 layout="responsive"
-//               />
-//             </BackgroundEffect>
-
-//             <Mice>
-//               <Image
-//                 src={e.image}
-//                 alt={e.name}
-//                 width={sizeStyle.width}
-//                 height={sizeStyle.height}
-//               />
-//             </Mice>
-//           </ImageStack>
-//         </AlignItemsCenter>
-//       </MiceContainerImage>
-//       <CardsTitle>
-//         <MiceTitle>{e.name}</MiceTitle>
-//         <MiceSubTitle>posted: {formatTimeDays(e.date_posted)}</MiceSubTitle>
-//       </CardsTitle>
-//       <ButtonGroup>
-//         <ColorHighlight>
-//           <FormatMHT>
-//             <NumberFormat
-//               thousandsGroupStyle="thousand"
-//               thousandSeparator={true}
-//               decimalSeparator="."
-//               suffix={' MHT'}
-//               value={e.priceMTH}
-//               displayType={'text'}
-//               renderText={(value: number, props: any) => {
-//                 const icon = { marginTop: '-4px', fontSize: '25px' };
-//                 return (
-//                   <div {...props}>
-//                     <IconStyle>
-//                       <BsCurrencyDollar style={icon} />
-//                       {value}
-//                     </IconStyle>
-//                   </div>
-//                 );
-//               }}
-//             />
-//           </FormatMHT>
-//         </ColorHighlight>
-
-//         <FormatUSD>
-//           <NumberFormat
-//             thousandsGroupStyle="thousand"
-//             thousandSeparator={true}
-//             decimalSeparator="."
-//             suffix={' USD'}
-//             value={e.priceMTH}
-//             displayType={'text'}
-//             renderText={(value: number, props: any) => {
-//               return <div {...props}>{value}</div>;
-//             }}
-//           />
-//         </FormatUSD>
-//       </ButtonGroup>
-//     </CardsBody>
-//   </Cards>
-// ));
