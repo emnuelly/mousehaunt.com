@@ -67,7 +67,7 @@ export const Team: NextPage = () => {
                     </a>
                   ))}
                 </Social>
-                <span style={member.name === "Daniel Portugal" ? { width: '300px', fontSize: '16px' } : null}>{member.description}</span>
+                <span style={member.name === "Daniel Portugal" ? { width: '300px' } :  {width: '200px'} }>{member.description}</span>
               </Member>
             ))}
         </Members>
