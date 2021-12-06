@@ -19,7 +19,13 @@ const BurgerButton: NextPage = (props: any) => {
     <BurgerContainer>
       <Menu right isOpen={isOpen} onOpen={handleOpen} onClose={handleOpen}>
         {sections.map((e, i) => (
-          <a key={i} href={e.to} onClick={closeSideBar}>
+          <a
+            key={i}
+            href={e.to}
+            target={e.title === 'White Paper' ? "_blank" : ''}
+            rel="noreferrer"
+            onClick={closeSideBar}
+          >
             {e.title}
           </a>
         ))}
