@@ -21,13 +21,18 @@ import windows from '../../../public/images/other/Windows.png';
 import Header from '../Header';
 import Logo from '../Logo';
 import Sections from '../Sections';
+import Menu from '../BurgerMenu';
 
 const Landing: React.FC = () => (
   <Container id="About">
     <Header>
       <Logo />
       <Sections sections={sections}></Sections>
-      <Link href="/store">PRIVATE SALE (#2)</Link>
+      <Menu>
+        <span>
+          <Link href="/store" className="button-private-sale">PRIVATE SALE (#2)</Link>
+        </span>
+      </Menu>
     </Header>
     <Body>
       <BodyContent>
@@ -93,7 +98,7 @@ const Landing: React.FC = () => (
               muted
               autoPlay
               src="https://assets.mousehaunt.com/videos/LandingPage.mp4"
-              poster="../../../public/images/game-related/landing-poster.jpeg"
+              poster="/images/game-related/landing-poster.jpeg"
               width="600px"
               height="293px"
             />

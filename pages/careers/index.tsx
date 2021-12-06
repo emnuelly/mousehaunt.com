@@ -8,6 +8,7 @@ import { Link } from '../../components/common/Link';
 import Logo from '../../components/common/Logo';
 import { sections } from '../../utils/sections';
 import { Container } from '../../styles/Home';
+import Menu from '../../components/common/BurgerMenu';
 
 const CareerPage: NextPage = () => {
   return (
@@ -16,7 +17,11 @@ const CareerPage: NextPage = () => {
         <Header>
           <Logo />
           <Sections sections={sections} />
-          <Link href="/store">PRIVATE SALE</Link>
+          <Menu>
+            <div>
+              <Link href="/store">PRIVATE SALE</Link>
+            </div>
+          </Menu>
         </Header>
         <Career />
         <Ruler />
