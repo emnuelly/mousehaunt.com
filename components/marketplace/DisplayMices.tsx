@@ -68,7 +68,7 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
 
     const sizeStyle = { width: '380px', height: '430px' };
     const ratObject = {
-      mices: mices.map(e => {
+      mices: mices.map((e) => {
         const priceFilters = e.priceMTH >= filters.priceMTH;
         const nameFilters = e.name === filters.name;
 
@@ -88,8 +88,8 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
   return (
     <>
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '25%' }}>
-          <FilterMices setFilters={filterOptions} />
+        <div style={{ width: '22%' }}>
+          <FilterMices setFilters={filterOptions} chosenMice={chosenMice} />
           <br />
           <div>{JSON.stringify(chosenMice, null, 2)}</div>
         </div>
