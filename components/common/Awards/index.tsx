@@ -22,7 +22,7 @@ const Awards: NextPage = () => {
       <Container>
         <Top>
         <Title>
-          Audiences loves us! 
+          Audiences love us! 
         </Title>
         <Subtitle>
             <a 

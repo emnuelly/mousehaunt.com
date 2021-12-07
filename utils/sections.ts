@@ -10,7 +10,7 @@ export const sections = [
   { to: '/#Token', title: 'Token' },
   { to: '/#Team', title: 'Team' },
   { to: '/#Roadmap', title: 'Roadmap' },
-  { to: '/careers', title: 'Career' },
+  { to: '/careers', title: 'Careers' },
 ];
 
 export default sections;
