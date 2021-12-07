@@ -84,6 +84,7 @@ const StoreHome: NextPage = () => {
           <Header>
             <Logo />
             <Sections sections={sections} />
+            <ConnectWalletButton />
             <Menu>
               <div>
                 <ConnectWalletButton />
