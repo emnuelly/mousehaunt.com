@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Link from "next/link";
+import Link from 'next/link';
 
 const Container = styled.div`
   display: flex;
@@ -23,9 +23,11 @@ interface Props {
 
 const Sections: React.FC<Props> = (props: Props) => (
   <Container>
-    {props.sections.map((section) => (
+    {props.sections.map(section => (
       <Link key={section.to} href={section.to}>
-        {section.title}
+        <a target={section.title === 'White Paper' ? '_blank' : ''}>
+          {section.title}
+        </a>
       </Link>
     ))}
   </Container>

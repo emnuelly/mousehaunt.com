@@ -16,7 +16,7 @@ import { SWEEPWIDGET_URL } from "../../../utils/sweepwidget";
 
 const MouseHeroes: NextPage = () => {
   return (
-    <Container id="Value Proposition">
+    <Container id="ValueProposition">
       <Left>
         <Hero>
           <Image
