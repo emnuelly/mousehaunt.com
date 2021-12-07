@@ -6,7 +6,7 @@ import {
   StyleHeader,
 } from './styles';
 import { ButtonBody } from './styles/filterBody';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GradientColor } from '../../../styles/Home';
 import {
   MdOutlineArrowDropUp,
@@ -23,10 +23,10 @@ interface Props {
   arrow?: boolean;
   isOpened?: boolean;
   buttonBody?: boolean;
-  chosenMice?: any[];
-  displayHeart?: ((id: number) => void) | undefined;
-  checkIfNotThere?: ((id: number) => void) | undefined;
-  clickedChosenMice?: ((mice: []) => void) | undefined
+  chosenMice?: any;
+  displayHeart?: (id: number) => void;
+  checkIfNotThere?: (id: number, bool?: boolean) => void;
+  clickedChosenMice?: (mice?: []) => void;
 }
 
 const FilterChoices: React.FC<Props> = ({
@@ -39,11 +39,22 @@ const FilterChoices: React.FC<Props> = ({
   chosenMice,
   checkIfNotThere,
   displayHeart,
-  clickedChosenMice
+  clickedChosenMice,
 }) => {
   const [changeInput, setChangeInput] = useState('');
+  const [displayHeroesList, setDisplayHeroesList] = useState(false);
   const [containerAppearance, setContainerAppearance] = useState(isOpened);
   const container = type !== 'filterHeader' || 'search';
+
+  useEffect(() => {
+    openMenu();
+  }, [chosenMice]);
+
+  const openMenu = () => {
+    if (!chosenMice) return;
+
+    return chosenMice.length > 0 ? setDisplayHeroesList(true) : null;
+  };
 
   const changeIcon = () => {
     return setContainerAppearance(!containerAppearance);
@@ -101,7 +112,7 @@ const FilterChoices: React.FC<Props> = ({
     return (
       containerAppearance && (
         <ButtonBody>
-          {chosenMice.length <= 0 ? (
+          {chosenMice && chosenMice.length <= 0 && displayHeroesList ? (
             <div>No heroes selected</div>
           ) : (
             displayChosenMices()
@@ -112,6 +123,14 @@ const FilterChoices: React.FC<Props> = ({
     );
   };
 
+  interface Map {
+    id: number;
+    name: string;
+  }
+  interface MapArray extends Map {
+    array: { id: number; name: string };
+  }
+
   const displayChosenMices = () => {
     return Object.values(chosenMice).map((e: any) => {
       return (
@@ -121,7 +140,7 @@ const FilterChoices: React.FC<Props> = ({
             onClick={() => {
               clickedChosenMice(e);
               checkIfNotThere(e.id, true);
-              displayHeart(e.id)
+              displayHeart(e.id);
             }}
           >
             <MdOutlineClose />

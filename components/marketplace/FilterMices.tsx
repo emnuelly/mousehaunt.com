@@ -9,10 +9,10 @@ const INITIAL_FILTERS = {
 };
 interface Filters {
   setFilters: (filter: object) => void;
-  chosenMice: any[];
+  chosenMice: any;
   displayHeart: (id: number) => void;
-  checkIfNotThere: ((id: number, bool?: boolean | undefined) => void) | undefined
-  clickedChosenMice: ((mice: [] | undefined) => void);
+  checkIfNotThere: ((id: number, bool?: boolean) => void)
+  clickedChosenMice: ((mice?: []) => void);
 }
 
 const FilterMices: React.FC<Filters> = ({

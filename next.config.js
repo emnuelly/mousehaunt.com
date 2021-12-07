@@ -6,5 +6,8 @@ module.exports = withReactSvg({
   include: path.resolve(__dirname, 'assets/svg'),
   webpack(config, options) {
     return config
-  }
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 })

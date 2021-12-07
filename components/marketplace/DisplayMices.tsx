@@ -8,7 +8,7 @@ import FilterMices from './FilterMices';
 
 const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
   const [hoveredIcon, setHoveredIcon] = useState(0);
-  const [chosenMice, setChosenMice] = useState<any[]>([]);
+  const [chosenMice, setChosenMice] = useState([]);
   const [pagination, setPagination] = useState(6);
   const [filters, setFilters] = useState({});
   const [trackFavouriteMice, setTrackFavouriteMice] = useState<Array<number>>(
