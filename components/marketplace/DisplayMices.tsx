@@ -32,6 +32,7 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
           }}
         />
       );
+
     if (hoveredIcon >= 0 && hoveredIcon === id)
       return (
         <AiFillHeart
@@ -47,10 +48,11 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
     return setPagination(pagination + pagination);
   };
 
-  const checkIfNotThere = (id: number) => {
+  const checkIfNotThere = (id: number, closeButton?: boolean) => {
     if (trackFavouriteMice.some(e => e === id)) {
       setTrackFavouriteMice(trackFavouriteMice.filter(r => r !== id));
     } else {
+      if (closeButton) return;
       setTrackFavouriteMice(add => [...add, id]);
     }
   };
@@ -68,7 +70,7 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
 
     const sizeStyle = { width: '380px', height: '430px' };
     const ratObject = {
-      mices: mices.map((e) => {
+      mices: mices.map(e => {
         const priceFilters = e.priceMTH >= filters.priceMTH;
         const nameFilters = e.name === filters.name;
 
@@ -89,7 +91,13 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
     <>
       <div style={{ display: 'flex' }}>
         <div style={{ width: '22%' }}>
-          <FilterMices setFilters={filterOptions} chosenMice={chosenMice} />
+          <FilterMices
+            setFilters={filterOptions}
+            chosenMice={chosenMice}
+            displayHeart={displayHeart}
+            checkIfNotThere={checkIfNotThere}
+            clickedChosenMice={clickedChosenMice}
+          />
           <br />
           <div>{JSON.stringify(chosenMice, null, 2)}</div>
         </div>
