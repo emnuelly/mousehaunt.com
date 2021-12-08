@@ -6,12 +6,14 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import config, { Network } from "../utils/config";
 import { WhitelistSale } from "../typechain/WhitelistSale";
 import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
-import { BoosterSale } from "../typechain/BoosterSale";
-import BoosterSaleJson from "../contracts/booster/BoosterSale.sol/BoosterSale.json";
+import { BoosterSale3 } from "../typechain/BoosterSale3";
+import BoosterSale3Json from "../contracts/booster/BoosterSale3.sol/BoosterSale3.json";
 import { BMHTL } from "../typechain/BMHTL";
 import BMHTLJson from "../contracts/booster/BMHTL.sol/BMHTL.json";
 import { BMHTE } from "../typechain/BMHTE";
 import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
+import { BMHTR } from "../typechain/BMHTR";
+import BMHTRJson from "../contracts/booster/BMHTR.sol/BMHTR.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 
@@ -35,20 +37,19 @@ export interface UserInfoDetailed extends UserInfo {
   boosters: {
     epic: string;
     legendary: string;
+    rare: string;
   };
 }
 
 export interface Contracts {
   privateSale2: WhitelistSale;
   privateSale1: WhitelistSale;
-  boosterSale1: BoosterSale;
-  boosterSale2: BoosterSale;
+  boosterSale3: BoosterSale3;
   busd: BUSD;
   bmhtl: BMHTL;
   bmhte: BMHTE;
+  bmhtr: BMHTR;
 }
-
-export type Sale = "SeedSale" | "PrivateSale";
 
 interface StoreContextData {
   userInfoDetailed?: UserInfoDetailed;
@@ -107,19 +108,27 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted = await contracts?.privateSale2.isWhitelisted(
-            account
-          );
+          const isWhitelisted =
+            (await contracts?.boosterSale3.whitelist(
+              config[network].BMHTE.address,
+              account
+            )) ||
+            (await contracts?.boosterSale3.whitelist(
+              config[network].BMHTR.address,
+              account
+            ));
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
           const legendary = await contracts?.bmhtl.balanceOf(account);
           const epic = await contracts?.bmhte.balanceOf(account);
+          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
               .replace(".0", ""),
             epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
+            rare: rare,
           };
           const busdOnWallet = ethers.utils.formatEther(
             await contracts?.busd.balanceOf(account)
@@ -153,16 +162,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         signer
       ) as WhitelistSale;
 
-      const boosterSale1 = new ethers.Contract(
-        config[network].BoosterSale.PrivateSale1.address,
-        BoosterSaleJson.abi,
+      const boosterSale3 = new ethers.Contract(
+        config[network].BoosterSale.PrivateSale3.address,
+        BoosterSale3Json.abi,
         signer
-      ) as BoosterSale;
-      const boosterSale2 = new ethers.Contract(
-        config[network].BoosterSale.PrivateSale2.address,
-        BoosterSaleJson.abi,
-        signer
-      ) as BoosterSale;
+      ) as BoosterSale3;
 
       const bmhtl = new ethers.Contract(
         config[network].BMHTL.address,
@@ -174,6 +178,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         BMHTEJson.abi,
         signer
       ) as BMHTE;
+      const bmhtr = new ethers.Contract(
+        config[network].BMHTR.address,
+        BMHTRJson.abi,
+        signer
+      ) as BMHTR;
 
       const busd = new ethers.Contract(
         config[network].BUSD.address,
@@ -184,10 +193,10 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       setContracts({
         privateSale1,
         privateSale2,
-        boosterSale1,
-        boosterSale2,
+        boosterSale3,
         bmhtl,
         bmhte,
+        bmhtr,
         busd,
       });
     }
