@@ -48,12 +48,21 @@ const bscTestnet = {
     owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     image: "https://mousehaunt.com/images/legendary.png",
     symbol: "BMHTL",
+    decimals: 18,
   },
   BMHTE: {
     address: "0x2C76EE45C38F7d4c482302feea88ff7E33010355",
     owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
     image: "https://mousehaunt.com/images/epic.png",
     symbol: "BMHTE",
+    decimals: 18,
+  },
+  BMHTR: {
+    address: "",
+    owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+    image: "https://mousehaunt.com/images/rare.png",
+    symbol: "BMHTR",
+    decimals: 0,
   },
   BoosterSale: {
     PrivateSale1: {
@@ -80,6 +89,20 @@ const bscTestnet = {
       },
       BMHTE: {
         busdPrice: "0.0015",
+        cap: "1",
+        available: "5000",
+      },
+    },
+    PrivateSale3: {
+      address: "",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+      BMHTE: {
+        busdPrice: "0.001",
+        cap: "1",
+        available: "500",
+      },
+      BMHTR: {
+        busdPrice: "0.0001",
         cap: "1",
         available: "5000",
       },
