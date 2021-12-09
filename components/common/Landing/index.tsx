@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Container,
@@ -11,28 +11,23 @@ import {
   BodyContent,
   Left,
   Right,
-} from './styles';
-import { sections } from '../../../utils/sections';
-import { Link } from '../Link';
-import Image from 'next/image';
-import google from '../../../public/images/other/Google_Play.png';
-import apple from '../../../public/images/other/App_Store.png';
-import windows from '../../../public/images/other/Windows.png';
-import Header from '../Header';
-import Logo from '../Logo';
-import Sections from '../Sections';
-import Menu from '../BurgerMenu';
+} from "./styles";
+import { Link } from "../Link";
+import Image from "next/image";
+import google from "../../../public/images/other/Google_Play.png";
+import apple from "../../../public/images/other/App_Store.png";
+import windows from "../../../public/images/other/Windows.png";
+import Header from "../Header";
+import Logo from "../Logo";
+import Sections from "../Sections";
+import Menu from "../BurgerMenu";
 
 const Landing: React.FC = () => (
   <Container id="About">
     <Header>
       <Logo />
-      <Sections sections={sections}></Sections>
-      <Menu>
-        <span>
-          <Link href="/store" className="button-private-sale">PRIVATE SALE (#2)</Link>
-        </span>
-      </Menu>
+      <Sections />
+      <Menu />
     </Header>
     <Body>
       <BodyContent>

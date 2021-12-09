@@ -26,11 +26,11 @@ export const Link = styled.a`
   z-index: 1;
 
   @media only screen and (max-width: 600px) {
-    width: 121px;
-    height: 40px;
+    min-width: 121px;
+    min-height: 48px;
     margin: 0px 10px;
     padding: unset;
   }
 `;
 
-export default Link
+export default Link;

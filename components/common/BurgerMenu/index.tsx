@@ -1,8 +1,8 @@
-import type { NextPage } from 'next';
-import { slide as Menu } from 'react-burger-menu';
-import { sections } from '../../../utils/sections';
-import { BurgerContainer } from './styles';
-import { useState } from 'react';
+import type { NextPage } from "next";
+import { slide as Menu } from "react-burger-menu";
+import { BurgerContainer } from "./styles";
+import { useState } from "react";
+import Sections from "../Sections";
 
 const BurgerButton: NextPage = (props: any) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,25 +11,10 @@ const BurgerButton: NextPage = (props: any) => {
     setIsOpen(!isOpen);
   };
 
-  const closeSideBar = () => {
-    setIsOpen(false);
-  };
-
   return (
     <BurgerContainer>
       <Menu right isOpen={isOpen} onOpen={handleOpen} onClose={handleOpen}>
-        {sections.map((e, i) => (
-          <a
-            key={i}
-            href={e.to}
-            target={e.title === 'White Paper' ? "_blank" : ''}
-            rel="noreferrer"
-            onClick={closeSideBar}
-          >
-            {e.title}
-          </a>
-        ))}
-        {props.children}
+        <Sections mobile />
       </Menu>
     </BurgerContainer>
   );

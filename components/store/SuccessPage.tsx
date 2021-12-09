@@ -17,13 +17,13 @@ import Footer from "../common/Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-import legendary from "../../public/images/other/legendary.png";
 import epic from "../../public/images/other/epic.png";
+import rare from "../../public/images/other/rare.png";
 import mht from "../../public/images/other/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
-import {sections} from '../../utils/sections'
+import { sections } from "../../utils/sections";
 
 const DescriptionMHT = (props: {
   userInfo?: UserInfoDetailed;
@@ -54,8 +54,8 @@ const StoreSuccess: NextPage = () => {
   const image =
     router.query.type === "MHT"
       ? mht
-      : router.query.type?.includes("LEGENDARY")
-      ? legendary
+      : router.query.type?.includes("RARE")
+      ? rare
       : epic;
   const tx = router.query.tx;
   const {

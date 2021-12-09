@@ -22,8 +22,8 @@ export const Button = styled.button`
   z-index: 1;
 
   @media only screen and (max-width: 600px) {
-    width: 121px;
-    height: 40px;
+    min-width: 121px;
+    min-height: 40px;
     margin: 0px 10px;
     padding: unset;
   }

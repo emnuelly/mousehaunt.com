@@ -13,13 +13,12 @@ export const isTransactionMined = async (
 
 
 export const addToWallet = async (network: Network) => {
-  const tokenDecimals = 18;
-
   const { ethereum } = window;
   const contracts = [
     config[network].MouseHauntToken,
     config[network].BMHTL,
     config[network].BMHTE,
+    config[network].BMHTR,
   ];
   for (const contract of contracts) {
     await ethereum?.request({
@@ -30,7 +29,7 @@ export const addToWallet = async (network: Network) => {
           address: contract.address,
           symbol: contract.symbol,
           image: contract.image,
-          decimals: tokenDecimals,
+          decimals: contract.decimals,
         },
       },
     });

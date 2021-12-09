@@ -54,20 +54,19 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   } = useContext(StoreContext);
 
   const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale2.MHTtoBUSD
+    config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
   );
 
   const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale2.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale3.maxMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale3.MHTtoBUSD);
   const minBusdAmount = maxBusdAmount;
 
   const [busdAmount, setBusdAmount] = useState(maxBusdAmount.toString());
   const [mhtAmount, setMhtAmount] = useState(
-    config[network].WhitelistSale.PrivateSale2.maxMhtAmount
+    config[network].WhitelistSale.PrivateSale3.maxMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
-  const [tx, setTx] = useState("");
 
   useEffect(() => {
     if (
@@ -106,7 +105,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           provider as any
         );
         const approve = await contracts.busd.approve(
-          config[network].WhitelistSale.PrivateSale2.address,
+          config[network].WhitelistSale.PrivateSale3.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
@@ -129,7 +128,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const buy = await contracts.privateSale2.buy(
+        const buy = await contracts.privateSale3.buy(
           ethers.utils.parseEther(mhtAmount)
         );
         const tx = await waitFor(
@@ -156,14 +155,14 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const type = index === 1 ? "EPIC" : "LEGENDARY";
+        const type = index === 1 ? "EPIC" : "RARE";
         const boosterPrice =
           type === "EPIC"
-            ? config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice
-            : config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice;
+            ? config[network].BoosterSale.PrivateSale3.BMHTE.busdPrice
+            : config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice;
 
         const approve = await contracts.busd.approve(
-          config[network].BoosterSale.PrivateSale2.address,
+          config[network].BoosterSale.PrivateSale3.address,
           ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
         );
         await waitFor(
@@ -186,13 +185,13 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const type = index === 1 ? "EPIC" : "LEGENDARY";
+        const type = index === 1 ? "EPIC" : "RARE";
         const booster =
           type === "EPIC"
             ? config[network].BMHTE.address
-            : config[network].BMHTL.address;
+            : config[network].BMHTR.address;
 
-        const buy = await contracts.boosterSale2.buy(
+        const buy = await contracts.boosterSale3.buy(
           booster,
           ethers.utils.parseEther(boosterAmount.toString())
         );
@@ -250,8 +249,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             onClick={() => {
               const amountMax =
                 index === 1
-                  ? Number(config[network].BoosterSale.PrivateSale2.BMHTE.cap)
-                  : Number(config[network].BoosterSale.PrivateSale2.BMHTL.cap);
+                  ? Number(config[network].BoosterSale.PrivateSale3.BMHTE.cap)
+                  : Number(config[network].BoosterSale.PrivateSale3.BMHTR.cap);
 
               if (boosterAmount >= 1 && boosterAmount < amountMax) {
                 setBoosterAmount(boosterAmount + 1);
@@ -324,6 +323,27 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
+              <ButtonFormat>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.APPROVE ||
+                    !userInfoDetailed?.whitelisted
+                  }
+                  onClick={() =>
+                    index === 0 ? approveMHT() : approveBooster(index)
+                  }
+                >
+                  APPROVE BUSD
+                </Button>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
+                  }
+                  onClick={() => (index === 0 ? buyMHT() : buyBooster(index))}
+                >
+                  BUY
+                </Button>
+              </ButtonFormat>
             </Form>
           </ContentForm>
         </Formik>

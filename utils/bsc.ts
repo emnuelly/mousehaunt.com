@@ -7,6 +7,7 @@ const bsc = {
     owner: "0x8e3f936932AbDa7a4C31EFE83068A00aeB69122B",
     image: "https://mousehaunt.com/images/logo.png",
     symbol: "MHT",
+    decimals: 18,
   },
   BUSD: {
     address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
