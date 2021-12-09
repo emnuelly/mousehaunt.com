@@ -42,6 +42,17 @@ const bscTestnet = {
       vestingPeriodMonths: "12",
       available: "571500",
     },
+    PrivateSale3: {
+      address: "",
+      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
+      MHTtoBUSD: "",
+      minMhtAmount: "",
+      maxMhtAmount: "",
+      unlockAtIGOPercent: "8",
+      cliffMonths: "0",
+      vestingPeriodMonths: "12",
+      available: "",
+    },
   },
   BMHTL: {
     address: "0xf2F504fdAd751a0eB81A2cf88Fe90E5E57a199db",

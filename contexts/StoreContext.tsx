@@ -42,9 +42,12 @@ export interface UserInfoDetailed extends UserInfo {
 }
 
 export interface Contracts {
+  privateSale3: WhitelistSale;
   privateSale2: WhitelistSale;
   privateSale1: WhitelistSale;
+
   boosterSale3: BoosterSale3;
+
   busd: BUSD;
   bmhtl: BMHTL;
   bmhte: BMHTE;
@@ -75,12 +78,13 @@ async function getUserInfo(
   contracts: Contracts,
   account: string
 ): Promise<UserInfo> {
-  const [userInfo1, userInfo2] = await Promise.all([
+  const [userInfo1, userInfo2, userInfo3] = await Promise.all([
     contracts.privateSale1.addressToUserInfo(account),
     contracts.privateSale2.addressToUserInfo(account),
+    contracts.privateSale3.addressToUserInfo(account),
   ]);
-  const totalTokens = userInfo1[0].add(userInfo2[0]);
-  const remainingTokens = userInfo1[1].add(userInfo2[1]);
+  const totalTokens = userInfo1[0].add(userInfo2[0]).add(userInfo3[0]);
+  const remainingTokens = userInfo1[1].add(userInfo2[1]).add(userInfo3[1]);
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
   const lastClaimMonthIndex = userInfo1 ? Number(userInfo1[2]) : -1;
@@ -161,6 +165,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
+      const privateSale3 = new ethers.Contract(
+        config[network].WhitelistSale.PrivateSale3.address,
+        WhitelistSaleJson.abi,
+        signer
+      ) as WhitelistSale;
 
       const boosterSale3 = new ethers.Contract(
         config[network].BoosterSale.PrivateSale3.address,
@@ -193,6 +202,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       setContracts({
         privateSale1,
         privateSale2,
+        privateSale3,
         boosterSale3,
         bmhtl,
         bmhte,
