@@ -22,7 +22,7 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface BoosterSale2Interface extends ethers.utils.Interface {
   functions: {
     "DEFAULT_ADMIN_ROLE()": FunctionFragment;
-    "OPERATIONS_ROLE()": FunctionFragment;
+    "OPERATOR_ROLE()": FunctionFragment;
     "boosterOwner()": FunctionFragment;
     "busd()": FunctionFragment;
     "buy(address,uint256)": FunctionFragment;
@@ -47,7 +47,7 @@ interface BoosterSale2Interface extends ethers.utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "OPERATIONS_ROLE",
+    functionFragment: "OPERATOR_ROLE",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -109,7 +109,7 @@ interface BoosterSale2Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "OPERATIONS_ROLE",
+    functionFragment: "OPERATOR_ROLE",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -232,7 +232,7 @@ export class BoosterSale2 extends BaseContract {
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
     boosterOwner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -307,7 +307,7 @@ export class BoosterSale2 extends BaseContract {
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
-  OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+  OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
 
   boosterOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -382,7 +382,7 @@ export class BoosterSale2 extends BaseContract {
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
 
     boosterOwner(overrides?: CallOverrides): Promise<string>;
 
@@ -522,7 +522,7 @@ export class BoosterSale2 extends BaseContract {
   estimateGas: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
     boosterOwner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -603,7 +603,7 @@ export class BoosterSale2 extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     boosterOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
