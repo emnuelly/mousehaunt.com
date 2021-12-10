@@ -43,7 +43,7 @@ const Whitelist: NextPage = () => {
             <span className="second"></span>
           </Text>
           <Link href={SWEEPWIDGET_URL} target="_blank">
-            JOIN WHITELIST #2
+            JOIN WHITELIST #3
           </Link>
         </BoxContent>
         <Mice>
