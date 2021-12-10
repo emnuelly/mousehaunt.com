@@ -11,8 +11,8 @@ interface Filters {
   setFilters: (filter: object) => void;
   chosenMice: any;
   displayHeart: (id: number) => void;
-  checkIfNotThere: ((id: number, bool?: boolean) => void)
-  clickedChosenMice: ((mice?: []) => void);
+  checkIfNotThere: (id: number, bool?: boolean) => void;
+  clickedChosenMice: (mice?: []) => void;
 }
 
 const FilterMices: React.FC<Filters> = ({
@@ -20,13 +20,11 @@ const FilterMices: React.FC<Filters> = ({
   chosenMice,
   displayHeart,
   checkIfNotThere,
-  clickedChosenMice
+  clickedChosenMice,
 }) => {
   const sendFilters = () => {
     return setFilters(INITIAL_FILTERS);
   };
-
-  console.log(chosenMice);
 
   return (
     <div>
@@ -36,13 +34,13 @@ const FilterMices: React.FC<Filters> = ({
         title={'Heroes'}
         buttonBody
         chosenMice={chosenMice}
-        arrow={true}
+        dropDown
         isOpened={false}
         displayHeart={displayHeart}
         clickedChosenMice={clickedChosenMice}
         checkIfNotThere={checkIfNotThere}
       />
-      <FilterChoices title={'Rarity'} arrow={true} isOpened={true} />
+      <FilterChoices title={'Rarity'} dropDown isOpened={true} />
       {sendFilters()}
     </div>
   );

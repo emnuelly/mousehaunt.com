@@ -1,26 +1,12 @@
-import {
-  FilterContainer,
-  Container,
-  FilterTitle,
-  InputStyles,
-  StyleHeader,
-} from './styles';
-import { ButtonBody } from './styles/filterBody';
-import React, { useState, useEffect } from 'react';
-import { GradientColor } from '../../../styles/Home';
-import {
-  MdOutlineArrowDropUp,
-  MdOutlineArrowDropDown,
-  MdOutlineClose,
-} from 'react-icons/md';
+import { FilterContainer, Container, InputStyles } from './styles';
+import React, { useState } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
-import { Link } from '../Link';
 
 interface Props {
   type?: string;
   title?: string;
   background?: string;
-  arrow?: boolean;
+  dropDown?: boolean;
   isOpened?: boolean;
   buttonBody?: boolean;
   chosenMice?: any;
@@ -29,11 +15,16 @@ interface Props {
   clickedChosenMice?: (mice?: []) => void;
 }
 
+import DisplayTitle from './components/DisplayTitle';
+import DisplayBody from './components/DisplayBody';
+import DisplayHeader from './components/DisplayHeader';
+import DisplaySearchBar from './components/DisplaySearchBar';
+
 const FilterChoices: React.FC<Props> = ({
   type,
   title,
   background,
-  arrow,
+  dropDown,
   isOpened,
   buttonBody,
   chosenMice,
@@ -42,22 +33,10 @@ const FilterChoices: React.FC<Props> = ({
   clickedChosenMice,
 }) => {
   const [changeInput, setChangeInput] = useState('');
-  const [displayHeroesList, setDisplayHeroesList] = useState(false);
-  const [containerAppearance, setContainerAppearance] = useState(isOpened);
-  const container = type !== 'filterHeader' || 'search';
-
-  useEffect(() => {
-    openMenu();
-  }, [chosenMice]);
-
-  const openMenu = () => {
-    if (!chosenMice) return;
-
-    return chosenMice.length > 0 ? setDisplayHeroesList(true) : null;
-  };
+  const [containerDisplayed, setContainerDisplayed] = useState(isOpened);
 
   const changeIcon = () => {
-    return setContainerAppearance(!containerAppearance);
+    return setContainerDisplayed(!containerDisplayed);
   };
 
   const displaySearchBar = () => {
@@ -75,91 +54,34 @@ const FilterChoices: React.FC<Props> = ({
     );
   };
 
-  const filterHeader = () => {
-    return (
-      <StyleHeader>
-        <h1 id="filters-header">Filters</h1>
-        <GradientColor>
-          <h3 id="clear-all" onClick={() => alert('todo clear')}>
-            Clear All
-          </h3>
-        </GradientColor>
-      </StyleHeader>
-    );
-  };
-
-  const displayTitle = () => {
-    return (
-      <>
-        <FilterTitle>
-          <div id="title">{title}</div>
-          {!arrow ? null : (
-            <div onClick={() => changeIcon()}>
-              {containerAppearance ? (
-                <MdOutlineArrowDropDown />
-              ) : (
-                <MdOutlineArrowDropUp />
-              )}
-            </div>
-          )}
-        </FilterTitle>
-        {buttonBody && displayButtonBody()}
-      </>
-    );
-  };
-
-  const displayButtonBody = () => {
-    return (
-      containerAppearance && (
-        <ButtonBody>
-          {chosenMice && chosenMice.length <= 0 && displayHeroesList ? (
-            <div>No heroes selected</div>
-          ) : (
-            displayChosenMices()
-          )}
-          <Link>CHOOSE HEROES</Link>
-        </ButtonBody>
-      )
-    );
-  };
-
-  interface Map {
-    id: number;
-    name: string;
-  }
-  interface MapArray extends Map {
-    array: { id: number; name: string };
-  }
-
-  const displayChosenMices = () => {
-    return Object.values(chosenMice).map((e: any) => {
-      return (
-        <div key={e.id}>
-          <div>{e.name}</div>
-          <div
-            onClick={() => {
-              clickedChosenMice(e);
-              checkIfNotThere(e.id, true);
-              displayHeart(e.id);
-            }}
-          >
-            <MdOutlineClose />
-          </div>
-        </div>
-      );
-    });
-  };
-
   return (
     <>
       <Container>
         <FilterContainer style={{ backgroundColor: background }}>
           <InputStyles>
-            {type === 'filterHeader' ? filterHeader() : null}
-            {type === 'search' ? displaySearchBar() : null}
+            {type === 'filterHeader' && (
+              <DisplayHeader leftText={'Filters'} rightText={'Clear All'} />
+            )}
+            {type === 'search' && (
+              <DisplaySearchBar setChangeInput={setChangeInput} />
+            )}
           </InputStyles>
-
-          {title && displayTitle()}
+          {title && (
+            <DisplayTitle
+              title={title}
+              dropDown={dropDown}
+              changeIcon={changeIcon}
+              containerDisplayed={containerDisplayed}
+            />
+          )}
+          <DisplayBody
+            containerDisplayed={containerDisplayed}
+            chosenMice={chosenMice}
+            displayHeart={displayHeart}
+            checkIfNotThere={checkIfNotThere}
+            clickedChosenMice={clickedChosenMice}
+            buttonBody={buttonBody}
+          />
         </FilterContainer>
       </Container>
     </>
@@ -167,3 +89,38 @@ const FilterChoices: React.FC<Props> = ({
 };
 
 export default FilterChoices;
+
+// const displayButtonBody = () => {
+//   return (
+//     containerDisplayed && (
+//       <ButtonBody>
+//         {chosenMice && chosenMice.length <= 0 && displayHeroesList ? (
+//           <div>No heroes selected</div>
+//         ) : (
+//           displayChosenMices()
+//         )}
+//         <Link>CHOOSE HEROES</Link>
+//       </ButtonBody>
+//     )
+//   );
+// };
+
+// const displayTitle = () => {
+//   return (
+//     <>
+//       <FilterTitle>
+//         <div id="title">{title}</div>
+//         {!dropDown ? null : (
+//           <div onClick={() => changeIcon()}>
+//             {containerDisplayed ? (
+//               <MdOutlineArrowDropDown />
+//             ) : (
+//               <MdOutlineArrowDropUp />
+//             )}
+//           </div>
+//         )}
+//       </FilterTitle>
+//       {buttonBody && displayButtonBody()}
+//     </>
+//   );
+// };

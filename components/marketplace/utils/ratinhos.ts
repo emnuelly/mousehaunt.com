@@ -365,9 +365,5 @@ export const formatTimeDays = (data: object) => {
   if (!data) return;
   const today = new Date();
 
-  //   today.setDate(today.getDate())
-
-  // console.log(today)
-
   return data.toString();
 };
