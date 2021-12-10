@@ -3,10 +3,12 @@ import styled from "styled-components";
 
 import { Link as LinkButton } from "./Link";
 import Link from "next/link";
-import sections from "../../utils/sections";
+import sections, { storeSections } from "../../utils/sections";
+import { useRouter } from "next/router";
 
 interface Props {
   mobile?: boolean;
+  width: string;
 }
 
 const Container = styled.div<Props>`
@@ -15,10 +17,10 @@ const Container = styled.div<Props>`
   justify-content: ${(props) => (props.mobile ? "space-around" : "")};
   height: ${(props) => (props.mobile ? "100%" : "")};
   align-items: center !important;
-  width: 100%;
+  width: ${(props) => props.width};
 
   a {
-    margin-left: ${(props) => (props.mobile ? "inherit" : "")};
+    margin-left: inherit;
     margin-right: ${(props) => (props.mobile ? "" : "32px")};
     z-index: 1;
   }
@@ -28,23 +30,33 @@ const Container = styled.div<Props>`
   }
 
   .right {
+    margin-left: auto;
     margin-right: 0px;
   }
 `;
 
-const Sections: React.FC<Props> = ({ mobile }: Props) => (
-  <Container mobile={mobile}>
-    {sections.map((section) => (
-      <Link key={section.to} href={section.to}>
-        <a target={section.title === "White Paper" ? "_blank" : ""}>
-          {section.title}
-        </a>
-      </Link>
-    ))}
-    <LinkButton className="right" href="/store">
-      PRIVATE SALE (#3)
-    </LinkButton>
-  </Container>
-);
+const Sections: React.FC<Props> = ({ mobile }: Props) => {
+  const router = useRouter();
+  const isStorePath =
+    router.pathname === "/store" || router.pathname === "/store/inventory";
+  const routes = isStorePath ? storeSections : sections;
+
+  return (
+    <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
+      {routes.map((section) => (
+        <Link key={section.to} href={section.to}>
+          <a target={section.title === "White Paper" ? "_blank" : ""}>
+            {section.title}
+          </a>
+        </Link>
+      ))}
+      {isStorePath ? null : (
+        <LinkButton className="right" href="/store">
+          PRIVATE SALE (#3)
+        </LinkButton>
+      )}
+    </Container>
+  );
+};
 
 export default Sections;

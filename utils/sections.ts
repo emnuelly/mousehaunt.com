@@ -1,3 +1,8 @@
+export const storeSections = [
+  { to: '/store', title: 'Store' },
+  { to: '/store/inventory', title: 'Inventory' },
+];
+
 export const sections = [
   { to: '/#about', title: 'About' },
   {

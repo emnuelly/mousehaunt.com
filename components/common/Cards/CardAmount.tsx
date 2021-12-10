@@ -272,7 +272,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   return (
     <>
-      {index === 2 ? null : (
+      {
         <Formik
           onSubmit={() => undefined}
           initialValues={{ amount: 1, amountMHT: 1 }}
@@ -347,7 +347,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             </Form>
           </ContentForm>
         </Formik>
-      )}
+      }
     </>
   );
 };

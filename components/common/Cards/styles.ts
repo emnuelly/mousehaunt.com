@@ -27,7 +27,7 @@ export const CardSection = styled.div<Props>`
   
   background: ${props => props.index === 0 ? (
 'linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(49, 103, 242, 0.5)'
-  ) : props.index === 1 ? ('linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), linear-gradient(96.82deg, rgba(186, 97, 228, 0.3) 0%, rgba(212, 66, 215, 0.3) 100%);') : ('linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(221, 165, 55, 0.5);')} ;
+  ) : props.index === 1 ? ('linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), linear-gradient(96.82deg, rgba(186, 97, 228, 0.3) 0%, rgba(212, 66, 215, 0.3) 100%);') : ('linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(89, 192, 230, 0.5);')} ;
 
 
 `;
