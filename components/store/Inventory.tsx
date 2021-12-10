@@ -23,7 +23,7 @@ const Inventory: NextPage = () => {
         <StoreInventoryContainer>
           <Header>
             <Logo />
-            <Sections sections={sections} />
+            <Sections />
             <ConnectWalletButton />
           </Header>
           <StoreInventoryBody>
