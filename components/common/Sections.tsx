@@ -8,10 +8,14 @@ import { useRouter } from "next/router";
 
 interface Props {
   mobile?: boolean;
+}
+
+interface ContainerProps {
+  mobile?: boolean;
   width: string;
 }
 
-const Container = styled.div<Props>`
+const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: ${(props) => (props.mobile ? "column" : "row")};
   justify-content: ${(props) => (props.mobile ? "space-around" : "")};
