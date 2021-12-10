@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
 import {
   Container,
@@ -10,14 +10,10 @@ import {
   RoadmapImage,
   Upward,
   Downward,
-} from './styles';
-import Image from 'next/image';
-// import roadmapDesktop from '../../../public/images/other/roadmap.png';
-// import roadmapMobile from '../../../public/images/other/roadmap-mobile.png';
-
-//? to run locally, uncomment line 19 and 20 and comment line 15/16, to run build comment line 15/16 and uncomment line 19/20
-const roadmapDesktop = '/images/other/roadmap.png';
-const roadmapMobile = '/images/other/roadmap-mobile.png';
+} from "./styles";
+import Image from "next/image";
+import roadmapDesktop from "../../../public/images/other/roadmap.png";
+import roadmapMobile from "../../../public/images/other/roadmap-mobile.png";
 
 const Roadmap: NextPage = () => {
   return (

@@ -93,9 +93,17 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BMHTL__factory>;
     getContractFactory(
-      name: "BoosterSale",
+      name: "BMHTR",
       signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.BoosterSale__factory>;
+    ): Promise<Contracts.BMHTR__factory>;
+    getContractFactory(
+      name: "BoosterSale2",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BoosterSale2__factory>;
+    getContractFactory(
+      name: "BoosterSale3",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BoosterSale3__factory>;
     getContractFactory(
       name: "IBooster",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -105,13 +113,29 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IMouseHero__factory>;
     getContractFactory(
-      name: "LegendaryEpicBoosterUnpack",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.LegendaryEpicBoosterUnpack__factory>;
-    getContractFactory(
       name: "Random",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Random__factory>;
+    getContractFactory(
+      name: "Unpackable",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Unpackable__factory>;
+    getContractFactory(
+      name: "UnpackEPIC",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UnpackEPIC__factory>;
+    getContractFactory(
+      name: "UnpackLEGENDARY",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.UnpackLEGENDARY__factory>;
+    getContractFactory(
+      name: "Marketplace",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.Marketplace__factory>;
+    getContractFactory(
+      name: "MarketplaceStorage",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.MarketplaceStorage__factory>;
     getContractFactory(
       name: "MouseHauntToken",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -234,10 +258,20 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BMHTL>;
     getContractAt(
-      name: "BoosterSale",
+      name: "BMHTR",
       address: string,
       signer?: ethers.Signer
-    ): Promise<Contracts.BoosterSale>;
+    ): Promise<Contracts.BMHTR>;
+    getContractAt(
+      name: "BoosterSale2",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BoosterSale2>;
+    getContractAt(
+      name: "BoosterSale3",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BoosterSale3>;
     getContractAt(
       name: "IBooster",
       address: string,
@@ -249,15 +283,35 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IMouseHero>;
     getContractAt(
-      name: "LegendaryEpicBoosterUnpack",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.LegendaryEpicBoosterUnpack>;
-    getContractAt(
       name: "Random",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.Random>;
+    getContractAt(
+      name: "Unpackable",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Unpackable>;
+    getContractAt(
+      name: "UnpackEPIC",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UnpackEPIC>;
+    getContractAt(
+      name: "UnpackLEGENDARY",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.UnpackLEGENDARY>;
+    getContractAt(
+      name: "Marketplace",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.Marketplace>;
+    getContractAt(
+      name: "MarketplaceStorage",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.MarketplaceStorage>;
     getContractAt(
       name: "MouseHauntToken",
       address: string,

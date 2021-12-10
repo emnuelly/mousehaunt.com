@@ -7,6 +7,7 @@ const bsc = {
     owner: "0x8e3f936932AbDa7a4C31EFE83068A00aeB69122B",
     image: "https://mousehaunt.com/images/logo.png",
     symbol: "MHT",
+    decimals: 18,
   },
   BUSD: {
     address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
@@ -45,18 +46,38 @@ const bsc = {
       vestingPeriodMonths: "12",
       available: "571500",
     },
+    PrivateSale3: {
+      address: "",
+      owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
+      MHTtoBUSD: "0.19",
+      minMhtAmount: "115",
+      maxMhtAmount: "115",
+      unlockAtIGOPercent: "8",
+      cliffMonths: "0",
+      vestingPeriodMonths: "12",
+      available: "575000",
+    },
   },
   BMHTL: {
     address: "0x29421DF4FEAA2ff2eA08b7A8F221425C8aFD424C",
     owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     image: "https://mousehaunt.com/images/legendary.png",
     symbol: "BMHTL",
+    decimals: 18,
   },
   BMHTE: {
     address: "0x2DE83F4243ff0200624a44011777a373aF7E9f72",
     owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     image: "https://mousehaunt.com/images/epic.png",
     symbol: "BMHTE",
+    decimals: 18,
+  },
+  BMHTR: {
+    address: "",
+    owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+    image: "https://mousehaunt.com/images/rare.png",
+    symbol: "BMHTR",
+    decimals: 0,
   },
   BoosterSale: {
     PrivateSale1: {
@@ -85,6 +106,20 @@ const bsc = {
         busdPrice: "105",
         cap: "1",
         available: "5000",
+      },
+    },
+    PrivateSale3: {
+      address: "",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+      BMHTE: {
+        busdPrice: "150",
+        cap: "1",
+        available: "3333",
+      },
+      BMHTR: {
+        busdPrice: "45",
+        cap: "2",
+        available: "10000",
       },
     },
   },
