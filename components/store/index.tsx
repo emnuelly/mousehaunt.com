@@ -13,7 +13,6 @@ import Header from "../common/Header";
 import Logo from "../common/Logo";
 import Sections from "../common/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
-import { sections } from "../../utils/sections";
 import Menu from "../common/BurgerMenu";
 
 function countdown() {
@@ -22,7 +21,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-11-29T13:00:00.000Z");
+  const final = new Date("2021-12-12T00:00:00.000Z");
 
   const countDown = new Date(final).getTime();
 
@@ -30,7 +29,7 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "PRIVATE SALE (#3) ENDED";
+    document.getElementById("ends")!.innerText = "PRIVATE SALE (#3) STARTED";
     document.getElementById("ended-ul")!.style.display = "none";
     return;
   }
@@ -51,7 +50,7 @@ function countdown() {
 
 const Countdown = () => (
   <CountdownContainer>
-    <span id="ends">PRIVATE SALE (#3) ENDS IN</span>
+    <span id="ends">PRIVATE SALE (#3) STARTS IN</span>
     <ul id="ended-ul">
       <li>
         <span id="days"></span>DAYS
@@ -96,7 +95,7 @@ const StoreHome: NextPage = () => {
             Welcome to the Mouse Haunt Shop!
             <br />
             <b>
-              The Whitelist 2 ends <br /> on November 29th 1p.m. GMT
+              The Whitelist 3 ends <br /> on December 15th 23:59 GMT
             </b>
           </StorePageSub>
           <Countdown />

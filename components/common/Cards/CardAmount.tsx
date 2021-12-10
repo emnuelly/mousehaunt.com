@@ -125,7 +125,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         setBuyStep(BUY_STEP.APPROVE);
       }
     }
-  }, [provider, contracts, account, busdAmount, network, boosterAllowance]);
+  }, [provider, contracts, account, busdAmount, network, type, boosterAmount]);
 
   const onChange = (event: any) => {
     const { value, id } = event.target;
@@ -196,7 +196,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     }
   };
 
-  const approveBooster = async (index: number) => {
+  const approveBooster = async () => {
     if (provider && contracts) {
       try {
         setBuyStep(BUY_STEP.WAIT);
@@ -220,14 +220,13 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     }
   };
 
-  const buyBooster = async (index: number) => {
+  const buyBooster = async () => {
     if (provider && contracts) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const type = index === 1 ? "EPIC" : "RARE";
         const booster =
           type === "EPIC"
             ? config[network].BMHTE.address
@@ -365,7 +364,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
-              <ButtonFormat>
+              {/* <ButtonFormat>
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.APPROVE ||
@@ -385,7 +384,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 >
                   BUY
                 </Button>
-              </ButtonFormat>
+              </ButtonFormat> */}
             </Form>
           </ContentForm>
         </Formik>

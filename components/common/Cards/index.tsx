@@ -126,8 +126,9 @@ const Cards: NextPage = () => {
       title: "RARE",
       sub: "BOOSTER",
       subtitles: [
-        "Probabilities: ",
-        "",
+        "Probabilities: 96% Rare Mouse Hero NFT",
+        "Probabilities: 3.7% Epic Mouse Hero NFT",
+        "Probabilities: 0.3% Legendary Mouse Hero NFT ",
         `Price: $${config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice}`,
         "",
         `Remaining boosters: ${rareLimit}`,
