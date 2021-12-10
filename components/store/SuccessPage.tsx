@@ -23,7 +23,6 @@ import mht from "../../public/images/other/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
-import { sections } from "../../utils/sections";
 
 const DescriptionMHT = (props: {
   userInfo?: UserInfoDetailed;
@@ -83,7 +82,7 @@ const StoreSuccess: NextPage = () => {
         <StoreSuccessContainer>
           <Header>
             <Logo />
-            <Sections sections={sections} />
+            <Sections />
             <ConnectWalletButton />
           </Header>
           <StoreSuccessBody>
