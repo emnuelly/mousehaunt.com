@@ -63,7 +63,7 @@ interface StoreContextData {
   userInfoDetailed?: UserInfoDetailed;
   account: string;
   provider?: provider;
-  web3?: Web3;
+  web3Modal?: Web3Modal;
   refresh: boolean;
   setAccount: React.Dispatch<string>;
   getAccount: () => Promise<string>;
@@ -103,7 +103,7 @@ async function getUserInfo(
 }
 
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
-  const [web3, setWeb3] = useState<Web3 | undefined>();
+  const [web3Modal, setWeb3Modal] = useState<Web3Modal | undefined>();
   const [contracts, setContracts] = useState<Contracts | undefined>();
   const [provider, setProvider] = useState<provider | undefined>();
   const [account, setAccount] = useState<string>("");
@@ -289,7 +289,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       const p = await web3Modal.connect();
       setProvider(p);
       const w = new Web3(p);
-      setWeb3(w);
+      setWeb3Modal(web3Modal);
 
       const accounts = await w.eth.getAccounts();
       const account = accounts[0];
@@ -310,7 +310,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         setAccount,
         setRefresh,
         provider,
-        web3,
+        web3Modal,
         network,
         setNetwork,
         contracts,
