@@ -21,7 +21,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-12-12T00:00:00.000Z");
+  const final = new Date("2021-12-15T23:59:59.000Z");
 
   const countDown = new Date(final).getTime();
 
@@ -29,7 +29,7 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "PRIVATE SALE (#3) STARTED";
+    document.getElementById("ends")!.innerText = "PRIVATE SALE (#3) ENDED";
     document.getElementById("ended-ul")!.style.display = "none";
     return;
   }
@@ -50,7 +50,7 @@ function countdown() {
 
 const Countdown = () => (
   <CountdownContainer>
-    <span id="ends">PRIVATE SALE (#3) STARTS IN</span>
+    <span id="ends">PRIVATE SALE (#3) ENDS IN</span>
     <ul id="ended-ul">
       <li>
         <span id="days"></span>DAYS
