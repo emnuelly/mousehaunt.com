@@ -73,7 +73,7 @@ interface StoreContextData {
   contracts?: Contracts;
 }
 
-const DEFAULT_NETWORK: Network = "bscTestnet";
+const DEFAULT_NETWORK: Network = "bsc";
 
 export const StoreContext = createContext<StoreContextData>({
   network: DEFAULT_NETWORK,
@@ -112,21 +112,14 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   >();
   const [refresh, setRefresh] = useState(false);
   const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
-  const BOOSTER_OWNER = config[network].BMHTL.owner;
 
   const updateUserInfo = () => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted =
-            (await contracts?.boosterSale3.whitelist(
-              config[network].BMHTE.address,
-              account
-            )) ||
-            (await contracts?.boosterSale3.whitelist(
-              config[network].BMHTR.address,
-              account
-            ));
+          const isWhitelisted = await contracts?.privateSale3.isWhitelisted(
+            account
+          );
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);

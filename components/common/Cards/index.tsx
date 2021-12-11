@@ -65,6 +65,10 @@ const Cards: NextPage = () => {
             setRareLimit(rare.toString());
           }
         } catch (err) {
+          console.log(
+            BOOSTER_OWNER,
+            config[network].BoosterSale.PrivateSale3.address
+          );
           console.log(err);
         }
       })();

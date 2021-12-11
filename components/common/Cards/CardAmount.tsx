@@ -107,7 +107,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   }, [busdAmount, mhtAmount, minBusdAmount, maxBusdAmount]);
 
   useEffect(() => {
-    if (provider && contracts) {
+    if (provider && contracts && account) {
       try {
         (async () => {
           const busdAllowanceMHT = await contracts.busd.allowance(
@@ -373,7 +373,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
-              <ButtonFormat>
+              {/* <ButtonFormat>
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.APPROVE ||
@@ -396,7 +396,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 >
                   BUY
                 </Button>
-              </ButtonFormat>
+              </ButtonFormat> */}
               {buyStep === BUY_STEP.WAIT && (
                 <LoadingContainer index={index}>
                   <Loading />
