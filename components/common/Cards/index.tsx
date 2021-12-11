@@ -21,8 +21,6 @@ import config from "../../../utils/config";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 
-const BOOSTER_OWNER = "0x2124b4912532f6cD235081fEA2223EB3C0Af301d";
-
 const Cards: NextPage = () => {
   const { network, contracts, account } = useContext(StoreContext);
   const MHT_TO_BUSD = Number(
@@ -42,6 +40,8 @@ const Cards: NextPage = () => {
 
   const [epicLimit, setEpicLimit] = useState("");
   const [rareLimit, setRareLimit] = useState("");
+
+  const BOOSTER_OWNER = config[network].BMHTL.owner;
 
   useEffect(() => {
     if (contracts?.boosterSale3.address && account) {

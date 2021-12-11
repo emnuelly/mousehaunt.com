@@ -81,8 +81,8 @@ export const ConnectWalletButton = () => {
   const whitelistedText =
     // account && userInfoDetailed
     //   ? userInfoDetailed?.whitelisted
-    //     ? "WHITELISTED (#2)"
-    //     : "NOT WHITELISTED (#2)"
+    //     ? "WHITELISTED (#3)"
+    //     : "NOT WHITELISTED (#3)"
     // :
     "";
   const mhtPurchasedText =
