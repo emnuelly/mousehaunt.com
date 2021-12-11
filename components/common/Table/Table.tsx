@@ -3,6 +3,7 @@ import Image from "next/image";
 import mht from "../../../public/images/other/MHT.png";
 import legendary from "../../../public/images/other/legendary.png";
 import epic from "../../../public/images/other/epic.png";
+import rare from "../../../public/images/other/rare.png";
 
 import { Styles, StatusBadge } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
@@ -73,6 +74,14 @@ const Table: React.FC = () => {
       type: userInfoDetailed?.boosters.epic,
       typeSub: "Available on wallet",
       image: epic,
+      status: "AVAILABLE",
+    },
+    {
+      item: "BMHTR",
+      itemSub: "Mouse Haunt Booster RARE",
+      type: userInfoDetailed?.boosters.rare,
+      typeSub: "Available on wallet",
+      image: rare,
       status: "AVAILABLE",
     },
     {

@@ -81,7 +81,8 @@ async function getUserInfo(
   const [userInfo1, userInfo2, userInfo3] = await Promise.all([
     contracts.privateSale1.addressToUserInfo(account),
     contracts.privateSale2.addressToUserInfo(account),
-    contracts.privateSale3.addressToUserInfo(account),
+    Promise.resolve([0, 0, 0]),
+    // contracts.privateSale3.addressToUserInfo(account),
   ]);
   const totalTokens = userInfo1[0].add(userInfo2[0]).add(userInfo3[0]);
   const remainingTokens = userInfo1[1].add(userInfo2[1]).add(userInfo3[1]);
@@ -112,21 +113,16 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted =
-            (await contracts?.boosterSale3.whitelist(
-              config[network].BMHTE.address,
-              account
-            )) ||
-            (await contracts?.boosterSale3.whitelist(
-              config[network].BMHTR.address,
-              account
-            ));
+          const isWhitelisted = false;
+          // (await contracts?.privateSale3.isWhitelisted(
+          //   config[network].BMHTE.address,
+          // ));
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
           const legendary = await contracts?.bmhtl.balanceOf(account);
           const epic = await contracts?.bmhte.balanceOf(account);
-          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
+          const rare = ""; // (await contracts?.bmhtr.balanceOf(account)).toString();
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
@@ -165,17 +161,17 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
-      const privateSale3 = new ethers.Contract(
+      const privateSale3 = /*new ethers.Contract(
         config[network].WhitelistSale.PrivateSale3.address,
         WhitelistSaleJson.abi,
         signer
-      ) as WhitelistSale;
+      )*/ {} as WhitelistSale;
 
-      const boosterSale3 = new ethers.Contract(
+      const boosterSale3 = /*new ethers.Contract(
         config[network].BoosterSale.PrivateSale3.address,
         BoosterSale3Json.abi,
         signer
-      ) as BoosterSale3;
+      )*/ {} as BoosterSale3;
 
       const bmhtl = new ethers.Contract(
         config[network].BMHTL.address,
@@ -187,11 +183,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         BMHTEJson.abi,
         signer
       ) as BMHTE;
-      const bmhtr = new ethers.Contract(
+      const bmhtr = /*new ethers.Contract(
         config[network].BMHTR.address,
         BMHTRJson.abi,
         signer
-      ) as BMHTR;
+      ) */ {} as BMHTR;
 
       const busd = new ethers.Contract(
         config[network].BUSD.address,
