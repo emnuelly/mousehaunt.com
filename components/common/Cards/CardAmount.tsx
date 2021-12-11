@@ -101,7 +101,6 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     if (provider && contracts) {
       try {
         (async () => {
-          setBuyStep(BUY_STEP.WAIT);
           const allowanceMHT = await contracts.busd.allowance(
             account,
             config[network].WhitelistSale.PrivateSale3.address
@@ -121,8 +120,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         })();
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
-        alert(message);
-        setBuyStep(BUY_STEP.APPROVE);
+        console.log(message);
       }
     }
   }, [provider, contracts, account, busdAmount, network, type, boosterAmount]);
