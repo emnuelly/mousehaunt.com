@@ -65,10 +65,6 @@ const Cards: NextPage = () => {
             setRareLimit(rare.toString());
           }
         } catch (err) {
-          console.log(
-            BOOSTER_OWNER,
-            config[network].BoosterSale.PrivateSale3.address
-          );
           console.log(err);
         }
       })();
@@ -87,7 +83,7 @@ const Cards: NextPage = () => {
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
         "",
-        `Allowance: ${userInfoDetailed?.allowance.mht || ""}`,
+        `Remaining allowance: ${userInfoDetailed?.allowance.mht || ""}`,
       ],
     },
 
@@ -101,7 +97,7 @@ const Cards: NextPage = () => {
         `Price: $${config[network].BoosterSale.PrivateSale3.BMHTE.busdPrice}`,
         "",
         `Remaining boosters: ${epicLimit}`,
-        `Allowance: ${userInfoDetailed?.allowance.epic || ""}`,
+        `Remaining allowance: ${userInfoDetailed?.allowance.epic || ""}`,
       ],
     },
 
@@ -116,7 +112,7 @@ const Cards: NextPage = () => {
         `Price: $${config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice}`,
         "",
         `Remaining boosters: ${rareLimit}`,
-        `Allowance: ${userInfoDetailed?.allowance.rare || ""}`,
+        `Remaining allowance: ${userInfoDetailed?.allowance.rare || ""}`,
       ],
     },
   ];

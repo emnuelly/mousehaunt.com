@@ -43,7 +43,7 @@ const DescriptionMHT = (props: {
     </div>
     <div>
       <span>Next claim</span>
-      <span>IGO (TBD)</span>
+      <span>IGO (December 21th)</span>
     </div>
   </StoreSuccessDescription>
 );
