@@ -18,7 +18,7 @@ const Table: React.FC = () => {
   const [monthlyAmount, setMonthlyAmount] = useState("");
 
   const date = (i: number) =>
-    format(add(new Date("2021-12-21"), { months: i }), "MMM ");
+    format(add(new Date("2021-12-21"), { months: i }), "MMM yyyy");
 
   const mhts = Array.from(Array(12).keys()).map((i) => ({
     item: "$MHT",
