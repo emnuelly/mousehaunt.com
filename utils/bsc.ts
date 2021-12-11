@@ -47,7 +47,7 @@ const bsc = {
       available: "571500",
     },
     PrivateSale3: {
-      address: "",
+      address: "0x0Aa2B2F7Ba37a628037c8f815d792eCccA5F717B",
       owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
       MHTtoBUSD: "0.19",
       minMhtAmount: "115",
@@ -73,7 +73,7 @@ const bsc = {
     decimals: 18,
   },
   BMHTR: {
-    address: "",
+    address: "0x9b0D5A9e64aD9461f4D5B6E893FBf8655d21CBE4",
     owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
     image: "https://mousehaunt.com/images/rare.png",
     symbol: "BMHTR",
@@ -109,7 +109,7 @@ const bsc = {
       },
     },
     PrivateSale3: {
-      address: "",
+      address: "0x674d68fDe432A0ED962080cE44865A6E8241311C",
       owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
       BMHTE: {
         busdPrice: "150",
@@ -119,7 +119,7 @@ const bsc = {
       BMHTR: {
         busdPrice: "45",
         cap: "2",
-        available: "10000",
+        available: "20000",
       },
     },
   },
