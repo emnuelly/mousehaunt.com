@@ -88,6 +88,13 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   const type = index === 1 ? "EPIC" : "RARE";
 
+  const allowance =
+    index === 0
+      ? userInfoDetailed?.allowance.mht
+      : index === 1
+      ? userInfoDetailed?.allowance.epic
+      : userInfoDetailed?.allowance.rare;
+
   useEffect(() => {
     if (
       Number(busdAmount) < minBusdAmount ||
@@ -103,19 +110,21 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     if (provider && contracts) {
       try {
         (async () => {
-          const allowanceMHT = await contracts.busd.allowance(
+          const busdAllowanceMHT = await contracts.busd.allowance(
             account,
             config[network].WhitelistSale.PrivateSale3.address
           );
-          if (allowanceMHT.gte(ethers.utils.parseEther(busdAmount))) {
+          if (busdAllowanceMHT.gte(ethers.utils.parseEther(busdAmount))) {
             setBuyStep(BUY_STEP.BUY);
           }
-          const allowanceBooster = await contracts.busd.allowance(
+          const busdAllowanceBooster = await contracts.busd.allowance(
             account,
             config[network].BoosterSale.PrivateSale3.address
           );
           if (
-            allowanceBooster.gte(boosterAllowance(type, boosterAmount, network))
+            busdAllowanceBooster.gte(
+              boosterAllowance(type, boosterAmount, network)
+            )
           ) {
             setBuyStep(BUY_STEP.BUY);
           }
@@ -368,7 +377,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.APPROVE ||
-                    !userInfoDetailed?.whitelisted
+                    !userInfoDetailed?.whitelisted ||
+                    allowance === "0"
                   }
                   onClick={() =>
                     index === 0 ? approveMHT() : approveBooster()
@@ -378,7 +388,9 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 </Button>
                 <Button
                   disabled={
-                    buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
+                    buyStep !== BUY_STEP.BUY ||
+                    !userInfoDetailed?.whitelisted ||
+                    allowance === "0"
                   }
                   onClick={() => (index === 0 ? buyMHT() : buyBooster())}
                 >

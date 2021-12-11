@@ -22,7 +22,8 @@ import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 
 const Cards: NextPage = () => {
-  const { network, contracts, account } = useContext(StoreContext);
+  const { network, contracts, account, userInfoDetailed } =
+    useContext(StoreContext);
   const MHT_TO_BUSD = Number(
     config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
   );
@@ -35,39 +36,10 @@ const Cards: NextPage = () => {
   const vesting =
     config[network].WhitelistSale.PrivateSale3.vestingPeriodMonths;
 
-  const [mhtAllowance, setMHTAllowance] = useState("");
-  const [epicAllowance, setEpicAllowance] = useState("");
-  const [rareAllowance, setRareAllowance] = useState("");
-
   const [epicLimit, setEpicLimit] = useState("");
   const [rareLimit, setRareLimit] = useState("");
 
   const BOOSTER_OWNER = config[network].BMHTL.owner;
-
-  useEffect(() => {
-    if (contracts?.boosterSale3.address && account) {
-      (async () => {
-        try {
-          const epic = await contracts?.boosterSale3.whitelist(
-            account,
-            config[network].BMHTE.address
-          );
-          const rare = await contracts?.boosterSale3.whitelist(
-            account,
-            config[network].BMHTR.address
-          );
-          if (epic) {
-            setEpicAllowance(epic.toString());
-          }
-          if (rare) {
-            setRareAllowance(rare.toString());
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      })();
-    }
-  }, [account, contracts, network]);
 
   useEffect(() => {
     if (
@@ -78,22 +50,6 @@ const Cards: NextPage = () => {
     ) {
       (async () => {
         try {
-          const userInfo3 = await contracts?.privateSale3.addressToUserInfo(
-            account
-          );
-          if (userInfo3) {
-            setMHTAllowance(
-              ethers.utils
-                .formatEther(
-                  ethers.utils
-                    .parseEther(
-                      config[network].WhitelistSale.PrivateSale3.maxMhtAmount
-                    )
-                    .sub(userInfo3[0])
-                )
-                .replace(/\..*/, "")
-            );
-          }
           const epic = await contracts?.bmhte.allowance(
             BOOSTER_OWNER,
             config[network].BoosterSale.PrivateSale3.address
@@ -127,7 +83,7 @@ const Cards: NextPage = () => {
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
         "",
-        `Allowance: ${mhtAllowance}`,
+        `Allowance: ${userInfoDetailed?.allowance.mht || ""}`,
       ],
     },
 
@@ -141,7 +97,7 @@ const Cards: NextPage = () => {
         `Price: $${config[network].BoosterSale.PrivateSale3.BMHTE.busdPrice}`,
         "",
         `Remaining boosters: ${epicLimit}`,
-        `Allowance: ${epicAllowance}`,
+        `Allowance: ${userInfoDetailed?.allowance.epic || ""}`,
       ],
     },
 
@@ -156,7 +112,7 @@ const Cards: NextPage = () => {
         `Price: $${config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice}`,
         "",
         `Remaining boosters: ${rareLimit}`,
-        `Allowance: ${rareAllowance}`,
+        `Allowance: ${userInfoDetailed?.allowance.rare || ""}`,
       ],
     },
   ];

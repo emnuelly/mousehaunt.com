@@ -39,6 +39,11 @@ export interface UserInfoDetailed extends UserInfo {
     legendary: string;
     rare: string;
   };
+  allowance: {
+    mht: string;
+    epic: string;
+    rare: string;
+  };
 }
 
 export interface Contracts {
@@ -68,7 +73,7 @@ interface StoreContextData {
   contracts?: Contracts;
 }
 
-const DEFAULT_NETWORK: Network = "bsc";
+const DEFAULT_NETWORK: Network = "bscTestnet";
 
 export const StoreContext = createContext<StoreContextData>({
   network: DEFAULT_NETWORK,
@@ -81,8 +86,7 @@ async function getUserInfo(
   const [userInfo1, userInfo2, userInfo3] = await Promise.all([
     contracts.privateSale1.addressToUserInfo(account),
     contracts.privateSale2.addressToUserInfo(account),
-    Promise.resolve([0, 0, 0]),
-    // contracts.privateSale3.addressToUserInfo(account),
+    contracts.privateSale3.addressToUserInfo(account),
   ]);
   const totalTokens = userInfo1[0].add(userInfo2[0]).add(userInfo3[0]);
   const remainingTokens = userInfo1[1].add(userInfo2[1]).add(userInfo3[1]);
@@ -108,21 +112,27 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   >();
   const [refresh, setRefresh] = useState(false);
   const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
+  const BOOSTER_OWNER = config[network].BMHTL.owner;
 
   const updateUserInfo = () => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted = false;
-          // (await contracts?.privateSale3.isWhitelisted(
-          //   config[network].BMHTE.address,
-          // ));
+          const isWhitelisted =
+            (await contracts?.boosterSale3.whitelist(
+              config[network].BMHTE.address,
+              account
+            )) ||
+            (await contracts?.boosterSale3.whitelist(
+              config[network].BMHTR.address,
+              account
+            ));
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
           const legendary = await contracts?.bmhtl.balanceOf(account);
           const epic = await contracts?.bmhte.balanceOf(account);
-          const rare = ""; // (await contracts?.bmhtr.balanceOf(account)).toString();
+          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
@@ -133,11 +143,43 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           const busdOnWallet = ethers.utils.formatEther(
             await contracts?.busd.balanceOf(account)
           );
+
+          const userInfo3 = await contracts?.privateSale3.addressToUserInfo(
+            account
+          );
+          const mhtAllowance = ethers.utils
+            .formatEther(
+              ethers.utils
+                .parseEther(
+                  config[network].WhitelistSale.PrivateSale3.maxMhtAmount
+                )
+                .sub(userInfo3[0])
+            )
+            .replace(/\..*/, "");
+          const epicAllowance = (
+            await contracts?.boosterSale3.whitelist(
+              account,
+              config[network].BMHTE.address
+            )
+          ).toString();
+          const rareAllowance = (
+            await contracts?.boosterSale3.whitelist(
+              account,
+              config[network].BMHTR.address
+            )
+          ).toString();
+          const allowance = {
+            mht: mhtAllowance,
+            epic: epicAllowance,
+            rare: rareAllowance,
+          };
+
           setUserInfoDetailed({
             ...userInfo,
             busdOnWallet,
             whitelisted,
             boosters,
+            allowance,
           });
         } catch (err) {
           console.error(err, "Error trying to updateUserInfo");
@@ -161,17 +203,17 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
-      const privateSale3 = /*new ethers.Contract(
+      const privateSale3 = new ethers.Contract(
         config[network].WhitelistSale.PrivateSale3.address,
         WhitelistSaleJson.abi,
         signer
-      )*/ {} as WhitelistSale;
+      ) as WhitelistSale;
 
-      const boosterSale3 = /*new ethers.Contract(
+      const boosterSale3 = new ethers.Contract(
         config[network].BoosterSale.PrivateSale3.address,
         BoosterSale3Json.abi,
         signer
-      )*/ {} as BoosterSale3;
+      ) as BoosterSale3;
 
       const bmhtl = new ethers.Contract(
         config[network].BMHTL.address,
@@ -183,11 +225,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         BMHTEJson.abi,
         signer
       ) as BMHTE;
-      const bmhtr = /*new ethers.Contract(
+      const bmhtr = new ethers.Contract(
         config[network].BMHTR.address,
         BMHTRJson.abi,
         signer
-      ) */ {} as BMHTR;
+      ) as BMHTR;
 
       const busd = new ethers.Contract(
         config[network].BUSD.address,
