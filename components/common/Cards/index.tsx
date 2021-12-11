@@ -35,6 +35,7 @@ const Cards: NextPage = () => {
   const vesting =
     config[network].WhitelistSale.PrivateSale3.vestingPeriodMonths;
 
+  const [mhtAllowance, setMHTAllowance] = useState("");
   const [epicAllowance, setEpicAllowance] = useState("");
   const [rareAllowance, setRareAllowance] = useState("");
 
@@ -69,9 +70,30 @@ const Cards: NextPage = () => {
   }, [account, contracts, network]);
 
   useEffect(() => {
-    if (contracts?.bmhtr.address && contracts?.bmhte.address && account) {
+    if (
+      contracts?.privateSale3.address &&
+      contracts?.bmhtr.address &&
+      contracts?.bmhte.address &&
+      account
+    ) {
       (async () => {
         try {
+          const userInfo3 = await contracts?.privateSale3.addressToUserInfo(
+            account
+          );
+          if (userInfo3) {
+            setMHTAllowance(
+              ethers.utils
+                .formatEther(
+                  ethers.utils
+                    .parseEther(
+                      config[network].WhitelistSale.PrivateSale3.maxMhtAmount
+                    )
+                    .sub(userInfo3[0])
+                )
+                .replace(/\..*/, "")
+            );
+          }
           const epic = await contracts?.bmhte.allowance(
             BOOSTER_OWNER,
             config[network].BoosterSale.PrivateSale3.address
@@ -91,7 +113,7 @@ const Cards: NextPage = () => {
         }
       })();
     }
-  }, [account, contracts, network]);
+  }, [account, contracts, network, BOOSTER_OWNER]);
 
   const ITEMS = [
     {
@@ -104,6 +126,8 @@ const Cards: NextPage = () => {
         `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
+        "",
+        `Allowance: ${mhtAllowance}`,
       ],
     },
 

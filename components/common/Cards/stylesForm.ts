@@ -3,6 +3,10 @@ import styled from 'styled-components';
 export const ContentForm = styled.div`
   position: relative;
   top: -27.5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   button,
   input[type='submit'] {

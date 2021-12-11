@@ -32,6 +32,16 @@ export const CardSection = styled.div<Props>`
 
 `;
 
+export const LoadingContainer = styled.div<Props>`
+  display: flex;
+  justify-content: center;
+  svg {
+    height: 50px;
+    margin-top: -10px;
+    fill: ${props => props.index === 0 ? ('rgba(49, 103, 242, 0.5)') : props.index === 1 ? ('rgba(212, 66, 215, 0.5)') : ('rgba(89, 192, 230, 0.5)')} ;
+  }
+`
+
 export const CardTitle = styled.div`
   position: relative;
   top: -30%;

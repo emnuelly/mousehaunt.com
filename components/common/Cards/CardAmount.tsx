@@ -3,9 +3,10 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
 
 import React, { useState, useEffect, useContext } from "react";
-import { BigNumber, ethers } from "ethers";
+import { ethers } from "ethers";
 import increment from "../../../public/images/other/increment.png";
 import decrement from "../../../public/images/other/decrement.png";
+import Loading from "../../../assets/svg/loading.svg";
 
 import {
   FormDisplay,
@@ -22,6 +23,7 @@ import { isTransactionMined } from "../../../utils/blockchain";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { useRouter } from "next/router";
 import { Button } from "../Button";
+import { LoadingContainer } from "./styles";
 
 interface Props {
   index: number;
@@ -105,7 +107,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             account,
             config[network].WhitelistSale.PrivateSale3.address
           );
-          if (allowanceMHT.gte(busdAmount)) {
+          if (allowanceMHT.gte(ethers.utils.parseEther(busdAmount))) {
             setBuyStep(BUY_STEP.BUY);
           }
           const allowanceBooster = await contracts.busd.allowance(
@@ -120,7 +122,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         })();
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
-        console.log(message);
+        alert(message);
       }
     }
   }, [provider, contracts, account, busdAmount, network, type, boosterAmount]);
@@ -189,7 +191,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
-        setBuyStep(BUY_STEP.BUY);
+        setBuyStep(BUY_STEP.APPROVE);
       }
     }
   };
@@ -232,7 +234,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
         const buy = await contracts.boosterSale3.buy(
           booster,
-          ethers.utils.parseEther(boosterAmount.toString())
+          boosterAmount.toString()
         );
         const tx = await waitFor(
           () => isTransactionMined(ethersProvider, buy?.hash),
@@ -250,7 +252,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
-        setBuyStep(BUY_STEP.BUY);
+        setBuyStep(BUY_STEP.APPROVE);
       }
     }
   };
@@ -362,7 +364,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
-              {/* <ButtonFormat>
+              <ButtonFormat>
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.APPROVE ||
@@ -382,7 +384,12 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 >
                   BUY
                 </Button>
-              </ButtonFormat> */}
+              </ButtonFormat>
+              {buyStep === BUY_STEP.WAIT && (
+                <LoadingContainer index={index}>
+                  <Loading />
+                </LoadingContainer>
+              )}
             </Form>
           </ContentForm>
         </Formik>
