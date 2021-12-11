@@ -371,7 +371,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                     !userInfoDetailed?.whitelisted
                   }
                   onClick={() =>
-                    index === 0 ? approveMHT() : approveBooster(index)
+                    index === 0 ? approveMHT() : approveBooster()
                   }
                 >
                   APPROVE BUSD
@@ -380,7 +380,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   disabled={
                     buyStep !== BUY_STEP.BUY || !userInfoDetailed?.whitelisted
                   }
-                  onClick={() => (index === 0 ? buyMHT() : buyBooster(index))}
+                  onClick={() => (index === 0 ? buyMHT() : buyBooster())}
                 >
                   BUY
                 </Button>
