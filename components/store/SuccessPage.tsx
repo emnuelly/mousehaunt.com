@@ -106,7 +106,9 @@ const StoreSuccess: NextPage = () => {
               ) : null}
               {tx ? (
                 <a
-                  href={`https://www.bscscan.com/tx/${tx}`}
+                  href={`https://${
+                    network === "bsc" ? "" : "testnet"
+                  }bscscan.com/tx/${tx}`}
                   target="_blank"
                   rel="noreferrer"
                 >

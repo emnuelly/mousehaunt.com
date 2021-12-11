@@ -41,8 +41,7 @@ const Container = styled.div<ContainerProps>`
 
 const Sections: React.FC<Props> = ({ mobile }: Props) => {
   const router = useRouter();
-  const isStorePath =
-    router.pathname === "/store" || router.pathname === "/store/inventory";
+  const isStorePath = router.pathname.includes("/store");
   const routes = isStorePath ? storeSections : sections;
 
   return (
