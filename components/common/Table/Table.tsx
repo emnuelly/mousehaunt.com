@@ -10,17 +10,23 @@ import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../../utils/config";
 import { truncate } from "../../../utils/blockchain";
+import { format, add } from "date-fns";
 
 const Table: React.FC = () => {
   const { userInfoDetailed, contracts, network } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
 
+  const date = (i: number) =>
+    format(add(new Date("2021-12-21"), { months: i }), "MMM ");
+
   const mhts = Array.from(Array(12).keys()).map((i) => ({
     item: "$MHT",
     itemSub: "Mouse Haunt Token",
     type: monthlyAmount,
-    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IGO`,
+    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IGO (${date(
+      i + 1
+    )})`,
     image: mht,
     status: "LOCKED",
   }));
@@ -88,7 +94,7 @@ const Table: React.FC = () => {
       item: "$MHT",
       itemSub: "Mouse Haunt Token",
       type: igoAmount,
-      typeSub: "Claimable on IGO",
+      typeSub: "Claimable on IGO (December 21th 2021)",
       image: mht,
       status: "LOCKED",
     },
