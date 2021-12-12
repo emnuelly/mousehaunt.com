@@ -34,9 +34,9 @@ const Inventory: NextPage = () => {
               <br />
               <div>
                 $MHT won&apos;t be on your wallet, you will claim $MHT only at
-                IGO! <br />
-                To be compliant with big launchpads, we can only make $MHT
-                available at IGO, not before.
+                IDO (December 21st)! <br />
+                To be compliant with Seedify Launchpad, we can only make $MHT
+                available at IDO, not before.
               </div>
             </StorePageSub>
 
