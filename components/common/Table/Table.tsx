@@ -24,7 +24,7 @@ const Table: React.FC = () => {
     item: "$MHT",
     itemSub: "Mouse Haunt Token",
     type: monthlyAmount,
-    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IGO (${date(
+    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IDO (${date(
       i + 1
     )})`,
     image: mht,
@@ -94,7 +94,7 @@ const Table: React.FC = () => {
       item: "$MHT",
       itemSub: "Mouse Haunt Token",
       type: igoAmount,
-      typeSub: "Claimable on IGO (December 21th 2021)",
+      typeSub: "Claimable on IDO (December 21th 2021)",
       image: mht,
       status: "LOCKED",
     },
