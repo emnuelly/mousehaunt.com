@@ -21,7 +21,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-12-15T23:59:59.000Z");
+  const final = new Date("2021-12-15T00:00:00.000Z");
 
   const countDown = new Date(final).getTime();
 
