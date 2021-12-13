@@ -69,6 +69,7 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
     if (!mices) return <div>No mices found.</div>;
 
     const sizeStyle = { width: '380px', height: '430px' };
+    
     const ratObject = {
       mices: mices.map(e => {
         const priceFilters = e.priceMTH >= filters.priceMTH;
@@ -90,7 +91,7 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
   return (
     <>
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '22%' }}>
+        <div style={{ minWidth: '22%' }}>
           <FilterMices
             setFilters={filterOptions}
             chosenMice={chosenMice}
@@ -101,10 +102,10 @@ const DisplayMices: React.FC<Props> = ({ mices }: Props) => {
           <br />
           <div>{JSON.stringify(chosenMice, null, 2)}</div>
         </div>
-        <div>
+        <div style={{ minWidth: '80%' }}>
           {displayCards()}
           <Link
-            style={{ width: '30%', margin: '0 auto', marginBottom: '200px' }}
+            style={{ maxWidth: '15%', margin: '0 auto', marginBottom: '200px' }}
             onClick={() => increasePagination()}
           >
             Load More

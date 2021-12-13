@@ -2,6 +2,8 @@ import { ButtonBody } from '../styles/FilterBody';
 import { Link } from '../../Link';
 import { MdOutlineClose } from 'react-icons/md';
 import { useEffect } from 'react';
+import Redirect from 'next/link';
+import DisplaySuccess from '../../../marketplace/DisplaySuccess';
 
 interface Props {
   containerDisplayed?: boolean;
@@ -20,7 +22,6 @@ const DisplayBody: React.FC<Props> = ({
   clickedChosenMice,
   buttonBody,
 }) => {
-
   const displayChosenMices = () => {
     if (!chosenMice) return;
     return Object.values(chosenMice).map((e: any) => {
@@ -48,7 +49,16 @@ const DisplayBody: React.FC<Props> = ({
       ) : (
         displayChosenMices()
       )}
-      {buttonBody && <Link>CHOOSE HEROES</Link>}
+      {buttonBody && (
+        <Redirect
+          href={{
+            pathname: '/marketplace/success',
+            query: { mice: 1 },
+          }}
+        >
+          <Link>CHOOSE HEROES</Link>
+        </Redirect>
+      )}
     </ButtonBody>
   ) : (
     <div></div>

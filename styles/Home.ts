@@ -21,7 +21,7 @@ export const Container = styled.div`
   }
 `;
 
-export const GradientColor = styled.div`
+export const GradientColor = styled.span`
   background: -webkit-linear-gradient(#ee0ca1, #d742b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

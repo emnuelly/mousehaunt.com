@@ -13,4 +13,7 @@ export interface Props {
     formatTimeDays: (data: object) => string | undefined;
     pagination: number;
   }
+  successSale?: {
+    mices: Rats;
+  }
 }

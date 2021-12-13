@@ -12,11 +12,11 @@ import {
   Downward,
 } from './styles';
 import Image from 'next/image';
-// import roadmapDesktop from "../../../public/images/other/roadmap.png";
-// import roadmapMobile from "../../../public/images/other/roadmap-mobile.png";
+import roadmapDesktop from "../../../public/images/other/roadmap.png";
+import roadmapMobile from "../../../public/images/other/roadmap-mobile.png";
 
-const roadmapDesktop = '/public/images/other/roadmap.png';
-const roadmapMobile = '/public/images/other/roadmap-mobile.png';
+// const roadmapDesktop = '/public/images/other/roadmap.png';
+// const roadmapMobile = '/public/images/other/roadmap-mobile.png';
 
 const Roadmap: NextPage = () => {
   return (

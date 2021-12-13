@@ -24,6 +24,9 @@ export const MiceTitle = styled.div`
 export const BackgroundEffect = styled.div`
   position: relative;
   overflow: none;
+  img{
+    width: auto !important;
+  }
   @media only screen and (max-width: 600px) {
     bottom: 80px;
   }

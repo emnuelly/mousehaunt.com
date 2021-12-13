@@ -89,38 +89,3 @@ const FilterChoices: React.FC<Props> = ({
 };
 
 export default FilterChoices;
-
-// const displayButtonBody = () => {
-//   return (
-//     containerDisplayed && (
-//       <ButtonBody>
-//         {chosenMice && chosenMice.length <= 0 && displayHeroesList ? (
-//           <div>No heroes selected</div>
-//         ) : (
-//           displayChosenMices()
-//         )}
-//         <Link>CHOOSE HEROES</Link>
-//       </ButtonBody>
-//     )
-//   );
-// };
-
-// const displayTitle = () => {
-//   return (
-//     <>
-//       <FilterTitle>
-//         <div id="title">{title}</div>
-//         {!dropDown ? null : (
-//           <div onClick={() => changeIcon()}>
-//             {containerDisplayed ? (
-//               <MdOutlineArrowDropDown />
-//             ) : (
-//               <MdOutlineArrowDropUp />
-//             )}
-//           </div>
-//         )}
-//       </FilterTitle>
-//       {buttonBody && displayButtonBody()}
-//     </>
-//   );
-// };

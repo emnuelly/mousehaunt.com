@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-const image = '/../public/images/game-related/mouse-1.png';
+export const image = '/../public/images/game-related/mouse-1.png';
 
 
 const randomNumbers = () => {
