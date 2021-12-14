@@ -17,6 +17,7 @@ let INITIAL_FILTERS = {
 };
 
 export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
+  const [mices, setMices] = useState(ratinhos);
   const [hoveredIcon, setHoveredIcon] = useState(0);
   const [chosenMice, setChosenMice] = useState([]);
   const [pagination, setPagination] = useState(6);
@@ -32,12 +33,15 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
     return setFilters(filter);
   };
 
-  const setFiterName = (object) => {
-    return setFilters({name: object})
-  }
+  const setFiterName = object => {
+    return setFilters({ name: object });
+  };
+
+  const addMices = object => {
+    return setMices(mices => [...mices, object]);
+  };
 
   const displayHeart = (id?: number) => {
-    console.log(id);
     if (trackFavouriteMice.some(e => e === id))
       return (
         <AiFillHeart
@@ -96,15 +100,16 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
         filters,
         chosenMice,
         pagination,
-        mices: ratinhos.map(e => {
+        mices: mices.map(e => {
           const priceFilters = e.priceMTH >= filters.priceMTH;
           const nameFilters = e.name.indexOf(filters.name);
 
-          return priceFilters && !nameFilters ? e  : null;
+          return priceFilters && !nameFilters ? e : null;
         }),
         sendFilters,
         setFilters,
-        setFiterName
+        setFiterName,
+        addMices,
       }}
     >
       {children}

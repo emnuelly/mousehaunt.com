@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  align-items: center;
-
   margin-top: -30%;
   width: 80%;
 
@@ -24,7 +22,7 @@ export const Body = styled.div`
 `;
 
 export const FlexWidth = styled.div`
-  width: 50% !important;
+  width: 60% !important;
   margin-left: 15px;
   margin-top: 7px !important;
 

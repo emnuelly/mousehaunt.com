@@ -6,7 +6,7 @@ interface Props {
   object: string[];
 }
 
-const DisplaySuccess: React.FC<Props> = ({ object }, ...props) => {
+const CreateOrderHelper: React.FC<Props> = ({ object }, ...props) => {
   if (!object) return null;
   let miceObject;
 
@@ -15,7 +15,7 @@ const DisplaySuccess: React.FC<Props> = ({ object }, ...props) => {
   const getMice = Object.values(ratinhos).map(mice =>
     mice.id === miceId[0] ? (miceObject = { ...mice }) : undefined
   );
-  return <Card successSale={miceObject} />;
+  return <Card createOrder={miceObject} />;
 };
 
-export default DisplaySuccess;
+export default CreateOrderHelper;
