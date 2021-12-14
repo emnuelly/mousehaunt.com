@@ -16,6 +16,7 @@ import Team from "../components/common/Team";
 import PoweredBy from "../components/common/PoweredBy";
 import Roadmap from "../components/common/Roadmap";
 import Footer from "../components/common/Footer";
+import PhishingBanner from '../components/common/PhishingBanner'
 import { Ruler } from "../components/common/Ruler";
 
 const Home: NextPage = () => {
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Content>
+        <PhishingBanner />
         <Landing />
         <Welcome />
         <MouseHeroes />
