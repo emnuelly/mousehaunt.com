@@ -4,17 +4,17 @@ export const Container = styled.section`
   width: 100%;
   height: 100px;
   overflow: hidden;
-  background: #ff005c;
+  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
   display: flex;
   align-items: center;
-  animation: fadein 1s;
+  animation: fadein 2s;
 
   @keyframes fadein {
     from {
-      opacity: 0;
+      margin-top: -300px;
     }
     to {
-      opacity: 1;
+      margin-top: 0px;
     }
   }
 
@@ -108,6 +108,6 @@ export const PhishingParagraph = styled.span`
   a {
     text-decoration: underline;
     font-weight: 800;
-    font-size: 15px;
+    font-size: 14px;
   }
 `;
