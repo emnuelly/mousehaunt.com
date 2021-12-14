@@ -1,5 +1,5 @@
 import { FilterContainer, Container, InputStyles } from './styles';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { HiOutlineSearch } from 'react-icons/hi';
 
 interface Props {
@@ -19,6 +19,8 @@ import DisplayTitle from './components/DisplayTitle';
 import DisplayBody from './components/DisplayBody';
 import DisplayHeader from './components/DisplayHeader';
 import DisplaySearchBar from './components/DisplaySearchBar';
+import { MarketContext } from '../../../contexts/MarketPlaceContext';
+
 
 const FilterChoices: React.FC<Props> = ({
   type,
@@ -34,6 +36,7 @@ const FilterChoices: React.FC<Props> = ({
 }) => {
   const [changeInput, setChangeInput] = useState('');
   const [containerDisplayed, setContainerDisplayed] = useState(isOpened);
+  const {setFiterName} = useContext(MarketContext)
 
   const changeIcon = () => {
     return setContainerDisplayed(!containerDisplayed);
@@ -63,7 +66,7 @@ const FilterChoices: React.FC<Props> = ({
               <DisplayHeader leftText={'Filters'} rightText={'Clear All'} />
             )}
             {type === 'search' && (
-              <DisplaySearchBar setChangeInput={setChangeInput} />
+              <DisplaySearchBar setChangeInput={setFiterName} />
             )}
           </InputStyles>
           {title && (

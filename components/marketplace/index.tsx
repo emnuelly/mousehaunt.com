@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { NextPage } from 'next';
-import { ratinhos } from './utils/ratinhos';
 import DisplayMices from './DisplayMices';
+import { MarketContext } from '../../contexts/MarketPlaceContext';
 
 const MarketPlace: NextPage = () => {
-
+  const { ratinhos } = useContext(MarketContext)
+  
   return (
-    <div style={{marginTop: '-20%'}}>
+    <div style={{ marginTop: '-20%' }}>
       <DisplayMices mices={ratinhos} />
     </div>
   );

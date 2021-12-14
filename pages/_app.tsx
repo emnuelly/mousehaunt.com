@@ -1,8 +1,9 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import React, { useEffect } from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { StoreProvider } from "../contexts/StoreContext";
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
+import React, { useEffect } from 'react';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { StoreProvider } from '../contexts/StoreContext';
+import { MarketBoardProvider } from '../contexts/MarketPlaceContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -35,7 +36,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={{}}>
       <GlobalStyle />
       <StoreProvider>
-        <Component {...pageProps} />
+        <MarketBoardProvider>
+          <Component {...pageProps} />
+        </MarketBoardProvider>
       </StoreProvider>
     </ThemeProvider>
   );
