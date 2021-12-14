@@ -6,6 +6,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { ethers } from "ethers";
 import increment from "../../../public/images/other/increment.png";
 import decrement from "../../../public/images/other/decrement.png";
+import Loading from "../../../assets/svg/loading.svg";
 
 import {
   FormDisplay,
@@ -16,12 +17,13 @@ import {
   FormIncremental,
   Warning,
 } from "./stylesForm";
-import config from "../../../utils/config";
+import config, { Network } from "../../../utils/config";
 import waitFor from "../../../utils/waitFor";
 import { isTransactionMined } from "../../../utils/blockchain";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { useRouter } from "next/router";
 import { Button } from "../Button";
+import { LoadingContainer } from "./styles";
 
 interface Props {
   index: number;
@@ -30,6 +32,21 @@ interface Props {
 function isNumeric(str: string): boolean {
   if (typeof str != "string") return false;
   return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
+}
+
+function boosterAllowance(
+  type: string,
+  boosterAmount: number,
+  network: Network
+) {
+  return ethers.utils
+    .parseEther(
+      (type === "EPIC"
+        ? config[network].BoosterSale.PrivateSale3.BMHTE.busdPrice
+        : config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice
+      ).toString()
+    )
+    .mul(boosterAmount);
 }
 
 const NETWORK_TIMEOUT = 120e3;
@@ -45,6 +62,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   const [buyStep, setBuyStep] = useState<BUY_STEP>(BUY_STEP.APPROVE);
   const router = useRouter();
   const {
+    account,
     refresh,
     userInfoDetailed,
     setRefresh,
@@ -54,20 +72,28 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   } = useContext(StoreContext);
 
   const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale2.MHTtoBUSD
+    config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
   );
 
   const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale2.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale3.maxMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale3.MHTtoBUSD);
   const minBusdAmount = maxBusdAmount;
 
   const [busdAmount, setBusdAmount] = useState(maxBusdAmount.toString());
   const [mhtAmount, setMhtAmount] = useState(
-    config[network].WhitelistSale.PrivateSale2.maxMhtAmount
+    config[network].WhitelistSale.PrivateSale3.maxMhtAmount
   );
   const [exceededAmount, setExceededAmount] = useState(false);
-  const [tx, setTx] = useState("");
+
+  const type = index === 1 ? "EPIC" : "RARE";
+
+  const allowance =
+    index === 0
+      ? userInfoDetailed?.allowance.mht
+      : index === 1
+      ? userInfoDetailed?.allowance.epic
+      : userInfoDetailed?.allowance.rare;
 
   useEffect(() => {
     if (
@@ -79,6 +105,36 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       setExceededAmount(false);
     }
   }, [busdAmount, mhtAmount, minBusdAmount, maxBusdAmount]);
+
+  useEffect(() => {
+    if (provider && contracts && account) {
+      try {
+        (async () => {
+          const busdAllowanceMHT = await contracts.busd.allowance(
+            account,
+            config[network].WhitelistSale.PrivateSale3.address
+          );
+          if (busdAllowanceMHT.gte(ethers.utils.parseEther(busdAmount))) {
+            setBuyStep(BUY_STEP.BUY);
+          }
+          const busdAllowanceBooster = await contracts.busd.allowance(
+            account,
+            config[network].BoosterSale.PrivateSale3.address
+          );
+          if (
+            busdAllowanceBooster.gte(
+              boosterAllowance(type, boosterAmount, network)
+            )
+          ) {
+            setBuyStep(BUY_STEP.BUY);
+          }
+        })();
+      } catch (err: any) {
+        const message = err.data ? err.data.message : err.message;
+        alert(message);
+      }
+    }
+  }, [provider, contracts, account, busdAmount, network, type, boosterAmount]);
 
   const onChange = (event: any) => {
     const { value, id } = event.target;
@@ -106,7 +162,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
           provider as any
         );
         const approve = await contracts.busd.approve(
-          config[network].WhitelistSale.PrivateSale2.address,
+          config[network].WhitelistSale.PrivateSale3.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
@@ -129,7 +185,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const buy = await contracts.privateSale2.buy(
+        const buy = await contracts.privateSale3.buy(
           ethers.utils.parseEther(mhtAmount)
         );
         const tx = await waitFor(
@@ -144,27 +200,21 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
-        setBuyStep(BUY_STEP.BUY);
+        setBuyStep(BUY_STEP.APPROVE);
       }
     }
   };
 
-  const approveBooster = async (index: number) => {
+  const approveBooster = async () => {
     if (provider && contracts) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const type = index === 1 ? "EPIC" : "LEGENDARY";
-        const boosterPrice =
-          type === "EPIC"
-            ? config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice
-            : config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice;
-
         const approve = await contracts.busd.approve(
-          config[network].BoosterSale.PrivateSale2.address,
-          ethers.utils.parseEther(boosterPrice.toString()).mul(boosterAmount)
+          config[network].BoosterSale.PrivateSale3.address,
+          boosterAllowance(type, boosterAmount, network)
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, approve.hash),
@@ -179,22 +229,21 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     }
   };
 
-  const buyBooster = async (index: number) => {
+  const buyBooster = async () => {
     if (provider && contracts) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const type = index === 1 ? "EPIC" : "LEGENDARY";
         const booster =
           type === "EPIC"
             ? config[network].BMHTE.address
-            : config[network].BMHTL.address;
+            : config[network].BMHTR.address;
 
-        const buy = await contracts.boosterSale2.buy(
+        const buy = await contracts.boosterSale3.buy(
           booster,
-          ethers.utils.parseEther(boosterAmount.toString())
+          boosterAmount.toString()
         );
         const tx = await waitFor(
           () => isTransactionMined(ethersProvider, buy?.hash),
@@ -212,7 +261,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
         alert(message);
-        setBuyStep(BUY_STEP.BUY);
+        setBuyStep(BUY_STEP.APPROVE);
       }
     }
   };
@@ -250,8 +299,8 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
             onClick={() => {
               const amountMax =
                 index === 1
-                  ? Number(config[network].BoosterSale.PrivateSale2.BMHTE.cap)
-                  : Number(config[network].BoosterSale.PrivateSale2.BMHTL.cap);
+                  ? Number(config[network].BoosterSale.PrivateSale3.BMHTE.cap)
+                  : Number(config[network].BoosterSale.PrivateSale3.BMHTR.cap);
 
               if (boosterAmount >= 1 && boosterAmount < amountMax) {
                 setBoosterAmount(boosterAmount + 1);
@@ -273,7 +322,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   return (
     <>
-      {index === 2 ? null : (
+      {
         <Formik
           onSubmit={() => undefined}
           initialValues={{ amount: 1, amountMHT: 1 }}
@@ -324,10 +373,39 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                   displayIncrementalButtons()
                 )}
               </FormMainSection>
+              <ButtonFormat>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.APPROVE ||
+                    !userInfoDetailed?.whitelisted ||
+                    allowance === "0"
+                  }
+                  onClick={() =>
+                    index === 0 ? approveMHT() : approveBooster()
+                  }
+                >
+                  APPROVE BUSD
+                </Button>
+                <Button
+                  disabled={
+                    buyStep !== BUY_STEP.BUY ||
+                    !userInfoDetailed?.whitelisted ||
+                    allowance === "0"
+                  }
+                  onClick={() => (index === 0 ? buyMHT() : buyBooster())}
+                >
+                  BUY
+                </Button>
+              </ButtonFormat>
+              {buyStep === BUY_STEP.WAIT && (
+                <LoadingContainer index={index}>
+                  <Loading />
+                </LoadingContainer>
+              )}
             </Form>
           </ContentForm>
         </Formik>
-      )}
+      }
     </>
   );
 };

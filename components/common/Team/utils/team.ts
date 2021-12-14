@@ -58,7 +58,7 @@ export const members = [
     role: 'Lead VFX/UI Artist',
     team: 'Game Development',
     description:
-      'Thomas is Visual Effects Artist and Tech artist experienced in creating high quality AAA visual effects for mobile and PC platforms, delivering amazing VFX for games like Darkest Dungeon and Darkest Dungeon 2',
+      'Thomas is Visual Effects Artist and Tech artist experienced in creating high quality AAA visual effects for mobile and PC platforms, delivering amazing VFX for AAA games',
     src: thomas,
     social: {
       artstation: 'https://www.artstation.com/thomasfrancis',

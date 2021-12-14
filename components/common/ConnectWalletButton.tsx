@@ -37,7 +37,7 @@ const WalletInfo = styled.div`
 `;
 
 const TESTERS: string[] = [
-  "0x343BD4e802BaE35F89e043299B82067aab38dfd3",
+  // "0x343BD4e802BaE35F89e043299B82067aab38dfd3",
   // "0x087B58029f7251E7054153Bc8775e14A68490286",
   // "0x7CDf072cb005fF3008E19E4F22f04c961023CF8c",
   // "0x09dcF02C01849231Bb22CC76233c31f35Db6fAac",
@@ -51,7 +51,7 @@ export const ConnectWalletButton = () => {
     account,
     userInfoDetailed,
     getAccount,
-    web3,
+    web3Modal,
     setAccount,
     network,
     setNetwork,
@@ -60,7 +60,7 @@ export const ConnectWalletButton = () => {
 
   const onClick = async () => {
     if (account) {
-      await (web3?.eth?.currentProvider as any).disconnect();
+      web3Modal?.clearCachedProvider();
       setAccount("");
     } else {
       setAccount(await getAccount());
@@ -81,8 +81,8 @@ export const ConnectWalletButton = () => {
   const whitelistedText =
     account && userInfoDetailed
       ? userInfoDetailed?.whitelisted
-        ? "WHITELISTED (#2)"
-        : "NOT WHITELISTED (#2)"
+        ? "WHITELISTED (#3)"
+        : "NOT WHITELISTED (#3)"
       : "";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens

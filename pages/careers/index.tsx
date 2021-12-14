@@ -6,7 +6,6 @@ import Footer from '../../components/common/Footer';
 import Sections from '../../components/common/Sections';
 import { Link } from '../../components/common/Link';
 import Logo from '../../components/common/Logo';
-import { sections } from '../../utils/sections';
 import { Container } from '../../styles/Home';
 import Menu from '../../components/common/BurgerMenu';
 
@@ -16,7 +15,7 @@ const CareerPage: NextPage = () => {
       <Container>
         <Header>
           <Logo />
-          <Sections sections={sections} />
+          <Sections />
           <Menu>
             <div>
               <Link href="/store">PRIVATE SALE</Link>

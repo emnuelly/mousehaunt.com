@@ -9,8 +9,8 @@ import {
 } from "./styles";
 import { BiRightArrowAlt } from "react-icons/bi";
 import Image from "next/image";
-import legendary from "../../../public/images/other/legendary.png";
 import epic from "../../../public/images/other/epic.png";
+import rare from "../../../public/images/other/rare.png";
 import mht from "../../../public/images/other/MHT.png";
 import CardAmount from "./CardAmount";
 
@@ -21,75 +21,55 @@ import config from "../../../utils/config";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 
-const BOOSTER_OWNER = "0x2124b4912532f6cD235081fEA2223EB3C0Af301d";
-
 const Cards: NextPage = () => {
   const { network, contracts, account, userInfoDetailed } =
     useContext(StoreContext);
   const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale2.MHTtoBUSD
+    config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
   );
 
-  const minBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale2.minMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
   const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale2.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale2.MHTtoBUSD);
+    Number(config[network].WhitelistSale.PrivateSale3.maxMhtAmount) *
+    Number(config[network].WhitelistSale.PrivateSale3.MHTtoBUSD);
   const idoUnlock =
-    config[network].WhitelistSale.PrivateSale2.unlockAtIGOPercent;
+    config[network].WhitelistSale.PrivateSale3.unlockAtIGOPercent;
   const vesting =
-    config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
+    config[network].WhitelistSale.PrivateSale3.vestingPeriodMonths;
 
-  const [legendaryAllowance, setLegendaryAllowance] = useState("");
-  const [epicAllowance, setEpicAllowance] = useState("");
+  const [epicLimit, setEpicLimit] = useState("");
+  const [rareLimit, setRareLimit] = useState("");
 
-  const [legendaryLimit, setLegendaryLimit] = useState("");
-
-  useEffect(() => {
-    if (contracts?.boosterSale2.address && account) {
-      (async () => {
-        try {
-          const legendary = await contracts?.boosterSale2.whitelist(
-            account,
-            config[network].BMHTL.address
-          );
-          const epic = await contracts?.boosterSale2.whitelist(
-            account,
-            config[network].BMHTE.address
-          );
-          if (legendary) {
-            setLegendaryAllowance(legendary.toString());
-          }
-          if (epic) {
-            setEpicAllowance(epic.toString());
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      })();
-    }
-  }, [account, contracts, network]);
+  const BOOSTER_OWNER = config[network].BMHTL.owner;
 
   useEffect(() => {
-    if (contracts?.bmhtl.address && account) {
+    if (
+      contracts?.privateSale3.address &&
+      contracts?.bmhtr.address &&
+      contracts?.bmhte.address &&
+      account
+    ) {
       (async () => {
         try {
-          const legendary = await contracts?.bmhtl.allowance(
+          const epic = await contracts?.bmhte.allowance(
             BOOSTER_OWNER,
-            config[network].BoosterSale.PrivateSale2.address
+            config[network].BoosterSale.PrivateSale3.address
           );
-          if (legendary) {
-            setLegendaryLimit(
-              ethers.utils.formatEther(legendary).replace(/\..*/, "")
-            );
+          if (epic) {
+            setEpicLimit(ethers.utils.formatEther(epic).replace(/\..*/, ""));
+          }
+          const rare = await contracts?.bmhtr.allowance(
+            BOOSTER_OWNER,
+            config[network].BoosterSale.PrivateSale3.address
+          );
+          if (rare) {
+            setRareLimit(rare.toString());
           }
         } catch (err) {
           console.log(err);
         }
       })();
     }
-  }, [account, contracts, network]);
+  }, [account, contracts, network, BOOSTER_OWNER]);
 
   const ITEMS = [
     {
@@ -102,6 +82,8 @@ const Cards: NextPage = () => {
         `Maximum purchase: ${maxBusdAmount} $BUSD`,
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
+        "",
+        `Remaining allowance: ${userInfoDetailed?.allowance.mht || ""}`,
       ],
     },
 
@@ -112,24 +94,25 @@ const Cards: NextPage = () => {
       subtitles: [
         "Probabilities: 99% Epic Mouse Hero NFT",
         "Probabilities: 1% Legendary Mouse Hero NFT ",
-        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTE.busdPrice}`,
+        `Price: $${config[network].BoosterSale.PrivateSale3.BMHTE.busdPrice}`,
         "",
-        ``,
-        `Allowance: ${epicAllowance}`,
+        `Remaining boosters: ${epicLimit}`,
+        `Remaining allowance: ${userInfoDetailed?.allowance.epic || ""}`,
       ],
     },
 
     {
-      image: legendary,
-      title: "LEGENDARY",
+      image: rare,
+      title: "RARE",
       sub: "BOOSTER",
       subtitles: [
-        "Probabilities: 100% Legendary Mouse Hero NFT ",
+        "Probabilities: 96% Rare Mouse Hero NFT",
+        "Probabilities: 3.7% Epic Mouse Hero NFT",
+        "Probabilities: 0.3% Legendary Mouse Hero NFT ",
+        `Price: $${config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice}`,
         "",
-        `Price: $${config[network].BoosterSale.PrivateSale2.BMHTL.busdPrice}`,
-        "",
-        `Remaining boosters: ${legendaryLimit}`,
-        `Allowance: ${legendaryAllowance}`,
+        `Remaining boosters: ${rareLimit}`,
+        `Remaining allowance: ${userInfoDetailed?.allowance.rare || ""}`,
       ],
     },
   ];

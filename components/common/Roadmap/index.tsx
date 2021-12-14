@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { NextPage } from "next";
 
 import {
   Container,
@@ -10,14 +10,10 @@ import {
   RoadmapImage,
   Upward,
   Downward,
-} from './styles';
-import Image from 'next/image';
-// import roadmapDesktop from '../../../public/images/other/roadmap.png';
-// import roadmapMobile from '../../../public/images/other/roadmap-mobile.png';
-
-//? to run locally, uncomment line 19 and 20 and comment line 15/16, to run build comment line 15/16 and uncomment line 19/20
-const roadmapDesktop = '/images/other/roadmap.png';
-const roadmapMobile = '/images/other/roadmap-mobile.png';
+} from "./styles";
+import Image from "next/image";
+import roadmapDesktop from "../../../public/images/other/roadmap.png";
+import roadmapMobile from "../../../public/images/other/roadmap-mobile.png";
 
 const Roadmap: NextPage = () => {
   return (
@@ -43,29 +39,24 @@ const Roadmap: NextPage = () => {
               <Text>
                 <br />
                 <br />
-                Whitepaper and Website release
+                Mouse Haunt: Lock and Load Game (PVE)
                 <br />
-                $MHT Pre-Sale rounds (Whitelist)
+                $MHT Staking
                 <br />
-                Pancake Swap Listing Dec 21st
+                Legendary Ghost NFT pre-sale
                 <br />
-                Mouse Heroes Booster Sale
-                <br />
-                Staking Launch
               </Text>
-              <Subtitle>2021 Q4</Subtitle>
+              <Subtitle>2022 Q1</Subtitle>
             </Plan>
             <Plan className="second">
               <Text>
                 <br />
                 <br />
                 <br />
-                Castle Land pre-sale
-                <br />
-                More information coming soon!
+                Mouse Haunt: Castle Heist Game (PVP)
               </Text>
 
-              <Subtitle>2022 Q2</Subtitle>
+              <Subtitle>2022 Q3</Subtitle>
             </Plan>
           </Upward>
           <RoadmapImage>
@@ -81,24 +72,24 @@ const Roadmap: NextPage = () => {
           </RoadmapImage>
           <Downward>
             <Plan className="third">
-              <Subtitle>2021 Q3</Subtitle>
+              <Subtitle>2021 Q4</Subtitle>
               <Text>
-                Migrating game to blockchain and upgrading to UE5
+                Pancake Swap Listing Dec 21st
                 <br />
-                Growing staff and advisors
+                $MHT Pre-Sale rounds (Whitelist)
                 <br />
-                Seed round
+                Mouse Heroes Booster Sale
                 <br />
-                Partnership development
+                Marketplace
                 <br />
               </Text>
             </Plan>
             <Plan className="fourth">
-              <Subtitle>2022 Q1</Subtitle>
+              <Subtitle>2022 Q2</Subtitle>
               <Text>
-                Mouse Haunt: Lock and Load play-to-earn launch
+                Castle Land pre-sale
                 <br />
-                Legendary Ghost NFT pre-sale
+                Mouse Haunt: Lock and Load Update
                 <br />
               </Text>
             </Plan>

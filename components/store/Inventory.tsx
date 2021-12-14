@@ -13,8 +13,6 @@ import Sections from "../common/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Footer from "../common/Footer";
 import Table from "../common/Table/Table";
-import {sections} from '../../utils/sections'
-
 
 const Inventory: NextPage = () => {
   return (
@@ -23,7 +21,7 @@ const Inventory: NextPage = () => {
         <StoreInventoryContainer>
           <Header>
             <Logo />
-            <Sections sections={sections} />
+            <Sections />
             <ConnectWalletButton />
           </Header>
           <StoreInventoryBody>
@@ -36,9 +34,9 @@ const Inventory: NextPage = () => {
               <br />
               <div>
                 $MHT won&apos;t be on your wallet, you will claim $MHT only at
-                IGO! <br />
-                To be compliant with big launchpads, we can only make $MHT
-                available at IGO, not before.
+                IDO (December 21st)! <br />
+                To be compliant with Seedify Launchpad, we can only make $MHT
+                available at IDO, not before.
               </div>
             </StorePageSub>
 
