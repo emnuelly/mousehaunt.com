@@ -51,7 +51,6 @@ export const JobDescriptionText = styled.div`
 export const IconStyle = styled.div`
   display: flex;
   color: white;
-  margin-left: 10px;
   margin-bottom: -10px;
   align-items: center;
 `;
