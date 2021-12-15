@@ -151,7 +151,7 @@ const Cards: NextPage = () => {
                 })}
               </ul>
             </CardSubtitle>
-            <CardAmount index={index} />
+            {/* <CardAmount index={index} /> */}
           </CardSection>
         </React.Fragment>
       );

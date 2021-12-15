@@ -95,7 +95,7 @@ const StoreHome: NextPage = () => {
             Welcome to the Mouse Haunt Shop!
             <br />
             <b>
-              The Whitelist 3 ends <br /> on December 15th 23:59 GMT
+              The Whitelist 3 ended <br /> on December 15th
             </b>
           </StorePageSub>
           <Countdown />
