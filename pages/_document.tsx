@@ -53,7 +53,6 @@ export default class MyDocument extends Document {
             name="keywords"
             content="Mouse Haunt, Game Play to Earn, New Game Coin, Binance Smart Chain, Game Binance Smart Chain, NFT Game Play to Earn, Skill Based NFT Game, Original Blockchain Game"
           />
-
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://mousehaunt.com/" />
           <meta
@@ -68,7 +67,6 @@ export default class MyDocument extends Document {
             property="og:image"
             content="https://mousehaunt.com/images/logo.png"
           />
-
           <meta property="twitter:card" content="summary_large_image" />
           <meta property="twitter:url" content="https://mousehaunt.com/" />
           <meta
@@ -131,8 +129,7 @@ export default class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
           />
-
-          {/* eslint-disable-next-line @next/next/next-script-for-ga */}
+          eslint-disable-next-line @next/next/next-script-for-ga
           {/* <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -142,7 +139,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer',${process.env.GTM_ID});`,
             }}
           /> */}
-
+          <NextScript />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -172,8 +169,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             }}
           /> */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.GTM_ID}"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
+            }}
+          />
           <Main />
-          <NextScript />
         </body>
       </Html>
     );
