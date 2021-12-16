@@ -1,5 +1,5 @@
 import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from 'react-icons/md';
-import{FilterTitle} from '../styles'
+import { FilterTitle } from '../styles';
 interface Props {
   title?: string;
   changeIcon?: (() => void) | undefined;
@@ -7,7 +7,10 @@ interface Props {
   containerDisplayed?: boolean;
 }
 
-const DisplayTitle: React.FC<Props> = ({ title, dropDown, changeIcon, containerDisplayed }, ...props) => {
+const DisplayTitle: React.FC<Props> = (
+  { title, dropDown, changeIcon, containerDisplayed },
+  ...props
+) => {
   return (
     <FilterTitle>
       <div id="title">{title}</div>

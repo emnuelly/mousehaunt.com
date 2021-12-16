@@ -40,7 +40,7 @@ const MarketPlacePage: NextPage = () => {
         </Header>
         {headerPage()}
         <Ellipse style={styles.ellipsePosition} />
-        <Content style={{width: '90%'}}>
+        <Content style={{ width: '90%' }}>
           <MarketPlace />
         </Content>
         <Ruler />

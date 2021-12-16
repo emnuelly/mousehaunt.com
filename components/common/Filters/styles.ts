@@ -83,6 +83,8 @@ export const FilterContainer = styled.div`
   position: relative;
   align-items: center;
   top: -30px;
+  background-color: rgb(41, 39, 75);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 30px;
   margin: 8px 0px;
   background-color: #29274b;
   border-radius: 15px;
@@ -109,6 +111,7 @@ export const FilterTitle = styled.div`
     color: #ffffff;
   }
   #title {
+    width: 100%;
     font-family: SF Pro Display;
     font-style: normal;
     font-weight: 600;

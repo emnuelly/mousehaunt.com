@@ -51,7 +51,6 @@ const CreateOrder: React.FC<Props> = ({ object }) => {
   const [listingCreated, setListingCreated] = useState(false);
   const router = useRouter();
 
-  console.log(mices);
   const submitForm = e => {
     if (!selectValue.value || !startDate || !amount) {
       e.preventDefault();

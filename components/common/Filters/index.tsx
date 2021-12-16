@@ -1,6 +1,5 @@
 import { FilterContainer, Container, InputStyles } from './styles';
 import React, { useState, useContext } from 'react';
-import { HiOutlineSearch } from 'react-icons/hi';
 
 interface Props {
   type?: string;
@@ -13,14 +12,23 @@ interface Props {
   displayHeart?: (id: number) => void;
   checkIfNotThere?: (id: number, bool?: boolean) => void;
   clickedChosenMice?: (mice?: []) => void;
+  checkbox?: boolean;
+  values?: string[];
+  boxShadow?: string;
+  dualRangeSlider?: boolean;
+  sliderRange?: number[];
+  defaultValue?: number[];
+  containerName?: string;
 }
 
 import DisplayTitle from './components/DisplayTitle';
 import DisplayBody from './components/DisplayBody';
 import DisplayHeader from './components/DisplayHeader';
 import DisplaySearchBar from './components/DisplaySearchBar';
-import { MarketContext } from '../../../contexts/MarketPlaceContext';
+import DisplayCheckBox from './components/DisplayCheckBox';
+import DisplayDualRangeSlider from './components/DisplayDualRangeSlider';
 
+import { MarketContext } from '../../../contexts/MarketPlaceContext';
 
 const FilterChoices: React.FC<Props> = ({
   type,
@@ -33,40 +41,40 @@ const FilterChoices: React.FC<Props> = ({
   checkIfNotThere,
   displayHeart,
   clickedChosenMice,
+  checkbox,
+  boxShadow,
+  values,
+  dualRangeSlider,
+  sliderRange,
+  defaultValue,
+  containerName,
 }) => {
-  const [changeInput, setChangeInput] = useState('');
   const [containerDisplayed, setContainerDisplayed] = useState(isOpened);
-  const {setFiterName} = useContext(MarketContext)
+  const { filterOptions, filters, clearFilter } = useContext(MarketContext);
 
   const changeIcon = () => {
     return setContainerDisplayed(!containerDisplayed);
   };
 
-  const displaySearchBar = () => {
-    return (
-      <div id="input-container">
-        <HiOutlineSearch />
-        <input
-          id="filter_input"
-          type="text"
-          placeholder={`Search`}
-          name="searchInput"
-          onChange={e => setChangeInput(e.target.value)}
-        />
-      </div>
-    );
-  };
-
   return (
     <>
       <Container>
-        <FilterContainer style={{ backgroundColor: background }}>
+        <FilterContainer
+          style={{ backgroundColor: background, boxShadow: boxShadow }}
+        >
           <InputStyles>
             {type === 'filterHeader' && (
-              <DisplayHeader leftText={'Filters'} rightText={'Clear All'} />
+              <DisplayHeader
+                leftText={'Filters'}
+                rightText={'Clear All'}
+                clearFilter={clearFilter}
+              />
             )}
             {type === 'search' && (
-              <DisplaySearchBar setChangeInput={setFiterName} />
+              <DisplaySearchBar
+                setChangeInput={filterOptions}
+                filter={filters}
+              />
             )}
           </InputStyles>
           {title && (
@@ -85,6 +93,24 @@ const FilterChoices: React.FC<Props> = ({
             clickedChosenMice={clickedChosenMice}
             buttonBody={buttonBody}
           />
+
+          {checkbox && (
+            <DisplayCheckBox
+              containerDisplayed={containerDisplayed}
+              values={values}
+              containerName={containerName}
+            />
+          )}
+          {dualRangeSlider && (
+            <DisplayDualRangeSlider
+              containerDisplayed={containerDisplayed}
+              sliderRange={sliderRange}
+              defaultValue={defaultValue}
+              setFilters={filterOptions}
+              filter={filters}
+              containerName={containerName}
+            />
+          )}
         </FilterContainer>
       </Container>
     </>

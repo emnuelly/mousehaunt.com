@@ -30,7 +30,7 @@ const ReturnMices: React.FC<Props> = ({ ratMarketPlace }) => {
 
   return Object.values(ratMarketPlace.mices)
     .slice(0, ratMarketPlace.pagination)
-    .map(e => {
+    .map((e, i) => {
       if (e) {
         return (
           <Cards
@@ -123,7 +123,7 @@ const ReturnMices: React.FC<Props> = ({ ratMarketPlace }) => {
           </Cards>
         );
       }
-      return <div key={e}></div>;
+      return <div key={i}></div>;
     });
 };
 

@@ -14,6 +14,10 @@ let INITIAL_FILTERS = {
   rarity: '',
   priceMTH: 3,
   priceUsd: 4,
+  battle: [100, 1000],
+  level: [0, 9],
+  price: [0, 10],
+  class: '',
 };
 
 export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
@@ -29,17 +33,18 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
   const hoverState = (id: number) => {
     return setHoveredIcon(id);
   };
+
   const filterOptions = (filter: object) => {
     return setFilters(filter);
-  };
-
-  const setFiterName = object => {
-    return setFilters({ name: object });
   };
 
   const addMices = object => {
     return setMices(mices => [...mices, object]);
   };
+
+  const clearFilter = () => {
+    setFilters(INITIAL_FILTERS);
+  }
 
   const displayHeart = (id?: number) => {
     if (trackFavouriteMice.some(e => e === id))
@@ -64,10 +69,6 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
 
   const increasePagination = () => {
     return setPagination(pagination + pagination);
-  };
-
-  const sendFilters = () => {
-    return setFilters(INITIAL_FILTERS);
   };
 
   const checkIfNotThere = (id: number, closeButton?: boolean) => {
@@ -101,15 +102,17 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
         chosenMice,
         pagination,
         mices: mices.map(e => {
-          const priceFilters = e.priceMTH >= filters.priceMTH;
-          const nameFilters = e.name.indexOf(filters.name);
+          const nameFilters = e.name.toLowerCase().indexOf(filters.name.toLowerCase());
+          const rarity = e.rarity.toLowerCase().indexOf(filters.rarity.toLowerCase());
+          const classMice = e.class.toLowerCase().indexOf(filters.class.toLowerCase())
+          const level = e.level >= filters.level[0] && e.level <= filters.level[1];
+          const battle = e.battle >= filters.battle[0] && e.battle <= filters.battle[1]
+          const price = e.price >= filters.price[0] && e.price <= filters.price[1]
 
-          return priceFilters && !nameFilters ? e : null;
+          return !nameFilters && !rarity && !classMice && level && battle && price ? e : null;
         }),
-        sendFilters,
-        setFilters,
-        setFiterName,
         addMices,
+        clearFilter
       }}
     >
       {children}
