@@ -65,7 +65,7 @@ const Landing: React.FC = () => (
             <div>
               <span>
                 <a
-                  href="http://mht.gg/discord-hero"
+                  href="https://twitter.com/mousehaunt"
                   rel="noreferrer"
                   target="_blank"
                 >
@@ -81,7 +81,7 @@ const Landing: React.FC = () => (
               </span>
               <span>
                 <a
-                  href="http://mht.gg/discord-hero"
+                  href="https://t.me/joinchat/QJNjRk7T06NjYjEx"
                   rel="noreferrer"
                   target="_blank"
                 >
@@ -97,7 +97,7 @@ const Landing: React.FC = () => (
               </span>
               <span>
                 <a
-                  href="http://mht.gg/discord-hero"
+                  href="https://mousehaunt.medium.com/"
                   rel="noreferrer"
                   target="_blank"
                 >
