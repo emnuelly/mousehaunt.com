@@ -190,4 +190,7 @@ export const Video = styled.div`
   }
 `;
 
+export const DiscordButton = styled.div`
 
+  margin-bottom: 24px;
+`;
