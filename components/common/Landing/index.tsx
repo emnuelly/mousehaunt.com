@@ -35,20 +35,17 @@ const Landing: React.FC = () => (
     <Body>
       <BodyContent>
         <Left>
-
           <Title>
             MOUSE
             <br />
             HAUNT
           </Title>
-
           <Subtitle>
             Collect NFTs, farm tokens, breed characters and build levels to earn
             money! Mouse Haunt is a kick ass play-to-earn universe.
             <br />
             Here, fun comes first. Play on!
           </Subtitle>
-
           <Stores>
             <DiscordButton>
               <a href="http://mht.gg/discord-hero" target="_blank">
@@ -62,7 +59,6 @@ const Landing: React.FC = () => (
                 />
               </a>
             </DiscordButton>
-
             <div>
               <span>
                 <a href="http://mht.gg/discord-hero" target="_blank">
@@ -101,20 +97,6 @@ const Landing: React.FC = () => (
                 </a>
               </span>
             </div>
-
-            {/* <Social>
-              {Object.keys(social).map((network) => (
-                <a
-                  key={network}
-                  href={(social as any)[network]}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {svg(network)}
-                </a>
-              ))}
-            </Social> */}
-
           </Stores>
         </Left>
 
