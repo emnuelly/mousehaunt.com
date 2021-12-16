@@ -47,10 +47,9 @@ export interface UserInfoDetailed extends UserInfo {
 }
 
 export interface Contracts {
-  privateSale3: WhitelistSale;
-  privateSale2: WhitelistSale;
-  privateSale1: WhitelistSale;
+  whitelistSales: WhitelistSale[];
 
+  preSale: WhitelistSale;
   boosterSale3: BoosterSale3;
 
   busd: BUSD;
@@ -83,16 +82,22 @@ async function getUserInfo(
   contracts: Contracts,
   account: string
 ): Promise<UserInfo> {
-  const [userInfo1, userInfo2, userInfo3] = await Promise.all([
-    contracts.privateSale1.addressToUserInfo(account),
-    contracts.privateSale2.addressToUserInfo(account),
-    contracts.privateSale3.addressToUserInfo(account),
-  ]);
-  const totalTokens = userInfo1[0].add(userInfo2[0]).add(userInfo3[0]);
-  const remainingTokens = userInfo1[1].add(userInfo2[1]).add(userInfo3[1]);
+  const userInfos = await Promise.all(
+    contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
+  );
+  const totalTokens = userInfos
+    .map((userInfo) => userInfo[0])
+    .reduce((a, b) => a.add(b));
+
+  const remainingTokens = userInfos
+    .map((userInfo) => userInfo[1])
+    .reduce((a, b) => a.add(b));
+
+  const firstUserInfo = userInfos[0];
+
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
-  const lastClaimMonthIndex = userInfo1 ? Number(userInfo1[2]) : -1;
+  const lastClaimMonthIndex = firstUserInfo ? Number(firstUserInfo[2]) : -1;
 
   return {
     totalTokens: ethers.utils.formatEther(totalTokens),
@@ -113,13 +118,15 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [refresh, setRefresh] = useState(false);
   const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
 
+  const sale = config[network].WhitelistSale.PreSales.find(
+    (sale) => sale.whitelisted === account
+  );
+
   const updateUserInfo = () => {
-    if (account && contracts) {
+    if (account && contracts && sale) {
       (async () => {
         try {
-          const isWhitelisted = await contracts?.privateSale3.isWhitelisted(
-            account
-          );
+          const isWhitelisted = await contracts?.preSale.isWhitelisted(account);
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
@@ -137,16 +144,12 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             await contracts?.busd.balanceOf(account)
           );
 
-          const userInfo3 = await contracts?.privateSale3.addressToUserInfo(
+          const userInfoPreSale = await contracts?.preSale.addressToUserInfo(
             account
           );
           const mhtAllowance = ethers.utils
             .formatEther(
-              ethers.utils
-                .parseEther(
-                  config[network].WhitelistSale.PrivateSale3.maxMhtAmount
-                )
-                .sub(userInfo3[0])
+              ethers.utils.parseEther(sale?.amount).sub(userInfoPreSale[0])
             )
             .replace(/\..*/, "");
           const epicAllowance = (
@@ -182,22 +185,26 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    if (provider && account) {
+    if (provider && account && sale) {
       const ethersProvider = new ethers.providers.Web3Provider(provider as any);
       const signer = ethersProvider.getSigner(0);
 
-      const privateSale1 = new ethers.Contract(
+      const whitelistSales = [
         config[network].WhitelistSale.PrivateSale1.address,
-        WhitelistSaleJson.abi,
-        signer
-      ) as WhitelistSale;
-      const privateSale2 = new ethers.Contract(
         config[network].WhitelistSale.PrivateSale2.address,
-        WhitelistSaleJson.abi,
-        signer
-      ) as WhitelistSale;
-      const privateSale3 = new ethers.Contract(
         config[network].WhitelistSale.PrivateSale3.address,
+        ...config[network].WhitelistSale.PreSales.map((sale) => sale.address),
+      ].map(
+        (address) =>
+          new ethers.Contract(
+            address,
+            WhitelistSaleJson.abi,
+            signer
+          ) as WhitelistSale
+      );
+
+      const preSale = new ethers.Contract(
+        sale.address,
         WhitelistSaleJson.abi,
         signer
       ) as WhitelistSale;
@@ -231,9 +238,8 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
       ) as BUSD;
 
       setContracts({
-        privateSale1,
-        privateSale2,
-        privateSale3,
+        whitelistSales,
+        preSale,
         boosterSale3,
         bmhtl,
         bmhte,
@@ -241,11 +247,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         busd,
       });
     }
-  }, [network, provider, account]);
+  }, [network, provider, account, sale]);
 
   useEffect(() => {
     updateUserInfo();
-  }, [account, contracts, network, refresh]);
+  }, [account, contracts, network, refresh, sale]);
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", function (accounts: string[]) {

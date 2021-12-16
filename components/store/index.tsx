@@ -91,13 +91,7 @@ const StoreHome: NextPage = () => {
             </Menu>
           </Header>
           <StoreTitle>SHOP</StoreTitle>
-          <StorePageSub>
-            Welcome to the Mouse Haunt Shop!
-            <br />
-            <b>
-              The Whitelist 3 ended <br /> on December 15th
-            </b>
-          </StorePageSub>
+          <StorePageSub>Welcome to the Mouse Haunt Shop!</StorePageSub>
           <Countdown />
           <Cards />
         </StoreContainer>
