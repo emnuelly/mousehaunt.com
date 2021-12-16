@@ -1,9 +1,10 @@
 import { ButtonBody } from '../styles/FilterBody';
 import { Link } from '../../Link';
 import { MdOutlineClose } from 'react-icons/md';
-import { useEffect } from 'react';
-import Redirect from 'next/link';
-import DisplaySuccess from '../../../marketplace/DisplaySuccess';
+import React, { useContext } from 'react';
+import Router from 'next/router';
+
+import { MarketContext } from '../../../../contexts/MarketPlaceContext';
 
 interface Props {
   containerDisplayed?: boolean;
@@ -22,6 +23,19 @@ const DisplayBody: React.FC<Props> = ({
   clickedChosenMice,
   buttonBody,
 }) => {
+  const { setAlert } = useContext(MarketContext);
+
+  const checkMiceAmount = () => {
+    if (chosenMice.length > 1) {
+      window.scrollTo(0, 0);
+      return setAlert(true);
+    }
+
+    return Router.push({
+      pathname: '/marketplace/details',
+      query: { mice: chosenMice[0]?.id },
+    });
+  };
   const displayChosenMices = () => {
     if (!chosenMice) return;
     return Object.values(chosenMice).map((e: any) => {
@@ -49,16 +63,8 @@ const DisplayBody: React.FC<Props> = ({
       ) : (
         displayChosenMices()
       )}
-      {buttonBody && (
-        <Redirect
-          href={{
-            pathname: '/marketplace/success',
-            query: { mice: 1 },
-          }}
-        >
-          <Link>CHOOSE HEROES</Link>
-        </Redirect>
-      )}
+
+      {buttonBody && <Link onClick={() => checkMiceAmount()}>CHOOSE HERO</Link>}
     </ButtonBody>
   ) : (
     <div></div>

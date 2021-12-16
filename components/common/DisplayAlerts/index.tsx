@@ -1,27 +1,17 @@
-import ReactNotification from 'react-notifications-component';
 import 'react-notifications-component/dist/theme.css';
-import React from 'react'
+import React from 'react';
+import { Container } from './styles/styles';
 
 interface Props {
-  type?: string;
+  type?: string | undefined;
   message?: string;
-  title?: string;
-  insert?: string;
-  container?: string;
-  animationIn?: string[];
-  animationOut?: string[];
-  dismiss?: {
-    duration: number;
-    onScreen: boolean;
-  };
 }
 
-const AlertMessage: React.FC<Props> = () => {
+const AlertMessage: React.FC<Props> = ({ type, message }) => {
   return (
-    <div>
-      <ReactNotification ref={React.useRef(alert)} />
-      asodkoapdkpsaokd
-    </div>
+    <Container>
+      <span className='alert'>{message}</span>
+    </Container>
   );
 };
 

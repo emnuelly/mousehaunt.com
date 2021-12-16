@@ -29,6 +29,7 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
   const [trackFavouriteMice, setTrackFavouriteMice] = useState<Array<number>>(
     []
   );
+  const [alertPopUp, setAlertPopUp] = useState()
 
   const hoverState = (id: number) => {
     return setHoveredIcon(id);
@@ -44,6 +45,10 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
 
   const clearFilter = () => {
     setFilters(INITIAL_FILTERS);
+  }
+
+  const setAlert = () => {
+    setAlertPopUp(true)
   }
 
   const displayHeart = (id?: number) => {
@@ -101,6 +106,7 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
         filters,
         chosenMice,
         pagination,
+        setAlert,
         mices: mices.map(e => {
           const nameFilters = e.name.toLowerCase().indexOf(filters.name.toLowerCase());
           const rarity = e.rarity.toLowerCase().indexOf(filters.rarity.toLowerCase());
@@ -112,7 +118,8 @@ export const MarketBoardProvider: React.FC<Props> = ({ children }: Props) => {
           return !nameFilters && !rarity && !classMice && level && battle && price ? e : null;
         }),
         addMices,
-        clearFilter
+        clearFilter,
+        alertPopUp
       }}
     >
       {children}
