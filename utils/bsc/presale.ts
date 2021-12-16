@@ -6,8 +6,8 @@ const seedSale = [
   },
   {
     address: "",
-    whitelisted: "0xDe15C3D6845D6Cc7A8a8f80aFD6514b0494dA91A",
-    amount: "16000",
+    whitelisted: "",
+    amount: "",
   },
 ].map((term) => ({
   ...term,
@@ -21,8 +21,8 @@ const seedSale = [
 const privateSale = [
   {
     address: "",
-    whitelisted: "0x343BD4e802BaE35F89e043299B82067aab38dfd3",
-    amount: "15000",
+    whitelisted: "",
+    amount: "",
   },
 ].map((term) => ({
   ...term,
