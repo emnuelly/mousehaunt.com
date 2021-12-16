@@ -129,7 +129,7 @@ export default class MyDocument extends Document {
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
           />
-          eslint-disable-next-line @next/next/next-script-for-ga
+          {/* eslint-disable-next-line @next/next/next-script-for-ga */}
           {/* <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -139,7 +139,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer',${process.env.GTM_ID});`,
             }}
           /> */}
-          <NextScript />
           <script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -169,13 +168,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             }}
           /> */}
+
+          <Main />
+          <NextScript />
           <noscript
             dangerouslySetInnerHTML={{
               __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.GTM_ID}"
         height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
             }}
           />
-          <Main />
         </body>
       </Html>
     );
