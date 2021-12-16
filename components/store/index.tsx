@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import type { NextPage } from "next";
+import React, { useEffect } from 'react';
+import type { NextPage } from 'next';
 import {
   Container,
   Content,
@@ -7,13 +7,14 @@ import {
   StorePageSub,
   StoreTitle,
   CountdownContainer,
-} from "./styles/styles";
-import Cards from "../common/Cards";
-import Header from "../common/Header";
-import Logo from "../common/Logo";
-import Sections from "../common/Sections";
-import { ConnectWalletButton } from "../common/ConnectWalletButton";
-import Menu from "../common/BurgerMenu";
+} from './styles/styles';
+import Cards from '../common/Cards';
+import Header from '../common/Header';
+import Logo from '../common/Logo';
+import Sections from '../common/Sections';
+import { ConnectWalletButton } from '../common/ConnectWalletButton';
+import Menu from '../common/BurgerMenu';
+import PhishingMessage from '../common/PhishingBanner';
 
 function countdown() {
   const second = 1000;
@@ -21,7 +22,7 @@ function countdown() {
   const hour = minute * 60;
   const day = hour * 24;
 
-  const final = new Date("2021-12-15T00:00:00.000Z");
+  const final = new Date('2021-12-15T00:00:00.000Z');
 
   const countDown = new Date(final).getTime();
 
@@ -29,21 +30,21 @@ function countdown() {
   const distance = countDown - now;
 
   if (distance < 0) {
-    document.getElementById("ends")!.innerText = "PRIVATE SALE (#3) ENDED";
-    document.getElementById("ended-ul")!.style.display = "none";
+    document.getElementById('ends')!.innerText = 'PRIVATE SALE (#3) ENDED';
+    document.getElementById('ended-ul')!.style.display = 'none';
     return;
   }
 
-  document.getElementById("days")!.innerText = Math.floor(
+  document.getElementById('days')!.innerText = Math.floor(
     distance / day
   ).toString();
-  document.getElementById("hours")!.innerText = Math.floor(
+  document.getElementById('hours')!.innerText = Math.floor(
     (distance % day) / hour
   ).toString();
-  document.getElementById("minutes")!.innerText = Math.floor(
+  document.getElementById('minutes')!.innerText = Math.floor(
     (distance % hour) / minute
   ).toString();
-  document.getElementById("seconds")!.innerText = Math.floor(
+  document.getElementById('seconds')!.innerText = Math.floor(
     (distance % minute) / second
   ).toString();
 }
@@ -79,6 +80,7 @@ const StoreHome: NextPage = () => {
   return (
     <Container>
       <Content>
+        <PhishingMessage />
         <StoreContainer>
           <Header>
             <Logo />
