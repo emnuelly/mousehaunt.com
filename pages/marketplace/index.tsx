@@ -16,7 +16,31 @@ import {
 } from '../../styles/Home';
 import MarketPlace from '../../components/marketplace';
 
+import React, { useContext } from 'react';
+
+import { MarketContext } from '../../contexts/MarketPlaceContext';
+import Alert from '../../components/common/DisplayAlerts';
+
 const MarketPlacePage: NextPage = () => {
+  const { alertPopUp } = useContext(MarketContext);
+
+  const displayAlert = () => {
+    if (alertPopUp) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '40px',
+          }}
+        >
+          <Alert message={'Cannot buy more than one mice at a time!'} />
+        </div>
+      );
+    }
+    return null;
+  };
+  console.log(alertPopUp);
   const headerPage = () => {
     return (
       <HeaderContainer>
@@ -27,6 +51,7 @@ const MarketPlacePage: NextPage = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in
           vitae, scelerisque. Neque adipiscing sed tortor eu nulla
         </HeaderPageSubText>
+        {displayAlert()}
       </HeaderContainer>
     );
   };
