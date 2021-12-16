@@ -81,8 +81,8 @@ export const ConnectWalletButton = () => {
   const whitelistedText =
     account && userInfoDetailed
       ? userInfoDetailed?.whitelisted
-        ? "WHITELISTED (#3)"
-        : "NOT WHITELISTED (#3)"
+        ? "WHITELISTED"
+        : "NOT WHITELISTED"
       : "";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens

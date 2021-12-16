@@ -72,11 +72,9 @@ interface StoreContextData {
   contracts?: Contracts;
 }
 
-const DEFAULT_NETWORK: Network = "bsc";
-
-export const StoreContext = createContext<StoreContextData>({
-  network: DEFAULT_NETWORK,
-} as StoreContextData);
+export const StoreContext = createContext<StoreContextData>(
+  {} as StoreContextData
+);
 
 async function getUserInfo(
   contracts: Contracts,
@@ -116,11 +114,22 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     UserInfoDetailed | undefined
   >();
   const [refresh, setRefresh] = useState(false);
-  const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
+  const [network, setNetwork] = useState<Network>("bsc");
 
   const sale = config[network].WhitelistSale.PreSales.find(
     (sale) => sale.whitelisted === account
   );
+
+  useEffect(() => {
+    if (window) {
+      const n =
+        window.location.hostname.includes("vercel.app") ||
+        window.location.hostname.includes("localhost")
+          ? "bscTestnet"
+          : "bsc";
+      setNetwork(n);
+    }
+  }, [setNetwork]);
 
   const updateUserInfo = () => {
     if (account && contracts && sale) {
