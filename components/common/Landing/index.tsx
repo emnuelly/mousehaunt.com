@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 import {
   Container,
@@ -12,20 +12,19 @@ import {
   Left,
   Right,
   DiscordButton,
-} from "./styles";
+} from './styles';
 
-import Image from "next/image";
-import telegram from "../../../public/images/other/button_telegram.png";
-import medium from "../../../public/images/other/button_medium.png";
-import twitter from "../../../public/images/other/button_twitter.png";
-import discord from "../../../public/images/other/button_discord.png";
-import Header from "../Header";
-import Logo from "../Logo";
-import Sections from "../Sections";
-import Menu from "../BurgerMenu";
+import Image from 'next/image';
+import telegram from '../../../public/images/other/button_telegram.png';
+import medium from '../../../public/images/other/button_medium.png';
+import twitter from '../../../public/images/other/button_twitter.png';
+import discord from '../../../public/images/other/button_discord.png';
+import Header from '../Header';
+import Logo from '../Logo';
+import Sections from '../Sections';
+import Menu from '../BurgerMenu';
 
 const Landing: React.FC = () => (
-  
   <Container id="About">
     <Header>
       <Logo />
@@ -48,7 +47,11 @@ const Landing: React.FC = () => (
           </Subtitle>
           <Stores>
             <DiscordButton>
-              <a href="http://mht.gg/discord-hero" target="_blank">
+              <a
+                href="http://mht.gg/discord-hero"
+                rel="noreferrer"
+                target="_blank"
+              >
                 <Image
                   src={discord}
                   width="222px"
@@ -61,7 +64,11 @@ const Landing: React.FC = () => (
             </DiscordButton>
             <div>
               <span>
-                <a href="http://mht.gg/discord-hero" target="_blank">
+                <a
+                  href="http://mht.gg/discord-hero"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <Image
                     src={twitter}
                     width="148px"
@@ -73,7 +80,11 @@ const Landing: React.FC = () => (
                 </a>
               </span>
               <span>
-              <a href="http://mht.gg/discord-hero" target="_blank">
+                <a
+                  href="http://mht.gg/discord-hero"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <Image
                     src={telegram}
                     width="148px"
@@ -85,7 +96,11 @@ const Landing: React.FC = () => (
                 </a>
               </span>
               <span>
-              <a href="http://mht.gg/discord-hero" target="_blank">
+                <a
+                  href="http://mht.gg/discord-hero"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <Image
                     src={medium}
                     width="148px"
