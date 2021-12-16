@@ -1,3 +1,6 @@
+// eslint-disable-next-line node/no-missing-import
+import PreSales from "./presale";
+
 const bscTestnet = {
   MouseHauntToken: {
     address: "0x034d0272AEbCE737B35C61b3Ab709020cEDca808",
@@ -10,17 +13,7 @@ const bscTestnet = {
     address: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
   },
   WhitelistSale: {
-    SeedSale: {
-      owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
-      MHTtoBUSD: "0.00125",
-      minMhtAmount: "80000",
-      maxMhtAmount: "16000000",
-      unlockAtIGOPercent: "4",
-      cliffMonths: "0",
-      vestingPeriodMonths: "12",
-      address: "",
-      available: "2000000",
-    },
+    PreSales,
     PrivateSale1: {
       address: "0x693348553511106405a0544f98765b0332daF507",
       owner: "0x087B58029f7251E7054153Bc8775e14A68490286",
