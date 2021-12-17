@@ -17,13 +17,12 @@ import Image from "next/image";
 import { Link } from "../../common/Link";
 import mouse1 from "../../../public/images/game-related/mouse-1.png";
 import mouse2 from "../../../public/images/game-related/mouse-2.png";
-import { SWEEPWIDGET_URL } from "../../../utils/sweepwidget";
 
 const Whitelist: NextPage = () => {
   return (
     <Container id="About">
       <Title>
-        Join the <b>WHITELIST</b>
+        Join the <b>GENESIS EVENT</b>
       </Title>
       <Box>
         <BoxContent>
@@ -34,16 +33,22 @@ const Whitelist: NextPage = () => {
           </Subtitle>
           <Text>
             <span className="first">
-              This is our first Whitelist round.
+              On December 21st, Our Token ($MHT) will be available on Pancake Swap.
+              <br /> 
               <br />
-              It will be your first chance to get your hands on some Mouse Haunt
-              Tokens ($MHT).
+              To celebrate this accomplishment we are Launching the &quot;GENESIS WHITELIST&quot;. 
+              <br />
+              <br />
+              An EXCLUSIVE Mouse Box Sale Event that will be starting at Dec 22nd and ending in Dec 25th.
             </span>
             <br />
             <span className="second"></span>
           </Text>
-          <Link href={SWEEPWIDGET_URL} target="_blank">
-            JOIN WHITELIST #3
+          <Link href="https://sweepwidget.com/view/44340-uj94pctn" 
+          rel="noreferrer"
+          target="_blank"
+          >
+            JOIN GENESIS EVENT
           </Link>
         </BoxContent>
         <Mice>

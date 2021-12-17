@@ -7,6 +7,10 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+
+  @media only screen and (max-width: 600px) {
+    // margin-top: -160px;
+  }
 `;
 
 export const Title = styled.div`
@@ -48,6 +52,8 @@ export const Box = styled.div`
 
   @media only screen and (max-width: 600px) {
     width: 85vw;
+    height: 460px;
+    margin-top: -40px;
   }
 `;
 
@@ -103,13 +109,13 @@ export const Subtitle = styled.div`
 
 export const Text = styled.div`
   position: static;
-  width: 351px;
+  width: 370px;
 
   font-family: SF Pro Display;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
-  line-height: 24px;
+  line-height: 20px;
 
   text-align: center;
 
@@ -118,7 +124,7 @@ export const Text = styled.div`
   margin-top: 16px;
 
   @media only screen and (max-width: 600px) {
-    width: 180px;
+    width: 240px;
 
     .second {
       display: none;
