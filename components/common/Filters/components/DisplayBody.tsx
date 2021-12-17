@@ -41,7 +41,7 @@ const DisplayBody: React.FC<Props> = ({
     return Object.values(chosenMice).map((e: any) => {
       return (
         <div key={e.id}>
-          <div>{e.name}</div>
+          <div>{e.name} {e.rarity} </div>
           <div
             onClick={() => {
               clickedChosenMice(e);

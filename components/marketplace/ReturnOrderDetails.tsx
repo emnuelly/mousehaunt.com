@@ -99,7 +99,7 @@ const ReturnOrderDetails: React.FC<Props> = ({ object }) => {
               </span>
               <span className="price-usd">({object.priceUsd}) Usd</span>
             </div>
-            <Link onClick={() => redirect()}>MAKE OFFER</Link>
+            <Link onClick={() => redirect()}>BUY</Link>
           </MakeOfferContainer>
         </FlexWidth>
       </Body>

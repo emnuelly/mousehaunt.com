@@ -43,7 +43,7 @@ const FilterMices: React.FC<Filters> = ({}) => {
         isOpened
         checkbox
         containerName={'rarity'}
-        values={['All', 'Common', 'Epic', 'Legendary']}
+        values={['All', 'Common', 'Rare', 'Epic', 'Legendary']}
       />
       <FilterChoices title={'Skins Rarity'} dropDown />
       <FilterChoices title={'Skins'} dropDown />

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Header from '../../../components/common/Header/index';
 
 const PAGE_CONFIG = {
-  title: 'YOUR ORDER WAS CREATED!',
+  title: 'YOUR ORDER WAS EXECUTED!',
   pageTitle: 'MH Marketboard',
 };
 
