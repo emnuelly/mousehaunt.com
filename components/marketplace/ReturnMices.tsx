@@ -34,7 +34,7 @@ const ReturnMices: React.FC<Props> = ({ ratMarketPlace }) => {
       if (e) {
         return (
           <Cards
-            key={e.id}
+            key={i}
             style={{ backgroundColor: '#29274B', marginBottom: '5%' }}
           >
             <CardsBody key={e.id}>
