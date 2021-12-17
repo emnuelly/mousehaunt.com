@@ -184,7 +184,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (provider && contracts && sale) {
+    if (provider && contracts && sale && contracts.preSale) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(

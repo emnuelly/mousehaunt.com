@@ -49,7 +49,7 @@ export interface UserInfoDetailed extends UserInfo {
 export interface Contracts {
   whitelistSales: WhitelistSale[];
 
-  preSale: WhitelistSale;
+  preSale?: WhitelistSale;
   boosterSale3: BoosterSale3;
 
   busd: BUSD;
@@ -132,10 +132,12 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, [setNetwork]);
 
   const updateUserInfo = () => {
-    if (account && contracts && sale) {
+    if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted = await contracts?.preSale.isWhitelisted(account);
+          const isWhitelisted = await contracts?.preSale?.isWhitelisted(
+            account
+          );
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
@@ -153,14 +155,19 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             await contracts?.busd.balanceOf(account)
           );
 
-          const userInfoPreSale = await contracts?.preSale.addressToUserInfo(
+          const userInfoPreSale = await contracts?.preSale?.addressToUserInfo(
             account
           );
-          const mhtAllowance = ethers.utils
-            .formatEther(
-              ethers.utils.parseEther(sale?.amount).sub(userInfoPreSale[0])
-            )
-            .replace(/\..*/, "");
+          const mhtAllowance =
+            sale && userInfoPreSale
+              ? ethers.utils
+                  .formatEther(
+                    ethers.utils
+                      .parseEther(sale?.amount)
+                      .sub(userInfoPreSale[0])
+                  )
+                  .replace(/\..*/, "")
+              : "";
           const epicAllowance = (
             await contracts?.boosterSale3.whitelist(
               account,
@@ -194,7 +201,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   };
 
   useEffect(() => {
-    if (provider && account && sale) {
+    if (provider && account) {
       const ethersProvider = new ethers.providers.Web3Provider(provider as any);
       const signer = ethersProvider.getSigner(0);
 
@@ -212,11 +219,13 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           ) as WhitelistSale
       );
 
-      const preSale = new ethers.Contract(
-        sale.address,
-        WhitelistSaleJson.abi,
-        signer
-      ) as WhitelistSale;
+      const preSale = sale
+        ? (new ethers.Contract(
+            sale.address,
+            WhitelistSaleJson.abi,
+            signer
+          ) as WhitelistSale)
+        : undefined;
 
       const boosterSale3 = new ethers.Contract(
         config[network].BoosterSale.PrivateSale3.address,
