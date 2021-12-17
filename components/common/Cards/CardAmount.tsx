@@ -71,20 +71,16 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
     network,
   } = useContext(StoreContext);
 
-  const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
+  const sale = config[network].WhitelistSale.PreSales.find(
+    (sale) => sale.whitelisted === account
   );
 
-  const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale3.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale3.MHTtoBUSD);
-  const minBusdAmount = maxBusdAmount;
+  const MHT_TO_BUSD = Number(sale?.MHTtoBUSD);
+
+  const maxBusdAmount = Number(sale?.amount) * MHT_TO_BUSD;
 
   const [busdAmount, setBusdAmount] = useState(maxBusdAmount.toString());
-  const [mhtAmount, setMhtAmount] = useState(
-    config[network].WhitelistSale.PrivateSale3.maxMhtAmount
-  );
-  const [exceededAmount, setExceededAmount] = useState(false);
+  // const [mhtAmount, setMhtAmount] = useState(sale?.amount);
 
   const type = index === 1 ? "EPIC" : "RARE";
 
@@ -95,24 +91,24 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
       ? userInfoDetailed?.allowance.epic
       : userInfoDetailed?.allowance.rare;
 
-  useEffect(() => {
-    if (
-      Number(busdAmount) < minBusdAmount ||
-      Number(busdAmount) > maxBusdAmount
-    ) {
-      setExceededAmount(true);
-    } else {
-      setExceededAmount(false);
-    }
-  }, [busdAmount, mhtAmount, minBusdAmount, maxBusdAmount]);
+  // useEffect(() => {
+  //   if (
+  //     Number(busdAmount) < minBusdAmount ||
+  //     Number(busdAmount) > maxBusdAmount
+  //   ) {
+  //     setExceededAmount(true);
+  //   } else {
+  //     setExceededAmount(false);
+  //   }
+  // }, [busdAmount, mhtAmount, minBusdAmount, maxBusdAmount]);
 
   useEffect(() => {
-    if (provider && contracts && account) {
+    if (provider && contracts && account && sale) {
       try {
         (async () => {
           const busdAllowanceMHT = await contracts.busd.allowance(
             account,
-            config[network].WhitelistSale.PrivateSale3.address
+            sale?.address
           );
           if (busdAllowanceMHT.gte(ethers.utils.parseEther(busdAmount))) {
             setBuyStep(BUY_STEP.BUY);
@@ -134,35 +130,44 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         alert(message);
       }
     }
-  }, [provider, contracts, account, busdAmount, network, type, boosterAmount]);
+  }, [
+    provider,
+    contracts,
+    account,
+    busdAmount,
+    network,
+    type,
+    boosterAmount,
+    sale,
+  ]);
 
-  const onChange = (event: any) => {
-    const { value, id } = event.target;
-    if (!value) {
-      setBusdAmount("");
-      setMhtAmount("");
-    } else if (!isNumeric(value)) {
-      return;
-    } else {
-      if (id === "amount") {
-        setBusdAmount(Number(value).toString());
-        setMhtAmount((Number(value) / MHT_TO_BUSD).toFixed(2).toString());
-      } else {
-        setBusdAmount((Number(value) * MHT_TO_BUSD).toFixed(2).toString());
-        setMhtAmount(Number(value).toString());
-      }
-    }
-  };
+  // const onChange = (event: any) => {
+  //   const { value, id } = event.target;
+  //   if (!value) {
+  //     setBusdAmount("");
+  //     setMhtAmount("");
+  //   } else if (!isNumeric(value)) {
+  //     return;
+  //   } else {
+  //     if (id === "amount") {
+  //       setBusdAmount(Number(value).toString());
+  //       setMhtAmount((Number(value) / MHT_TO_BUSD).toFixed(2).toString());
+  //     } else {
+  //       setBusdAmount((Number(value) * MHT_TO_BUSD).toFixed(2).toString());
+  //       setMhtAmount(Number(value).toString());
+  //     }
+  //   }
+  // };
 
   const approveMHT = async () => {
-    if (provider && contracts) {
+    if (provider && contracts && sale) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
         const approve = await contracts.busd.approve(
-          config[network].WhitelistSale.PrivateSale3.address,
+          sale?.address,
           ethers.utils.parseEther(busdAmount.toString())
         );
         await waitFor(
@@ -179,14 +184,14 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (provider && contracts) {
+    if (provider && contracts && sale) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const buy = await contracts.privateSale3.buy(
-          ethers.utils.parseEther(mhtAmount)
+        const buy = await contracts.preSale.buy(
+          ethers.utils.parseEther(sale.amount)
         );
         const tx = await waitFor(
           () => isTransactionMined(ethersProvider, buy.hash),
@@ -195,7 +200,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         setRefresh(!refresh);
         router.push({
           pathname: "/store/success",
-          query: { type: "MHT", amount: mhtAmount, tx },
+          query: { type: "MHT", amount: sale.amount, tx },
         });
       } catch (err: any) {
         const message = err.data ? err.data.message : err.message;
@@ -329,7 +334,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
         >
           <ContentForm>
             <Form>
-              <Warning>
+              {/* <Warning>
                 {exceededAmount && index === 0 && (
                   <div>
                     <span>Minimum $BUSD is {minBusdAmount.toFixed(2)}</span>
@@ -337,7 +342,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                     <span>Maximum $BUSD is {maxBusdAmount.toFixed(2)}</span>
                   </div>
                 )}
-              </Warning>
+              </Warning> */}
               <FormMainSection>
                 {index === 0 ? (
                   <>
@@ -345,7 +350,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                       <label>Amount of $BUSD</label> <br />
                       <input
                         disabled
-                        onChange={onChange}
+                        // onChange={onChange}
                         id="amount"
                         name="amount"
                         type="number"
@@ -361,10 +366,10 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                       <br />
                       <input
                         disabled
-                        onChange={onChange}
+                        // onChange={onChange}
                         id="amountMHT"
                         name="amountMHT"
-                        value={mhtAmount}
+                        value={sale?.amount}
                         type="number"
                       />
                     </FormDisplay>

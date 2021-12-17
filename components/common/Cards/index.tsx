@@ -24,17 +24,16 @@ import { ethers } from "ethers";
 const Cards: NextPage = () => {
   const { network, contracts, account, userInfoDetailed } =
     useContext(StoreContext);
-  const MHT_TO_BUSD = Number(
-    config[network].WhitelistSale.PrivateSale3.MHTtoBUSD
+
+  const sale = config[network].WhitelistSale.PreSales.find(
+    (sale) => sale.whitelisted === account
   );
 
-  const maxBusdAmount =
-    Number(config[network].WhitelistSale.PrivateSale3.maxMhtAmount) *
-    Number(config[network].WhitelistSale.PrivateSale3.MHTtoBUSD);
-  const idoUnlock =
-    config[network].WhitelistSale.PrivateSale3.unlockAtIGOPercent;
-  const vesting =
-    config[network].WhitelistSale.PrivateSale3.vestingPeriodMonths;
+  const MHT_TO_BUSD = Number(sale?.MHTtoBUSD) || "";
+
+  const maxBusdAmount = MHT_TO_BUSD ? Number(sale?.amount) * MHT_TO_BUSD : "";
+  const idoUnlock = sale?.unlockAtIGOPercent || "";
+  const vesting = sale?.vestingPeriodMonths || "";
 
   const [epicLimit, setEpicLimit] = useState("");
   const [rareLimit, setRareLimit] = useState("");
@@ -42,12 +41,7 @@ const Cards: NextPage = () => {
   const BOOSTER_OWNER = config[network].BMHTL.owner;
 
   useEffect(() => {
-    if (
-      contracts?.privateSale3.address &&
-      contracts?.bmhtr.address &&
-      contracts?.bmhte.address &&
-      account
-    ) {
+    if (contracts?.bmhtr.address && contracts?.bmhte.address && account) {
       (async () => {
         try {
           const epic = await contracts?.bmhte.allowance(
@@ -151,7 +145,7 @@ const Cards: NextPage = () => {
                 })}
               </ul>
             </CardSubtitle>
-            {/* <CardAmount index={index} /> */}
+            {sale && index === 0 ? <CardAmount index={index} /> : null}
           </CardSection>
         </React.Fragment>
       );

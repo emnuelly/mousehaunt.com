@@ -391,6 +391,7 @@ export class Marketplace extends BaseContract {
         BigNumber,
         string,
         string,
+        number,
         BigNumber,
         BigNumber,
         BigNumber,
@@ -399,6 +400,7 @@ export class Marketplace extends BaseContract {
         id: BigNumber;
         seller: string;
         nftAddress: string;
+        tokenType: number;
         assetId: BigNumber;
         amount: BigNumber;
         price: BigNumber;
@@ -499,10 +501,20 @@ export class Marketplace extends BaseContract {
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, string, string, BigNumber, BigNumber, BigNumber, BigNumber] & {
+    [
+      BigNumber,
+      string,
+      string,
+      number,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
       id: BigNumber;
       seller: string;
       nftAddress: string;
+      tokenType: number;
       assetId: BigNumber;
       amount: BigNumber;
       price: BigNumber;
@@ -610,6 +622,7 @@ export class Marketplace extends BaseContract {
         BigNumber,
         string,
         string,
+        number,
         BigNumber,
         BigNumber,
         BigNumber,
@@ -618,6 +631,7 @@ export class Marketplace extends BaseContract {
         id: BigNumber;
         seller: string;
         nftAddress: string;
+        tokenType: number;
         assetId: BigNumber;
         amount: BigNumber;
         price: BigNumber;

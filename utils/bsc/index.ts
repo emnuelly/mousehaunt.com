@@ -1,3 +1,6 @@
+// eslint-disable-next-line node/no-missing-import
+import PreSales from "./presale";
+
 const bsc = {
   s3: {
     bucket: "nft.mousehaunt.com",
@@ -13,17 +16,7 @@ const bsc = {
     address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
   },
   WhitelistSale: {
-    SeedSale: {
-      owner: "0xb53A11c980f6E3b4725977A69672A373954B0157",
-      MHTtoBUSD: "0.125",
-      minMhtAmount: "80000",
-      maxMhtAmount: "16000000",
-      unlockAtIGOPercent: "4",
-      cliffMonths: "0",
-      vestingPeriodMonths: "12",
-      address: "",
-      available: "2000000",
-    },
+    PreSales,
     PrivateSale1: {
       address: "0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F",
       owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
