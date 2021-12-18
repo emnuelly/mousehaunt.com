@@ -56,6 +56,7 @@ const StoreSuccess: NextPage = () => {
       : router.query.type?.includes("RARE")
       ? rare
       : epic;
+  const text = router.query.text ??  "PURCHASE"
   const tx = router.query.tx;
   const {
     account,
@@ -87,7 +88,7 @@ const StoreSuccess: NextPage = () => {
           </Header>
           <StoreSuccessBody>
             <h1>
-              PURCHASE <b>SUCCESSFUL</b>
+              {text} <b>SUCCESSFUL</b>
             </h1>
             <SuccessCard>
               <SuccessCardImage>

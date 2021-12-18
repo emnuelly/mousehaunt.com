@@ -19,7 +19,7 @@ import {
 } from "./stylesForm";
 import config, { Network } from "../../../utils/config";
 import waitFor from "../../../utils/waitFor";
-import { isTransactionMined } from "../../../utils/blockchain";
+import { isTransactionMined, NETWORK_TIMEOUT } from "../../../utils/blockchain";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { useRouter } from "next/router";
 import { Button } from "../Button";
@@ -48,8 +48,6 @@ function boosterAllowance(
     )
     .mul(boosterAmount);
 }
-
-const NETWORK_TIMEOUT = 120e3;
 
 enum BUY_STEP {
   APPROVE,

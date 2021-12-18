@@ -50,3 +50,5 @@ export function truncate(str: string, maxDecimalDigits = 3) {
   }
   return str;
 }
+
+export const NETWORK_TIMEOUT = 120E3

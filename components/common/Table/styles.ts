@@ -93,8 +93,8 @@ interface Props {
   status: string
 }
 export const Status = styled.button<Props>`
-  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : "#4AAAB1"};
-  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' ? "2px solid #A04766" : "2px solid #0C748B"};
+  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : "#375E44"};
+  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' ? "2px solid #A04766" : "2px solid #458B72"};
   cursor: ${props => props.status === 'LOCKED' ? "" : "pointer"};
   height: 50px;
   width: 160px;

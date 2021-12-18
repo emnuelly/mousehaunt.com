@@ -9,17 +9,20 @@ import { Styles, Status } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../../utils/config";
-import { addToWallet, truncate } from "../../../utils/blockchain";
+import { addToWallet, isTransactionMined, NETWORK_TIMEOUT, truncate } from "../../../utils/blockchain";
 import { format, add } from "date-fns";
 import Countdown from "../Countdown";
+import { useRouter } from "next/router";
+import waitFor from "../../../utils/waitFor";
 
 const Table: React.FC = () => {
-  const { userInfoDetailed, contracts, network } = useContext(StoreContext);
+  const { userInfoDetailed, contracts, network, provider } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
   const igoDate = new Date(
     Number(config[network].WhitelistSale.igoTimestamp) * 1000
   );
+  const router = useRouter();
 
   const countdown = {
     date: igoDate,
@@ -27,21 +30,22 @@ const Table: React.FC = () => {
     startText: "$MHT AVAILABLE FOR CLAIMING IN",
   };
 
-  const date = (months: number) =>
-    format(add(igoDate, { days: 30 * months }), "PPP HH:mm") + " UTC";
+  const date = (months: number) => format(claimDate(months), "PPP HH:mm") + " UTC";
+  const claimDate = (months: number) => add(igoDate, { days: 30 * months });
 
   const mhts = Array
     .from(Array(13).keys())
     .map((months) => {
-      const status = add(new Date(), {days:30*months}).getTime() < igoDate.getTime() ? "LOCKED" : "CLAIM"
+      const status = claimDate(months).getTime() < (new Date()).getTime() ? "CLAIM" : "LOCKED"
       return {
         item: "$MHT",
         itemSub: "Mouse Haunt Token",
         type: !months ? igoAmount : monthlyAmount,
-        typeSub: `Claimable on ${date(months)})`,
+        typeSub: `Claimable on ${date(months)}`,
         image: mht,
         status,
         title: status === 'CLAIM' ? 'Claim $MHT' : 'Locked',
+        amount: monthlyAmount
       }
     })
 
@@ -110,17 +114,37 @@ const Table: React.FC = () => {
     ...mhts,
   ];
 
-  const onClick = (row: { item: string }) => {
-    switch(row.item) {
+  const onClick = async (row: { status: string }) => {
+    console.log(row)
+    switch(row.status) {
       case 'LOCKED': {
         return;
       }
       case 'AVAILABLE': {
-        addToWallet(network)
+        await addToWallet(network)
         return;
       }
       case 'CLAIM': {
-        contracts?.preSale?.claim()
+        try {
+          const ethersProvider = new ethers.providers.Web3Provider(
+            provider as any
+          );
+          const claim = await contracts?.preSale?.claim()
+          if(claim) {
+            const tx = await waitFor(
+              () => isTransactionMined(ethersProvider, claim?.hash),
+              NETWORK_TIMEOUT
+            );
+            router.push({
+              pathname: "/store/success",
+              query: { type: "MHT", amount: monthlyAmount, tx, text: "CLAIM" },
+            });
+          }
+        } catch (err: any) {
+          const message = err.data ? err.data.message : err.message;
+          alert(message);
+        }
+        return;
       }
     }
   };

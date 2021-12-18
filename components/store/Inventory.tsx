@@ -34,7 +34,6 @@ const Inventory: NextPage = () => {
                 Welcome to the Inventory! Here you can see all the cheesy goods you own from the Mouse Haunt Universe! 🧀🧀🧀
               </div>
             </StorePageSub>
-
             <Table />
           </StoreInventoryBody>
           <Footer />
