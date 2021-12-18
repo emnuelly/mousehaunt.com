@@ -307,26 +307,3 @@ export const StoreSuccessDescription = styled.div`
     }
   }
 `
-
-export const CountdownContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  ul {
-    padding-left: 0px;
-  }
-  li {
-    display: inline-block;
-    font-size: 1em;
-    list-style-type: none;
-    padding: 0.5em;
-    text-transform: uppercase;
-  }
-  li span {
-    display: block;
-    font-size: 48px;
-    text-align: center;
-  }
-
-`
