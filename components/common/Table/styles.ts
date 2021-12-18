@@ -106,8 +106,24 @@ export const Status = styled.button<Props>`
   font-size: 20px !important; 
   color: white;
 
+  &:disabled {
+    opacity: 0.5;
+    cursor: default !important;
+  }
+
   @media only screen and (max-width: 600px) {
     width: 80px;
     font-size: 12px !important; 
+  }
+`
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: -25px;
+  svg {
+    height: 50px;
+    margin-top: -10px;
+    fill: rgba(55, 94, 68, 0.5);
   }
 `

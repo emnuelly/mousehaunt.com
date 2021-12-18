@@ -5,7 +5,7 @@ import legendary from "../../../public/images/other/legendary.png";
 import epic from "../../../public/images/other/epic.png";
 import rare from "../../../public/images/other/rare.png";
 
-import { Styles, Status } from "./styles";
+import { Styles, Status, LoadingContainer } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../../utils/config";
@@ -14,11 +14,13 @@ import { format, add } from "date-fns";
 import Countdown from "../Countdown";
 import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
+import Loading from "../../../assets/svg/loading.svg";
 
 const Table: React.FC = () => {
   const { userInfoDetailed, contracts, network, provider } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
+  const [loadingIndex, setLoadingIndex] = useState(-1);
   const igoDate = new Date(
     Number(config[network].WhitelistSale.igoTimestamp) * 1000
   );
@@ -114,7 +116,7 @@ const Table: React.FC = () => {
     ...mhts,
   ];
 
-  const onClick = async (row: { status: string }) => {
+  const onClick = async (row: { status: string }, index: number) => {
     console.log(row)
     switch(row.status) {
       case 'LOCKED': {
@@ -126,21 +128,24 @@ const Table: React.FC = () => {
       }
       case 'CLAIM': {
         try {
+          if(!contracts?.preSale) return
+
+          setLoadingIndex(index)
           const ethersProvider = new ethers.providers.Web3Provider(
             provider as any
           );
-          const claim = await contracts?.preSale?.claim()
-          if(claim) {
+          const claim = await contracts?.preSale.claim()
             const tx = await waitFor(
               () => isTransactionMined(ethersProvider, claim?.hash),
               NETWORK_TIMEOUT
             );
-            router.push({
-              pathname: "/store/success",
-              query: { type: "MHT", amount: monthlyAmount, tx, text: "CLAIM" },
-            });
-          }
+          setLoadingIndex(-1)
+          router.push({
+            pathname: "/store/success",
+            query: { type: "MHT", amount: monthlyAmount, tx, text: "CLAIM" },
+          });
         } catch (err: any) {
+          setLoadingIndex(-1)
           const message = err.data ? err.data.message : err.message;
           alert(message);
         }
@@ -177,9 +182,14 @@ const Table: React.FC = () => {
               </div>
             </td>
             <td>
-              <Status title={row.title} status={row.status} onClick={() => onClick(row)}>
+              <Status disabled={loadingIndex === index} title={row.title} status={row.status} onClick={() => onClick(row, index)}>
                 {row.status}
               </Status>
+              {loadingIndex === index && (
+                <LoadingContainer>
+                  <Loading />
+                </LoadingContainer>
+              )}
             </td>
           </tr>
         ))}

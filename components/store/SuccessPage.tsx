@@ -37,13 +37,13 @@ const DescriptionMHT = (props: {
       <span>$MHT Total Amount</span>
       <span>{props.userInfo?.totalTokens}</span>
     </div>
-    <div>
+    {/* <div>
       <span>Claimed</span>
       <span>{props.userInfo?.claimedTokens}</span>
-    </div>
+    </div> */}
     <div>
       <span>Next claim</span>
-      <span>IGO (December 21th)</span>
+      <span>January 2022</span>
     </div>
   </StoreSuccessDescription>
 );
@@ -57,6 +57,7 @@ const StoreSuccess: NextPage = () => {
       ? rare
       : epic;
   const text = router.query.text ??  "PURCHASE"
+  const action = router.query.text ? `${router.query.text}ED` : "BOUGHT"
   const tx = router.query.tx;
   const {
     account,
@@ -100,7 +101,7 @@ const StoreSuccess: NextPage = () => {
                 />
               </SuccessCardImage>
               <h2>
-                YOU BOUGHT <b>{router.query.amount}</b> {router.query.type}
+                YOU {action} <b>{router.query.amount}</b> {router.query.type}
               </h2>
               {router.query.type === "MHT" ? (
                 <DescriptionMHT userInfo={userInfo} account={account} />
