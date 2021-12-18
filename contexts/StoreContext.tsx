@@ -16,6 +16,8 @@ import { BMHTR } from "../typechain/BMHTR";
 import BMHTRJson from "../contracts/booster/BMHTR.sol/BMHTR.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
+import MHTJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
+import { MouseHauntToken } from "../typechain/MouseHauntToken";
 
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 import { changeNetwork } from "../utils/blockchain";
@@ -33,6 +35,7 @@ interface UserInfo {
 
 export interface UserInfoDetailed extends UserInfo {
   whitelisted: boolean;
+  mhtOnWallet: string;
   busdOnWallet: string;
   boosters: {
     epic: string;
@@ -53,6 +56,7 @@ export interface Contracts {
   boosterSale3: BoosterSale3;
 
   busd: BUSD;
+  mht: MouseHauntToken;
   bmhtl: BMHTL;
   bmhte: BMHTE;
   bmhtr: BMHTR;
@@ -179,7 +183,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         BMHTRJson.abi,
         signer
       ) as BMHTR;
-
+      const mht = new ethers.Contract(
+        config[network].MouseHauntToken.address,
+        MHTJson.abi,
+        signer
+      ) as BUSD;
       const busd = new ethers.Contract(
         config[network].BUSD.address,
         BUSDJson.abi,
@@ -193,6 +201,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         bmhtl,
         bmhte,
         bmhtr,
+        mht,
         busd,
       });
     }
@@ -218,6 +227,9 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
             rare: rare,
           };
+          const mhtOnWallet = ethers.utils.formatEther(
+            await contracts?.mht.balanceOf(account)
+          );
           const busdOnWallet = ethers.utils.formatEther(
             await contracts?.busd.balanceOf(account)
           );
@@ -255,6 +267,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
           setUserInfoDetailed({
             ...userInfo,
+            mhtOnWallet,
             busdOnWallet,
             whitelisted,
             boosters,
