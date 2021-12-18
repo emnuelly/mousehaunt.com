@@ -55,11 +55,6 @@ const privateSale = [
     address: "0x89FD7fbE1ee3bC6abC2363d989f7768D4b384198",
   },
   {
-    whitelisted: "0xa32d68d594e8c5627ae6b09dd32334005a415338",
-    amount: "200000",
-    address: "0x9A510C3B92dE443666c4608f96F02D501432c29B",
-  },
-  {
     whitelisted: "0x079eed46b77BCfEB267E80f19Afff1b284FFB5d1",
     amount: "115",
     address: "0xf5f4A0B78293722c71E075a9025723347474dc6f",

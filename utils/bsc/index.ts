@@ -16,6 +16,7 @@ const bsc = {
     address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
   },
   WhitelistSale: {
+    igoTimestamp: "1640102400",
     PreSales,
     PrivateSale1: {
       address: "0x4A3833566032BfB394D13B0b356fF0E8e3Bc206F",
