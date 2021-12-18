@@ -131,75 +131,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     }
   }, [setNetwork]);
 
-  const updateUserInfo = () => {
-    if (account && contracts) {
-      (async () => {
-        try {
-          const isWhitelisted = await contracts?.preSale?.isWhitelisted(
-            account
-          );
-
-          const whitelisted = Boolean(isWhitelisted);
-          const userInfo = await getUserInfo(contracts, account);
-          const legendary = await contracts?.bmhtl.balanceOf(account);
-          const epic = await contracts?.bmhte.balanceOf(account);
-          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
-          const boosters = {
-            legendary: ethers.utils
-              .formatEther(legendary ?? "")
-              .replace(".0", ""),
-            epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
-            rare: rare,
-          };
-          const busdOnWallet = ethers.utils.formatEther(
-            await contracts?.busd.balanceOf(account)
-          );
-
-          const userInfoPreSale = await contracts?.preSale?.addressToUserInfo(
-            account
-          );
-          const mhtAllowance =
-            sale && userInfoPreSale
-              ? ethers.utils
-                  .formatEther(
-                    ethers.utils
-                      .parseEther(sale?.amount)
-                      .sub(userInfoPreSale[0])
-                  )
-                  .replace(/\..*/, "")
-              : "";
-          const epicAllowance = (
-            await contracts?.boosterSale3.whitelist(
-              account,
-              config[network].BMHTE.address
-            )
-          ).toString();
-          const rareAllowance = (
-            await contracts?.boosterSale3.whitelist(
-              account,
-              config[network].BMHTR.address
-            )
-          ).toString();
-          const allowance = {
-            mht: mhtAllowance,
-            epic: epicAllowance,
-            rare: rareAllowance,
-          };
-
-          setUserInfoDetailed({
-            ...userInfo,
-            busdOnWallet,
-            whitelisted,
-            boosters,
-            allowance,
-          });
-        } catch (err) {
-          console.error(err, "Error trying to updateUserInfo");
-        }
-      })();
-    }
-  };
-
   useEffect(() => {
     if (provider && account) {
       const ethersProvider = new ethers.providers.Web3Provider(provider as any);
@@ -268,7 +199,72 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, [network, provider, account, sale]);
 
   useEffect(() => {
-    updateUserInfo();
+    if (account && contracts) {
+      (async () => {
+        try {
+          const isWhitelisted = await contracts?.preSale?.isWhitelisted(
+            account
+          );
+
+          const whitelisted = Boolean(isWhitelisted);
+          const userInfo = await getUserInfo(contracts, account);
+          const legendary = await contracts?.bmhtl.balanceOf(account);
+          const epic = await contracts?.bmhte.balanceOf(account);
+          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
+          const boosters = {
+            legendary: ethers.utils
+              .formatEther(legendary ?? "")
+              .replace(".0", ""),
+            epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
+            rare: rare,
+          };
+          const busdOnWallet = ethers.utils.formatEther(
+            await contracts?.busd.balanceOf(account)
+          );
+
+          const userInfoPreSale = await contracts?.preSale?.addressToUserInfo(
+            account
+          );
+          const mhtAllowance =
+            sale && userInfoPreSale
+              ? ethers.utils
+                  .formatEther(
+                    ethers.utils
+                      .parseEther(sale?.amount)
+                      .sub(userInfoPreSale[0])
+                  )
+                  .replace(/\..*/, "")
+              : "";
+          const epicAllowance = (
+            await contracts?.boosterSale3.whitelist(
+              account,
+              config[network].BMHTE.address
+            )
+          ).toString();
+          const rareAllowance = (
+            await contracts?.boosterSale3.whitelist(
+              account,
+              config[network].BMHTR.address
+            )
+          ).toString();
+          const allowance = {
+            mht: mhtAllowance,
+            epic: epicAllowance,
+            rare: rareAllowance,
+          };
+
+          setUserInfoDetailed({
+            ...userInfo,
+            busdOnWallet,
+            whitelisted,
+            boosters,
+            allowance,
+          });
+        } catch (err) {
+          console.error(err, "Error trying to updateUserInfo");
+        }
+      })();
+    }
   }, [account, contracts, network, refresh, sale]);
 
   useEffect(() => {
