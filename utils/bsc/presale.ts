@@ -64,6 +64,21 @@ const privateSale = [
     amount: "115",
     address: "0xf5f4A0B78293722c71E075a9025723347474dc6f",
   },
+  {
+    whitelisted: "0x843359bc8881f26f87c77dF422730B341694585E",
+    amount: "6680",
+    address: "0x370eb658694E257B3F8f86d5800f5Daad3a869d1",
+  },
+  {
+    whitelisted: "0x280330b2D00b67D394b650176Ee3EBE53B0fa497",
+    amount: "3340",
+    address: "0x077db6D7Ac65B172342FFc0731FC861310aC951e",
+  },
+  {
+    whitelisted: "0xB96A80aC3a2F493c33c0Eb87C6944a62E7c1621f",
+    amount: "200000",
+    address: "0xBf400b14208b07249575e0463A51dE30dc13680B",
+  },
 ].map((term) => ({
   ...term,
   owner: "0x5FEe4568C79542682C2819a87f8868AbaFA97793",
