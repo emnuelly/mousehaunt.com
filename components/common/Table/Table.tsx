@@ -5,31 +5,45 @@ import legendary from "../../../public/images/other/legendary.png";
 import epic from "../../../public/images/other/epic.png";
 import rare from "../../../public/images/other/rare.png";
 
-import { Styles, StatusBadge } from "./styles";
+import { Styles, Status } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../../utils/config";
-import { truncate } from "../../../utils/blockchain";
+import { addToWallet, truncate } from "../../../utils/blockchain";
 import { format, add } from "date-fns";
+import Countdown from "../Countdown";
 
 const Table: React.FC = () => {
   const { userInfoDetailed, contracts, network } = useContext(StoreContext);
   const [igoAmount, setIgoAmount] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
+  const igoDate = new Date(
+    Number(config[network].WhitelistSale.igoTimestamp) * 1000
+  );
 
-  const date = (i: number) =>
-    format(add(new Date("2021-12-21"), { months: i }), "MMM yyyy");
+  const countdown = {
+    date: igoDate,
+    endText: "$MHT AVAILABLE FOR CLAIMING!",
+    startText: "$MHT AVAILABLE FOR CLAIMING IN",
+  };
 
-  const mhts = Array.from(Array(12).keys()).map((i) => ({
-    item: "$MHT",
-    itemSub: "Mouse Haunt Token",
-    type: monthlyAmount,
-    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IDO (${date(
-      i + 1
-    )})`,
-    image: mht,
-    status: "LOCKED",
-  }));
+  const date = (months: number) =>
+    format(add(igoDate, { days: 30 * months }), "PPP HH:mm") + " UTC";
+
+  const mhts = Array
+    .from(Array(13).keys())
+    .map((months) => {
+      const status = add(new Date(), {days:30*months}).getTime() < igoDate.getTime() ? "LOCKED" : "CLAIM"
+      return {
+        item: "$MHT",
+        itemSub: "Mouse Haunt Token",
+        type: !months ? igoAmount : monthlyAmount,
+        typeSub: `Claimable on ${date(months)})`,
+        image: mht,
+        status,
+        title: status === 'CLAIM' ? 'Claim $MHT' : 'Locked',
+      }
+    })
 
   useEffect(() => {
     (async () => {
@@ -73,6 +87,7 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: legendary,
       status: "AVAILABLE",
+      title: 'Add to wallet',
     },
     {
       item: "BMHTE",
@@ -81,6 +96,7 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: epic,
       status: "AVAILABLE",
+      title: 'Add to wallet',
     },
     {
       item: "BMHTR",
@@ -89,20 +105,29 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: rare,
       status: "AVAILABLE",
-    },
-    {
-      item: "$MHT",
-      itemSub: "Mouse Haunt Token",
-      type: igoAmount,
-      typeSub: "Claimable on IDO (December 21th 2021)",
-      image: mht,
-      status: "LOCKED",
+      title: 'Add to wallet',
     },
     ...mhts,
   ];
 
+  const onClick = (row: { item: string }) => {
+    switch(row.item) {
+      case 'LOCKED': {
+        return;
+      }
+      case 'AVAILABLE': {
+        addToWallet(network)
+        return;
+      }
+      case 'CLAIM': {
+        contracts?.preSale?.claim()
+      }
+    }
+  };
+
   return (
     <Styles>
+      <Countdown {...countdown} />
       <table>
         <tr>
           <th>Item</th>
@@ -110,27 +135,27 @@ const Table: React.FC = () => {
           <th>Amount</th>
           <th>Status</th>
         </tr>
-        {data.map((e, index) => (
+        {data.map((row, index) => (
           <tr key={index}>
             <td>
-              <Image alt="MHT" width="100" height="100" src={e.image} />
+              <Image alt="MHT" width="100" height="100" src={row.image} />
             </td>
             <td>
-              <div>{e.item}</div>
+              <div>{row.item}</div>
               <div>
-                <b>{e.itemSub}</b>
+                <b>{row.itemSub}</b>
               </div>
             </td>
             <td>
-              <div>{e.type}</div>
+              <div>{row.type}</div>
               <div>
-                <b> {e.typeSub}</b>
+                <b> {row.typeSub}</b>
               </div>
             </td>
             <td>
-              <StatusBadge status={e.status}>
-                <div>{e.status}</div>
-              </StatusBadge>
+              <Status title={row.title} status={row.status} onClick={() => onClick(row)}>
+                {row.status}
+              </Status>
             </td>
           </tr>
         ))}

@@ -31,15 +31,7 @@ const Inventory: NextPage = () => {
             <h1>Inventory</h1>
             <StorePageSub>
               <div>
-                Boosters will be on your wallet right away! <br />
-                Get the #🧀trade channel ready.
-              </div>
-              <br />
-              <div>
-                $MHT won&apos;t be on your wallet, you will claim $MHT only at
-                IDO (December 21st)! <br />
-                To be compliant with Seedify Launchpad, we can only make $MHT
-                available at IDO, not before.
+                Welcome to the Inventory! Here you can see all the cheesy goods you own from the Mouse Haunt Universe! 🧀🧀🧀
               </div>
             </StorePageSub>
 

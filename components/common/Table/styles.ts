@@ -92,24 +92,22 @@ width: 100%;
 interface Props {
   status: string
 }
-export const StatusBadge = styled.div<Props>`
-  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : "#52345D"};
+export const Status = styled.button<Props>`
+  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : "#4AAAB1"};
+  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' ? "2px solid #A04766" : "2px solid #0C748B"};
+  cursor: ${props => props.status === 'LOCKED' ? "" : "pointer"};
   height: 50px;
   width: 160px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : "2px solid #A04766"};
-  div {
   font-family: "Bebas Neue Pro";
   font-size: 20px !important; 
-  }
+  color: white;
 
   @media only screen and (max-width: 600px) {
     width: 80px;
-    div {
     font-size: 12px !important; 
-    }
   }
 `
