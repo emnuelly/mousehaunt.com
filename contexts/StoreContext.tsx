@@ -34,6 +34,7 @@ interface UserInfo {
 
   igoAmount: string;
   monthlyAmount: string;
+  claimsPerMonth: number;
 }
 
 export interface UserInfoDetailed extends UserInfo {
@@ -116,9 +117,11 @@ async function getUserInfo(
         return {
           igoAmount: ethers.utils.parseEther("0"),
           monthlyAmount: ethers.utils.parseEther("0"),
+          claimsPerMonth: 0,
         };
 
       const userInfo = userInfos[index];
+      const claimsPerMonth = userInfo.remainingTokens.isZero() ? 0 : 1;
 
       const unlockAtIGOPercent = details.unlockAtIGOPercent;
       const vestingPeriodMonths = details.vestingPeriodMonths;
@@ -136,16 +139,18 @@ async function getUserInfo(
               .div(100)
               .div(vestingPeriodMonths)
           : ethers.utils.parseEther("0");
-      return { igoAmount, monthlyAmount };
+      return { igoAmount, monthlyAmount, claimsPerMonth };
     })
     .reduce(
       (a, b) => ({
         igoAmount: a.igoAmount.add(b.igoAmount),
         monthlyAmount: a.monthlyAmount.add(b.monthlyAmount),
+        claimsPerMonth: a.claimsPerMonth + b.claimsPerMonth,
       }),
       {
         igoAmount: ethers.utils.parseEther("0"),
         monthlyAmount: ethers.utils.parseEther("0"),
+        claimsPerMonth: 0,
       }
     );
 
@@ -155,6 +160,7 @@ async function getUserInfo(
   const monthlyAmount = amounts
     ? ethers.utils.formatEther(amounts.monthlyAmount.toString())
     : "";
+  const claimsPerMonth = amounts ? amounts.claimsPerMonth : 0;
 
   const totalTokens = userInfos
     .map((userInfo) => userInfo.totalTokens)
@@ -186,6 +192,7 @@ async function getUserInfo(
         : -1,
     igoAmount,
     monthlyAmount,
+    claimsPerMonth,
   };
 }
 

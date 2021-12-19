@@ -21,10 +21,6 @@ import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
 
-/**
- * remove onClick
- */
-
 const Table: React.FC = () => {
   const {
     userInfoDetailed,
@@ -50,11 +46,11 @@ const Table: React.FC = () => {
   const mhts = Array.from(Array(13).keys()).map((month) => {
     const claimDate = add(igoDate, { days: 30 * month });
     const date = format(claimDate, "PPP HH:mm") + " UTC";
-    const times =
-      contracts?.participatingSales.length &&
-      contracts?.participatingSales.length > 1
-        ? ` (${contracts?.participatingSales.length}x)`
-        : "";
+    const canClaim =
+      userInfoDetailed?.claimsPerMonth && userInfoDetailed?.claimsPerMonth > 0;
+    const times = canClaim
+      ? ` (${Math.trunc(userInfoDetailed.claimsPerMonth)}x)`
+      : "";
     const claimed =
       userInfoDetailed && userInfoDetailed.lastClaimMonthIndex >= month;
     const status = !account
@@ -63,6 +59,7 @@ const Table: React.FC = () => {
       ? "CLAIMED"
       : claimDate.getTime() < new Date().getTime() &&
         userInfoDetailed &&
+        canClaim &&
         !ethers.utils.parseEther(userInfoDetailed.remainingTokens).isZero()
       ? "CLAIM" + times
       : "LOCKED";
