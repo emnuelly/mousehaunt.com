@@ -21,12 +21,6 @@ import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
 
-/**
- * TODO allow multiple claims per deployed contract
- * TODO correcly calculate claim amount
- * TODO disallow claim after already claimed
- */
-
 const Table: React.FC = () => {
   const { userInfoDetailed, contracts, network, provider, account } =
     useContext(StoreContext);
@@ -50,8 +44,13 @@ const Table: React.FC = () => {
       contracts?.participatingSales.length > 1
         ? ` (${contracts?.participatingSales.length}x)`
         : "";
-    const status =
-      claimDate.getTime() < new Date().getTime() ? "CLAIM" + times : "LOCKED";
+    const claimed =
+      userInfoDetailed && userInfoDetailed.lastClaimMonthIndex >= month;
+    const status = claimed
+      ? "CLAIMED"
+      : claimDate.getTime() < new Date().getTime()
+      ? "CLAIM" + times
+      : "LOCKED";
     const mhtAmount = !month
       ? userInfoDetailed?.igoAmount
       : userInfoDetailed?.monthlyAmount;
@@ -123,12 +122,6 @@ const Table: React.FC = () => {
           const txs = [];
           for await (const { sale } of contracts?.participatingSales) {
             const userInfo = await sale.addressToUserInfo(account);
-            console.log(
-              sale.address,
-              userInfo.lastClaimMonthIndex.toString(),
-              ethers.utils.formatEther(userInfo.totalTokens.toString()),
-              ethers.utils.formatEther(userInfo.remainingTokens.toString())
-            );
             if (
               userInfo.remainingTokens.isZero() ||
               userInfo.lastClaimMonthIndex.isZero()
