@@ -88,15 +88,24 @@ export const StoreContext = createContext<StoreContextData>(
   {} as StoreContextData
 );
 
+function isEmptyUserInfo(userInfo: {
+  totalTokens: ethers.BigNumber;
+  remainingTokens: ethers.BigNumber;
+  lastClaimMonthIndex: ethers.BigNumber;
+}) {
+  return (
+    userInfo.totalTokens.isZero() &&
+    userInfo.remainingTokens.isZero() &&
+    userInfo.lastClaimMonthIndex.isZero()
+  );
+}
+
 async function getUserInfo(
   contracts: Contracts,
   account: string
 ): Promise<UserInfo> {
   const userInfos = await Promise.all(
     contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
-  );
-  const whitelisted = await Promise.all(
-    contracts.whitelistSales.map((sale) => sale.isWhitelisted(account))
   );
   const amounts = contracts.whitelistSales
     .map((sale, index) => {
@@ -158,8 +167,10 @@ async function getUserInfo(
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
   const lastClaimMonthIndex = userInfos
-    .map((userInfo, index) =>
-      whitelisted[index] ? userInfo.lastClaimMonthIndex.toString() : "-1"
+    .map((userInfo) =>
+      !isEmptyUserInfo(userInfo)
+        ? userInfo.lastClaimMonthIndex.toString()
+        : "-1"
     )
     .sort()
     .slice(-1)
