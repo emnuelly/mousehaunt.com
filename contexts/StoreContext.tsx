@@ -31,12 +31,12 @@ interface UserInfo {
   remainingTokens: string;
   claimedTokens: string;
   lastClaimMonthIndex: number;
+
+  igoAmount: string;
+  monthlyAmount: string;
 }
 
 export interface UserInfoDetailed extends UserInfo {
-  igoAmount: string;
-  monthlyAmount: string;
-
   mhtOnWallet: string;
   busdOnWallet: string;
   boosters: {
@@ -88,27 +88,38 @@ export const StoreContext = createContext<StoreContextData>(
   {} as StoreContextData
 );
 
-function getWhitelistSaleAmounts(
+async function getUserInfo(
   contracts: Contracts,
-  userInfoDetailed: UserInfo
-): { igoAmount: string; monthlyAmount: string } {
-  const amounts = contracts.participatingSales
-    .map(({ details }) => {
+  account: string
+): Promise<UserInfo> {
+  const userInfos = await Promise.all(
+    contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
+  );
+  const amounts = contracts.whitelistSales
+    .map((sale, index) => {
+      const details = contracts.participatingSales.find(
+        (s) => s.details.address === sale.address
+      )?.details;
+      if (!details)
+        return {
+          igoAmount: ethers.utils.parseEther("0"),
+          monthlyAmount: ethers.utils.parseEther("0"),
+        };
+
+      const userInfo = userInfos[index];
+
       const unlockAtIGOPercent = details.unlockAtIGOPercent;
       const vestingPeriodMonths = details.vestingPeriodMonths;
       const igoAmount =
-        unlockAtIGOPercent && userInfoDetailed?.totalTokens
-          ? ethers.utils
-              .parseEther(userInfoDetailed.totalTokens)
-              .mul(unlockAtIGOPercent)
-              .div(100)
+        unlockAtIGOPercent && userInfo && userInfo.totalTokens
+          ? userInfo.totalTokens.mul(unlockAtIGOPercent).div(100)
           : ethers.utils.parseEther("0");
       const monthlyAmount =
         unlockAtIGOPercent &&
-        userInfoDetailed?.totalTokens &&
+        userInfo &&
+        userInfo.totalTokens &&
         vestingPeriodMonths
-          ? ethers.utils
-              .parseEther(userInfoDetailed.totalTokens)
+          ? userInfo.totalTokens
               .mul(100 - Number(unlockAtIGOPercent))
               .div(100)
               .div(vestingPeriodMonths)
@@ -125,41 +136,37 @@ function getWhitelistSaleAmounts(
         monthlyAmount: ethers.utils.parseEther("0"),
       }
     );
+
   const igoAmount = amounts
     ? ethers.utils.formatEther(amounts.igoAmount.toString())
     : "";
   const monthlyAmount = amounts
     ? ethers.utils.formatEther(amounts.monthlyAmount.toString())
     : "";
-  return { igoAmount, monthlyAmount };
-}
 
-async function getUserInfo(
-  contracts: Contracts,
-  account: string
-): Promise<UserInfo> {
-  const userInfos = await Promise.all(
-    contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
-  );
   const totalTokens = userInfos
-    .map((userInfo) => userInfo[0])
+    .map((userInfo) => userInfo.totalTokens)
     .reduce((a, b) => a.add(b));
 
   const remainingTokens = userInfos
-    .map((userInfo) => userInfo[1])
+    .map((userInfo) => userInfo.remainingTokens)
     .reduce((a, b) => a.add(b));
 
   const firstUserInfo = userInfos[0];
 
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
-  const lastClaimMonthIndex = firstUserInfo ? Number(firstUserInfo[2]) : -1;
+  const lastClaimMonthIndex = firstUserInfo
+    ? Number(firstUserInfo.lastClaimMonthIndex)
+    : -1;
 
   return {
     totalTokens: ethers.utils.formatEther(totalTokens),
     remainingTokens: ethers.utils.formatEther(remainingTokens),
     claimedTokens: ethers.utils.formatEther(claimedTokens),
     lastClaimMonthIndex,
+    igoAmount,
+    monthlyAmount,
   };
 }
 
@@ -283,10 +290,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           const legendary = await contracts.bmhtl.balanceOf(account);
           const epic = await contracts.bmhte.balanceOf(account);
           const rare = (await contracts.bmhtr.balanceOf(account)).toString();
-          const { igoAmount, monthlyAmount } = getWhitelistSaleAmounts(
-            contracts,
-            userInfo
-          );
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
@@ -320,8 +323,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
           setUserInfoDetailed({
             ...userInfo,
-            igoAmount,
-            monthlyAmount,
             mhtOnWallet,
             busdOnWallet,
             boosters,

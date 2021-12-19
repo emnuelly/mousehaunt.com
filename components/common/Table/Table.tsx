@@ -28,7 +28,7 @@ import Loading from "../../../assets/svg/loading.svg";
  */
 
 const Table: React.FC = () => {
-  const { userInfoDetailed, contracts, network, provider } =
+  const { userInfoDetailed, contracts, network, provider, account } =
     useContext(StoreContext);
   const [loadingIndex, setLoadingIndex] = useState(-1);
   const igoDate = new Date(
@@ -52,9 +52,10 @@ const Table: React.FC = () => {
         : "";
     const status =
       claimDate.getTime() < new Date().getTime() ? "CLAIM" + times : "LOCKED";
-    const amount = !month
+    const mhtAmount = !month
       ? userInfoDetailed?.igoAmount
       : userInfoDetailed?.monthlyAmount;
+    const amount = mhtAmount ? truncate(mhtAmount) : "";
     return {
       item: "$MHT",
       itemSub: "Mouse Haunt Token",
@@ -63,7 +64,7 @@ const Table: React.FC = () => {
       image: mht,
       status,
       title: status === "LOCKED" ? "Locked" : "Claim $MHT",
-      amount,
+      amount: amount,
     };
   });
 
@@ -121,6 +122,19 @@ const Table: React.FC = () => {
 
           const txs = [];
           for await (const { sale } of contracts?.participatingSales) {
+            const userInfo = await sale.addressToUserInfo(account);
+            console.log(
+              sale.address,
+              userInfo.lastClaimMonthIndex.toString(),
+              ethers.utils.formatEther(userInfo.totalTokens.toString()),
+              ethers.utils.formatEther(userInfo.remainingTokens.toString())
+            );
+            if (
+              userInfo.remainingTokens.isZero() ||
+              userInfo.lastClaimMonthIndex.isZero()
+            )
+              continue;
+
             const claim = await sale.claim();
             const tx = await waitFor(
               () => isTransactionMined(ethersProvider, claim?.hash),
@@ -128,7 +142,6 @@ const Table: React.FC = () => {
             );
             txs.push(tx);
           }
-          setLoadingIndex(-1);
           router.push({
             pathname: "/store/success",
             query: {
@@ -139,6 +152,7 @@ const Table: React.FC = () => {
               text: "CLAIM",
             },
           });
+          setLoadingIndex(-1);
         } catch (err: any) {
           setLoadingIndex(-1);
           const message = err.data ? err.data.message : err.message;
