@@ -39,8 +39,8 @@ const Table: React.FC = () => {
 
   const countdown = {
     date: igoDate,
-    endText: "$MHT AVAILABLE FOR CLAIMING!",
-    startText: "$MHT AVAILABLE FOR CLAIMING IN",
+    endText: "$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC",
+    startText: "$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC",
   };
 
   const mhts = Array.from(Array(13).keys()).map((month) => {
