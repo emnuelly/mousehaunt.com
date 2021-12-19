@@ -21,6 +21,10 @@ import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
 
+/**
+ * remove onClick
+ */
+
 const Table: React.FC = () => {
   const {
     userInfoDetailed,
@@ -116,6 +120,7 @@ const Table: React.FC = () => {
     index: number
   ) => {
     switch (row.status) {
+      case "CLAIMED":
       case "LOCKED": {
         return;
       }
