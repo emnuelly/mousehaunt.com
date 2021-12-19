@@ -56,8 +56,8 @@ const StoreSuccess: NextPage = () => {
       : router.query.type?.includes("RARE")
       ? rare
       : epic;
-  const text = router.query.text ??  "PURCHASE"
-  const action = router.query.text ? `${router.query.text}ED` : "BOUGHT"
+  const text = router.query.text ?? "PURCHASE";
+  const action = router.query.text ? `${router.query.text}ED` : "BOUGHT";
   const tx = router.query.tx;
   const {
     account,

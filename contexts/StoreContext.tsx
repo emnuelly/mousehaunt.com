@@ -125,8 +125,12 @@ function getWhitelistSaleAmounts(
         monthlyAmount: ethers.utils.parseEther("0"),
       }
     );
-  const igoAmount = amounts ? amounts.igoAmount.toString() : "";
-  const monthlyAmount = amounts ? amounts.monthlyAmount.toString() : "";
+  const igoAmount = amounts
+    ? ethers.utils.formatEther(amounts.igoAmount.toString())
+    : "";
+  const monthlyAmount = amounts
+    ? ethers.utils.formatEther(amounts.monthlyAmount.toString())
+    : "";
   return { igoAmount, monthlyAmount };
 }
 
