@@ -22,8 +22,15 @@ import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
 
 const Table: React.FC = () => {
-  const { userInfoDetailed, contracts, network, provider, account } =
-    useContext(StoreContext);
+  const {
+    userInfoDetailed,
+    contracts,
+    network,
+    provider,
+    account,
+    refresh,
+    setRefresh,
+  } = useContext(StoreContext);
   const [loadingIndex, setLoadingIndex] = useState(-1);
   const igoDate = new Date(
     Number(config[network].WhitelistSale.igoTimestamp) * 1000
@@ -122,11 +129,7 @@ const Table: React.FC = () => {
           const txs = [];
           for await (const { sale } of contracts?.participatingSales) {
             const userInfo = await sale.addressToUserInfo(account);
-            if (
-              userInfo.remainingTokens.isZero() ||
-              userInfo.lastClaimMonthIndex.isZero()
-            )
-              continue;
+            if (userInfo.remainingTokens.isZero()) continue;
 
             const claim = await sale.claim();
             const tx = await waitFor(
@@ -135,6 +138,7 @@ const Table: React.FC = () => {
             );
             txs.push(tx);
           }
+          setRefresh(!refresh);
           router.push({
             pathname: "/store/success",
             query: {

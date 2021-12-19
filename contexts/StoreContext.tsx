@@ -152,19 +152,19 @@ async function getUserInfo(
     .map((userInfo) => userInfo.remainingTokens)
     .reduce((a, b) => a.add(b));
 
-  const firstUserInfo = userInfos[0];
-
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
-  const lastClaimMonthIndex = firstUserInfo
-    ? Number(firstUserInfo.lastClaimMonthIndex)
-    : -1;
+  const lastClaimMonthIndex = userInfos
+    .map((userInfo) => userInfo.lastClaimMonthIndex.toString())
+    .sort()
+    .slice(-1)
+    .pop();
 
   return {
     totalTokens: ethers.utils.formatEther(totalTokens),
     remainingTokens: ethers.utils.formatEther(remainingTokens),
     claimedTokens: ethers.utils.formatEther(claimedTokens),
-    lastClaimMonthIndex,
+    lastClaimMonthIndex: lastClaimMonthIndex ? Number(lastClaimMonthIndex) : -1,
     igoAmount,
     monthlyAmount,
   };

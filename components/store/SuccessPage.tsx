@@ -23,6 +23,7 @@ import mht from "../../public/images/other/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
+import { add, format } from "date-fns";
 
 const DescriptionMHT = (props: {
   userInfo?: UserInfoDetailed;
@@ -43,7 +44,7 @@ const DescriptionMHT = (props: {
     </div> */}
     <div>
       <span>Next claim</span>
-      <span>January 2022</span>
+      <span>{format(add(new Date(), { months: 1 }), "MMM yyyy")}</span>
     </div>
   </StoreSuccessDescription>
 );
