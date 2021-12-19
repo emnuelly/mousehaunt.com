@@ -93,9 +93,9 @@ interface Props {
   status: string
 }
 export const Status = styled.button<Props>`
-  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : props.status === 'CLAIMED' ? '#5C3336' : "#375E44"};
-  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' || props.status === 'CLAIMED' ? "2px solid #A04766" : "2px solid #458B72"};
-  cursor: ${props => props.status === 'LOCKED' || props.status === 'CLAIMED' ? "" : "pointer"};
+  background-color: ${props => props.status === '' ? "#AEAEAE" : props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : props.status === 'CLAIMED' ? '#5C3336' : "#375E44"};
+  border: ${props => props.status === '' ? "#5F5F5F" : props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' || props.status === 'CLAIMED' ? "2px solid #A04766" : "2px solid #458B72"};
+  cursor: ${props => props.status === 'LOCKED' || props.status === 'CLAIMED' || props.status === '' ? "" : "pointer"};
   height: 50px;
   width: 160px;
   border-radius: 10px;

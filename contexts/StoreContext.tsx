@@ -95,6 +95,9 @@ async function getUserInfo(
   const userInfos = await Promise.all(
     contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
   );
+  const whitelisted = await Promise.all(
+    contracts.whitelistSales.map((sale) => sale.isWhitelisted(account))
+  );
   const amounts = contracts.whitelistSales
     .map((sale, index) => {
       const details = contracts.participatingSales.find(
@@ -155,7 +158,9 @@ async function getUserInfo(
   const claimedTokens =
     totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
   const lastClaimMonthIndex = userInfos
-    .map((userInfo) => userInfo.lastClaimMonthIndex.toString())
+    .map((userInfo, index) =>
+      whitelisted[index] ? userInfo.lastClaimMonthIndex.toString() : "-1"
+    )
     .sort()
     .slice(-1)
     .pop();
@@ -164,7 +169,10 @@ async function getUserInfo(
     totalTokens: ethers.utils.formatEther(totalTokens),
     remainingTokens: ethers.utils.formatEther(remainingTokens),
     claimedTokens: ethers.utils.formatEther(claimedTokens),
-    lastClaimMonthIndex: lastClaimMonthIndex ? Number(lastClaimMonthIndex) : -1,
+    lastClaimMonthIndex:
+      typeof lastClaimMonthIndex === "string"
+        ? Number(lastClaimMonthIndex)
+        : -1,
     igoAmount,
     monthlyAmount,
   };

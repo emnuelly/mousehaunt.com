@@ -53,12 +53,18 @@ const Table: React.FC = () => {
         : "";
     const claimed =
       userInfoDetailed && userInfoDetailed.lastClaimMonthIndex >= month;
-    const status = claimed
+    const status = !account
+      ? ""
+      : claimed
       ? "CLAIMED"
-      : claimDate.getTime() < new Date().getTime()
+      : claimDate.getTime() < new Date().getTime() &&
+        userInfoDetailed &&
+        !ethers.utils.parseEther(userInfoDetailed.remainingTokens).isZero()
       ? "CLAIM" + times
       : "LOCKED";
-    const mhtAmount = !month
+    const mhtAmount = !account
+      ? ""
+      : !month
       ? userInfoDetailed?.igoAmount
       : userInfoDetailed?.monthlyAmount;
     const amount = mhtAmount ? truncate(mhtAmount) : "";
@@ -78,28 +84,28 @@ const Table: React.FC = () => {
     {
       item: "BMHTL",
       itemSub: "Mouse Haunt Booster LEGENDARY",
-      type: userInfoDetailed?.boosters.legendary,
+      type: account ? userInfoDetailed?.boosters.legendary : "",
       typeSub: "Available on wallet",
       image: legendary,
-      status: "AVAILABLE",
+      status: account ? "AVAILABLE" : "",
       title: "Add to wallet",
     },
     {
       item: "BMHTE",
       itemSub: "Mouse Haunt Booster EPIC",
-      type: userInfoDetailed?.boosters.epic,
+      type: account ? userInfoDetailed?.boosters.epic : "",
       typeSub: "Available on wallet",
       image: epic,
-      status: "AVAILABLE",
+      status: account ? "AVAILABLE" : "",
       title: "Add to wallet",
     },
     {
       item: "BMHTR",
       itemSub: "Mouse Haunt Booster RARE",
-      type: userInfoDetailed?.boosters.rare,
+      type: account ? userInfoDetailed?.boosters.rare : "",
       typeSub: "Available on wallet",
       image: rare,
-      status: "AVAILABLE",
+      status: account ? "AVAILABLE" : "",
       title: "Add to wallet",
     },
     ...mhts,
@@ -182,7 +188,7 @@ const Table: React.FC = () => {
               </div>
             </td>
             <td>
-              <div>{row.type}</div>
+              <div>{row.type ? row.type : "‌‌"}</div>
               <div>
                 <b> {row.typeSub}</b>
               </div>
