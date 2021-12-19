@@ -13,7 +13,7 @@ const bscTestnet = {
     address: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
   },
   WhitelistSale: {
-    igoTimestamp: "1634572800",
+    igoTimestamp: "1639843200",
     PreSales,
     PrivateSale1: {
       address: "0x693348553511106405a0544f98765b0332daF507",
