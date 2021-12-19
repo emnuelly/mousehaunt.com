@@ -9,17 +9,27 @@ import { Styles, Status, LoadingContainer } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { ethers } from "ethers";
 import config from "../../../utils/config";
-import { addToWallet, isTransactionMined, NETWORK_TIMEOUT, truncate } from "../../../utils/blockchain";
+import {
+  addToWallet,
+  isTransactionMined,
+  NETWORK_TIMEOUT,
+  truncate,
+} from "../../../utils/blockchain";
 import { format, add } from "date-fns";
 import Countdown from "../Countdown";
 import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
 
+/**
+ * TODO allow multiple claims per deployed contract
+ * TODO correcly calculate claim amount
+ * TODO disallow claim after already claimed
+ */
+
 const Table: React.FC = () => {
-  const { userInfoDetailed, contracts, network, provider } = useContext(StoreContext);
-  const [igoAmount, setIgoAmount] = useState("");
-  const [monthlyAmount, setMonthlyAmount] = useState("");
+  const { userInfoDetailed, contracts, network, provider } =
+    useContext(StoreContext);
   const [loadingIndex, setLoadingIndex] = useState(-1);
   const igoDate = new Date(
     Number(config[network].WhitelistSale.igoTimestamp) * 1000
@@ -32,58 +42,30 @@ const Table: React.FC = () => {
     startText: "$MHT AVAILABLE FOR CLAIMING IN",
   };
 
-  const date = (months: number) => format(claimDate(months), "PPP HH:mm") + " UTC";
-  const claimDate = (months: number) => add(igoDate, { days: 30 * months });
-
-  const mhts = Array
-    .from(Array(13).keys())
-    .map((months) => {
-      const status = claimDate(months).getTime() < (new Date()).getTime() ? "CLAIM" : "LOCKED"
-      return {
-        item: "$MHT",
-        itemSub: "Mouse Haunt Token",
-        type: !months ? igoAmount : monthlyAmount,
-        typeSub: `Claimable on ${date(months)}`,
-        image: mht,
-        status,
-        title: status === 'CLAIM' ? 'Claim $MHT' : 'Locked',
-        amount: monthlyAmount
-      }
-    })
-
-  useEffect(() => {
-    (async () => {
-      const unlockAtIGOPercent =
-        config[network].WhitelistSale.PrivateSale2.unlockAtIGOPercent;
-      const vestingPeriodMonths =
-        config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
-      const igo =
-        unlockAtIGOPercent && userInfoDetailed?.totalTokens
-          ? ethers.utils.formatEther(
-              ethers.utils
-                .parseEther(userInfoDetailed.totalTokens)
-                .mul(unlockAtIGOPercent)
-                .div(100)
-                .toString()
-            )
-          : "";
-      const amount =
-        unlockAtIGOPercent &&
-        userInfoDetailed?.totalTokens &&
-        vestingPeriodMonths
-          ? ethers.utils.formatEther(
-              ethers.utils
-                .parseEther(userInfoDetailed.totalTokens)
-                .mul(100 - Number(unlockAtIGOPercent))
-                .div(100)
-                .div(vestingPeriodMonths)
-                .toString()
-            )
-          : "";
-      setIgoAmount(truncate(igo));
-      setMonthlyAmount(truncate(amount));
-    })();
-  }, [contracts, userInfoDetailed, network]);
+  const mhts = Array.from(Array(13).keys()).map((month) => {
+    const claimDate = add(igoDate, { days: 30 * month });
+    const date = format(claimDate, "PPP HH:mm") + " UTC";
+    const times =
+      contracts?.participatingSales.length &&
+      contracts?.participatingSales.length > 1
+        ? ` (${contracts?.participatingSales.length}x)`
+        : "";
+    const status =
+      claimDate.getTime() < new Date().getTime() ? "CLAIM" + times : "LOCKED";
+    const amount = !month
+      ? userInfoDetailed?.igoAmount
+      : userInfoDetailed?.monthlyAmount;
+    return {
+      item: "$MHT",
+      itemSub: "Mouse Haunt Token",
+      type: amount,
+      typeSub: `Claimable on ${date}`,
+      image: mht,
+      status,
+      title: status === "LOCKED" ? "Locked" : "Claim $MHT",
+      amount,
+    };
+  });
 
   const data = [
     {
@@ -93,7 +75,7 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: legendary,
       status: "AVAILABLE",
-      title: 'Add to wallet',
+      title: "Add to wallet",
     },
     {
       item: "BMHTE",
@@ -102,7 +84,7 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: epic,
       status: "AVAILABLE",
-      title: 'Add to wallet',
+      title: "Add to wallet",
     },
     {
       item: "BMHTR",
@@ -111,41 +93,54 @@ const Table: React.FC = () => {
       typeSub: "Available on wallet",
       image: rare,
       status: "AVAILABLE",
-      title: 'Add to wallet',
+      title: "Add to wallet",
     },
     ...mhts,
   ];
 
-  const onClick = async (row: { status: string }, index: number) => {
-    console.log(row)
-    switch(row.status) {
-      case 'LOCKED': {
+  const onClick = async (
+    row: { status: string; amount?: string },
+    index: number
+  ) => {
+    switch (row.status) {
+      case "LOCKED": {
         return;
       }
-      case 'AVAILABLE': {
-        await addToWallet(network)
+      case "AVAILABLE": {
+        await addToWallet(network);
         return;
       }
-      case 'CLAIM': {
+      default: {
         try {
-          if(!contracts?.preSale) return
+          if (!contracts?.participatingSales.length) return;
 
-          setLoadingIndex(index)
+          setLoadingIndex(index);
           const ethersProvider = new ethers.providers.Web3Provider(
             provider as any
           );
-          const claim = await contracts?.preSale.claim()
+
+          const txs = [];
+          for await (const { sale } of contracts?.participatingSales) {
+            const claim = await sale.claim();
             const tx = await waitFor(
               () => isTransactionMined(ethersProvider, claim?.hash),
               NETWORK_TIMEOUT
             );
-          setLoadingIndex(-1)
+            txs.push(tx);
+          }
+          setLoadingIndex(-1);
           router.push({
             pathname: "/store/success",
-            query: { type: "MHT", amount: monthlyAmount, tx, text: "CLAIM" },
+            query: {
+              type: "MHT",
+              amount: row.amount,
+              // TODO forward all CLAIM transactions to success page
+              tx: txs[txs.length - 1],
+              text: "CLAIM",
+            },
           });
         } catch (err: any) {
-          setLoadingIndex(-1)
+          setLoadingIndex(-1);
           const message = err.data ? err.data.message : err.message;
           alert(message);
         }
@@ -182,7 +177,12 @@ const Table: React.FC = () => {
               </div>
             </td>
             <td>
-              <Status disabled={loadingIndex === index} title={row.title} status={row.status} onClick={() => onClick(row, index)}>
+              <Status
+                disabled={loadingIndex === index}
+                title={row.title}
+                status={row.status}
+                onClick={() => onClick(row, index)}
+              >
                 {row.status}
               </Status>
               {loadingIndex === index && (

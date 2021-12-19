@@ -84,7 +84,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   const allowance =
     index === 0
-      ? userInfoDetailed?.allowance.mht
+      ? "" 
       : index === 1
       ? userInfoDetailed?.allowance.epic
       : userInfoDetailed?.allowance.rare;
@@ -182,13 +182,13 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (provider && contracts && sale && contracts.preSale) {
+    if (provider && contracts && sale && contracts.participatingSales[0]) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const buy = await contracts.preSale.buy(
+        const buy = await contracts.participatingSales[0].buy(
           ethers.utils.parseEther(sale.amount)
         );
         const tx = await waitFor(

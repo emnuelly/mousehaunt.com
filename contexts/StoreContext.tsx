@@ -34,7 +34,9 @@ interface UserInfo {
 }
 
 export interface UserInfoDetailed extends UserInfo {
-  whitelisted: boolean;
+  igoAmount: string;
+  monthlyAmount: string;
+
   mhtOnWallet: string;
   busdOnWallet: string;
   boosters: {
@@ -43,16 +45,22 @@ export interface UserInfoDetailed extends UserInfo {
     rare: string;
   };
   allowance: {
-    mht: string;
     epic: string;
     rare: string;
   };
 }
 
+interface WhitelistSaleDetailed {
+  sale: WhitelistSale;
+  details:
+    | typeof config.bsc.WhitelistSale.PreSales[0]
+    | typeof config.bsc.WhitelistSale.PrivateSale1;
+}
+
 export interface Contracts {
   whitelistSales: WhitelistSale[];
 
-  preSale?: WhitelistSale;
+  participatingSales: WhitelistSaleDetailed[];
   boosterSale3: BoosterSale3;
 
   busd: BUSD;
@@ -79,6 +87,48 @@ interface StoreContextData {
 export const StoreContext = createContext<StoreContextData>(
   {} as StoreContextData
 );
+
+function getWhitelistSaleAmounts(
+  contracts: Contracts,
+  userInfoDetailed: UserInfo
+): { igoAmount: string; monthlyAmount: string } {
+  const amounts = contracts.participatingSales
+    .map(({ details }) => {
+      const unlockAtIGOPercent = details.unlockAtIGOPercent;
+      const vestingPeriodMonths = details.vestingPeriodMonths;
+      const igoAmount =
+        unlockAtIGOPercent && userInfoDetailed?.totalTokens
+          ? ethers.utils
+              .parseEther(userInfoDetailed.totalTokens)
+              .mul(unlockAtIGOPercent)
+              .div(100)
+          : ethers.utils.parseEther("0");
+      const monthlyAmount =
+        unlockAtIGOPercent &&
+        userInfoDetailed?.totalTokens &&
+        vestingPeriodMonths
+          ? ethers.utils
+              .parseEther(userInfoDetailed.totalTokens)
+              .mul(100 - Number(unlockAtIGOPercent))
+              .div(100)
+              .div(vestingPeriodMonths)
+          : ethers.utils.parseEther("0");
+      return { igoAmount, monthlyAmount };
+    })
+    .reduce(
+      (a, b) => ({
+        igoAmount: a.igoAmount.add(b.igoAmount),
+        monthlyAmount: a.monthlyAmount.add(b.monthlyAmount),
+      }),
+      {
+        igoAmount: ethers.utils.parseEther("0"),
+        monthlyAmount: ethers.utils.parseEther("0"),
+      }
+    );
+  const igoAmount = amounts ? amounts.igoAmount.toString() : "";
+  const monthlyAmount = amounts ? amounts.monthlyAmount.toString() : "";
+  return { igoAmount, monthlyAmount };
+}
 
 async function getUserInfo(
   contracts: Contracts,
@@ -120,10 +170,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [refresh, setRefresh] = useState(false);
   const [network, setNetwork] = useState<Network>("bsc");
 
-  const sale = config[network].WhitelistSale.PreSales.find(
-    (sale) => sale.whitelisted === account
-  );
-
   useEffect(() => {
     if (window) {
       const n =
@@ -137,89 +183,106 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
   useEffect(() => {
     if (provider && account) {
-      const ethersProvider = new ethers.providers.Web3Provider(provider as any);
-      const signer = ethersProvider.getSigner(0);
+      (async () => {
+        try {
+          const ethersProvider = new ethers.providers.Web3Provider(
+            provider as any
+          );
+          const signer = ethersProvider.getSigner(0);
 
-      const whitelistSales = [
-        config[network].WhitelistSale.PrivateSale1.address,
-        config[network].WhitelistSale.PrivateSale2.address,
-        config[network].WhitelistSale.PrivateSale3.address,
-        ...config[network].WhitelistSale.PreSales.map((sale) => sale.address),
-      ].map(
-        (address) =>
-          new ethers.Contract(
-            address,
-            WhitelistSaleJson.abi,
+          const sales = [
+            config[network].WhitelistSale.PrivateSale1,
+            config[network].WhitelistSale.PrivateSale2,
+            config[network].WhitelistSale.PrivateSale3,
+            ...config[network].WhitelistSale.PreSales,
+          ];
+          const whitelistSales = sales
+            .map((sale) => sale.address)
+            .map(
+              (address) =>
+                new ethers.Contract(
+                  address,
+                  WhitelistSaleJson.abi,
+                  signer
+                ) as WhitelistSale
+            );
+
+          const participatingSales: WhitelistSaleDetailed[] = [];
+          for await (const sale of whitelistSales) {
+            const details = sales.find((s) => s.address === sale.address);
+            const isPreSaleWhitelisted =
+              details && (details as any).whitelisted === account;
+            if (isPreSaleWhitelisted) {
+              participatingSales.push({ sale, details });
+            } else {
+              const isWhitelisted = await sale.isWhitelisted(account);
+              if (isWhitelisted && details) {
+                participatingSales.push({ sale, details });
+              }
+            }
+          }
+
+          const boosterSale3 = new ethers.Contract(
+            config[network].BoosterSale.PrivateSale3.address,
+            BoosterSale3Json.abi,
             signer
-          ) as WhitelistSale
-      );
+          ) as BoosterSale3;
 
-      const preSale = sale
-        ? (new ethers.Contract(
-            sale.address,
-            WhitelistSaleJson.abi,
+          const bmhtl = new ethers.Contract(
+            config[network].BMHTL.address,
+            BMHTLJson.abi,
             signer
-          ) as WhitelistSale)
-        : undefined;
+          ) as BMHTL;
+          const bmhte = new ethers.Contract(
+            config[network].BMHTE.address,
+            BMHTEJson.abi,
+            signer
+          ) as BMHTE;
+          const bmhtr = new ethers.Contract(
+            config[network].BMHTR.address,
+            BMHTRJson.abi,
+            signer
+          ) as BMHTR;
+          const mht = new ethers.Contract(
+            config[network].MouseHauntToken.address,
+            MHTJson.abi,
+            signer
+          ) as BUSD;
+          const busd = new ethers.Contract(
+            config[network].BUSD.address,
+            BUSDJson.abi,
+            signer
+          ) as BUSD;
 
-      const boosterSale3 = new ethers.Contract(
-        config[network].BoosterSale.PrivateSale3.address,
-        BoosterSale3Json.abi,
-        signer
-      ) as BoosterSale3;
-
-      const bmhtl = new ethers.Contract(
-        config[network].BMHTL.address,
-        BMHTLJson.abi,
-        signer
-      ) as BMHTL;
-      const bmhte = new ethers.Contract(
-        config[network].BMHTE.address,
-        BMHTEJson.abi,
-        signer
-      ) as BMHTE;
-      const bmhtr = new ethers.Contract(
-        config[network].BMHTR.address,
-        BMHTRJson.abi,
-        signer
-      ) as BMHTR;
-      const mht = new ethers.Contract(
-        config[network].MouseHauntToken.address,
-        MHTJson.abi,
-        signer
-      ) as BUSD;
-      const busd = new ethers.Contract(
-        config[network].BUSD.address,
-        BUSDJson.abi,
-        signer
-      ) as BUSD;
-
-      setContracts({
-        whitelistSales,
-        preSale,
-        boosterSale3,
-        bmhtl,
-        bmhte,
-        bmhtr,
-        mht,
-        busd,
-      });
+          setContracts({
+            whitelistSales,
+            participatingSales,
+            boosterSale3,
+            bmhtl,
+            bmhte,
+            bmhtr,
+            mht,
+            busd,
+          });
+        } catch (err) {
+          console.error(err, "Error trying to setContracts");
+        }
+      })();
     }
-  }, [network, provider, account, sale]);
+  }, [network, provider, account]);
 
   useEffect(() => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted = await contracts?.preSale?.isWhitelisted(
-            account
-          );
-
-          const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
-          const legendary = await contracts?.bmhtl.balanceOf(account);
-          const epic = await contracts?.bmhte.balanceOf(account);
-          const rare = (await contracts?.bmhtr.balanceOf(account)).toString();
+          const legendary = await contracts.bmhtl.balanceOf(account);
+          const epic = await contracts.bmhte.balanceOf(account);
+          const rare = (await contracts.bmhtr.balanceOf(account)).toString();
+          const { igoAmount, monthlyAmount } = getWhitelistSaleAmounts(
+            contracts,
+            userInfo
+          );
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
@@ -228,48 +291,35 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             rare: rare,
           };
           const mhtOnWallet = ethers.utils.formatEther(
-            await contracts?.mht.balanceOf(account)
+            await contracts.mht.balanceOf(account)
           );
           const busdOnWallet = ethers.utils.formatEther(
-            await contracts?.busd.balanceOf(account)
+            await contracts.busd.balanceOf(account)
           );
 
-          const userInfoPreSale = await contracts?.preSale?.addressToUserInfo(
-            account
-          );
-          const mhtAllowance =
-            sale && userInfoPreSale
-              ? ethers.utils
-                  .formatEther(
-                    ethers.utils
-                      .parseEther(sale?.amount)
-                      .sub(userInfoPreSale[0])
-                  )
-                  .replace(/\..*/, "")
-              : "";
           const epicAllowance = (
-            await contracts?.boosterSale3.whitelist(
+            await contracts.boosterSale3.whitelist(
               account,
               config[network].BMHTE.address
             )
           ).toString();
           const rareAllowance = (
-            await contracts?.boosterSale3.whitelist(
+            await contracts.boosterSale3.whitelist(
               account,
               config[network].BMHTR.address
             )
           ).toString();
           const allowance = {
-            mht: mhtAllowance,
             epic: epicAllowance,
             rare: rareAllowance,
           };
 
           setUserInfoDetailed({
             ...userInfo,
+            igoAmount,
+            monthlyAmount,
             mhtOnWallet,
             busdOnWallet,
-            whitelisted,
             boosters,
             allowance,
           });
@@ -278,7 +328,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         }
       })();
     }
-  }, [account, contracts, network, refresh, sale]);
+  }, [account, contracts, network, refresh]);
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", function (accounts: string[]) {
