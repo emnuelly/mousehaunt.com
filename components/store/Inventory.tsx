@@ -1,19 +1,19 @@
-import React, { useContext, useEffect } from 'react';
-import type { NextPage } from 'next';
+import React, { useContext, useEffect } from "react";
+import type { NextPage } from "next";
 import {
   Container,
   Content,
   StoreInventoryBody,
   StoreInventoryContainer,
   StorePageSub,
-} from './styles/styles';
-import Header from '../common/Header';
-import Logo from '../common/Logo';
-import Sections from '../common/Sections';
-import { ConnectWalletButton } from '../common/ConnectWalletButton';
-import Footer from '../common/Footer';
-import Table from '../common/Table/Table';
-import PhishingMessage from '../common/PhishingBanner';
+} from "./styles/styles";
+import Header from "../common/Header";
+import Logo from "../common/Logo";
+import Sections from "../common/Sections";
+import { ConnectWalletButton } from "../common/ConnectWalletButton";
+import Footer from "../common/Footer";
+import Table from "../common/Table/Table";
+import PhishingMessage from "../common/PhishingBanner";
 
 const Inventory: NextPage = () => {
   return (
@@ -31,18 +31,10 @@ const Inventory: NextPage = () => {
             <h1>Inventory</h1>
             <StorePageSub>
               <div>
-                Boosters will be on your wallet right away! <br />
-                Get the #🧀trade channel ready.
-              </div>
-              <br />
-              <div>
-                $MHT won&apos;t be on your wallet, you will claim $MHT only at
-                IDO (December 21st)! <br />
-                To be compliant with Seedify Launchpad, we can only make $MHT
-                available at IDO, not before.
+                Welcome to the Inventory! Here you can see all the cheesy goods
+                you own from the Mouse Haunt Universe! 🧀🧀🧀
               </div>
             </StorePageSub>
-
             <Table />
           </StoreInventoryBody>
           <Footer />
