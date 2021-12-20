@@ -34,6 +34,11 @@ const seedSale = [
     amount: "20000",
     address: "0xF865b4c8281527764520744bD101017818a3915c",
   },
+  {
+    whitelisted: "0x01051D0eA83a7C6D797524Dc71e470Aa9e9dF328",
+    amount: "20000",
+    address: "0xbf3567874178C04aE51667808eDd4BacD6f10783",
+  },
 ].map((term) => ({
   ...term,
   owner: "0xb53A11c980f6E3b4725977A69672A373954B0157",
@@ -53,11 +58,6 @@ const privateSale = [
     whitelisted: "0x157144869CEe7FFf519C31ABd6648c8D19b12555",
     amount: "33340",
     address: "0x89FD7fbE1ee3bC6abC2363d989f7768D4b384198",
-  },
-  {
-    whitelisted: "0xa32d68d594e8c5627ae6b09dd32334005a415338",
-    amount: "200000",
-    address: "0x9A510C3B92dE443666c4608f96F02D501432c29B",
   },
   {
     whitelisted: "0x079eed46b77BCfEB267E80f19Afff1b284FFB5d1",
