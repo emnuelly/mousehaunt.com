@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.section`
   top: 0px;
@@ -10,14 +10,13 @@ export const Container = styled.section`
       rgba(19, 21, 36, 0.3) 0%,
       #131524 100%
     ),
-    url('/images/game-related/fireplace.webp');
+    url("/images/game-related/fireplace.webp");
   background-size: cover;
 
   @media only screen and (max-width: 600px) {
     width: 100vw;
   }
 `;
-
 
 export const Body = styled.div`
   display: flex;
@@ -48,7 +47,7 @@ export const BodyContent = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: 'Bebas Neue Pro';
+  font-family: "Bebas Neue Pro";
   font-weight: 800;
   font-size: 144px;
   line-height: 120px;
@@ -77,7 +76,7 @@ export const Subtitle = styled.div`
   margin-bottom: 40px;
 
   width: 522px;
-  font-family: 'SF Pro Display';
+  font-family: "SF Pro Display";
   font-size: 18px;
   line-height: 29px;
 
@@ -143,11 +142,11 @@ export const Phone = styled.div`
   height: 293px;
 
   filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
-  background-image: url('/images/phone-frames/iphone-600.png');
+  background-image: url("/images/phone-frames/iphone-600.png");
   background-repeat: no-repeat;
 
   @media only screen and (max-width: 600px) {
-    background-image: url('/images/phone-frames/iphone-320.png');
+    background-image: url("/images/phone-frames/iphone-320.png");
     width: 320px;
     height: 156px;
   }
@@ -191,6 +190,20 @@ export const Video = styled.div`
 `;
 
 export const DiscordButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: inherit;
+  align-items: center;
 
   margin-bottom: 24px;
+
+  a {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-right: 40px;
+    width: inherit;
+  }
+}
 `;
