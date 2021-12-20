@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import {
   Container,
@@ -14,6 +14,7 @@ import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Footer from "../common/Footer";
 import Table from "../common/Table/Table";
 import PhishingMessage from "../common/PhishingBanner";
+import Countdown from "../common/Countdown";
 
 const Inventory: NextPage = () => {
   return (
@@ -35,6 +36,11 @@ const Inventory: NextPage = () => {
                 you own from the Mouse Haunt Universe! 🧀🧀🧀
               </div>
             </StorePageSub>
+            <Countdown
+              startText={"COUNTDOWN TO CLAIM $MHT"}
+              endText={"COUNTDOWN TO CLAIM $MHT"}
+              date={new Date("2021-12-21T16:00:00.000Z")}
+            />
             <Table />
           </StoreInventoryBody>
           <Footer />
