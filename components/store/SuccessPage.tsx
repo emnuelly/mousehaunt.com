@@ -23,6 +23,7 @@ import mht from "../../public/images/other/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
 import { StoreContext, UserInfoDetailed } from "../../contexts/StoreContext";
+import { add, format } from "date-fns";
 
 const DescriptionMHT = (props: {
   userInfo?: UserInfoDetailed;
@@ -37,13 +38,13 @@ const DescriptionMHT = (props: {
       <span>$MHT Total Amount</span>
       <span>{props.userInfo?.totalTokens}</span>
     </div>
-    <div>
+    {/* <div>
       <span>Claimed</span>
       <span>{props.userInfo?.claimedTokens}</span>
-    </div>
+    </div> */}
     <div>
       <span>Next claim</span>
-      <span>IGO (December 21th)</span>
+      <span>{format(add(new Date(), { months: 1 }), "MMM yyyy")}</span>
     </div>
   </StoreSuccessDescription>
 );
@@ -56,6 +57,8 @@ const StoreSuccess: NextPage = () => {
       : router.query.type?.includes("RARE")
       ? rare
       : epic;
+  const text = router.query.text ?? "PURCHASE";
+  const action = router.query.text ? `${router.query.text}ED` : "BOUGHT";
   const tx = router.query.tx;
   const {
     account,
@@ -87,7 +90,7 @@ const StoreSuccess: NextPage = () => {
           </Header>
           <StoreSuccessBody>
             <h1>
-              PURCHASE <b>SUCCESSFUL</b>
+              {text} <b>SUCCESSFUL</b>
             </h1>
             <SuccessCard>
               <SuccessCardImage>
@@ -99,7 +102,7 @@ const StoreSuccess: NextPage = () => {
                 />
               </SuccessCardImage>
               <h2>
-                YOU BOUGHT <b>{router.query.amount}</b> {router.query.type}
+                YOU {action} <b>{router.query.amount}</b> {router.query.type}
               </h2>
               {router.query.type === "MHT" ? (
                 <DescriptionMHT userInfo={userInfo} account={account} />

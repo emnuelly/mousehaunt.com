@@ -92,24 +92,38 @@ width: 100%;
 interface Props {
   status: string
 }
-export const StatusBadge = styled.div<Props>`
-  background-color: ${props => props.status === 'AVAILABLE' ? "#374A5F" : "#52345D"};
+export const Status = styled.button<Props>`
+  background-color: ${props => props.status === '' ? "#AEAEAE" : props.status === 'AVAILABLE' ? "#374A5F" : props.status === 'LOCKED' ? "#52345D" : props.status === 'CLAIMED' ? '#5C3336' : "#375E44"};
+  border: ${props => props.status === '' ? "#5F5F5F" : props.status === 'AVAILABLE' ? "2px solid #458B72" : props.status === 'LOCKED' || props.status === 'CLAIMED' ? "2px solid #A04766" : "2px solid #458B72"};
+  cursor: ${props => props.status === 'LOCKED' || props.status === 'CLAIMED' || props.status === '' ? "" : "pointer"};
   height: 50px;
   width: 160px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: ${props => props.status === 'AVAILABLE' ? "2px solid #458B72" : "2px solid #A04766"};
-  div {
   font-family: "Bebas Neue Pro";
   font-size: 20px !important; 
+  color: white;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default !important;
   }
 
   @media only screen and (max-width: 600px) {
     width: 80px;
-    div {
     font-size: 12px !important; 
-    }
+  }
+`
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: -25px;
+  svg {
+    height: 50px;
+    margin-top: -10px;
+    fill: rgba(55, 94, 68, 0.5);
   }
 `

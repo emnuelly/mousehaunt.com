@@ -43,10 +43,12 @@ export const changeNetwork = async (network: Network) => {
   });
 }
 
-export function truncate(str: string, maxDecimalDigits = 3) {
+export function truncate(str: string, maxDecimalDigits = 3): string {
   if (str.includes(".")) {
     const parts = str.split(".");
     return parts[0] + "." + parts[1].slice(0, maxDecimalDigits);
   }
   return str;
 }
+
+export const NETWORK_TIMEOUT = 120E3

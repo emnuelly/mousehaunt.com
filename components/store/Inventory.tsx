@@ -37,8 +37,8 @@ const Inventory: NextPage = () => {
               </div>
             </StorePageSub>
             <Countdown
-              startText={"COUNTDOWN TO CLAIM $MHT"}
-              endText={"COUNTDOWN TO CLAIM $MHT"}
+              startText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
+              endText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
               date={new Date("2021-12-21T16:00:00.000Z")}
             />
             <Table />

@@ -19,7 +19,7 @@ import {
 } from "./stylesForm";
 import config, { Network } from "../../../utils/config";
 import waitFor from "../../../utils/waitFor";
-import { isTransactionMined } from "../../../utils/blockchain";
+import { isTransactionMined, NETWORK_TIMEOUT } from "../../../utils/blockchain";
 import { StoreContext } from "../../../contexts/StoreContext";
 import { useRouter } from "next/router";
 import { Button } from "../Button";
@@ -48,8 +48,6 @@ function boosterAllowance(
     )
     .mul(boosterAmount);
 }
-
-const NETWORK_TIMEOUT = 120e3;
 
 enum BUY_STEP {
   APPROVE,
@@ -86,7 +84,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
 
   const allowance =
     index === 0
-      ? userInfoDetailed?.allowance.mht
+      ? ""
       : index === 1
       ? userInfoDetailed?.allowance.epic
       : userInfoDetailed?.allowance.rare;
@@ -184,13 +182,13 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
   };
 
   const buyMHT = async () => {
-    if (provider && contracts && sale && contracts.preSale) {
+    if (provider && contracts && sale && contracts.participatingSales[0]) {
       try {
         setBuyStep(BUY_STEP.WAIT);
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const buy = await contracts.preSale.buy(
+        const buy = await contracts.participatingSales[0].sale.buy(
           ethers.utils.parseEther(sale.amount)
         );
         const tx = await waitFor(
@@ -382,7 +380,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.APPROVE ||
-                    !userInfoDetailed?.whitelisted ||
+                    // !userInfoDetailed?.whitelisted ||
                     allowance === "0"
                   }
                   onClick={() =>
@@ -394,7 +392,7 @@ const CardAmount: React.FC<Props> = ({ index }: Props) => {
                 <Button
                   disabled={
                     buyStep !== BUY_STEP.BUY ||
-                    !userInfoDetailed?.whitelisted ||
+                    // !userInfoDetailed?.whitelisted ||
                     allowance === "0"
                   }
                   onClick={() => (index === 0 ? buyMHT() : buyBooster())}

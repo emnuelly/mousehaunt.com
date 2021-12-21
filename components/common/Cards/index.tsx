@@ -77,7 +77,7 @@ const Cards: NextPage = () => {
         `IDO unlock: ${idoUnlock}%`,
         `Vesting: ${vesting} months`,
         "",
-        `Remaining allowance: ${userInfoDetailed?.allowance.mht || ""}`,
+        // `Remaining allowance: ${userInfoDetailed?.allowance.mht || ""}`,
       ],
     },
 
