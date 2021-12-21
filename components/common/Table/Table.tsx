@@ -15,10 +15,14 @@ import {
   NETWORK_TIMEOUT,
   truncate,
 } from "../../../utils/blockchain";
-import { format, add } from "date-fns";
+import { add } from "date-fns";
 import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
+import { format, utcToZonedTime } from "date-fns-tz";
+
+const formatInTimeZone = (date: Date, fmt: string, tz: string) =>
+  format(utcToZonedTime(date, tz), fmt, { timeZone: tz });
 
 const Table: React.FC = () => {
   const {
@@ -38,7 +42,7 @@ const Table: React.FC = () => {
 
   const mhts = Array.from(Array(13).keys()).map((month) => {
     const claimDate = add(igoDate, { days: 30 * month });
-    const date = format(claimDate, "PPP HH:mm") + " UTC";
+    const date = formatInTimeZone(claimDate, "PPP HH:mm", "UTC") + " UTC";
     const canClaim =
       userInfoDetailed?.claimsPerMonth && userInfoDetailed?.claimsPerMonth > 0;
     const times = canClaim
