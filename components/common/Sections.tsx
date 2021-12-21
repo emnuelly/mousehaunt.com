@@ -69,6 +69,13 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
           STORE
         </LinkButton>
       )}
+      <LinkButton
+        className="right"
+        href="https://sweepwidget.com/view/44340-uj94pctn"
+        target="_blank"
+      >
+        GENESIS EVENT
+      </LinkButton>
     </Container>
   );
 };

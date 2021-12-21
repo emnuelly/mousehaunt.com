@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Container,
@@ -12,17 +12,18 @@ import {
   Left,
   Right,
   DiscordButton,
-} from './styles';
+} from "./styles";
 
-import Image from 'next/image';
-import telegram from '../../../public/images/other/button_telegram.png';
-import medium from '../../../public/images/other/button_medium.png';
-import twitter from '../../../public/images/other/button_twitter.png';
-import discord from '../../../public/images/other/button_discord.png';
-import Header from '../Header';
-import Logo from '../Logo';
-import Sections from '../Sections';
-import Menu from '../BurgerMenu';
+import Image from "next/image";
+import telegram from "../../../public/images/other/button_telegram.png";
+import medium from "../../../public/images/other/button_medium.png";
+import twitter from "../../../public/images/other/button_twitter.png";
+import discord from "../../../public/images/other/button_discord.png";
+import Header from "../Header";
+import Logo from "../Logo";
+import Sections from "../Sections";
+import Menu from "../BurgerMenu";
+import Countdown from "../Countdown";
 
 const Landing: React.FC = () => (
   <Container id="About">
@@ -61,6 +62,11 @@ const Landing: React.FC = () => (
                   priority
                 />
               </a>
+              <Countdown
+                startText={"COUNTDOWN TO PANCAKESWAP LISTING"}
+                endText={"$MHT LISTED ON PANCAKESWAP"}
+                date={new Date("2021-12-21T16:00:00.000Z")}
+              />
             </DiscordButton>
             <div>
               <span>

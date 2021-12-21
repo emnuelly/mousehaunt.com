@@ -16,7 +16,6 @@ import {
   truncate,
 } from "../../../utils/blockchain";
 import { format, add } from "date-fns";
-import Countdown from "../Countdown";
 import { useRouter } from "next/router";
 import waitFor from "../../../utils/waitFor";
 import Loading from "../../../assets/svg/loading.svg";
@@ -36,12 +35,6 @@ const Table: React.FC = () => {
     Number(config[network].WhitelistSale.igoTimestamp) * 1000
   );
   const router = useRouter();
-
-  const countdown = {
-    date: igoDate,
-    endText: "$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC",
-    startText: "$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC",
-  };
 
   const mhts = Array.from(Array(13).keys()).map((month) => {
     const claimDate = add(igoDate, { days: 30 * month });
@@ -170,7 +163,6 @@ const Table: React.FC = () => {
 
   return (
     <Styles>
-      <Countdown {...countdown} />
       <table>
         <tr>
           <th>Item</th>

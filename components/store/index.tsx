@@ -17,12 +17,6 @@ import PhishingMessage from "../common/PhishingBanner";
 import Countdown from "../common/Countdown";
 
 const StoreHome: NextPage = () => {
-  const countdown = {
-    date: new Date("2021-12-15T00:00:00.000Z"),
-    endText: "PRIVATE SALE (#3) ENDED",
-    startText: "PRIVATE SALE (#3) ENDS IN",
-  };
-
   return (
     <Container>
       <Content>
@@ -40,8 +34,11 @@ const StoreHome: NextPage = () => {
           </Header>
           <StoreTitle>SHOP</StoreTitle>
           <StorePageSub>Welcome to the Mouse Haunt Shop!</StorePageSub>
-          <Countdown {...countdown} />
-          <Cards />
+          <Countdown
+            startText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
+            endText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
+            date={new Date("2021-12-21T16:00:00.000Z")}
+          />
         </StoreContainer>
       </Content>
     </Container>
