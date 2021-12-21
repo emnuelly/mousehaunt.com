@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import {
   Container,
@@ -15,6 +15,7 @@ import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Menu from "../common/BurgerMenu";
 import PhishingMessage from "../common/PhishingBanner";
 import Countdown from "../common/Countdown";
+import Link from "../common/Link";
 
 const StoreHome: NextPage = () => {
   return (
@@ -39,6 +40,15 @@ const StoreHome: NextPage = () => {
             endText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
             date={new Date("2021-12-21T16:00:00.000Z")}
           />
+          <Link
+            style={{
+              width: "140px",
+              margin: "auto",
+            }}
+            href="/store/inventory"
+          >
+            INVENTORY
+          </Link>
         </StoreContainer>
       </Content>
     </Container>
