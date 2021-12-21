@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import genesisEvent from "../../../public/images/other/genesis-event.png";
+import genesisEventMobile from "../../../public/images/other/genesis-event-mobile.png";
 import Image from "next/image";
-import { Container, GenesisContainer, Overlay } from "./styles";
+import { Container, GenesisContainer, Overlay, ImageContainer } from "./styles";
 import { CardSubtitle, IconStyle } from "../Cards/styles";
 import { BiRightArrowAlt } from "react-icons/bi";
 import CardAmount from "../Cards/CardAmount";
@@ -20,7 +21,22 @@ const GenesisBooster: NextPage = () => {
     <>
       <Container>
         <GenesisContainer>
-          <Image src={genesisEvent} alt="Genesis Event" placeholder="blur" />
+          <ImageContainer>
+            <div className="desktop">
+              <Image
+                src={genesisEvent}
+                alt="Genesis Event"
+                placeholder="blur"
+              />
+            </div>
+            <div className="mobile">
+              <Image
+                src={genesisEventMobile}
+                alt="Genesis Event"
+                placeholder="blur"
+              />
+            </div>
+          </ImageContainer>
           <Overlay>
             <h1>
               GENESIS
