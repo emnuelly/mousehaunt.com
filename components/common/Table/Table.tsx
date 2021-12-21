@@ -53,6 +53,8 @@ const Table: React.FC = () => {
       userInfoDetailed &&
       userInfoDetailed.lastClaimMonthIndex >= month &&
       !userInfoDetailed.hasBoughtWhitelist3;
+    console.log(claimed, userInfoDetailed?.hasBoughtWhitelist3);
+
     const status = !account
       ? ""
       : claimed
