@@ -35,6 +35,8 @@ interface UserInfo {
   igoAmount: string;
   monthlyAmount: string;
   claimsPerMonth: number;
+
+  hasBoughtWhitelist3: boolean;
 }
 
 export interface UserInfoDetailed extends UserInfo {
@@ -108,6 +110,7 @@ async function getUserInfo(
   const userInfos = await Promise.all(
     contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
   );
+  const hasBoughtWhitelist3 = isEmptyUserInfo(userInfos[2]);
   const amounts = contracts.whitelistSales
     .map((sale, index) => {
       const details = contracts.participatingSales.find(
@@ -193,6 +196,7 @@ async function getUserInfo(
     igoAmount,
     monthlyAmount,
     claimsPerMonth,
+    hasBoughtWhitelist3,
   };
 }
 
@@ -346,6 +350,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             epic: epicAllowance,
             rare: rareAllowance,
           };
+          const hasBoughtWhitelist3 = userInfo.hasBoughtWhitelist3;
 
           setUserInfoDetailed({
             ...userInfo,
@@ -353,6 +358,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             busdOnWallet,
             boosters,
             allowance,
+            hasBoughtWhitelist3,
           });
         } catch (err) {
           console.error(err, "Error trying to updateUserInfo");

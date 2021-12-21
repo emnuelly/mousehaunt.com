@@ -50,7 +50,9 @@ const Table: React.FC = () => {
         ? ` (${Math.trunc(userInfoDetailed.claimsPerMonth)}x)`
         : "";
     const claimed =
-      userInfoDetailed && userInfoDetailed.lastClaimMonthIndex >= month;
+      userInfoDetailed &&
+      userInfoDetailed.lastClaimMonthIndex >= month &&
+      !userInfoDetailed.hasBoughtWhitelist3;
     const status = !account
       ? ""
       : claimed
