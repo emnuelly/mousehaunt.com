@@ -63,7 +63,7 @@ const Landing: React.FC = () => (
                 />
               </a>
               <a
-                href="https://pancakeswap.finance/swap?inputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56&outputCurrency=0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B"
+                href="http://mht.gg/pancakeswap"
                 rel="noreferrer"
                 target="_blank"
               >
