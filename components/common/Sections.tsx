@@ -64,13 +64,11 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
           </a>
         </Link>
       ))}
-      <LinkButton
-        className="right"
-        href="https://sweepwidget.com/view/44340-uj94pctn"
-        target="_blank"
-      >
-        GENESIS EVENT
-      </LinkButton>
+      {isStorePath ? null : (
+        <LinkButton className="right" href="/store">
+          STORE
+        </LinkButton>
+      )}
     </Container>
   );
 };
