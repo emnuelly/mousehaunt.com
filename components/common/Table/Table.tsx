@@ -45,9 +45,10 @@ const Table: React.FC = () => {
     const date = formatInTimeZone(claimDate, "PPP HH:mm", "UTC") + " UTC";
     const canClaim =
       userInfoDetailed?.claimsPerMonth && userInfoDetailed?.claimsPerMonth > 0;
-    const times = canClaim
-      ? ` (${Math.trunc(userInfoDetailed.claimsPerMonth)}x)`
-      : "";
+    const times =
+      canClaim && userInfoDetailed?.claimsPerMonth > 1
+        ? ` (${Math.trunc(userInfoDetailed.claimsPerMonth)}x)`
+        : "";
     const claimed =
       userInfoDetailed && userInfoDetailed.lastClaimMonthIndex >= month;
     const status = !account
