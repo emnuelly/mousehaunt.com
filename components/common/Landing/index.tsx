@@ -19,11 +19,11 @@ import telegram from "../../../public/images/other/button_telegram.png";
 import medium from "../../../public/images/other/button_medium.png";
 import twitter from "../../../public/images/other/button_twitter.png";
 import discord from "../../../public/images/other/button_discord.png";
+import pancakeswap from "../../../public/images/other/button_pancakeswap.png";
 import Header from "../Header";
 import Logo from "../Logo";
 import Sections from "../Sections";
 import Menu from "../BurgerMenu";
-import Countdown from "../Countdown";
 
 const Landing: React.FC = () => (
   <Container id="About">
@@ -62,11 +62,20 @@ const Landing: React.FC = () => (
                   priority
                 />
               </a>
-              <Countdown
-                startText={"COUNTDOWN TO PANCAKESWAP LISTING"}
-                endText={"$MHT LISTED ON PANCAKESWAP"}
-                date={new Date("2021-12-21T16:00:00.000Z")}
-              />
+              <a
+                href="http://mht.gg/pancakeswap"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <Image
+                  src={pancakeswap}
+                  width="222px"
+                  height="68px"
+                  alt="Buy on pancakeswap"
+                  placeholder="blur"
+                  priority
+                />
+              </a>
             </DiscordButton>
             <div>
               <span>
