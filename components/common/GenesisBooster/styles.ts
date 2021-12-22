@@ -46,7 +46,7 @@ export const Overlay = styled.div`
 
   h1 {
     font-size: 120px;
-    line-height: 1em;
+    line-height: 0.8em;
     margin: 0px auto;
 
     @media only screen and (max-width: 600px) {

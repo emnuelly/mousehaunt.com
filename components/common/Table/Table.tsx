@@ -4,6 +4,7 @@ import mht from "../../../public/images/other/MHT.png";
 import legendary from "../../../public/images/other/legendary.png";
 import epic from "../../../public/images/other/epic.png";
 import rare from "../../../public/images/other/rare.png";
+import genesis from "../../../public/images/other/genesis.png";
 
 import { Styles, Status, LoadingContainer } from "./styles";
 import { StoreContext } from "../../../contexts/StoreContext";
@@ -107,6 +108,15 @@ const Table: React.FC = () => {
       type: account ? userInfoDetailed?.boosters.rare : "",
       typeSub: "Available on wallet",
       image: rare,
+      status: account ? "AVAILABLE" : "",
+      title: "Add to wallet",
+    },
+    {
+      item: "BMHTG",
+      itemSub: "Mouse Haunt Booster GENESIS",
+      type: account ? userInfoDetailed?.boosters.genesis : "",
+      typeSub: "Available on wallet",
+      image: genesis,
       status: account ? "AVAILABLE" : "",
       title: "Add to wallet",
     },

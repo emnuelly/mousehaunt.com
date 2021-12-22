@@ -65,6 +65,7 @@ export const CardSubtitle = styled.div`
   top: -30%;
   font-family: "SF Pro Display";
   font-size: 14px;
+  margin-top: 20px;
 
   ul li {
     list-style-type: none;
