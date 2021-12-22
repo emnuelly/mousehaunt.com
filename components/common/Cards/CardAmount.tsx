@@ -170,13 +170,13 @@ const CardAmount: React.FC = () => {
               <FormMainSection>{displayIncrementalButtons()}</FormMainSection>
               <ButtonFormat>
                 <Button
-                  disabled={buyStep !== BUY_STEP.APPROVE || allowance === "0"}
+                  disabled={buyStep !== BUY_STEP.APPROVE || allowance === 0}
                   onClick={approveBooster}
                 >
                   APPROVE MHT
                 </Button>
                 <Button
-                  disabled={buyStep !== BUY_STEP.BUY || allowance === "0"}
+                  disabled={buyStep !== BUY_STEP.BUY || allowance === 0}
                   onClick={buyBooster}
                 >
                   BUY
