@@ -59,11 +59,11 @@ export const ConnectWalletButton = () => {
   //     : " NOT WHITELISTED OR ABOVE CAP (GENESIS)";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens
-      ? truncate(userInfoDetailed?.totalTokens) + " $MHT PURCHASED"
+      ? truncate(userInfoDetailed?.totalTokens) + " $MHT PURCHASED ON PRESALE"
       : "";
   const mhtOnWalletText =
     account && userInfoDetailed?.mhtOnWallet
-      ? truncate(userInfoDetailed?.mhtOnWallet) + " $MHT"
+      ? truncate(userInfoDetailed?.mhtOnWallet) + " $MHT ON WALLET"
       : "";
   const busdOnWalletText =
     account && userInfoDetailed?.busdOnWallet
