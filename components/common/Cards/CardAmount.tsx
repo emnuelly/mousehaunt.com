@@ -28,9 +28,7 @@ function isNumeric(str: string): boolean {
 
 function boosterAllowance(boosterAmount: number, network: Network) {
   return ethers.utils
-    .parseEther(
-      config[network].BoosterSale.PrivateSale3.BMHTR.busdPrice.toString()
-    )
+    .parseEther(config[network].BoosterSale.Genesis.mhtPrice.toString())
     .mul(boosterAmount);
 }
 
@@ -64,7 +62,7 @@ const CardAmount: React.FC = () => {
           provider as any
         );
         const approve = await contracts.busd.approve(
-          config[network].BoosterSale.PrivateSale3.address,
+          config[network].BoosterSale.Genesis.address,
           boosterAllowance(boosterAmount, network)
         );
         await waitFor(
@@ -145,9 +143,7 @@ const CardAmount: React.FC = () => {
               top: "15%",
             }}
             onClick={() => {
-              const amountMax = Number(
-                config[network].BoosterSale.PrivateSale3.BMHTR.cap
-              );
+              const amountMax = Number(config[network].BoosterSale.Genesis.cap);
               if (boosterAmount >= 1 && boosterAmount < amountMax) {
                 setBoosterAmount(boosterAmount + 1);
               }
