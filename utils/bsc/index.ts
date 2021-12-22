@@ -73,6 +73,13 @@ const bsc = {
     symbol: "BMHTR",
     decimals: 0,
   },
+  BMHTG: {
+    address: "0x6700A1d1FCD32ac8749124648B4e89DdA12dfa6d",
+    owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+    image: "https://mousehaunt.com/images/genesis.png",
+    symbol: "BMHTG",
+    decimals: 0,
+  },
   BoosterSale: {
     PrivateSale1: {
       address: "0xa7Ee9AE77671934FE936706b2193E33Bc3F6461C",
@@ -115,6 +122,13 @@ const bsc = {
         cap: "2",
         available: "20000",
       },
+    },
+    Genesis: {
+      address: "0x6385a7F39E2F0a678979Fa35Db7CDd5F4a4E2Af6",
+      owner: "0x2124b4912532f6cD235081fEA2223EB3C0Af301d",
+      mhtPrice: "30",
+      cap: "10",
+      available: "30000",
     },
   },
   MouseHero: {

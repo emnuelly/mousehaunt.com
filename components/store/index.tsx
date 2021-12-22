@@ -7,15 +7,14 @@ import {
   StorePageSub,
   StoreTitle,
 } from "./styles/styles";
-import Cards from "../common/Cards";
 import Header from "../common/Header";
 import Logo from "../common/Logo";
 import Sections from "../common/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Menu from "../common/BurgerMenu";
 import PhishingMessage from "../common/PhishingBanner";
+import GenesisBooster from "../common/GenesisBooster";
 import Countdown from "../common/Countdown";
-import Link from "../common/Link";
 
 const StoreHome: NextPage = () => {
   return (
@@ -36,19 +35,11 @@ const StoreHome: NextPage = () => {
           <StoreTitle>SHOP</StoreTitle>
           <StorePageSub>Welcome to the Mouse Haunt Shop!</StorePageSub>
           <Countdown
-            startText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
-            endText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
-            date={new Date("2021-12-21T16:00:00.000Z")}
+            startText={"GENESIS EVENT STARTS IN"}
+            endText={"GENESIS EVENT STARTED"}
+            date={new Date("2021-12-23T01:00:00.000Z")}
           />
-          <Link
-            style={{
-              width: "140px",
-              margin: "auto",
-            }}
-            href="/store/inventory"
-          >
-            INVENTORY
-          </Link>
+          <GenesisBooster />
         </StoreContainer>
       </Content>
     </Container>

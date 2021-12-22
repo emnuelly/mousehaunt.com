@@ -6,14 +6,16 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 import config, { Network } from "../utils/config";
 import { WhitelistSale } from "../typechain/WhitelistSale";
 import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
-import { BoosterSale3 } from "../typechain/BoosterSale3";
-import BoosterSale3Json from "../contracts/booster/BoosterSale3.sol/BoosterSale3.json";
+import { BoosterSaleGenesis } from "../typechain/BoosterSaleGenesis";
+import BoosterSaleGenesisJson from "../contracts/booster/BoosterSaleGenesis.sol/BoosterSaleGenesis.json";
 import { BMHTL } from "../typechain/BMHTL";
 import BMHTLJson from "../contracts/booster/BMHTL.sol/BMHTL.json";
 import { BMHTE } from "../typechain/BMHTE";
 import BMHTEJson from "../contracts/booster/BMHTE.sol/BMHTE.json";
 import { BMHTR } from "../typechain/BMHTR";
 import BMHTRJson from "../contracts/booster/BMHTR.sol/BMHTR.json";
+import { BMHTG } from "../typechain/BMHTG";
+import BMHTGJson from "../contracts/booster/BMHTG.sol/BMHTG.json";
 import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import MHTJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
@@ -46,10 +48,10 @@ export interface UserInfoDetailed extends UserInfo {
     epic: string;
     legendary: string;
     rare: string;
+    genesis: string;
   };
   allowance: {
-    epic: string;
-    rare: string;
+    genesis: string;
   };
 }
 
@@ -64,13 +66,14 @@ export interface Contracts {
   whitelistSales: WhitelistSale[];
 
   participatingSales: WhitelistSaleDetailed[];
-  boosterSale3: BoosterSale3;
+  boosterSaleGenesis: BoosterSaleGenesis;
 
   busd: BUSD;
   mht: MouseHauntToken;
   bmhtl: BMHTL;
   bmhte: BMHTE;
   bmhtr: BMHTR;
+  bmhtg: BMHTG;
 }
 
 interface StoreContextData {
@@ -217,6 +220,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     if (window) {
       const n =
         window.location.hostname.includes("vercel.app") ||
+        window.location.hostname.includes("testnet.mousehaunt.com") ||
         window.location.hostname.includes("localhost")
           ? "bscTestnet"
           : "bsc";
@@ -265,11 +269,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             }
           }
 
-          const boosterSale3 = new ethers.Contract(
-            config[network].BoosterSale.PrivateSale3.address,
-            BoosterSale3Json.abi,
+          const boosterSaleGenesis = new ethers.Contract(
+            config[network].BoosterSale.Genesis.address,
+            BoosterSaleGenesisJson.abi,
             signer
-          ) as BoosterSale3;
+          ) as BoosterSaleGenesis;
 
           const bmhtl = new ethers.Contract(
             config[network].BMHTL.address,
@@ -286,6 +290,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             BMHTRJson.abi,
             signer
           ) as BMHTR;
+          const bmhtg = new ethers.Contract(
+            config[network].BMHTG.address,
+            BMHTGJson.abi,
+            signer
+          ) as BMHTG;
           const mht = new ethers.Contract(
             config[network].MouseHauntToken.address,
             MHTJson.abi,
@@ -300,10 +309,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           setContracts({
             whitelistSales,
             participatingSales,
-            boosterSale3,
+            boosterSaleGenesis,
             bmhtl,
             bmhte,
             bmhtr,
+            bmhtg,
             mht,
             busd,
           });
@@ -322,12 +332,14 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           const legendary = await contracts.bmhtl.balanceOf(account);
           const epic = await contracts.bmhte.balanceOf(account);
           const rare = (await contracts.bmhtr.balanceOf(account)).toString();
+          const genesis = (await contracts.bmhtg.balanceOf(account)).toString();
           const boosters = {
             legendary: ethers.utils
               .formatEther(legendary ?? "")
               .replace(".0", ""),
             epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
-            rare: rare,
+            rare,
+            genesis,
           };
           const mhtOnWallet = ethers.utils.formatEther(
             await contracts.mht.balanceOf(account)
@@ -336,21 +348,11 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             await contracts.busd.balanceOf(account)
           );
 
-          const epicAllowance = (
-            await contracts.boosterSale3.whitelist(
-              account,
-              config[network].BMHTE.address
-            )
-          ).toString();
-          const rareAllowance = (
-            await contracts.boosterSale3.whitelist(
-              account,
-              config[network].BMHTR.address
-            )
+          const genesisAllowance = (
+            await contracts.boosterSaleGenesis.whitelist(account)
           ).toString();
           const allowance = {
-            epic: epicAllowance,
-            rare: rareAllowance,
+            genesis: genesisAllowance,
           };
           const hasBoughtWhitelist3ButNotClaimed =
             userInfo.hasBoughtWhitelist3ButNotClaimed;

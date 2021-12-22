@@ -36,11 +36,6 @@ const Inventory: NextPage = () => {
                 you own from the Mouse Haunt Universe! 🧀🧀🧀
               </div>
             </StorePageSub>
-            <Countdown
-              startText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
-              endText={"$MHT CLAIMABLE ON DECEMBER 21ST 4PM UTC"}
-              date={new Date("2021-12-21T16:00:00.000Z")}
-            />
             <Table />
           </StoreInventoryBody>
           <Footer />

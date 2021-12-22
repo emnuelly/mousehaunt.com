@@ -17,8 +17,10 @@ import Footer from "../common/Footer";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
+import legendary from "../../public/images/other/legendary.png";
 import epic from "../../public/images/other/epic.png";
 import rare from "../../public/images/other/rare.png";
+import genesis from "../../public/images/other/genesis.png";
 import mht from "../../public/images/other/MHT.png";
 import { addToWallet } from "../../utils/blockchain";
 import { Button } from "../common/Button";
@@ -56,7 +58,11 @@ const StoreSuccess: NextPage = () => {
       ? mht
       : router.query.type?.includes("RARE")
       ? rare
-      : epic;
+      : router.query.type?.includes("EPIC")
+      ? epic
+      : router.query.type?.includes("GENESIS")
+      ? genesis
+      : legendary;
   const text = router.query.text ?? "PURCHASE";
   const action = router.query.text ? `${router.query.text}ED` : "BOUGHT";
   const tx = router.query.tx;
