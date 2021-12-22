@@ -50,13 +50,12 @@ export const ConnectWalletButton = () => {
   };
 
   const buttonText = account ? "DISCONNECT" : "CONNECT WALLET";
-  const whitelistedText = "";
-  // const whitelistedText =
-  //   !account || !userInfoDetailed?.allowance.genesis
-  //     ? ""
-  //     : Number(userInfoDetailed?.allowance.genesis) > 0
-  //     ? " WHITELISTED (GENESIS)"
-  //     : " NOT WHITELISTED OR ABOVE CAP (GENESIS)";
+  const whitelistedText =
+    !account || !userInfoDetailed?.allowance.genesis
+      ? ""
+      : Number(userInfoDetailed?.allowance.genesis) > 0
+      ? " WHITELISTED (GENESIS)"
+      : " NOT WHITELISTED OR ABOVE CAP (GENESIS)";
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens
       ? truncate(userInfoDetailed?.totalTokens) + " $MHT PURCHASED"
@@ -65,13 +64,8 @@ export const ConnectWalletButton = () => {
     account && userInfoDetailed?.mhtOnWallet
       ? truncate(userInfoDetailed?.mhtOnWallet) + " $MHT"
       : "";
-  const busdOnWalletText =
-    account && userInfoDetailed?.busdOnWallet
-      ? truncate(userInfoDetailed?.busdOnWallet) + " BUSD"
-      : "";
 
-  const hasText =
-    whitelistedText || mhtPurchasedText || mhtOnWalletText || busdOnWalletText;
+  const hasText = whitelistedText || mhtPurchasedText || mhtOnWalletText;
 
   return (
     <Container>
@@ -83,7 +77,6 @@ export const ConnectWalletButton = () => {
                 whitelistedText,
                 mhtPurchasedText,
                 mhtOnWalletText,
-                busdOnWalletText,
               ]
                 .filter((x) => x)
                 .map((text) => <span key={text}>{text}</span>)
