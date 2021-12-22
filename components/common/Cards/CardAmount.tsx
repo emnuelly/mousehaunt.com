@@ -87,8 +87,7 @@ const CardAmount: React.FC = () => {
         );
         const booster = config[network].BMHTR.address;
 
-        const buy = await contracts.boosterSale3.buy(
-          booster,
+        const buy = await contracts.boosterSaleGenesis.buy(
           boosterAmount.toString()
         );
         const tx = await waitFor(
