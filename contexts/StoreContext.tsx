@@ -1,8 +1,6 @@
 import { ethers } from "ethers";
 import Web3 from "web3";
 import { provider } from "web3-core";
-import Web3Modal from "web3modal";
-import WalletConnectProvider from "@walletconnect/web3-provider";
 import config, { Network } from "../utils/config";
 import { WhitelistSale } from "../typechain/WhitelistSale";
 import WhitelistSaleJson from "../contracts/WhitelistSale.sol/WhitelistSale.json";
@@ -16,7 +14,7 @@ import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 
 import React, { createContext, ReactNode, useEffect, useState } from "react";
-import { changeNetwork } from "../utils/blockchain";
+import { changeNetwork, getBlockchainProvider } from "../utils/blockchain";
 
 interface Props {
   children: ReactNode;
@@ -70,18 +68,14 @@ export const StoreContext = createContext<StoreContextData>({
   network: DEFAULT_NETWORK,
 } as StoreContextData);
 
-async function getUserInfo(
-  contracts: Contracts,
-  account: string
-): Promise<UserInfo> {
+async function getUserInfo(contracts: Contracts, account: string): Promise<UserInfo> {
   const [userInfo1, userInfo2] = await Promise.all([
     contracts.privateSale1.addressToUserInfo(account),
     contracts.privateSale2.addressToUserInfo(account),
   ]);
   const totalTokens = userInfo1[0].add(userInfo2[0]);
   const remainingTokens = userInfo1[1].add(userInfo2[1]);
-  const claimedTokens =
-    totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
+  const claimedTokens = totalTokens && remainingTokens ? totalTokens.sub(remainingTokens) : "";
   const lastClaimMonthIndex = userInfo1 ? Number(userInfo1[2]) : -1;
 
   return {
@@ -93,13 +87,11 @@ async function getUserInfo(
 }
 
 export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
-  const [web3, setWeb3] = useState<Web3 | undefined>();
-  const [contracts, setContracts] = useState<Contracts | undefined>();
-  const [provider, setProvider] = useState<provider | undefined>();
+  const [web3, setWeb3] = useState<Web3>();
+  const [contracts, setContracts] = useState<Contracts>();
+  const [provider, setProvider] = useState<provider>();
   const [account, setAccount] = useState<string>("");
-  const [userInfoDetailed, setUserInfoDetailed] = useState<
-    UserInfoDetailed | undefined
-  >();
+  const [userInfoDetailed, setUserInfoDetailed] = useState<UserInfoDetailed>();
   const [refresh, setRefresh] = useState(false);
   const [network, setNetwork] = useState<Network>(DEFAULT_NETWORK);
 
@@ -107,23 +99,17 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
     if (account && contracts) {
       (async () => {
         try {
-          const isWhitelisted = await contracts?.privateSale2.isWhitelisted(
-            account
-          );
+          const isWhitelisted = await contracts?.privateSale2.isWhitelisted(account);
 
           const whitelisted = Boolean(isWhitelisted);
           const userInfo = await getUserInfo(contracts, account);
           const legendary = await contracts?.bmhtl.balanceOf(account);
           const epic = await contracts?.bmhte.balanceOf(account);
           const boosters = {
-            legendary: ethers.utils
-              .formatEther(legendary ?? "")
-              .replace(".0", ""),
+            legendary: ethers.utils.formatEther(legendary ?? "").replace(".0", ""),
             epic: ethers.utils.formatEther(epic ?? "").replace(".0", ""),
           };
-          const busdOnWallet = ethers.utils.formatEther(
-            await contracts?.busd.balanceOf(account)
-          );
+          const busdOnWallet = ethers.utils.formatEther(await contracts?.busd.balanceOf(account));
           setUserInfoDetailed({
             ...userInfo,
             busdOnWallet,
@@ -175,11 +161,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
         signer
       ) as BMHTE;
 
-      const busd = new ethers.Contract(
-        config[network].BUSD.address,
-        BUSDJson.abi,
-        signer
-      ) as BUSD;
+      const busd = new ethers.Contract(config[network].BUSD.address, BUSDJson.abi, signer) as BUSD;
 
       setContracts({
         privateSale1,
@@ -220,34 +202,10 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   }, [network]);
 
   const getAccount = async () => {
-    try {
-      const providerOptions = {
-        walletconnect: {
-          package: WalletConnectProvider,
-          options: {
-            rpc: {
-              56: "https://bsc-dataseed.binance.org/",
-            },
-            network: "binance",
-          },
-        },
-      };
-      const web3Modal = new Web3Modal({
-        cacheProvider: true,
-        providerOptions,
-      });
-      const p = await web3Modal.connect();
-      setProvider(p);
-      const w = new Web3(p);
-      setWeb3(w);
-
-      const accounts = await w.eth.getAccounts();
-      const account = accounts[0];
-      return account;
-    } catch (err) {
-      console.error(err, "Error trying to updateUserInfo");
-      return "";
-    }
+    const blockchainProvider = await getBlockchainProvider();
+    setProvider(blockchainProvider.provider);
+    setWeb3(blockchainProvider.web3);
+    return blockchainProvider.account;
   };
 
   return (

@@ -1,9 +1,10 @@
-import '../styles/globals.css';
-import type { AppProps } from 'next/app';
-import React, { useEffect } from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { StoreProvider } from '../contexts/StoreContext';
-import { MarketBoardProvider } from '../contexts/MarketPlaceContext';
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import React, { useEffect } from "react";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { StoreProvider } from "../contexts/StoreContext";
+import { MarketBoardProvider } from "../contexts/MarketPlaceContext";
+import { MarketplaceContractProvider } from "../contexts/contracts/MarketplaceContractContext";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -36,9 +37,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={{}}>
       <GlobalStyle />
       <StoreProvider>
-        <MarketBoardProvider>
-          <Component {...pageProps} />
-        </MarketBoardProvider>
+        <MarketplaceContractProvider>
+          <MarketBoardProvider>
+            <Component {...pageProps} />
+          </MarketBoardProvider>
+        </MarketplaceContractProvider>
       </StoreProvider>
     </ThemeProvider>
   );

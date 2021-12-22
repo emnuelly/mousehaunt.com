@@ -11,6 +11,9 @@ const bsc = {
   BUSD: {
     address: "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
   },
+  Marketplace: {
+    address: "0x6e408E56a536f14B18D267AbE70AF76e59d1F54a",
+  },
   WhitelistSale: {
     SeedSale: {
       owner: "0xb53A11c980f6E3b4725977A69672A373954B0157",
