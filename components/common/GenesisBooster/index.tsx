@@ -66,7 +66,7 @@ const GenesisBooster: NextPage = () => {
                 )}
               </ul>
             </CardSubtitle>
-            <CardAmount />
+            {/* <CardAmount /> */}
           </Overlay>
         </GenesisContainer>
       </Container>
