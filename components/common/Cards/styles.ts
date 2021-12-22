@@ -75,6 +75,8 @@ export const CardSubtitle = styled.div`
     height: 100px;
     padding-left: 20px;
     margin-left: -25px;
+    margin-top: 0px;
+    margin-bottom: 40px;
   }
 `;
 

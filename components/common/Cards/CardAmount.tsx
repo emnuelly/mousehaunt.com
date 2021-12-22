@@ -21,12 +21,7 @@ import { useRouter } from "next/router";
 import { Button } from "../Button";
 import { LoadingContainer } from "./styles";
 
-function isNumeric(str: string): boolean {
-  if (typeof str != "string") return false;
-  return !isNaN(str as unknown as number) && !isNaN(parseFloat(str));
-}
-
-function boosterAllowance(boosterAmount: number, network: Network) {
+function mhtAllowance(boosterAmount: number, network: Network) {
   return ethers.utils
     .parseEther(config[network].BoosterSale.Genesis.mhtPrice.toString())
     .mul(boosterAmount);
@@ -42,17 +37,18 @@ const CardAmount: React.FC = () => {
   const [boosterAmount, setBoosterAmount] = useState(1);
   const [buyStep, setBuyStep] = useState<BUY_STEP>(BUY_STEP.APPROVE);
   const router = useRouter();
-  const { account, refresh, setRefresh, contracts, provider, network } =
-    useContext(StoreContext);
+  const {
+    refresh,
+    setRefresh,
+    contracts,
+    provider,
+    network,
+    userInfoDetailed,
+  } = useContext(StoreContext);
 
-  const sale = config[network].WhitelistSale.PreSales.find(
-    (sale) => sale.whitelisted === account
-  );
-  const allowance = Math.random() < 0.5 ? "1" : "0";
-
-  const MHT_TO_BUSD = Number(sale?.MHTtoBUSD);
-
-  const maxBusdAmount = Number(sale?.amount) * MHT_TO_BUSD;
+  const allowance = userInfoDetailed?.allowance.genesis
+    ? Number(userInfoDetailed.allowance.genesis)
+    : 0;
 
   const approveBooster = async () => {
     if (provider && contracts) {
@@ -61,9 +57,9 @@ const CardAmount: React.FC = () => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const approve = await contracts.busd.approve(
+        const approve = await contracts.mht.approve(
           config[network].BoosterSale.Genesis.address,
-          boosterAllowance(boosterAmount, network)
+          mhtAllowance(boosterAmount, network)
         );
         await waitFor(
           () => isTransactionMined(ethersProvider, approve.hash),
@@ -85,8 +81,6 @@ const CardAmount: React.FC = () => {
         const ethersProvider = new ethers.providers.Web3Provider(
           provider as any
         );
-        const booster = config[network].BMHTR.address;
-
         const buy = await contracts.boosterSaleGenesis.buy(
           boosterAmount.toString()
         );
@@ -134,7 +128,11 @@ const CardAmount: React.FC = () => {
               height={"30px"}
             ></Image>
           </span>
-          <Field id="amountBUSD" name="amountBUSD" value={boosterAmount} />{" "}
+          <Field
+            id="amountBooster"
+            name="amountBooster"
+            value={boosterAmount}
+          />{" "}
           <span
             style={{
               margin: "5px",
@@ -142,8 +140,7 @@ const CardAmount: React.FC = () => {
               top: "15%",
             }}
             onClick={() => {
-              const amountMax = Number(config[network].BoosterSale.Genesis.cap);
-              if (boosterAmount >= 1 && boosterAmount < amountMax) {
+              if (boosterAmount >= 1 && boosterAmount < allowance) {
                 setBoosterAmount(boosterAmount + 1);
               }
               return;

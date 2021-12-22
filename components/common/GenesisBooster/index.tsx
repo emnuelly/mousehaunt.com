@@ -7,8 +7,12 @@ import { CardSubtitle, IconStyle } from "../Cards/styles";
 import { BiRightArrowAlt } from "react-icons/bi";
 import CardAmount from "../Cards/CardAmount";
 import Footer from "../Footer";
+import { useContext } from "react";
+import { StoreContext } from "../../../contexts/StoreContext";
 
 const GenesisBooster: NextPage = () => {
+  const { userInfoDetailed } = useContext(StoreContext);
+
   const messages = [
     "Legendary drop rate: 1.25%",
     "Epic drop rate: 10.25%",
@@ -16,6 +20,7 @@ const GenesisBooster: NextPage = () => {
     "Common drop rate: 57.5%",
     "",
     "Price: 30 $MHT",
+    `Allowance: ${userInfoDetailed?.allowance.genesis ?? ""}`,
   ];
   return (
     <>
