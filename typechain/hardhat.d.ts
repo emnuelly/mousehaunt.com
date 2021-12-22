@@ -89,6 +89,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BMHTE__factory>;
     getContractFactory(
+      name: "BMHTG",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BMHTG__factory>;
+    getContractFactory(
       name: "BMHTL",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BMHTL__factory>;
@@ -104,6 +108,10 @@ declare module "hardhat/types/runtime" {
       name: "BoosterSale3",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.BoosterSale3__factory>;
+    getContractFactory(
+      name: "BoosterSaleGenesis",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.BoosterSaleGenesis__factory>;
     getContractFactory(
       name: "IBooster",
       signerOrOptions?: ethers.Signer | FactoryOptions
@@ -253,6 +261,11 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.BMHTE>;
     getContractAt(
+      name: "BMHTG",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BMHTG>;
+    getContractAt(
       name: "BMHTL",
       address: string,
       signer?: ethers.Signer
@@ -272,6 +285,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.BoosterSale3>;
+    getContractAt(
+      name: "BoosterSaleGenesis",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.BoosterSaleGenesis>;
     getContractAt(
       name: "IBooster",
       address: string,

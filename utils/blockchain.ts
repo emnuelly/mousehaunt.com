@@ -2,15 +2,14 @@ import { ethers } from "ethers";
 import config, { Network } from "./config";
 
 export const isTransactionMined = async (
-  provider: ethers.providers.Web3Provider, 
-  transactionHash: string): Promise<string> => {
+  provider: ethers.providers.Web3Provider,
+  transactionHash: string
+): Promise<string> => {
   const txReceipt = await provider.getTransactionReceipt(transactionHash);
   if (txReceipt && txReceipt.blockNumber) {
     return txReceipt.transactionHash;
-  }
-  else return "";
-}
-
+  } else return "";
+};
 
 export const addToWallet = async (network: Network) => {
   const { ethereum } = window;
@@ -19,6 +18,7 @@ export const addToWallet = async (network: Network) => {
     config[network].BMHTL,
     config[network].BMHTE,
     config[network].BMHTR,
+    config[network].BMHTG,
   ];
   for (const contract of contracts) {
     await ethereum?.request({
@@ -34,14 +34,14 @@ export const addToWallet = async (network: Network) => {
       },
     });
   }
-}
+};
 
 export const changeNetwork = async (network: Network) => {
   window.ethereum?.request({
     method: "wallet_switchEthereumChain",
-    params: [{ chainId: network === 'bscTestnet' ? '0x61': "0x38" }],
+    params: [{ chainId: network === "bscTestnet" ? "0x61" : "0x38" }],
   });
-}
+};
 
 export function truncate(str: string, maxDecimalDigits = 3): string {
   if (str.includes(".")) {
@@ -51,4 +51,4 @@ export function truncate(str: string, maxDecimalDigits = 3): string {
   return str;
 }
 
-export const NETWORK_TIMEOUT = 120E3
+export const NETWORK_TIMEOUT = 120e3;
