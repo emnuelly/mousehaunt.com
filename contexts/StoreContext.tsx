@@ -16,8 +16,6 @@ import { BMHTR } from "../typechain/BMHTR";
 import BMHTRJson from "../contracts/booster/BMHTR.sol/BMHTR.json";
 import { BMHTG } from "../typechain/BMHTG";
 import BMHTGJson from "../contracts/booster/BMHTG.sol/BMHTG.json";
-import BUSDJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
-import { MouseHauntToken as BUSD } from "../typechain/MouseHauntToken";
 import MHTJson from "../contracts/MouseHauntToken.sol/MouseHauntToken.json";
 import { MouseHauntToken } from "../typechain/MouseHauntToken";
 
@@ -43,7 +41,6 @@ interface UserInfo {
 
 export interface UserInfoDetailed extends UserInfo {
   mhtOnWallet: string;
-  busdOnWallet: string;
   boosters: {
     epic: string;
     legendary: string;
@@ -68,7 +65,6 @@ export interface Contracts {
   participatingSales: WhitelistSaleDetailed[];
   boosterSaleGenesis: BoosterSaleGenesis;
 
-  busd: BUSD;
   mht: MouseHauntToken;
   bmhtl: BMHTL;
   bmhte: BMHTE;
@@ -311,12 +307,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             config[network].MouseHauntToken.address,
             MHTJson.abi,
             signer
-          ) as BUSD;
-          const busd = new ethers.Contract(
-            config[network].BUSD.address,
-            BUSDJson.abi,
-            signer
-          ) as BUSD;
+          ) as MouseHauntToken;
 
           setContracts({
             whitelistSales,
@@ -327,7 +318,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             bmhtr,
             bmhtg,
             mht,
-            busd,
           });
         } catch (err) {
           console.error(err, "Error trying to setContracts");
@@ -356,9 +346,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           const mhtOnWallet = ethers.utils.formatEther(
             await contracts.mht.balanceOf(account)
           );
-          const busdOnWallet = ethers.utils.formatEther(
-            await contracts.busd.balanceOf(account)
-          );
 
           const genesisAllowance = (
             await contracts.boosterSaleGenesis.whitelist(account)
@@ -372,7 +359,6 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           setUserInfoDetailed({
             ...userInfo,
             mhtOnWallet,
-            busdOnWallet,
             boosters,
             allowance,
             hasBoughtWhitelistButNotClaimed,
