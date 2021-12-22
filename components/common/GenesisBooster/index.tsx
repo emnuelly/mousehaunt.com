@@ -21,7 +21,7 @@ const GenesisBooster: NextPage = () => {
     "Common drop rate: 57.5%",
     "",
     `Price: ${config[network].BoosterSale.Genesis.mhtPrice} $MHT`,
-    // `Allowance: ${userInfoDetailed?.allowance.genesis ?? ""}`,
+    `Allowance: ${userInfoDetailed?.allowance.genesis ?? ""}`,
   ];
   return (
     <>
@@ -66,7 +66,7 @@ const GenesisBooster: NextPage = () => {
                 )}
               </ul>
             </CardSubtitle>
-            {/* <CardAmount /> */}
+            <CardAmount />
           </Overlay>
         </GenesisContainer>
       </Container>
