@@ -38,7 +38,7 @@ const MouseHeroes: NextPage = () => {
           <br />
           Click the button to join our Whitelist!
         </Subtitle>
-        <Link href="https://sweepwidget.com/view/44340-uj94pctn" target="_blank" rel="noreferrer">
+        <Link href="https://mousehaunt.com/store">
           JOIN GENESIS EVENT
         </Link>
       </Right>
