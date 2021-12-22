@@ -38,7 +38,7 @@ interface UserInfo {
   monthlyAmount: string;
   claimsPerMonth: number;
 
-  hasBoughtWhitelist3ButNotClaimed: boolean;
+  hasBoughtWhitelistButNotClaimed: boolean;
 }
 
 export interface UserInfoDetailed extends UserInfo {
@@ -106,6 +106,17 @@ function isEmptyUserInfo(userInfo: {
   );
 }
 
+function checkHasBoughtWhitelistButNotClaimed(userInfo: {
+  totalTokens: ethers.BigNumber;
+  remainingTokens: ethers.BigNumber;
+  lastClaimMonthIndex: ethers.BigNumber;
+}): boolean {
+  return (
+    !userInfo?.remainingTokens.isZero() &&
+    userInfo.remainingTokens.eq(userInfo.totalTokens)
+  );
+}
+
 async function getUserInfo(
   contracts: Contracts,
   account: string
@@ -113,9 +124,10 @@ async function getUserInfo(
   const userInfos = await Promise.all(
     contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
   );
-  const hasBoughtWhitelist3ButNotClaimed =
-    !userInfos[2]?.remainingTokens.isZero() &&
-    userInfos[2].remainingTokens.eq(userInfos[2].totalTokens);
+  const hasBoughtWhitelistButNotClaimed =
+    checkHasBoughtWhitelistButNotClaimed(userInfos[0]) ||
+    checkHasBoughtWhitelistButNotClaimed(userInfos[1]) ||
+    checkHasBoughtWhitelistButNotClaimed(userInfos[2]);
   const amounts = contracts.whitelistSales
     .map((sale, index) => {
       const details = contracts.participatingSales.find(
@@ -201,7 +213,7 @@ async function getUserInfo(
     igoAmount,
     monthlyAmount,
     claimsPerMonth,
-    hasBoughtWhitelist3ButNotClaimed,
+    hasBoughtWhitelistButNotClaimed,
   };
 }
 
@@ -354,8 +366,8 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
           const allowance = {
             genesis: genesisAllowance,
           };
-          const hasBoughtWhitelist3ButNotClaimed =
-            userInfo.hasBoughtWhitelist3ButNotClaimed;
+          const hasBoughtWhitelistButNotClaimed =
+            userInfo.hasBoughtWhitelistButNotClaimed;
 
           setUserInfoDetailed({
             ...userInfo,
@@ -363,7 +375,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
             busdOnWallet,
             boosters,
             allowance,
-            hasBoughtWhitelist3ButNotClaimed,
+            hasBoughtWhitelistButNotClaimed,
           });
         } catch (err) {
           console.error(err, "Error trying to updateUserInfo");
