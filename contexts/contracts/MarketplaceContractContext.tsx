@@ -23,7 +23,13 @@ interface Order {
 
 export interface MarketplaceContractContextData {
   getOrders: () => Promise<Order[]>;
-  createOrder: (order: Order) => Promise<ContractTransaction>;
+  createOrder: (
+    nftAddress: string,
+    assetId: number,
+    amount: number,
+    priceInWei: number,
+    expiresAt: number
+  ) => Promise<ContractTransaction>;
   cancelOrder: (orderId: number) => Promise<ContractTransaction>;
   executeOrder: (orderId: number) => Promise<ContractTransaction>;
   getAssetType: (address: string) => Promise<number>;
@@ -74,23 +80,16 @@ export const MarketplaceContractProvider: React.FC<Props> = ({ children }: Props
     return {} as Order[];
   };
 
-  //   const getOrder = async (orderId: number): Promise<Order> => {
-  //     if (account && provider) {
-  //       try {
-  //         const orders = await marketplace.getOrders();
-  //         return orders[orderId];
-  //       } catch (e) {
-  //         console.error(e);
-  //         return {} as Order;
-  //       }
-  //     }
-  //     return {} as Order;
-  //   };
-
-  const createOrder = async (order: Order): Promise<ContractTransaction> => {
+  const createOrder = async (
+    nftAddress: string,
+    assetId: number,
+    amount: number,
+    priceInWei: number,
+    expiresAt: number
+  ): Promise<ContractTransaction> => {
     if (account && provider) {
       try {
-        const ctx = marketplace.createOrder(order);
+        const ctx = marketplace.createOrder(nftAddress, assetId, amount, priceInWei, expiresAt);
         return ctx;
       } catch (e) {
         console.error(e);
@@ -131,6 +130,7 @@ export const MarketplaceContractProvider: React.FC<Props> = ({ children }: Props
       try {
         return await marketplace.getAssetType(address);
       } catch (e) {
+        console.error(e);
         return -1;
       }
     }

@@ -60,7 +60,9 @@ const DisplayMices: React.FC<Props> = () => {
           {displayCards()}
           <Link
             style={{ maxWidth: "15%", margin: "0 auto", marginBottom: "200px" }}
-            onClick={() => getAssetType("0xf2F504fdAd751a0eB81A2cf88Fe90E5E57a199db")}
+            onClick={() =>
+              createOrder("0xf2F504fdAd751a0eB81A2cf88Fe90E5E57a199db", 10, 10, 10, 10)
+            }
           >
             Load More
           </Link>
