@@ -10,10 +10,12 @@ import Footer from "../Footer";
 import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../../contexts/StoreContext";
 import config from "../../../utils/config";
+import Countdown from "../Countdown";
 
 const GenesisBooster: NextPage = () => {
   const { userInfoDetailed, contracts, network } = useContext(StoreContext);
   const [remaining, setRemaining] = useState("");
+  const [hasEnded, setHasEnded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -40,6 +42,12 @@ const GenesisBooster: NextPage = () => {
   return (
     <>
       <Container>
+        <Countdown
+          startText={"GENESIS EVENT ENDS IN"}
+          endText={"GENESIS EVENT ENDED"}
+          date={new Date("2021-12-25T16:00:00.000Z")}
+          setHasEnded={setHasEnded}
+        />
         <GenesisContainer>
           <ImageContainer>
             <div className="desktop">
@@ -80,7 +88,7 @@ const GenesisBooster: NextPage = () => {
                 )}
               </ul>
             </CardSubtitle>
-            {/* <CardAmount /> */}
+            {hasEnded ? null : <CardAmount />}
           </Overlay>
         </GenesisContainer>
       </Container>

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CountdownContainer = styled.div`
@@ -27,64 +27,49 @@ interface Props {
   startText: string;
   endText: string;
   date: Date;
+  setHasEnded?: Dispatch<SetStateAction<boolean>>;
 }
 
-function countdown({ date, endText }: Props) {
+const Countdown: React.FC<Props> = (props: Props) => {
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
-
-  const countDown = new Date(date).getTime();
-
-  const now = new Date().getTime();
-  const distance = countDown - now;
-
-  if (distance < 0) {
-    document.getElementById("ends")!.innerText = endText;
-    document.getElementById("ended-ul")!.style.display = "none";
-    return;
-  }
-
-  document.getElementById("days")!.innerText = Math.floor(
-    distance / day
-  ).toString();
-  document.getElementById("hours")!.innerText = Math.floor(
-    (distance % day) / hour
-  ).toString();
-  document.getElementById("minutes")!.innerText = Math.floor(
-    (distance % hour) / minute
-  ).toString();
-  document.getElementById("seconds")!.innerText = Math.floor(
-    (distance % minute) / second
-  ).toString();
-}
-
-const Countdown: React.FC<Props> = (props: Props) => {
+  const [distance, setDistance] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
-      countdown(props);
+      const countDown = new Date(props.date).getTime();
+      const now = new Date().getTime();
+      const d = countDown - now;
+      if (d < 0 && props.setHasEnded) {
+        props.setHasEnded(true);
+      }
+      setDistance(d);
     }, 1000);
     return () => clearInterval(interval);
   }, [props]);
 
   return (
     <CountdownContainer>
-      <span id="ends">{props.startText}</span>
-      <ul id="ended-ul">
-        <li>
-          <span id="days"></span>DAYS
-        </li>
-        <li>
-          <span id="hours"></span>HOURS
-        </li>
-        <li>
-          <span id="minutes"></span>MINUTES
-        </li>
-        <li>
-          <span id="seconds"></span>SECONDS
-        </li>
-      </ul>
+      <span id="ends">{distance < 0 ? props.endText : props.startText}</span>
+      {distance < 0 ? null : (
+        <ul id="ended-ul">
+          <li>
+            <span id="days">{Math.floor(distance / day)}</span>DAYS
+          </li>
+          <li>
+            <span id="hours">{Math.floor((distance % day) / hour)}</span>HOURS
+          </li>
+          <li>
+            <span id="minutes">{Math.floor((distance % hour) / minute)}</span>
+            MINUTES
+          </li>
+          <li>
+            <span id="seconds">{Math.floor((distance % minute) / second)}</span>
+            SECONDS
+          </li>
+        </ul>
+      )}
     </CountdownContainer>
   );
 };

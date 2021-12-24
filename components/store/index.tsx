@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import {
   Container,
@@ -14,7 +14,6 @@ import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Menu from "../common/BurgerMenu";
 import PhishingMessage from "../common/PhishingBanner";
 import GenesisBooster from "../common/GenesisBooster";
-import Countdown from "../common/Countdown";
 
 const StoreHome: NextPage = () => {
   return (
@@ -34,11 +33,6 @@ const StoreHome: NextPage = () => {
           </Header>
           <StoreTitle>SHOP</StoreTitle>
           <StorePageSub>Welcome to the Mouse Haunt Shop!</StorePageSub>
-          <Countdown
-            startText={"GENESIS EVENT STARTS IN"}
-            endText={"GENESIS EVENT STARTED"}
-            date={new Date("2021-12-23T01:00:00.000Z")}
-          />
           <GenesisBooster />
         </StoreContainer>
       </Content>
