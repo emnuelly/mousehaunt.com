@@ -120,10 +120,9 @@ async function getUserInfo(
   const userInfos = await Promise.all(
     contracts.whitelistSales.map((sale) => sale.addressToUserInfo(account))
   );
-  const hasBoughtWhitelistButNotClaimed =
-    checkHasBoughtWhitelistButNotClaimed(userInfos[0]) ||
-    checkHasBoughtWhitelistButNotClaimed(userInfos[1]) ||
-    checkHasBoughtWhitelistButNotClaimed(userInfos[2]);
+  const hasBoughtWhitelistButNotClaimed = userInfos
+    .map(checkHasBoughtWhitelistButNotClaimed)
+    .reduce((a, b) => a || b, false);
   const amounts = contracts.whitelistSales
     .map((sale, index) => {
       const details = contracts.participatingSales.find(
