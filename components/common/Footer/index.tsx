@@ -38,6 +38,8 @@ const Footer: NextPage = () => {
         ))}
       </Social>
       <Copy>TERMS & CONDITIONS / PRIVACY / POLICY / DISCLAIMER</Copy>
+        <Ellipse1/>
+        <Ellipse2/>
     </Container>
   );
 };

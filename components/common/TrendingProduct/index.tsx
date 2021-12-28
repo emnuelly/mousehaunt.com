@@ -23,7 +23,6 @@ const TrendingProduct: NextPage = () => {
                 <CardShop/>
                 <CardShop/>
                 <CardShop/>
-                <CardShop/>
             </ContainerBody>
         </Container>
     );

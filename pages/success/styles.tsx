@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100%;
+  height: auto;
   width: 100%;
 
   @media only screen and (max-width: 1280px) {
@@ -29,6 +29,15 @@ export const Content = styled.section`
   }
 `;
 
+export const Body = styled.div`
+  height: auto;
+  margin: auto;
+  width: 420px;
+  position: relative;
+  z-index: 2;
+  margin-top: 40px;
+
+`;
 
 export const EllipseBlue = styled.div`
   position: absolute;
@@ -74,4 +83,23 @@ export const ImageBackground = styled.div`
   background-position: bottom center;
   mix-blend-mode: multiply; 
   margin-top: -410px;
+`;
+
+export const Title = styled.div`
+    font-family: Bebas Neue Pro;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 64px;
+    margin-top: 112px;
+    /* identical to box height, or 114% */
+    
+    display: block;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    
+    /* Primary/White */
+    
+    color: #FFFFFF;
 `;

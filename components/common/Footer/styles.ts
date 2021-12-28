@@ -90,7 +90,7 @@ export const Ellipse1 = styled.div`
   left: 0px;
 
   background: linear-gradient(96.82deg, #0882F2 0%, #1FC6EC 100%);
-    opacity: 0.35;
+    opacity: 0.60;
     filter: blur(235px);
 
   @media only screen and (max-width: 1280px) {
@@ -106,7 +106,7 @@ export const Ellipse2 = styled.div`
 
   position: absolute;
   background: linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);
-  opacity: 0.35;
+  opacity: 0.60;
   filter: blur(235px);
 
   @media only screen and (max-width: 1280px) {
