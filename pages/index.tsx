@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 
       <Content>
         <PhishingBanner />
-        <Landing />
+        {/*<Landing />*/}
         <Welcome />
         <MouseHeroes />
         <GhostHeroes />
