@@ -27,25 +27,25 @@ const Home: NextPage = () => {
       </Head>
 
       <Content>
-        <PhishingBanner />
+        {/*<PhishingBanner />*/}
         <Landing />
-        <Welcome />
-        <MouseHeroes />
-        <GhostHeroes />
-        <Ruler />
-        <Whitelist />
-        <Ruler />
-        <Realtime />
-        <InnovativeGameplay />
-        <Bosses />
-        <MHT />
-        <Awards />
-        <Team />
-        <Roadmap />
-        <Ruler />
-        <PoweredBy />
-        <Ruler />
-        <Footer />
+        {/*<Welcome />*/}
+        {/*<MouseHeroes />*/}
+        {/*<GhostHeroes />*/}
+        {/*<Ruler />*/}
+        {/*<Whitelist />*/}
+        {/*<Ruler />*/}
+        {/*<Realtime />*/}
+        {/*<InnovativeGameplay />*/}
+        {/*<Bosses />*/}
+        {/*<MHT />*/}
+        {/*<Awards />*/}
+        {/*<Team />*/}
+        {/*<Roadmap />*/}
+        {/*<Ruler />*/}
+        {/*<PoweredBy />*/}
+        {/*<Ruler />*/}
+        {/*<Footer />*/}
       </Content>
     </Container>
   );

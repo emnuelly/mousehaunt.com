@@ -2,150 +2,84 @@ import React from "react";
 
 import {
   Container,
-  Video,
-  Phone,
   Body,
   Title,
   Subtitle,
-  Stores,
   BodyContent,
   Left,
   Right,
-  DiscordButton,
+  ButtonDark,
+  ContainerButton
 } from "./styles";
-
-import Image from "next/image";
-import telegram from "../../../public/images/other/button_telegram.png";
-import medium from "../../../public/images/other/button_medium.png";
-import twitter from "../../../public/images/other/button_twitter.png";
-import discord from "../../../public/images/other/button_discord.png";
-import pancake from "../../../public/images/other/button_pancake.png";
 import Header from "../Header";
 import Logo from "../Logo";
 import Sections from "../Sections";
 import Menu from "../BurgerMenu";
+import { Link as LinkButton } from "../Link";
+import {
+  Card,
+  Image,
+  InfoContainer,
+  InfoContainerValue,
+  InfoContainerTitle,
+  InfoValue,
+  InfoBadgeValue,
+  InfoSubtitle,
+  InfoDollar,
+  InfoTitle,
+} from "../CardShop/styles";
+
 
 const Landing: React.FC = () => (
-  <Container id="About">
-    <Header>
-      <Logo />
-      <Sections />
-      <Menu />
-    </Header>
-    <Body>
-      <BodyContent>
-        <Left>
-          <Title>
-            MOUSE
-            <br />
-            HAUNT
-          </Title>
-          <Subtitle>
-            Collect NFTs, farm tokens, breed characters and build levels to earn
-            money! Mouse Haunt is a kick ass play-to-earn universe.
-            <br />
-            Here, fun comes first. Play on!
-          </Subtitle>
-          <Stores>
-            <DiscordButton>
-              <a
-                href="http://mht.gg/discord-hero"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src={discord}
-                  width="222px"
-                  height="68px"
-                  alt="Join us on Discord"
-                  placeholder="blur"
-                  priority
-                />
-              </a>
-              <a
-                href="https://pancakeswap.finance/swap?inputCurrency=0xe9e7cea3dedca5984780bafc599bd69add087d56&outputCurrency=0x5Cb2C3Ed882E37DA610f9eF5b0FA25514d7bc85B"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Image
-                  src={pancake}
-                  width="222px"
-                  height="68px"
-                  alt="Buy on Pancakeswap"
-                  placeholder="blur"
-                  priority
-                />
-              </a>
-            </DiscordButton>
-            <div>
-              <span>
-                <a
-                  href="https://twitter.com/mousehaunt"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <Image
-                    src={twitter}
-                    width="148px"
-                    height="45px"
-                    alt="Follow us on Twitter"
-                    placeholder="blur"
-                    priority
-                  />
-                </a>
-              </span>
-              <span>
-                <a
-                  href="https://t.me/joinchat/QJNjRk7T06NjYjEx"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <Image
-                    src={telegram}
-                    width="148px"
-                    height="45px"
-                    alt="Join us on Telegram"
-                    placeholder="blur"
-                    priority
-                  />
-                </a>
-              </span>
-              <span>
-                <a
-                  href="https://mousehaunt.medium.com/"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <Image
-                    src={medium}
-                    width="148px"
-                    height="45px"
-                    alt="Follow us on Telegram"
-                    placeholder="blur"
-                    priority
-                  />
-                </a>
-              </span>
-            </div>
-          </Stores>
-        </Left>
-
-        <Right>
-          <Video>
-            <Phone />
-            <video
-              loop
-              muted
-              autoPlay
-              src="https://assets.mousehaunt.com/videos/LandingPage.mp4"
-              poster="/images/game-related/landing-poster.jpeg"
-              width="600px"
-              height="293px"
-            />
-          </Video>
-        </Right>
-      </BodyContent>
-    </Body>
-  </Container>
+    <Container id="About">
+      <Header>
+        <Logo />
+        <Sections />
+        <Menu />
+      </Header>
+      <Body>
+        <BodyContent>
+          <Left>
+            <Title>
+              Buy and sell <text>digital art</text>  in the world of nft
+            </Title>
+            <Subtitle>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
+            </Subtitle>
+            <ContainerButton>
+              <LinkButton className="right" href="/store">
+                Explore now
+              </LinkButton>
+              <ButtonDark>
+                Learn More
+              </ButtonDark>
+            </ContainerButton>
+          </Left>
+          <Right>
+            <Card>
+              <Image/>
+              <InfoContainer>
+                <InfoContainerTitle>
+                  <InfoTitle>
+                    Amazing Digital ART
+                  </InfoTitle>
+                  <InfoSubtitle>
+                    posted 3 days ago
+                  </InfoSubtitle>
+                </InfoContainerTitle>
+                <InfoContainerValue>
+                  <InfoValue>
+                    0,45 $MHT
+                  </InfoValue>
+                  <InfoDollar>
+                    8,324 USD
+                  </InfoDollar>
+                </InfoContainerValue>
+              </InfoContainer>
+            </Card>
+          </Right>
+        </BodyContent>
+      </Body>
+    </Container>
 );
 export default Landing;

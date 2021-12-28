@@ -66,7 +66,7 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
       ))}
       {isStorePath ? null : (
         <LinkButton className="right" href="/store">
-          STORE
+          MARKETPLACE
         </LinkButton>
       )}
     </Container>
