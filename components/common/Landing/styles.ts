@@ -91,29 +91,7 @@ export const Subtitle = styled.div`
   }
 `;
 
-// export const Stores = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//
-//   span {
-//     margin-right: 8px;
-//   }
-//
-//   @media only screen and (max-width: 600px) {
-//     div {
-//       flex-direction: row;
-//     }
-//   }
-//
-//   a {
-//     width: 148px;
-//     margin-bottom: 40px;
-//
-//     @media only screen and (max-width: 600px) {
-//       align-self: center;
-//     }
-//   }
-// `;
+
 
 export const Left = styled.div`
   @media only screen and (max-width: 600px) {
@@ -127,87 +105,6 @@ export const Right = styled.div`
   filter: drop-shadow(5px 21px 46px rgba(0, 0, 0, 0.7));
 `;
 
-// export const ButtonRightAbsolute = styled.div`
-//   position: absolute;
-//   left: 85%;
-//   &:hover {
-//     cursor: pointer;
-//   }
-//   @media only screen and (max-width: 800px) {
-//     left: 80%;
-//   }
-// `;
-//
-// export const Phone = styled.div`
-//   width: 600px;
-//   height: 293px;
-//
-//   filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
-//   background-image: url("/images/phone-frames/iphone-600.png");
-//   background-repeat: no-repeat;
-//
-//   @media only screen and (max-width: 600px) {
-//     background-image: url("/images/phone-frames/iphone-320.png");
-//     width: 320px;
-//     height: 156px;
-//   }
-// `;
-//
-// export const Video = styled.div`
-//   margin-top: 40px;
-//
-//   width: 600px;
-//   height: 293px;
-//   align-self: center;
-//
-//   overflow: hidden;
-//   display: block;
-//
-//   video {
-//     background-position: center center;
-//     background-repeat: no-repeat;
-//
-//     width: 590px;
-//     height: auto;
-//
-//     margin-top: -310px;
-//     border-radius: 90px;
-//
-//     margin-left: 5px;
-//   }
-//
-//   @media only screen and (max-width: 600px) {
-//     width: 320px;
-//     height: 156px;
-//
-//     video {
-//       width: 314px;
-//       margin-top: -166px;
-//       border-radius: 45px;
-//
-//       margin-left: unset;
-//     }
-//   }
-// `;
-//
-// export const DiscordButton = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: inherit;
-//   align-items: center;
-//
-//   margin-bottom: 24px;
-//
-//   a {
-//     text-align: center;
-//     display: flex;
-//     flex-direction: column;
-//     margin-top: auto;
-//     margin-right: 40px;
-//     width: inherit;
-//   }
-// }
-// `;
 
 export const ContainerButton = styled.div`
   display: flex;
@@ -248,6 +145,24 @@ export const ButtonDark = styled.a`
     min-height: 48px;
     margin: 0px 10px;
     padding: unset;
+  }
+`;
+
+
+export const Ellipse1 = styled.div`
+  position: absolute;
+  width: 445px;
+  height: 445px;
+  right: 0px;
+
+  position: absolute;
+  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+    mix-blend-mode: overlay;
+    filter: blur(228px);
+    transform: rotate(60deg);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
   }
 `;
 

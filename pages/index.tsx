@@ -20,6 +20,7 @@ import PhishingBanner from '../components/common/PhishingBanner'
 import { Ruler } from "../components/common/Ruler";
 import PopularCollection from "../components/common/PopularCollection";
 import TrendingProduct from "../components/common/TrendingProduct";
+import RemainConnected from "../components/common/RemainConnected";
 
 const Home: NextPage = () => {
   return (
@@ -34,22 +35,8 @@ const Home: NextPage = () => {
         <PopularCollection />
           <TrendingProduct/>
           <TrendingProduct/>
-        {/*<MouseHeroes />*/}
-        {/*<GhostHeroes />*/}
-        {/*<Ruler />*/}
-        {/*<Whitelist />*/}
-        {/*<Ruler />*/}
-        {/*<Realtime />*/}
-        {/*<InnovativeGameplay />*/}
-        {/*<Bosses />*/}
-        {/*<MHT />*/}
-        {/*<Awards />*/}
-        {/*<Team />*/}
-        {/*<Roadmap />*/}
-        {/*<Ruler />*/}
-        {/*<PoweredBy />*/}
-        {/*<Ruler />*/}
-        {/*<Footer />*/}
+          <RemainConnected/>
+        <Footer />
       </Content>
     </Container>
   );

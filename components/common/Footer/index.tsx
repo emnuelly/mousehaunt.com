@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 
-import { Container, Title, Social, Logo, Ellipse1, Ellipse2 } from "./styles";
+import { Container, Title, Social, Logo, Ellipse1, Ellipse2, Copy } from "./styles";
 import Image from "next/image";
 import { svg } from "../../../utils/svg";
 import logo from "../../../public/images/other/logo.png";
@@ -36,6 +36,7 @@ const Footer: NextPage = () => {
           </a>
         ))}
       </Social>
+        <Copy>TERMS & CONDITIONS / PRIVACY / POLICY / DISCLAIMER</Copy>
       <Ellipse1 />
       <Ellipse2 />
     </Container>

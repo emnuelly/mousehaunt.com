@@ -9,7 +9,8 @@ import {
   Left,
   Right,
   ButtonDark,
-  ContainerButton
+  ContainerButton,
+    Ellipse1
 } from "./styles";
 import Header from "../Header";
 import Logo from "../Logo";
