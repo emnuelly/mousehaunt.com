@@ -23,6 +23,7 @@ const PopularCollection: NextPage = () => {
                 <CardCollection/>
                 <CardCollection/>
                 <CardCollection/>
+                <CardCollection/>
             </ContainerBody>
         </Container>
     );

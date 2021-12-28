@@ -61,6 +61,9 @@ const Landing: React.FC = () => (
             <CardStyle>
               <CardShop/>
             </CardStyle>
+            <CardStyle>
+              <CardShop/>
+            </CardStyle>
           </Right>
         </BodyContent>
       </Body>

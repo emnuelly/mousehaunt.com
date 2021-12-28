@@ -1,33 +1,11 @@
 import styled from "styled-components";
 
 export const ContainerBorder = styled.div`
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   text-align: center;
   height: 4px;
-  background-color: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
+  background: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
 
-`;
-
-export const ImageFooter = styled.section`
-  margin-top: 160px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  height: 475px;
-  position: absolute;
-  z-index: 2;
-  
-  bottom: 0px;
-  mix-blend-mode: multiply;
-
-  background-image: url("/images/footer.png");
-  background-repeat: no-repeat;
-  img {
-    width: 808px;
-  }
 `;
 
 export const Container = styled.section`
@@ -37,10 +15,22 @@ export const Container = styled.section`
   justify-content: center;
   text-align: center;
   height: 475px;
-  
+  position: relative;
+  z-index: 2;
+
   img {
     width: 808px;
   }
+`;
+
+export const ImageBackground = styled.div`
+  height: 475px;
+  margin-top: 90px;
+  background-image: url("/images/footer.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  mix-blend-mode: multiply; 
+ 
 `;
 
 export const Title = styled.div`

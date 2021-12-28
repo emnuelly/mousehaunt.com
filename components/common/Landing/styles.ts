@@ -3,7 +3,11 @@ import styled from "styled-components";
 export const Container = styled.section`
   top: 0px;
   left: 0px;
+  right: 0px;
   height: 100vh;
+  width: 90%;
+  margin: auto;
+
 
   @media only screen and (max-width: 600px) {
     width: 100vw;

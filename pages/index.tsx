@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Container, Content, EllipseBlue, EllipsePink } from "../styles/Home";
+import { Container, Content, EllipseBlue, EllipsePink, ImageBackground} from "../styles/Home";
 import Landing from "../components/common/Landing";
 import Footer from "../components/common/Footer";
 import PhishingBanner from '../components/common/PhishingBanner'
@@ -26,6 +26,7 @@ const Home: NextPage = () => {
           <EllipsePink/>
           <RemainConnected/>
         <Footer />
+          <ImageBackground/>
       </Content>
     </Container>
   );

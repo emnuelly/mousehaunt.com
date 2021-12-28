@@ -4,9 +4,6 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
 
-  padding-left: 120px;
-  padding-right: 120px;
-
   @media only screen and (max-width: 1280px) {
     padding-left: 80px;
     padding-right: 80px;
@@ -22,7 +19,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.section`
-  width: 1200px;
+  width: 100%;
   margin: auto;
   @media only screen and (max-width: 600px) {
     width: unset;
@@ -63,4 +60,16 @@ export const EllipsePink = styled.div`
   @media only screen and (max-width: 1280px) {
     transform: scale(0.5);
   }
+`;
+
+export const ImageBackground = styled.div`
+  height: 475px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background-image: url("/images/footer.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  mix-blend-mode: multiply; 
+  margin-top: -410px;
 `;

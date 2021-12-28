@@ -8,6 +8,8 @@ export const Container = styled.section`
   text-align: center;
   position: relative;
   z-index: 2;
+  width: 90%;
+  margin: auto;
 `;
 
 export const ContainerHeader = styled.div`
