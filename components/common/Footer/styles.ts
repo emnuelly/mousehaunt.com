@@ -1,5 +1,35 @@
 import styled from "styled-components";
 
+export const ContainerBorder = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 4px;
+  background-color: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
+
+`;
+
+export const ImageFooter = styled.section`
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 475px;
+  position: absolute;
+  z-index: 2;
+  
+  bottom: 0px;
+  mix-blend-mode: multiply;
+
+  background-image: url("/images/footer.png");
+  background-repeat: no-repeat;
+  img {
+    width: 808px;
+  }
+`;
+
 export const Container = styled.section`
   margin-top: 160px;
   display: flex;
@@ -7,7 +37,7 @@ export const Container = styled.section`
   justify-content: center;
   text-align: center;
   height: 475px;
-
+  
   img {
     width: 808px;
   }
@@ -30,6 +60,8 @@ export const Logo = styled.div`
   height: 144px;
 
   margin: 12px 0px;
+  
+  margin-top: 50px;
 
   align-self: center;
 `;

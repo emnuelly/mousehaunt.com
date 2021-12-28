@@ -29,3 +29,38 @@ export const Content = styled.section`
     margin: unset;
   }
 `;
+
+
+export const EllipseBlue = styled.div`
+  position: absolute;
+  width: 855.05px;
+  height: 855.05px;
+  left: 0px;
+  z-index: 2;
+ 
+
+  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+    opacity: 0.35;
+  filter: blur(235px);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
+  }
+`;
+
+export const EllipsePink = styled.div`
+  position: absolute;
+  width: 1217.93px;
+  height: 1217.93px;
+  right: 0px;
+  z-index: 1;
+
+
+  background:  linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+    opacity: 0.35;
+    filter: blur(235px);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
+  }
+`;

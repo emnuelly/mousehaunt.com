@@ -6,6 +6,8 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  position: relative;
+  z-index: 2;
 `;
 
 export const ContainerHeader = styled.div`

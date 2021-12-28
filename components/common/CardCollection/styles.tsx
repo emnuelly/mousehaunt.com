@@ -11,6 +11,8 @@ export const Container = styled.div`
         
     background: #29274B;
     border-radius: 12px;
+    position: relative;
+    z-index: 2;
 
 `;
 

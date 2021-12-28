@@ -8,6 +8,8 @@ export const Container = styled.section`
   text-align: center;
   place-content: space-between;
   height: 350px;
+  position: relative;
+  z-index: 2;
 `;
 
 export const ImageGold = styled.div`
