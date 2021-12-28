@@ -18,6 +18,8 @@ import Roadmap from "../components/common/Roadmap";
 import Footer from "../components/common/Footer";
 import PhishingBanner from '../components/common/PhishingBanner'
 import { Ruler } from "../components/common/Ruler";
+import PopularCollection from "../components/common/PopularCollection";
+import TrendingProduct from "../components/common/TrendingProduct";
 
 const Home: NextPage = () => {
   return (
@@ -29,7 +31,9 @@ const Home: NextPage = () => {
       <Content>
         {/*<PhishingBanner />*/}
         <Landing />
-        {/*<Welcome />*/}
+        <PopularCollection />
+          <TrendingProduct/>
+          <TrendingProduct/>
         {/*<MouseHeroes />*/}
         {/*<GhostHeroes />*/}
         {/*<Ruler />*/}

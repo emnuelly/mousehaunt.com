@@ -16,18 +16,7 @@ import Logo from "../Logo";
 import Sections from "../Sections";
 import Menu from "../BurgerMenu";
 import { Link as LinkButton } from "../Link";
-import {
-  Card,
-  Image,
-  InfoContainer,
-  InfoContainerValue,
-  InfoContainerTitle,
-  InfoValue,
-  InfoBadgeValue,
-  InfoSubtitle,
-  InfoDollar,
-  InfoTitle,
-} from "../CardShop/styles";
+import CardShop from "../CardShop";
 
 
 const Landing: React.FC = () => (
@@ -56,27 +45,7 @@ const Landing: React.FC = () => (
             </ContainerButton>
           </Left>
           <Right>
-            <Card>
-              <Image/>
-              <InfoContainer>
-                <InfoContainerTitle>
-                  <InfoTitle>
-                    Amazing Digital ART
-                  </InfoTitle>
-                  <InfoSubtitle>
-                    posted 3 days ago
-                  </InfoSubtitle>
-                </InfoContainerTitle>
-                <InfoContainerValue>
-                  <InfoValue>
-                    0,45 $MHT
-                  </InfoValue>
-                  <InfoDollar>
-                    8,324 USD
-                  </InfoDollar>
-                </InfoContainerValue>
-              </InfoContainer>
-            </Card>
+            <CardShop/>
           </Right>
         </BodyContent>
       </Body>
