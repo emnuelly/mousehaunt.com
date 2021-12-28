@@ -10,7 +10,9 @@ import {
   Right,
   ButtonDark,
   ContainerButton,
-    Ellipse1
+    Ellipse1,
+    EllipseCenter,
+    CardStyle
 } from "./styles";
 import Header from "../Header";
 import Logo from "../Logo";
@@ -23,10 +25,13 @@ import CardShop from "../CardShop";
 const Landing: React.FC = () => (
     <Container id="About">
       <Header>
+        <Ellipse1/>
+
         <Logo />
         <Sections />
         <Menu />
       </Header>
+
       <Body>
         <BodyContent>
           <Left>
@@ -45,8 +50,17 @@ const Landing: React.FC = () => (
               </ButtonDark>
             </ContainerButton>
           </Left>
+          <EllipseCenter/>
           <Right>
-            <CardShop/>
+            <CardStyle>
+               <CardShop/>
+            </CardStyle>
+            <CardStyle>
+              <CardShop/>
+            </CardStyle>
+            <CardStyle>
+              <CardShop/>
+            </CardStyle>
           </Right>
         </BodyContent>
       </Body>

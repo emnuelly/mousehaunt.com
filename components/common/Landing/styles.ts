@@ -102,7 +102,17 @@ export const Left = styled.div`
 `;
 
 export const Right = styled.div`
-  filter: drop-shadow(5px 21px 46px rgba(0, 0, 0, 0.7));
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    margin-left: 160px;
+
+`;
+
+export const CardStyle = styled.div`
+    margin-left: 16px;
+
 `;
 
 
@@ -153,13 +163,25 @@ export const Ellipse1 = styled.div`
   position: absolute;
   width: 445px;
   height: 445px;
-  right: 0px;
-
-  position: absolute;
+  top: 0px;
   background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
-    mix-blend-mode: overlay;
-    filter: blur(228px);
-    transform: rotate(60deg);
+  opacity: 0.60;
+  filter: blur(235px);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
+  }
+`;
+
+export const EllipseCenter = styled.div`
+  position: absolute;
+  width: 577.9px;
+  height: 577.9px;
+  left: 439px;
+
+  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+  opacity: 0.30;
+  filter: blur(235px);
 
   @media only screen and (max-width: 1280px) {
     transform: scale(0.5);
