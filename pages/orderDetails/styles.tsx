@@ -13,7 +13,7 @@ export const Container = styled.div`
     padding-right: 20px;
   }
   @media only screen and (max-width: 600px) {
-    padding-left: unset;
+    padding-left: unset; 
     padding-right: unset;
   }
 `;
@@ -56,6 +56,8 @@ export const ImageBackground = styled.div`
   margin-top: -410px;
 `;
 
+
+
 export const Title = styled.div`
     font-family: Bebas Neue Pro;
     font-style: normal;
@@ -75,27 +77,36 @@ export const Title = styled.div`
 export const FirstContent = styled.div`
   height: 33%;
   width: 100%;
+  flex-direction: row;
+  place-content: space-between;
+  display: flex;
+  padding-top: 20px;
+
 `;
 
 export const SecondContent = styled.div`
   height: 33%;
   width: 100%;
+  padding-top: 40px;
+  margin-top: 40px;
+
 `;
 
 export const ContainerOrderActivity = styled.div`
   width: 1119px;
-  height: 556px;
+  height: auto;
   flex-direction: column;
   background: #29274B;
   border-radius: 12px;
   margin: auto;
-
 `;
 
 export const LabelAndIcon = styled.div`
     display: flex;
     flex-direction: row;
      place-content: space-between;
+     padding-top: 20px;
+     padding-bottom: 20px;
 
 `;
 
@@ -141,7 +152,11 @@ export const LabelSecond = styled.div`
 `;
 
 export const ContainerContent = styled.div`
-  
+  width: 100%;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    display: flex;
 `;
 
 export const ThirdContent = styled.div`
@@ -151,6 +166,7 @@ export const ThirdContent = styled.div`
     text-align: center;
     flex-direction: column;
     display: flex;
+    margin-top: 40px;
     place-content: space-between;
     padding: 40px;
 `;
@@ -178,26 +194,267 @@ export const Label3 = styled.div`
     font-weight: 800;
     font-size: 48px;
     line-height: 56px;
-    /* identical to box height, or 117% */
     
     display: flex;
     align-items: center;
-    
-    /* Primary/White */
-    
+   
     color: #FFFFFF;
 `;
 
 export const Left = styled.div`
   height: 100%;
   width: 50%;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
+  padding-top: 10px;
+
 `;
 
 export const Right = styled.div`
   height: 100%;
   width: 50%;
-  padding-top: 40px;
+  padding-top: 10px;
+
+`;
+
+export const ImageNFT = styled.div`
+    width: 520px;
+    height: 587px;
+    margin: auto;
+
+    background: rgba(224, 63, 227, 0.3);
+    border-radius: 12px;
+    background-image: url("/images/image-nft-mouse.png");
+    background-repeat: no-repeat;
+    background-position: center;
+`;
+
+export const Top = styled.div`
+    height: 33%;
+    width: 100%; 
+    
+      
+`;
+
+
+export const Middle = styled.div`
+     height: 33%;
+    width: 100%;
+`;
+
+export const ContentMiddle = styled.div`
+    width: 559px;
+    height: 190px;
+    padding: 24px;
+
+    background: #29274B;
+
+    border: 1px solid #29274B;
+    box-sizing: border-box;
+    border-radius: 12px;
+`;
+
+
+export const Bottom = styled.div`
+     height: 33%;
+    width: 100%;
+`;
+
+export const Description = styled.div`
+    width: 559px;
+    height: 190px;
+    padding: 24px;
+    
+    background: #29274B;
+    
+    border: 1px solid #29274B;
+    box-sizing: border-box;
+    border-radius: 12px;
+    
+    
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 24px 0px;
+     overflow-x: hidden; 
+     overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      width: 10px;               
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #131524;        
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background:  linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);  
+      border-radius: 20px;
+    }
+`;
+
+
+export const TextDescription = styled.div`
+    width: 100%;
+    
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    
+    color: #FFFFFF;
+`;
+
+
+export const CollecionText = styled.div`
+    width: 100%;
+    
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color:  #EE0CA1;  
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+`;
+
+
+export const TitleName = styled.div`
+    width: 100%;
+    
+    font-family: Bebas Neue Pro;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 40px;
+    
+    display: flex;
+    align-items: center;
+        
+    color: #FFFFFF;
+`;
+
+export const ContentSubtitle = styled.div`
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      align-items: self-end;
+`;
+
+
+export const Subtext = styled.div`
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    
+    display: flex;
+    align-items: center;
+    
+    
+    color: #848484;
+    
+    b{
+        color:  #EE0CA1;  
+
+    }
+`;
+
+export const IconAndText = styled.div`
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+`;
+export const TextIcon = styled.div`
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    
+    display: flex;
+    align-items: center;
+        
+    color: #848484;
+`;
+
+export const IconHeart = styled.div`
+    width: 25px;
+    height: 25px;
+
+    background-image: url("/images/heart.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    
+ `;
+
+export const IconView = styled.div`
+    width: 25px;
+    height: 25px;
+
+    background-image: url("/images/view.png");
+    background-repeat: no-repeat;
+    background-position: center;
+
+`;
+
+
+
+export const LabelMiddle = styled.div`
+  font-family: SF Pro Display;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+
+`;
+
+export const ContentValue = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+
+`;
+
+export const ValueNFT = styled.div`
+  font-family: Bebas Neue Pro;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 48px;
+  color:  #EE0CA1;  
+
+`;
+
+export const ValueDollar = styled.div`
+font-family: Bebas Neue Pro;
+font-style: normal;
+font-weight: normal;
+font-size: 25px;
+line-height: 28px;
+color: #FFFFFF;
+margin-top: 10px;
+margin-left: 10px
+
+`;
+
+export const IconSale = styled.div`
+    width: 25px;
+    height: 25px;
+
+    background-image: url("/images/sale.png");
+    background-repeat: no-repeat;
+    background-position: center;
+
 `;
 

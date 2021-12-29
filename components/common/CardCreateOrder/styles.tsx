@@ -147,6 +147,7 @@ export const InfoValue = styled.div`
     align-items: center;
 
 `;
+
 export const InfoDollar = styled.div`
     height: 28px;
     
