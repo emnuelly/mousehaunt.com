@@ -236,7 +236,9 @@ export const Top = styled.div`
 
 
 export const Middle = styled.div`
-     height: 33%;
+    padding-top: 24px;
+
+   height: 33%;
     width: 100%;
 `;
 
