@@ -15,6 +15,10 @@ interface ContainerProps {
   width: string;
 }
 
+const Navs = styled.div`
+  display: flex;
+
+`;
 const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: ${(props) => (props.mobile ? "column" : "row")};
@@ -58,6 +62,7 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
 
   return (
     <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
+      <Navs>
       {routes.map((section) => (
         <Link key={section.to} href={section.to}>
           <a target={section.title === "White Paper" ? "_blank" : ""}>
@@ -65,6 +70,7 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
           </a>
         </Link>
       ))}
+      </Navs>
       {isStorePath ? null : (
         <LinkButton className="right" href="/store">
           MARKETPLACE
