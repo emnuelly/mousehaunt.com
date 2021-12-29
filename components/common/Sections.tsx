@@ -15,13 +15,6 @@ interface ContainerProps {
   width: string;
 }
 
-const MenuContainer = styled.div<ContainerProps>`
-  display: flex;
-  flex-direction: ${(props) => (props.mobile ? "column" : "row")};
-  justify-content: ${(props) => (props.mobile ? "space-around" : "")};
-`; 
-
-
 const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: ${(props) => (props.mobile ? "column" : "row")};
@@ -32,6 +25,7 @@ const Container = styled.div<ContainerProps>`
 
   a {
     margin-left: inherit;
+      align-items: flex-start !important;
     margin-right: ${(props) => (props.mobile ? "" : "32px")};
     z-index: 1;
   }
@@ -64,7 +58,6 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
 
   return (
     <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
-      <MenuContainer>
       {routes.map((section) => (
         <Link key={section.to} href={section.to}>
           <a target={section.title === "White Paper" ? "_blank" : ""}>
@@ -72,7 +65,6 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
           </a>
         </Link>
       ))}
-      </MenuContainer>
       {isStorePath ? null : (
         <LinkButton className="right" href="/store">
           MARKETPLACE
