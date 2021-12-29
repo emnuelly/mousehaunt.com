@@ -162,15 +162,6 @@ export const ContainerButtons = styled.div`
 
 `;
 
-export const ButtonPlace = styled.div`
-    justify-content: flex-start;    
-    flex-direction: row;
-    display: flex;
-    width: 156px;
-    margin-top: 30px;
-
-`;
-
 export const FormInputs = styled.div`
     align-content: space-between;
     justify-content: space-between;    
@@ -203,7 +194,6 @@ export const LabelForm = styled.div`
         
     color: #FFFFFF;
 `;
-
 export const IconForm = styled.div`
     width: 20px;
     height: 20px;
@@ -211,43 +201,4 @@ export const IconForm = styled.div`
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover; 
-`;
-
-export const CalendarIcon = styled.div`
-    width: 20px;
-    height: 20px;
-    background-image: url("/images/calendar.png");
-    background-position: center;
-    background-repeat: no-repeat; 
-    background-size: cover; 
-    margin-right: 10px;
-`;
-
-export const Expiration = styled.div`
-    width: 520px;
-    height: 48px;
-    background: #29274B;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    margin-top: 20px;
-    justify-content: flex-start;    
-    flex-direction: row;
-    display: flex;
-    padding: 13px;
-`;
-
-export const LabelDate = styled.div`
-    font-family: SF Pro Display;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height, or 125% */
-    
-    display: flex;
-    align-items: center;
-    
-    /* Primary/White */
-    
-    color: #FFFFFF;
 `;

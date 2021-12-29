@@ -17,7 +17,7 @@ export const sections = [
   // { to: '/careers', title: 'Careers' },
   { to: '/success', title: 'Home page' },
   { to: '/createOrder', title: 'Explore' },
-  { to: '/#about', title: 'Stats' },
+  { to: '/marketplace', title: 'Stats' },
   { to: '/#about', title: 'About' },
 ];
 

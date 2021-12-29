@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Container, Content, EllipseBlue, EllipsePink,ContainerButtons, FormInputs, Input, ImageBackground, Body, Title, Left, Right, TitleForm, FormContent, LabelFormContent, LabelForm, IconForm } from "./styles";
+import { Container, Content, CalendarIcon, LabelDate, ButtonPlace, EllipseBlue, EllipsePink, Expiration, ContainerButtons, FormInputs, Input, ImageBackground, Body, Title, Left, Right, TitleForm, FormContent, LabelFormContent, LabelForm, IconForm } from "./styles";
 import Footer from "../../components/common/Footer";
 import {Ellipse1} from "../../components/common/Landing/styles";
 import Logo from "../../components/common/Logo";
@@ -10,14 +10,12 @@ import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useState} from "react";
 import Link from "../../components/common/Link";
-import CardShop from "../../components/common/CardShop";
 import CardCreateOrder from "../../components/common/CardCreateOrder";
 import ButtonNFT from "../../components/common/ButtonNFT";
 import SelectPrices from "../../components/common/SelectPrices";
-import DatePicker from 'react-date-picker';
+import Checkbox from "../../components/common/Checkbox";
 
 const CreateOrder: NextPage = () => {
-    const [value, onChange] = useState(new Date());
 
     return (
         <Container>
@@ -52,11 +50,14 @@ const CreateOrder: NextPage = () => {
                                 <Input placeholder="Amount" type="text"/>
                             </FormInputs>
                             <LabelFormContent><LabelForm>Expiration time</LabelForm></LabelFormContent>
-                            <DatePicker
-                                onChange={onChange}
-                                value={value}
-                            />
-                            <Link>PLACE ORDER</Link>
+                            <Expiration>
+                                <CalendarIcon/>
+                                <LabelDate>6 months</LabelDate>
+                            </Expiration>
+                            <Checkbox/>
+                            <ButtonPlace>
+                                <Link>PLACE ORDER</Link>
+                            </ButtonPlace>
                         </FormContent>
                     </Left>
                     <Right>

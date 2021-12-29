@@ -5,8 +5,8 @@ export const ContainerHeader = styled.section`
   left: 0px;
   right: 0px;
   width: 90%;
+  
   margin: auto;
-
 
   @media only screen and (max-width: 600px) {
     width: 100vw;

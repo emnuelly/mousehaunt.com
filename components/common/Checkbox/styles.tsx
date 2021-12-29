@@ -1,68 +1,72 @@
 import styled, { keyframes } from "styled-components";
 
-export const Input = styled.input`
-  height: 0;
-  width: 0;
-  opacity: 0;
-  z-index: -1;
+
+
+export const Container = styled.div`
+   width: 100%;
+   height: auto;
+   place-content: space-between;
+
+   display: flex;
+   align-items: center;
+  flex-direction: column;
 `;
 
-export const Label = styled.label`
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  margin: 0.6em 1em;
+export const CheckboxContainer = styled.div`
+   width: 100%;
+   height: 35px;
+   border-radius: 5px;
+   place-content: space-between;
+   margin-bottom: 25px;
+
+   display: flex;
+   align-items: center;
 `;
 
-export const rotate = keyframes`
- from {
-    opacity: 0;
-    transform: rotate(0deg);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(45deg);
-  }
+export const ColumnContainer = styled.div`
+  flex-direction: column;
+   display: flex;
+   align-items: flex-start;
 `;
 
-export const Indicator = styled.div`
-  width: 1.2em;
-  height: 1.2em;
-  background: #e6e6e6;
-  position: absolute;
-  top: 0em;
-  left: -1.6em;
-  border: 1px solid #757575;
-  border-radius: 0.2em;
+export const HidCheckbox = styled.input.attrs({type: 'checkbox'})`
+   width: 23px;
+   height: 23px;
+   margin: -1px;
+   background: linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);
+border-radius: 6px;
+   padding: 0;
+`;
 
-  ${Input}:not(:disabled):checked & {
-    background: #d1d1d1;
-  }
 
-  ${Label}:hover & {
-    background: #ccc;
-  }
+export const Text = styled.label`
+   font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height, or 120% */
+    
+    display: flex;
+    align-items: center;
+    
+    /* Primary/White */
+    
+    color: #FFFFFF;
+`;
 
-  &::after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
+export const Subtitle = styled.div`
+   font-family: SF Pro Display;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height, or 125% */
 
-  ${Input}:checked + &::after {
-    display: block;
-    top: 0.1em;
-    left: 0.35em;
-    width: 35%;
-    height: 70%;
-    border: solid #263238;
-    border-width: 0 0.2em 0.2em 0;
-    animation-name: ${rotate};
-    animation-duration: 0.3s;
-    animation-fill-mode: forwards;
-  }
+display: flex;
+align-items: center;
 
-  &::disabled {
-    cursor: not-allowed;
-  }
+/* Secondary/1 */
+
+color: #848484;
 `;
