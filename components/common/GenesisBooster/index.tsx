@@ -7,37 +7,17 @@ import { CardSubtitle, IconStyle } from "../Cards/styles";
 import { BiRightArrowAlt } from "react-icons/bi";
 import CardAmount from "../Cards/CardAmount";
 import Footer from "../Footer";
-import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../../contexts/StoreContext";
-import config from "../../../utils/config";
+import { useState } from "react";
 import Countdown from "../Countdown";
 
 const GenesisBooster: NextPage = () => {
-  const { userInfoDetailed, contracts, network } = useContext(StoreContext);
-  const [remaining, setRemaining] = useState("");
   const [hasEnded, setHasEnded] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const allowance = await contracts?.bmhtg.allowance(
-        config[network].BMHTG.owner,
-        config[network].BoosterSale.Genesis.address
-      );
-      if (allowance) {
-        setRemaining(allowance.toString());
-      }
-    })();
-  }, [contracts, network]);
 
   const messages = [
     "Legendary drop rate: 1.25%",
     "Epic drop rate: 10%",
     "Rare drop rate: 31.25%",
     "Common drop rate: 57.5%",
-    "",
-    `Remaining: ${remaining}`,
-    `Price: ${config[network].BoosterSale.Genesis.mhtPrice} $MHT`,
-    `Allowance: ${userInfoDetailed?.allowance.genesis ?? ""}`,
   ];
   return (
     <>
