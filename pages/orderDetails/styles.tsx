@@ -340,8 +340,9 @@ export const ContentSubtitle = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      width: 100%;
+      width: 70%;
       align-items: self-end;
+      margin-top: 20px;
 `;
 
 
@@ -351,21 +352,16 @@ export const Subtext = styled.div`
     font-weight: normal;
     font-size: 18px;
     
-    display: flex;
-    align-items: center;
-    
-    
     color: #848484;
     
     b{
-        color:  #EE0CA1;  
+       color:  #EE0CA1;  
 
     }
 `;
 
 export const IconAndText = styled.div`
       display: flex;
-      width: 100%;
       flex-direction: row;
 `;
 export const TextIcon = styled.div`
