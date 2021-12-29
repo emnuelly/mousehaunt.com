@@ -16,7 +16,7 @@ export const sections = [
   // { to: '/#Roadmap', title: 'Roadmap' },
   // { to: '/careers', title: 'Careers' },
   { to: '/success', title: 'Home page' },
-  { to: '/#about', title: 'Explore' },
+  { to: '/createOrder', title: 'Explore' },
   { to: '/#about', title: 'Stats' },
   { to: '/#about', title: 'About' },
 ];
