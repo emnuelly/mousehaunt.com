@@ -30,7 +30,7 @@ export const Content = styled.section`
 `;
 
 export const Body = styled.div`
-  height: 1805px;
+  height: auto;
   margin: auto;
   width: 1200px;
   position: relative;

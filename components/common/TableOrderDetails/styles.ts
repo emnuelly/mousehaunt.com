@@ -93,7 +93,9 @@ export const PriceText = styled.text`
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
-    color: #EE0CA1;
+    background: -webkit-linear-gradient(#EE0CA1, #D742B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 export const FromText = styled.text`
     font-family: SF Pro Display;
@@ -102,6 +104,10 @@ export const FromText = styled.text`
     font-size: 14px;
     line-height: 20px;
     color:  #0882F2;
+   background: -webkit-linear-gradient(#0882F2, #1FC6EC);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
 `;
 export const DateText = styled.text`
     font-family: SF Pro Display;

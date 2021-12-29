@@ -96,7 +96,6 @@ const OrderDetails: NextPage = () => {
                             </LabelAndIcon>
                             <TableOrderDetails/>
                         </ContainerOrderActivity>
-
                     </SecondContent>
                     <ThirdContent>
                         <TitleThirdContent>
