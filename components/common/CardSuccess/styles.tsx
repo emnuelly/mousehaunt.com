@@ -12,6 +12,12 @@ export const Container = styled.div`
     border-radius: 12px;
     position: relative;
     z-index: 2;
+    
+      @media only screen and (max-width: 600px) {
+        width: unset;
+        background: none;
+        margin: unset;
+     }
 
 `;
 

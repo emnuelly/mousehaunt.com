@@ -31,7 +31,9 @@ export const Header = styled.header`
   @media only screen and (max-width: 600px) {
     height: 60px;
     padding: 16px;
-        width: 100vw;
+     width: 100vw;
+     position: fixed;
+     z-index: 1;
 
   }
 

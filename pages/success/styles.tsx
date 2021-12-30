@@ -91,6 +91,7 @@ export const Title = styled.div`
     font-weight: 800;
     font-size: 56px;
     line-height: 64px;
+    padding: 20px;
     margin-top: 112px;
     /* identical to box height, or 114% */
     
