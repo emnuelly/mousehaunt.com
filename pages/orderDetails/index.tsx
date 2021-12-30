@@ -23,6 +23,7 @@ import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
 import ButtonSale from "../../components/common/ButtonSale";
 import TableOrderDetails from "../../components/common/TableOrderDetails";
+import RemainConnected from "../../components/common/RemainConnected";
 
 const OrderDetails: NextPage = () => {
 
@@ -112,6 +113,8 @@ const OrderDetails: NextPage = () => {
                         </CardThirdContent>
                     </ThirdContent>
                 </Body>
+                <RemainConnected/>
+
                 <Footer />
                 <ImageBackground/>
             </Content>

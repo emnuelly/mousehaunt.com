@@ -42,7 +42,7 @@ const Landing: React.FC = () => (
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
             </Subtitle>
             <ContainerButton>
-              <LinkButton className="right" href="/store">
+              <LinkButton className="right" href="/marketplace">
                 Explore now
               </LinkButton>
               <ButtonDark>

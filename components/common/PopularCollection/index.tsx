@@ -16,7 +16,7 @@ const PopularCollection: NextPage = () => {
             <Title>
                 Popular Collections
             </Title>
-                <Link> View more</Link>
+                <Link href={"/marketplace"}> View more</Link>
             </ContainerHeader>
             <ContainerBody>
                 <CardCollection/>

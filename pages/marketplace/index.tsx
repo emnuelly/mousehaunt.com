@@ -31,6 +31,7 @@ import Link from "../../components/common/Link";
 import CardSearchHeroes from "../../components/common/CardsSearch/CardSearchTemplate";
 import CardSearchTemplate from "../../components/common/CardsSearch/CardSearchTemplate";
 import SliderFilter from "../../components/common/SliderFilter";
+import RemainConnected from "../../components/common/RemainConnected";
 
 const Marketplace: NextPage = () => {
 
@@ -95,6 +96,9 @@ const Marketplace: NextPage = () => {
                         </ButtonMore>
                     </Cards>
                 </Body>
+
+                <RemainConnected/>
+
                 <Footer />
                 <ImageBackground/>
             </Content>

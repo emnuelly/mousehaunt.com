@@ -16,7 +16,7 @@ const TrendingProduct: NextPage = () => {
                 <Title>
                     Trending Products
                 </Title>
-                <Link> View more</Link>
+                <Link href={"/marketplace"}> View more</Link>
             </ContainerHeader>
             <ContainerBody>
                 <CardShop/>
