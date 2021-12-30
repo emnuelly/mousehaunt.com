@@ -34,7 +34,7 @@ export const HidCheckbox = styled.input.attrs({type: 'checkbox'})`
    height: 23px;
    margin: -1px;
    background: linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);
-border-radius: 6px;
+    border-radius: 6px;
    padding: 0;
 `;
 

@@ -35,10 +35,8 @@ export const Body = styled.div`
   width: 1200px;
   position: relative;
   z-index: 2;
-  height: 800px;
+  min-height: 800px;
   margin-top: 40px;
-  background-color: #0F0E23;
-  border-radius: 24px;
   flex-direction: column;
   display:-webkit-box;
 
@@ -96,7 +94,7 @@ export const Title = styled.div`
     font-weight: 800;
     font-size: 56px;
     line-height: 64px;
-    margin-top: 112px;
+    margin-top: 160px;
     
     display: block;
     align-items: center;
@@ -107,98 +105,129 @@ export const Title = styled.div`
     color: #FFFFFF;
 `;
 
-export const Left = styled.div`
-  height: 100%;
-  width: 50%;
-  border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px;
-`;
-
-export const Right = styled.div`
-  height: 100%;
-  width: 50%;
-  padding-top: 40px;
-`;
-
-
-export const TitleForm = styled.div`
-    font-family: Bebas Neue Pro;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 48px;
-    line-height: 56px;
-    /* identical to box height, or 117% */
-    
-    display: flex;
-    align-items: center;
-    padding 40px 40px;
-    
-    /* Primary/White */
-    
-    color: #FFFFFF;
-
-`;
-export const FormContent = styled.div`
-    padding: 10px 40px 40px 40px;
-`;
-
-export const LabelFormContent = styled.div`
-    align-content: space-between;
-    justify-content: space-between;    
-    flex-direction: row;
-    display: flex;
-    width: 100%;
-    margin-top: 25px;
-
-`;
-
-export const ContainerButtons = styled.div`
-    align-content: space-between;
-    justify-content: space-between;    
-    flex-direction: row;
-    display: flex;
-    width: 100%;
-    margin-top: 25px;
-
-`;
-
-export const FormInputs = styled.div`
-    align-content: space-between;
-    justify-content: space-between;    
-    flex-direction: row;
-    display: flex;
-    width: 100%;
-`;
-
-export const Input = styled.input`
-  padding: 0.5em;
-  margin: 0.5em;
-  width: 362px;
-  height: 48px;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  background-color: #29274B;
-`;
-
-
-export const LabelForm = styled.div`
+export const Subtitle = styled.div`
     font-family: SF Pro Display;
     font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
+    font-weight: normal;
+    font-size: 18px;
     line-height: 24px;
+   
+    color: #FFFFFF;
+    
+    display: block;
+    align-items: center;
+    text-align: center;
+`;
+
+export const Filter = styled.div`
+  height: 100%;
+  width: 25%;
+  padding: 20px;
+
+`;
+
+export const Cards = styled.div`
+  height: 100%;
+  width: 75%;
+  margin: auto;
+  align-items: center;
+  text-align: center;
+`;
+
+export const AlignCards = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+     margin: 0 auto;
+`;
+
+export const CardSpace = styled.div`
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+`;
+
+export const ButtonMore = styled.div`
+    display: inline-grid;
+    padding-top: 42px;
+    width: 142px;
+    align-items: center;
+    text-align: center;
+`;
+
+export const InputSearch = styled.input`
+    background: url("/images/lupa.png") no-repeat 7px 7px;
+    background-position: left;
+  
+    width: 282px;
+    height: 48px;
+    padding-left: 30px;
+
+ 
+    font-family: SF Pro Display;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    color: #fff;
+    
+    background-color: #29274B;
+    
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border: none;
+`;
+
+
+export const HeaderTitle = styled.div`
+      flex-direction: row;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 10px;
+
+
+`;
+
+export const FilterText = styled.div`
+    font-family: Bebas Neue Pro;
+    font-style: bold;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 36px;
+    text-transform: uppercase;
+    
+    
+    color: #FFFFFF;
+
+`;
+
+export const ClearText = styled.div`
+    font-family: Bebas Neue Pro;
+    font-style: bold;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 36px;
     
     display: flex;
     align-items: center;
-        
-    color: #FFFFFF;
+    text-align: right;
+    text-transform: uppercase;
+    background: -webkit-linear-gradient(#EE0CA1, #D742B6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 `;
-export const IconForm = styled.div`
-    width: 20px;
-    height: 20px;
-    background-image: url("/images/info.png");
-    background-position: center;
-    background-repeat: no-repeat; 
-    background-size: cover; 
+
+export const CheckBox = styled.input.attrs({type: 'checkbox'})`
+   width: 23px;
+   height: 23px;
+   margin: -1px;
+   background: linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);
+border-radius: 6px;
+   padding: 0;
 `;
+
+export const FormFilter = styled.form`
+   width: 100%;
+`;
+
+
