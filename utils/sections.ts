@@ -8,7 +8,7 @@ export const sections = [
   { to: '/', title: 'Home page' },
   { to: '/createOrder', title: 'Explore' },
   { to: '/marketplace', title: 'Stats' },
-  { to: '/#about', title: 'About' },
+  { to: '/orderDetails', title: 'About' },
 ];
 
 export default sections;

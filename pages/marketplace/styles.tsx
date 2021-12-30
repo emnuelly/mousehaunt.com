@@ -33,12 +33,17 @@ export const Body = styled.div`
   height: auto;
   margin: auto;
   width: 1200px;
-  position: relative;
-  z-index: 2;
+ 
   min-height: 800px;
   margin-top: 40px;
   flex-direction: column;
   display:-webkit-box;
+  
+  @media only screen and (max-width: 600px) {
+          width: 100%;
+            margin: auto;
+
+    }
 
 `;
 
@@ -103,8 +108,32 @@ export const Title = styled.div`
     
     
     color: #FFFFFF;
+    
+         @media only screen and (max-width: 600px) {
+        display: none;
+    }
+
 `;
 
+export const TitleResponsive = styled.div`
+    font-family: Bebas Neue Pro;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 64px; 
+     margin-top: 160px;
+    display: block;
+    align-items: center;
+    text-align: left;
+    text-transform: uppercase;
+    width: 207px;
+
+    
+    color: #FFFFFF;
+    
+
+
+`;
 export const Subtitle = styled.div`
     font-family: SF Pro Display;
     font-style: normal;
@@ -117,12 +146,36 @@ export const Subtitle = styled.div`
     display: block;
     align-items: center;
     text-align: center;
+    
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+    
 `;
 
-export const Filter = styled.div`
-  height: 100%;
-  width: 25%;
-  padding: 20px;
+export const ContentResponsive = styled.div`
+  display: none;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+    margin: auto;
+    padding: 25px;
+    position: relative;
+
+  @media only screen and (max-width: 600px) {
+        display: block;
+    }
+
+`;
+
+export const SizeButton = styled.div`
+  display: none;
+  width: 93px;
+
+  @media only screen and (max-width: 600px) {
+        display: block;
+    }
 
 `;
 
@@ -154,68 +207,7 @@ export const ButtonMore = styled.div`
     text-align: center;
 `;
 
-export const InputSearch = styled.input`
-    background: url("/images/lupa.png") no-repeat 7px 7px;
-    background-position: left;
-  
-    width: 282px;
-    height: 48px;
-    padding-left: 30px;
 
- 
-    font-family: SF Pro Display;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 20px;
-    color: #fff;
-    
-    background-color: #29274B;
-    
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 12px;
-    border: none;
-`;
-
-
-export const HeaderTitle = styled.div`
-      flex-direction: row;
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 10px;
-
-
-`;
-
-export const FilterText = styled.div`
-    font-family: Bebas Neue Pro;
-    font-style: bold;
-    font-weight: 800;
-    font-size: 32px;
-    line-height: 36px;
-    text-transform: uppercase;
-    
-    
-    color: #FFFFFF;
-
-`;
-
-export const ClearText = styled.div`
-    font-family: Bebas Neue Pro;
-    font-style: bold;
-    font-weight: 800;
-    font-size: 20px;
-    line-height: 36px;
-    
-    display: flex;
-    align-items: center;
-    text-align: right;
-    text-transform: uppercase;
-    background: -webkit-linear-gradient(#EE0CA1, #D742B6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-`;
 
 export const CheckBox = styled.input.attrs({type: 'checkbox'})`
    width: 23px;
@@ -224,10 +216,6 @@ export const CheckBox = styled.input.attrs({type: 'checkbox'})`
    background: linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);
 border-radius: 6px;
    padding: 0;
-`;
-
-export const FormFilter = styled.form`
-   width: 100%;
 `;
 
 

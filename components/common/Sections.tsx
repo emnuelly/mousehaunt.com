@@ -17,7 +17,9 @@ interface ContainerProps {
 
 const Navs = styled.div`
   display: flex;
-
+   @media only screen and (max-width: 600px) {
+      display: block;
+  }
 `;
 const Container = styled.div<ContainerProps>`
   display: flex;

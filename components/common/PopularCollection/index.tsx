@@ -4,7 +4,7 @@ import {
     Container,
     Title,
     ContainerHeader,
-    ContainerBody
+    ContainerBody,FlexEnd
 } from "./styles";
 import Link from "../Link";
 import CardCollection from "../CardCollection";
@@ -16,7 +16,9 @@ const PopularCollection: NextPage = () => {
             <Title>
                 Popular Collections
             </Title>
-                <Link href={"/marketplace"}> View more</Link>
+                <FlexEnd>
+                    <Link href={"/marketplace"}> View more</Link>
+                </FlexEnd>
             </ContainerHeader>
             <ContainerBody>
                 <CardCollection/>

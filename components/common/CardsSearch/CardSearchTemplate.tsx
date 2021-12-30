@@ -15,6 +15,11 @@ const CardSearch = styled.div`
     
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    
+    @media only screen and (max-width: 600px) {
+       width: 100%;
+       display: inline-block;
+    }
 
 `;
 

@@ -24,8 +24,10 @@ export const Content = styled.section`
   display: inline-block;
   
   @media only screen and (max-width: 600px) {
-    width: unset;
-    margin: unset;
+     margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    text-align: center;
   }
 `;
 
@@ -61,6 +63,7 @@ export const EllipsePink = styled.div`
 
   @media only screen and (max-width: 1280px) {
     transform: scale(0.5);
+        display: contents;
   }
 `;
 

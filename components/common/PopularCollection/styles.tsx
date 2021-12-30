@@ -42,4 +42,14 @@ export const ContainerBody = styled.div`
   text-align: center;
   justify-content: space-between;
   margin-top: 24px;
+  
+  @media only screen and (max-width: 600px) {
+    overflow: scroll;
+  }
+`;
+
+export const FlexEnd = styled.div`
+  @media only screen and (max-width: 600px) {
+    align-self: flex-end;
+  }
 `;

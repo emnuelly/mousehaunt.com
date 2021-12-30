@@ -26,7 +26,6 @@ const Landing: React.FC = () => (
     <Container id="About">
       <Header>
         <Ellipse1/>
-
         <Logo />
         <Sections />
         <Menu />

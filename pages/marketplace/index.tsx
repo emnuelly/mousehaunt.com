@@ -8,16 +8,10 @@ import {
     Body,
     Title,
     Subtitle,
-    Filter,
     Cards,
     AlignCards,
     ButtonMore,
-    CardSpace,
-    InputSearch,
-    HeaderTitle,
-    FilterText,
-    ClearText,
-    FormFilter
+    CardSpace,ContentResponsive, TitleResponsive, SizeButton
 } from "./styles";
 import Footer from "../../components/common/Footer";
 import {Ellipse1} from "../../components/common/Landing/styles";
@@ -32,8 +26,15 @@ import CardSearchHeroes from "../../components/common/CardsSearch/CardSearchTemp
 import CardSearchTemplate from "../../components/common/CardsSearch/CardSearchTemplate";
 import SliderFilter from "../../components/common/SliderFilter";
 import RemainConnected from "../../components/common/RemainConnected";
+import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
+import Modal from "../../components/common/Modal";
 
 const Marketplace: NextPage = () => {
+    const [showMe, setShowMe] = useState(false);
+
+    function toggle() {
+        setShowMe(true);
+    }
 
     return (
         <Container>
@@ -50,26 +51,16 @@ const Marketplace: NextPage = () => {
             </ContainerHeader>
             <Content>
                 <Title>NFT MARKETPLACE</Title>
+                <ContentResponsive>
+                    <TitleResponsive>NFT MARKETPLACE</TitleResponsive>
+                    <SizeButton><Link onClick={toggle}>FILTERS</Link></SizeButton>
+                </ContentResponsive>
+                    <Modal show={showMe}/>
                 <Subtitle>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
                 </Subtitle>
                 <Body>
-                    <Filter>
-                        <HeaderTitle>
-                            <FilterText>FILTERS</FilterText>
-                            <ClearText>Clear All</ClearText>
-                        </HeaderTitle>
-                        <FormFilter>
-                            <InputSearch id={"search"} placeholder={"Search"}/>
-                            <CardSearchTemplate title={"Heroes"} textsCheckbox={"Custom"}/>
-                            <CardSearchTemplate title={"Rarity"} textsCheckbox={"Custom"}/>
-                            <CardSearchTemplate title={"Skin Rarity"} textsCheckbox={"Custom"}/>
-                            <SliderFilter title={"Level"} id={"level"} />
-                            <CardSearchTemplate title={"Trophy Class"} textsCheckbox={"Custom"}/>
-                            <SliderFilter title={"Price range (WBNB)"} id={"price-range"}/>
-
-                        </FormFilter>
-                    </Filter>
+                    <FilterDefault/>
                     <Cards>
                         <AlignCards>
                             <CardSpace>

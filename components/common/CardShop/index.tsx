@@ -18,7 +18,6 @@ import Image from "next/image";
 const CardShop: NextPage = () => {
     return (
         <Card>
-            <Like/>
             <Imagem/>
             <InfoContainer>
                 <InfoContainerUp>

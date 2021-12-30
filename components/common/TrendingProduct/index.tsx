@@ -8,6 +8,7 @@ import {
 } from "./styles";
 import Link from "../Link";
 import CardShop from "../CardShop";
+import {FlexEnd} from "../PopularCollection/styles";
 
 const TrendingProduct: NextPage = () => {
     return (
@@ -16,7 +17,9 @@ const TrendingProduct: NextPage = () => {
                 <Title>
                     Trending Products
                 </Title>
-                <Link href={"/marketplace"}> View more</Link>
+                <FlexEnd>
+                    <Link href={"/marketplace"}> View more</Link>
+                </FlexEnd>
             </ContainerHeader>
             <ContainerBody>
                 <CardShop/>

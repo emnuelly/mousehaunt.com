@@ -7,11 +7,13 @@ export const Container = styled.section`
   height: 100vh;
   width: 90%;
   margin: auto;
-
-
-  @media only screen and (max-width: 600px) {
-    width: 100vw;
+  
+   @media only screen and (max-width: 600px) {
+    height: calc(100vh - 60px);
+    text-align: center;
+    align-items: center;
   }
+  
 `;
 
 export const Body = styled.div`
@@ -21,9 +23,12 @@ export const Body = styled.div`
   justify-content: center;
 
   @media only screen and (max-width: 600px) {
-    height: calc(100vh - 60px);
+    height: auto;
+    width: 100%;
+    margin-top: 100px;
     text-align: center;
-    align-items: center;
+    display: inline-block;
+    position: relative;
   }
 `;
 
@@ -71,8 +76,12 @@ export const Title = styled.div`
 
     font-family: Bebas Neue Pro;
     font-style: normal;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 44px;
+    line-height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 `;
 
@@ -91,7 +100,7 @@ export const Subtitle = styled.div`
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
-    line-height: 20px;
+    line-height: 24px;
   }
 `;
 
@@ -102,6 +111,8 @@ export const Left = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+     width: 100vw;
+
   }
 `;
 
@@ -111,6 +122,19 @@ export const Right = styled.div`
     text-align: center;
     justify-content: space-between;
     margin-left: 160px;
+    
+   @media only screen and (max-width: 1280px) {
+        display: none;
+   }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+       display: none;
+  }
+  
+  @media only screen and (max-width: 600px) {
+        display: none;
+          width: 100%;
+
+  }
 
 `;
 

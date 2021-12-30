@@ -15,6 +15,10 @@ export const Card = styled.div`
   background: #29274B;
   border-radius: 12px;  
   border: none;
+  
+  @media only screen and (max-width: 600px) {
+        margin-right: 5px;
+    }
 
 `;
 export const Like = styled.div`

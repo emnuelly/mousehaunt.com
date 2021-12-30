@@ -10,6 +10,10 @@ export const Container = styled.section`
   height: 350px;
   position: relative;
   z-index: 2;
+  
+   @media only screen and (max-width: 600px) {
+        display: none;
+    }
 `;
 
 export const ImageGold = styled.div`

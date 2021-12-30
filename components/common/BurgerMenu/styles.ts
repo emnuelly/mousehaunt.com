@@ -9,12 +9,12 @@ export const BurgerContainer = styled.div`
     width: 36px;
     height: 30px;
     left: 85%;
-    top: 1.5%;
+    top: 2%;
     z-index: 3000 !important;
   }
 
   .bm-burger-bars {
-    background: #ee0ca1;
+    background: #fff;
   }
 
   .bm-burger-bars-hover {

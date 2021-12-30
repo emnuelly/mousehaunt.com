@@ -20,10 +20,8 @@ const Home: NextPage = () => {
         {/*<PhishingBanner />*/}
         <Landing />
         <PopularCollection />
-          <EllipseBlue/>
           <TrendingProduct/>
           <TrendingProduct/>
-          <EllipsePink/>
           <RemainConnected/>
         <Footer />
           <ImageBackground/>

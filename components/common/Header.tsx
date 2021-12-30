@@ -10,6 +10,12 @@ export const ContainerHeader = styled.section`
 
   @media only screen and (max-width: 600px) {
     width: 100vw;
+    height: 60px;
+    background: #0f0e23;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+
   }
 `;
 
@@ -23,10 +29,10 @@ export const Header = styled.header`
   line-height: 23px;
 
   @media only screen and (max-width: 600px) {
-    width: 100vw;
     height: 60px;
-    background: #0f0e23;
     padding: 16px;
+        width: 100vw;
+
   }
 
   a,
