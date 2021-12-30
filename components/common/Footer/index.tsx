@@ -7,10 +7,10 @@ import logo from "../../../public/images/other/logo.png";
 
 const Footer: NextPage = () => {
   const social = {
+    instagram: "https://discord.gg/UABfTV3AFn",
     discord: "https://discord.gg/UABfTV3AFn",
-    twitter: "https://twitter.com/mousehaunt",
     telegram: "https://t.me/joinchat/QJNjRk7T06NjYjEx",
-    medium: "https://mousehaunt.medium.com",
+    artstation: "https://mousehaunt.medium.com",
   };
   return (
     <Container>
