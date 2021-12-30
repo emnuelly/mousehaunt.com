@@ -56,7 +56,7 @@ const CreateOrder: NextPage = () => {
                             </Expiration>
                             <Checkbox/>
                             <ButtonPlace>
-                                <Link>PLACE ORDER</Link>
+                                <Link href={"/success"}>PLACE ORDER</Link>
                             </ButtonPlace>
                         </FormContent>
                     </Left>

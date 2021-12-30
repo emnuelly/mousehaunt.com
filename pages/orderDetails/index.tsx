@@ -110,9 +110,7 @@ const OrderDetails: NextPage = () => {
                             <CardShop/>
                             <CardShop/>
                         </CardThirdContent>
-
                     </ThirdContent>
-
                 </Body>
                 <Footer />
                 <ImageBackground/>

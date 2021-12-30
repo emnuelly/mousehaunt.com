@@ -7,7 +7,8 @@ export const Select = styled.select`
   border: none;
   border-radius: 10px;
   background-color: #29274B;
-  margin-top: 10px;
+  margin-top: 6px;
+  padding: 10px;
 
   option {
     color: #fff;      

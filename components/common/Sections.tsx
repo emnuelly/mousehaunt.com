@@ -57,8 +57,8 @@ const Container = styled.div<ContainerProps>`
 
 const Sections: React.FC<Props> = ({ mobile }: Props) => {
   const router = useRouter();
-  const isStorePath = router.pathname.includes("/store");
-  const routes = isStorePath ? storeSections : sections;
+  const isStorePath = router.pathname.includes("/marketplace") ;
+  const routes = isStorePath ? sections : sections;
 
   return (
     <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
@@ -71,8 +71,11 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
         </Link>
       ))}
       </Navs>
-      {isStorePath ? null : (
-        <LinkButton className="right" href="/store">
+      {isStorePath ? (
+          <LinkButton className="right" href="/createOrder">
+          CREATE ORDER
+      </LinkButton>) : (
+        <LinkButton className="right" href="/marketplace">
           MARKETPLACE
         </LinkButton>
       )}

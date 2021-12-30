@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerButton = styled.button`
+export const ContainerButton = styled.a`
   color: white;
   text-align: center;
   display: flex;

@@ -34,7 +34,7 @@ const CardSuccess: NextPage = () => {
                     <Value>35</Value>
                 </ContainerSubtitle>
             </ContainerInfo>
-            <Link>BACK TO MARKETPLACE</Link>
+            <Link href={"/marketplace"}>BACK TO MARKETPLACE</Link>
         </Container>
 
     );
