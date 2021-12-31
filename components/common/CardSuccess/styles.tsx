@@ -14,9 +14,10 @@ export const Container = styled.div`
     z-index: 2;
     
       @media only screen and (max-width: 600px) {
-        width: unset;
+        width: 100%;
         background: none;
         margin: unset;
+            padding: 0px;
      }
 
 `;

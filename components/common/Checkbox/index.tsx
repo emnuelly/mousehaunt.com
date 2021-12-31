@@ -13,26 +13,22 @@ import
 } from './styles';
 
 import check from "../../../public/images/check.png";
+import CheckBoxDefault from "../CheckboxDefault";
 
 const Checkbox = () => {
-    const [checked, setChecked] = useState(false);
-
-    function handleCheckboxChange(){
-        setChecked(!checked);
-    }
-
     return (
         <Container>
-            <CheckboxContainer onClick={handleCheckboxChange}>
+
+            <CheckboxContainer>
                 <Text>Sell as a bundle</Text>
-                <HidCheckbox onChange={handleCheckboxChange}/>
+                <CheckBoxDefault/>
             </CheckboxContainer>
-            <CheckboxContainer onClick={handleCheckboxChange}>
+            <CheckboxContainer>
                 <ColumnContainer>
                     <Text>Reserve for specific buyer</Text>
                     <Subtitle>This item can be purchased as soon as it’s listed</Subtitle>
                 </ColumnContainer>
-                <HidCheckbox onChange={handleCheckboxChange}/>
+                <CheckBoxDefault/>
             </CheckboxContainer>
         </Container>
 

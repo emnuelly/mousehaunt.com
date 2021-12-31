@@ -21,26 +21,38 @@ export const Container = styled.div`
 export const Content = styled.section`
   width: 100%;
   margin: auto;
-  display: inline-block;
-  
+  display: grid;
+
   @media only screen and (max-width: 600px) {
     width: unset;
     margin: unset;
+    align-items: center;
+  text-align: center;
   }
 `;
 
 export const Body = styled.div`
+align-items: center;
+  text-align: center;
   height: auto;
   margin: auto;
-  width: 1200px;
+  width: auto;
   position: relative;
   z-index: 2;
-  height: 800px;
+  // height: 800px;
   margin-top: 40px;
-  background-color: #0F0E23;
-  border-radius: 24px;
-  flex-direction: column;
-  display:-webkit-box;
+  background-color: none;
+  // border-radius: 24px;
+  // flex-direction: column;
+  // display:-webkit-box;
+  
+  @media only screen and (min-width: 700px) {
+    display: flex;
+      width: 1200px;
+        background-color: #131524;
+
+
+  }
 
 `;
 
@@ -112,12 +124,54 @@ export const Left = styled.div`
   width: 50%;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
+  flex-wrap: wrap;
+
 `;
 
 export const Right = styled.div`
   height: 100%;
-  width: 50%;
+  width: 100%;
   padding-top: 40px;
+  display: inline-grid;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+`;
+
+export const Mobile = styled.div`
+    display: none;
+
+  @media only screen and (max-width: 1280px) {
+     display: none;
+
+  }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+        display: none;
+
+  }
+ 
+  @media only screen and (max-width: 600px) {
+        display: block;
+
+  }
+  
+`;
+
+export const Web = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 1280px) {
+    display: flex;
+  }
+  
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    display: flex;
+  }
+
+  @media only screen and (max-width: 600px) {
+        display: none;
+  }
+  
 `;
 
 
@@ -138,8 +192,11 @@ export const TitleForm = styled.div`
     color: #FFFFFF;
 
 `;
-export const FormContent = styled.div`
+export const FormContent = styled.form`
     padding: 10px 40px 40px 40px;
+    width: 100%;
+    display: grid;
+
 `;
 
 export const LabelFormContent = styled.div`
@@ -147,7 +204,6 @@ export const LabelFormContent = styled.div`
     justify-content: space-between;    
     flex-direction: row;
     display: flex;
-    width: 100%;
     margin-top: 25px;
 
 `;
@@ -159,6 +215,11 @@ export const ContainerButtons = styled.div`
     display: flex;
     width: 100%;
     margin-top: 25px;
+    
+    @media only screen and (max-width: 600px) {
+        width: unset;
+        margin: unset;
+  }
 
 `;
 
@@ -202,6 +263,7 @@ export const LabelForm = styled.div`
     align-items: center;
         
     color: #FFFFFF;
+    
 `;
 
 export const IconForm = styled.div`
@@ -211,6 +273,7 @@ export const IconForm = styled.div`
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover; 
+    padding-right: 10px;
 `;
 
 export const CalendarIcon = styled.div`
