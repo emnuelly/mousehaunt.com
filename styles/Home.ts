@@ -19,12 +19,13 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.section`
-  width: 100%;
   margin: auto;
   display: inline-block;
   
   @media only screen and (max-width: 600px) {
      margin-left: auto;
+       width: 100%;
+
     margin-right: auto;
     display: inline-block;
     text-align: center;

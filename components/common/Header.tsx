@@ -34,7 +34,6 @@ export const Header = styled.header`
      width: 100vw;
      position: fixed;
      z-index: 1;
-
   }
 
   a,

@@ -25,7 +25,6 @@ import CardShop from "../CardShop";
 const Landing: React.FC = () => (
     <Container id="About">
       <Header>
-        <Ellipse1/>
         <Logo />
         <Sections />
         <Menu />
@@ -49,7 +48,6 @@ const Landing: React.FC = () => (
               </ButtonDark>
             </ContainerButton>
           </Left>
-          <EllipseCenter/>
           <Right>
             <CardStyle>
                <CardShop/>

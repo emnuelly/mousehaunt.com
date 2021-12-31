@@ -8,7 +8,7 @@ export const Container = styled.section`
   width: 90%;
   margin: auto;
   
-   @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 600px) {
     height: calc(100vh - 60px);
     text-align: center;
     align-items: center;

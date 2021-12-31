@@ -37,21 +37,13 @@ align-items: center;
   height: auto;
   margin: auto;
   width: auto;
-  position: relative;
-  z-index: 2;
-  // height: 800px;
   margin-top: 40px;
   background-color: none;
-  // border-radius: 24px;
-  // flex-direction: column;
-  // display:-webkit-box;
   
   @media only screen and (min-width: 700px) {
     display: flex;
       width: 1200px;
         background-color: #131524;
-
-
   }
 
 `;

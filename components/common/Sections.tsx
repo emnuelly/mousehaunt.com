@@ -15,10 +15,12 @@ interface ContainerProps {
   width: string;
 }
 
-const Navs = styled.div`
+const Navs = styled.div<ContainerProps>`
   display: flex;
    @media only screen and (max-width: 600px) {
       display: block;
+        width: ${(props) => props.width};
+
   }
 `;
 const Container = styled.div<ContainerProps>`
@@ -52,7 +54,7 @@ const Container = styled.div<ContainerProps>`
   }
 
   .right {
-    margin-left: auto;
+    padding-left: 40px;
     margin-right: 0px;
   }
 `;
@@ -64,7 +66,7 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
 
   return (
     <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
-      <Navs>
+      <Navs width={isStorePath ? "" : "100%"} >
       {routes.map((section) => (
         <Link key={section.to} href={section.to}>
           <a target={section.title === "White Paper" ? "_blank" : ""}>

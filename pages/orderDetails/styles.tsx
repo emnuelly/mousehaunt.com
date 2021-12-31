@@ -34,23 +34,12 @@ export const Content = styled.section`
 `;
 
 export const Body = styled.div`
-  // height: auto;
-  // margin: auto;
-  // width: 1200px;
-  // position: relative;
-  // z-index: 2;
-  // margin-top: 40px;
-  // background-color: #0F0E23;
   border-radius: 24px;
-  // flex-direction: column;
-  // display: block;
   align-items: center;
   text-align: center;
   height: auto;
   margin: auto;
   width: 100%;
-  position: relative;
-  z-index: 2;
   margin-top: 40px;
   background-color: none;
   
