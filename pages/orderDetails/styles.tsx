@@ -15,6 +15,9 @@ export const Container = styled.div`
   @media only screen and (max-width: 600px) {
     padding-left: unset; 
     padding-right: unset;
+    width: 600px;
+
+  
   }
 `;
 
@@ -23,23 +26,40 @@ export const Content = styled.section`
   margin: auto;
   display: inline-block;
   
-  @media only screen and (max-width: 600px) {
-    width: unset;
-    margin: unset;
-  }
+     @media only screen and (max-width: 600px) {
+      margin: unset;
+       align-items: center;
+     text-align: center;
+   }
 `;
 
 export const Body = styled.div`
+  // height: auto;
+  // margin: auto;
+  // width: 1200px;
+  // position: relative;
+  // z-index: 2;
+  // margin-top: 40px;
+  // background-color: #0F0E23;
+  border-radius: 24px;
+  // flex-direction: column;
+  // display: block;
+  align-items: center;
+  text-align: center;
   height: auto;
   margin: auto;
-  width: 1200px;
+  width: 100%;
   position: relative;
   z-index: 2;
   margin-top: 40px;
-  background-color: #0F0E23;
-  border-radius: 24px;
-  flex-direction: column;
-  display: block;
+  background-color: none;
+  
+  @media only screen and (min-width: 700px) {
+      display: flex;
+       width: 1200px;
+       background-color: #131524;
+      flex-direction: column;
+  }
 
 `;
 
@@ -81,14 +101,26 @@ export const FirstContent = styled.div`
   place-content: space-between;
   display: flex;
   padding-top: 20px;
+  
+  @media only screen and (max-width: 600px) {
+        flex-direction: column;
+     
+  }
 
 `;
 
 export const SecondContent = styled.div`
   height: 33%;
   width: 100%;
-  padding-top: 40px;
+  padding: 40px;
   margin-top: 40px;
+  
+  @media only screen and (max-width: 600px) {
+     margin: unset;
+     width: 600px;
+     align-items: center;
+    text-align: center;
+   }
 
 `;
 
@@ -99,6 +131,14 @@ export const ContainerOrderActivity = styled.div`
   background: #29274B;
   border-radius: 12px;
   margin: auto;
+  
+    @media only screen and (max-width: 600px) {
+       width: 100%;
+       height: auto;
+       margin: auto;
+
+  }
+  
 `;
 
 export const LabelAndIcon = styled.div`
@@ -166,9 +206,14 @@ export const ThirdContent = styled.div`
     text-align: center;
     flex-direction: column;
     display: flex;
-    margin-top: 40px;
+    padding: 0px;
     place-content: space-between;
-    padding: 40px;
+   
+    @media only screen and (max-width: 600px) {
+      align-self: center;
+      width: 600px;
+
+    }
 `;
 
 export const CardThirdContent = styled.div`
@@ -178,6 +223,10 @@ export const CardThirdContent = styled.div`
     display: flex;
     place-content: space-between;
     padding: 40px;
+    
+      @media only screen and (max-width: 600px) {
+    overflow: scroll;
+  }
 `;
 
 export const TitleThirdContent = styled.div`
@@ -205,13 +254,14 @@ export const Left = styled.div`
   height: 100%;
   width: 50%;
   padding-top: 10px;
+  padding-left: 30px;
 
 `;
 
 export const Right = styled.div`
   height: 100%;
   width: 50%;
-  padding-top: 10px;
+    padding-left: 30px;
 
 `;
 
@@ -231,13 +281,16 @@ export const Top = styled.div`
     height: 33%;
     width: 100%; 
     
+     @media only screen and (max-width: 600px) {
+            display: grid
+     }
       
 `;
 
 
 export const Middle = styled.div`
     padding-top: 24px;
-
+   
    height: 33%;
     width: 100%;
 `;
@@ -320,12 +373,16 @@ export const CollecionText = styled.div`
 
     display: flex;
     align-items: center;
+    
+      @media only screen and (max-width: 600px) {
+           margin-top: 10px;
+               font-size: 20px;
+
+       }
 `;
 
 
-export const TitleName = styled.div`
-    width: 100%;
-    
+export const TitleName = styled.div`    
     font-family: Bebas Neue Pro;
     font-style: normal;
     font-weight: bold;
@@ -345,6 +402,12 @@ export const ContentSubtitle = styled.div`
       width: 70%;
       align-items: self-end;
       margin-top: 20px;
+      
+      @media only screen and (max-width: 600px) {
+            flex-direction: column;
+            align-items: flex-start;
+       }
+      
 `;
 
 
@@ -456,3 +519,8 @@ export const IconSale = styled.div`
 
 `;
 
+export const FlexEnd = styled.div`
+  @media only screen and (max-width: 600px) {
+    align-self: flex-end;
+  }
+`;

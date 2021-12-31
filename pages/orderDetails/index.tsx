@@ -24,6 +24,8 @@ import Link from "../../components/common/Link";
 import ButtonSale from "../../components/common/ButtonSale";
 import TableOrderDetails from "../../components/common/TableOrderDetails";
 import RemainConnected from "../../components/common/RemainConnected";
+import PopularCollection from "../../components/common/PopularCollection";
+import TrendingProduct from "../../components/common/TrendingProduct";
 
 const OrderDetails: NextPage = () => {
 
@@ -99,18 +101,7 @@ const OrderDetails: NextPage = () => {
                         </ContainerOrderActivity>
                     </SecondContent>
                     <ThirdContent>
-                        <TitleThirdContent>
-                            <Label3>
-                                More from this collection
-                            </Label3>
-                            <Link>View  More</Link>
-                        </TitleThirdContent>
-                        <CardThirdContent>
-                            <CardShop/>
-                            <CardShop/>
-                            <CardShop/>
-                            <CardShop/>
-                        </CardThirdContent>
+                        <TrendingProduct/>
                     </ThirdContent>
                 </Body>
                 <RemainConnected/>
