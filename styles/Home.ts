@@ -4,9 +4,6 @@ export const Container = styled.div`
   height: 100%;
   width: 100%;
 
-  padding-left: 120px;
-  padding-right: 120px;
-
   @media only screen and (max-width: 1280px) {
     padding-left: 80px;
     padding-right: 80px;
@@ -22,10 +19,63 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.section`
-  width: 1200px;
   margin: auto;
+  display: inline-block;
+  
   @media only screen and (max-width: 600px) {
-    width: unset;
-    margin: unset;
+     margin-left: auto;
+       width: 100%;
+
+    margin-right: auto;
+    display: inline-block;
+    text-align: center;
   }
+`;
+
+
+export const EllipseBlue = styled.div`
+  position: absolute;
+  width: 855.05px;
+  height: 855.05px;
+  left: 0px;
+  z-index: 2;
+ 
+
+  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+    opacity: 0.35;
+  filter: blur(235px);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
+  }
+`;
+
+export const EllipsePink = styled.div`
+  position: absolute;
+  width: 1217.93px;
+  height: 1217.93px;
+  right: 0px;
+  z-index: 1;
+
+
+  background:  linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+    opacity: 0.35;
+    filter: blur(235px);
+
+  @media only screen and (max-width: 1280px) {
+    transform: scale(0.5);
+        display: contents;
+  }
+`;
+
+export const ImageBackground = styled.div`
+  height: 475px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  background-image: url("/images/footer.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  mix-blend-mode: multiply; 
+  margin-top: -410px;
 `;

@@ -3,22 +3,25 @@ import styled from 'styled-components';
 export const BurgerContainer = styled.div`
   display: none;
 
+    .right{
+        margin-left: 40%;
+    }
 
   .bm-burger-button {
     position: fixed;
     width: 36px;
     height: 30px;
     left: 85%;
-    top: 1.5%;
+    top: 4%;
     z-index: 3000 !important;
   }
 
   .bm-burger-bars {
-    background: #ee0ca1;
+    background: #fff;
   }
 
   .bm-burger-bars-hover {
-    background: #ee0ca1;
+    background: #fff;
   }
 
   .bm-cross {

@@ -15,6 +15,14 @@ interface ContainerProps {
   width: string;
 }
 
+const Navs = styled.div<ContainerProps>`
+  display: flex;
+   @media only screen and (max-width: 600px) {
+      display: block;
+        width: ${(props) => props.width};
+
+  }
+`;
 const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: ${(props) => (props.mobile ? "column" : "row")};
@@ -25,6 +33,7 @@ const Container = styled.div<ContainerProps>`
 
   a {
     margin-left: inherit;
+      align-items: flex-start !important;
     margin-right: ${(props) => (props.mobile ? "" : "32px")};
     z-index: 1;
   }
@@ -45,18 +54,19 @@ const Container = styled.div<ContainerProps>`
   }
 
   .right {
-    margin-left: auto;
+    padding-left: 40px;
     margin-right: 0px;
   }
 `;
 
 const Sections: React.FC<Props> = ({ mobile }: Props) => {
   const router = useRouter();
-  const isStorePath = router.pathname.includes("/store");
-  const routes = isStorePath ? storeSections : sections;
+  const isStorePath = router.pathname.includes("/marketplace") ;
+  const routes = isStorePath ? sections : sections;
 
   return (
     <Container width={isStorePath ? "" : "100%"} mobile={mobile}>
+      <Navs width={isStorePath ? "" : "100%"} >
       {routes.map((section) => (
         <Link key={section.to} href={section.to}>
           <a target={section.title === "White Paper" ? "_blank" : ""}>
@@ -64,9 +74,10 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
           </a>
         </Link>
       ))}
+      </Navs>
       {isStorePath ? null : (
-        <LinkButton className="right" href="/store">
-          STORE
+        <LinkButton className="right" href="/marketplace">
+          MARKETPLACE
         </LinkButton>
       )}
     </Container>
