@@ -1,12 +1,11 @@
-import type { NextPage } from "next";
-import SuccessPage from "../../components/store/SuccessPage";
+import type { NextPage } from 'next'
 
-const StoreSuccess: NextPage = () => {
-  return (
-    <>
-      <SuccessPage />
-    </>
-  );
-};
+import SuccessPage from '../../components/store/SuccessPage'
 
-export default StoreSuccess;
+const StoreSuccess: NextPage = () => (
+  <>
+    <SuccessPage />
+  </>
+)
+
+export default StoreSuccess

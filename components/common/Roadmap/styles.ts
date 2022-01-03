@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: flex;
@@ -10,7 +10,7 @@ export const Container = styled.section`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-`;
+`
 
 export const RoadmapImage = styled.div`
   .desktop {
@@ -23,7 +23,7 @@ export const RoadmapImage = styled.div`
       display: none;
     }
   }
-`;
+`
 
 export const Title = styled.h1`
   display: inline;
@@ -32,7 +32,7 @@ export const Title = styled.h1`
   margin-bottom: 64px;
   z-index: 1;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -51,7 +51,7 @@ export const Title = styled.h1`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Subtitle = styled.h2`
   display: inline;
@@ -59,7 +59,7 @@ export const Subtitle = styled.h2`
   margin-bottom: 64px;
   z-index: 1;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 36px;
   line-height: 40px;
@@ -76,11 +76,11 @@ export const Subtitle = styled.h2`
   -moz-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
-`;
+`
 
 export const Content = styled.div`
   align-self: center;
-`;
+`
 
 export const Upward = styled.div`
   display: flex;
@@ -128,9 +128,9 @@ export const Upward = styled.div`
       order: -1;
     }
   }
-`;
+`
 
-export const Plan = styled.div``;
+export const Plan = styled.div``
 
 export const Downward = styled.div`
   display: flex;
@@ -176,27 +176,22 @@ export const Downward = styled.div`
 
   .fourth > h2 {
     margin-left: 60px;
-    background-image: linear-gradient(
-      96.82deg,
-      #ac6cfe 0%,
-      #926cfe 0.01%,
-      #08acf2 100%
-    );
+    background-image: linear-gradient(96.82deg, #ac6cfe 0%, #926cfe 0.01%, #08acf2 100%);
 
     @media only screen and (max-width: 600px) {
       margin-bottom: 0px;
       order: -1;
     }
   }
-`;
+`
 
 export const Text = styled.div`
   text-align: center;
   width: 200px;
 
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 24px;
-`;
+`

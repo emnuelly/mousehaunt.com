@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const CardBody = styled.div`
   display: flex;
@@ -10,10 +10,10 @@ export const CardBody = styled.div`
   @media only screen and (max-width: 600px) {
     display: block;
   }
-`;
+`
 
 interface Props {
-  index: number;
+  index: number
 }
 
 export const CardSection = styled.div<Props>`
@@ -26,11 +26,11 @@ export const CardSection = styled.div<Props>`
 
   background: ${(props) =>
     props.index === 0
-      ? "linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(49, 103, 242, 0.5)"
+      ? 'linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(49, 103, 242, 0.5)'
       : props.index === 1
-      ? "linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), linear-gradient(96.82deg, rgba(186, 97, 228, 0.3) 0%, rgba(212, 66, 215, 0.3) 100%);"
-      : "linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(89, 192, 230, 0.5);"};
-`;
+      ? 'linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), linear-gradient(96.82deg, rgba(186, 97, 228, 0.3) 0%, rgba(212, 66, 215, 0.3) 100%);'
+      : 'linear-gradient(180deg, #0F0E23 0%, rgba(15, 14, 35, 0) 100%), rgba(89, 192, 230, 0.5);'};
+`
 
 export const LoadingContainer = styled.div`
   display: flex;
@@ -40,30 +40,30 @@ export const LoadingContainer = styled.div`
     margin-top: -10px;
     fill: rgba(49, 103, 242, 0.5);
   }
-`;
+`
 
 export const CardTitle = styled.div`
   position: relative;
   top: -30%;
   left: 5%;
-  font-family: "Bebas Neue Pro Bold";
+  font-family: 'Bebas Neue Pro Bold';
   color: white;
   font-size: 30px;
   font-weight: 800;
 
   margin-top: 80px;
-`;
+`
 
 export const IconStyle = styled.div`
   color: #cb61e4;
   display: inline;
   padding: 5px;
-`;
+`
 
 export const CardSubtitle = styled.div`
   position: relative;
   top: -30%;
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-size: 14px;
   margin-top: 20px;
 
@@ -79,7 +79,7 @@ export const CardSubtitle = styled.div`
     margin-top: 0px;
     margin-bottom: 40px;
   }
-`;
+`
 
 export const CardImage = styled.div`
   display: flex;
@@ -91,4 +91,4 @@ export const CardImage = styled.div`
     min-height: 320px;
     margin-top: 20px !important;
   }
-`;
+`

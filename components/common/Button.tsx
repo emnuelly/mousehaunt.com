@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Button = styled.button`
   color: white;
@@ -8,7 +8,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 10px;
 
-  font-family: "Bebas Neue Pro Bold";
+  font-family: 'Bebas Neue Pro Bold';
   font-size: 20px;
   line-height: 24px;
 
@@ -32,4 +32,4 @@ export const Button = styled.button`
     opacity: 0.5;
     cursor: default !important;
   }
-`;
+`

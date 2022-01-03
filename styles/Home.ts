@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
   height: 100%;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     padding-left: unset;
     padding-right: unset;
   }
-`;
+`
 
 export const Content = styled.section`
   width: 1200px;
@@ -28,4 +28,4 @@ export const Content = styled.section`
     width: unset;
     margin: unset;
   }
-`;
+`

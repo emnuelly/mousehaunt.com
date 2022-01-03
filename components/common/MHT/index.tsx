@@ -1,37 +1,24 @@
-import type { NextPage } from "next";
-import config from "../../../utils/config";
+import { useContext } from 'react'
 
-import {
-  Container,
-  Left,
-  Right,
-  Title,
-  Subtitle,
-  Chest,
-  Ellipse,
-} from "./styles";
-import Image from "next/image";
-import { Button } from "../Button";
-import mht from "../../../public/images/other/MHT.png";
-import { addToWallet } from "../../../utils/blockchain";
-import { useContext } from "react";
-import { StoreContext } from "../../../contexts/StoreContext";
+import type { NextPage } from 'next'
+import Image from 'next/image'
+
+import { StoreContext } from '../../../contexts/StoreContext'
+import mht from '../../../public/images/other/MHT.png'
+import { addToWallet } from '../../../utils/blockchain'
+import config from '../../../utils/config'
+import { Button } from '../Button'
+import { Container, Left, Right, Title, Subtitle, Chest, Ellipse } from './styles'
 
 const MHT: NextPage = () => {
-  const { network } = useContext(StoreContext);
+  const { network } = useContext(StoreContext)
 
   return (
     <>
-      <Container id="Token">
+      <Container id='Token'>
         <Left>
           <Chest>
-            <Image
-              src={mht}
-              width="540px"
-              height="473.5px"
-              alt="MHT"
-              placeholder="blur"
-            />
+            <Image src={mht} width='540px' height='473.5px' alt='MHT' placeholder='blur' />
           </Chest>
         </Left>
         <Right>
@@ -39,11 +26,11 @@ const MHT: NextPage = () => {
           <Subtitle>
             Tired of playing boring NFT games just to make a couple bucks?
             <br />
-            Come to Mouse Haunt now, showcase your skills and have fun{" "}
+            Come to Mouse Haunt now, showcase your skills and have fun{' '}
             <a
               href={`https://bscscan.com/token/${config[network].MouseHauntToken.address}`}
-              target="_blank"
-              rel="noreferrer"
+              target='_blank'
+              rel='noreferrer'
             >
               earning MHT!
             </a>
@@ -53,7 +40,7 @@ const MHT: NextPage = () => {
       </Container>
       <Ellipse />
     </>
-  );
-};
+  )
+}
 
-export default MHT;
+export default MHT

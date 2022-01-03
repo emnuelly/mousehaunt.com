@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Content = styled.section`
   width: 1200px;
@@ -7,7 +7,7 @@ export const Content = styled.section`
     width: unset;
     margin: unset;
   }
-`;
+`
 
 export const CareerContainer = styled.div`
   top: 0px;
@@ -25,7 +25,7 @@ export const CareerContainer = styled.div`
       margin-left: 32px;
     }
   }
-`;
+`
 
 export const CareerPageSub = styled.div`
   margin: 0 auto;
@@ -49,7 +49,7 @@ export const CareerPageSub = styled.div`
     font-size: 16px;
     line-height: 20px;
   }
-`;
+`
 
 export const CareerPageSubText = styled.p`
   display: flex;
@@ -66,7 +66,7 @@ export const CareerPageSubText = styled.p`
   line-height: 28px;
 
   color: #ffff;
-`;
+`
 
 export const CareerTitle = styled.div`
   font-family: 'Bebas Neue Pro';
@@ -94,7 +94,7 @@ export const CareerTitle = styled.div`
     font-size: 80px;
     line-height: 72px;
   }
-`;
+`
 
 export const CardsColumn = styled.div`
   display: flex;
@@ -107,7 +107,7 @@ export const CardsColumn = styled.div`
     margin-bottom: 20px;
     margin-top: 50%;
   }
-`;
+`
 
 export const Cards = styled.div`
   background-color: #0f0e23;
@@ -120,7 +120,7 @@ export const Cards = styled.div`
   @media screen and (max-width: 600px) {
     flex: 0 0 100%;
   }
-`;
+`
 
 export const CardsTitle = styled.h2`
   margin-top: 5%;
@@ -128,7 +128,7 @@ export const CardsTitle = styled.h2`
   font-family: 'Bebas Neue Pro';
   font-weight: 700px;
   font-size: 28px;
-`;
+`
 export const CardsBody = styled.div`
   margin-left: 10%;
   font-family: 'SF Pro Display';
@@ -136,10 +136,10 @@ export const CardsBody = styled.div`
   font-size: 18px;
   margin-bottom: 40px;
   margin-top: 10px;
-`;
+`
 export const CardsItems = styled.div`
   text-align: left;
-`;
+`
 export const CardsButton = styled.div`
   font-size: 20px;
   background: -webkit-linear-gradient(#ee0ca1, #d742b6);
@@ -151,17 +151,17 @@ export const CardsButton = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
+`
 
 export const IconStyle = styled.div`
   display: flex;
   color: #ee0ca1;
   align-items: center;
-`;
+`
 
 export const IconButton = styled.div`
   display: flex;
   justify-content: flex-end;
   color: #ee0ca1;
   align-items: center;
-`;
+`

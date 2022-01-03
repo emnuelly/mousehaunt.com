@@ -1,1 +1,1 @@
-export const SWEEPWIDGET_URL = "https://mousehaunt.com/store";
+export const SWEEPWIDGET_URL = 'https://mousehaunt.com/store'

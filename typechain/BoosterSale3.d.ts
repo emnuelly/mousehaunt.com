@@ -12,460 +12,337 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+  CallOverrides
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface BoosterSale3Interface extends ethers.utils.Interface {
   functions: {
-    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
-    "OPERATOR_ROLE()": FunctionFragment;
-    "boosterOwner()": FunctionFragment;
-    "busd()": FunctionFragment;
-    "buy(address,uint256)": FunctionFragment;
-    "epicBooster()": FunctionFragment;
-    "getRoleAdmin(bytes32)": FunctionFragment;
-    "grantRole(bytes32,address)": FunctionFragment;
-    "hasRole(bytes32,address)": FunctionFragment;
-    "pause()": FunctionFragment;
-    "paused()": FunctionFragment;
-    "prices(address)": FunctionFragment;
-    "rareBooster()": FunctionFragment;
-    "renounceRole(bytes32,address)": FunctionFragment;
-    "revokeRole(bytes32,address)": FunctionFragment;
-    "setWhitelist(address[],uint256[],uint256[])": FunctionFragment;
-    "supportsInterface(bytes4)": FunctionFragment;
-    "unpause()": FunctionFragment;
-    "whitelist(address,address)": FunctionFragment;
-  };
+    'DEFAULT_ADMIN_ROLE()': FunctionFragment
+    'OPERATOR_ROLE()': FunctionFragment
+    'boosterOwner()': FunctionFragment
+    'busd()': FunctionFragment
+    'buy(address,uint256)': FunctionFragment
+    'epicBooster()': FunctionFragment
+    'getRoleAdmin(bytes32)': FunctionFragment
+    'grantRole(bytes32,address)': FunctionFragment
+    'hasRole(bytes32,address)': FunctionFragment
+    'pause()': FunctionFragment
+    'paused()': FunctionFragment
+    'prices(address)': FunctionFragment
+    'rareBooster()': FunctionFragment
+    'renounceRole(bytes32,address)': FunctionFragment
+    'revokeRole(bytes32,address)': FunctionFragment
+    'setWhitelist(address[],uint256[],uint256[])': FunctionFragment
+    'supportsInterface(bytes4)': FunctionFragment
+    'unpause()': FunctionFragment
+    'whitelist(address,address)': FunctionFragment
+  }
 
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'OPERATOR_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'boosterOwner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'busd', values?: undefined): string
+  encodeFunctionData(functionFragment: 'buy', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'epicBooster', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'prices', values: [string]): string
+  encodeFunctionData(functionFragment: 'rareBooster', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string
   encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "OPERATOR_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "boosterOwner",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "busd", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "buy",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "epicBooster",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(functionFragment: "pause", values?: undefined): string;
-  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
-  encodeFunctionData(functionFragment: "prices", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "rareBooster",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setWhitelist",
+    functionFragment: 'setWhitelist',
     values: [string[], BigNumberish[], BigNumberish[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "whitelist",
-    values: [string, string]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'whitelist', values: [string, string]): string
 
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "OPERATOR_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "boosterOwner",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "busd", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "epicBooster",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "prices", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "rareBooster",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceRole",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'OPERATOR_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'boosterOwner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'busd', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'buy', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'epicBooster', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'prices', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'rareBooster', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setWhitelist', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'whitelist', data: BytesLike): Result
 
   events: {
-    "Paused(address)": EventFragment;
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
-    "RoleGranted(bytes32,address,address)": EventFragment;
-    "RoleRevoked(bytes32,address,address)": EventFragment;
-    "Unpaused(address)": EventFragment;
-  };
+    'Paused(address)': EventFragment
+    'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment
+    'RoleGranted(bytes32,address,address)': EventFragment
+    'RoleRevoked(bytes32,address,address)': EventFragment
+    'Unpaused(address)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
 }
 
-export type PausedEvent = TypedEvent<[string] & { account: string }>;
+export type PausedEvent = TypedEvent<[string] & { account: string }>
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string] & {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    role: string
+    previousAdminRole: string
+    newAdminRole: string
   }
->;
+>
 
 export type RoleGrantedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
 export type RoleRevokedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
-export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
+export type UnpausedEvent = TypedEvent<[string] & { account: string }>
 
 export class BoosterSale3 extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: BoosterSale3Interface;
+  interface: BoosterSale3Interface
 
   functions: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    boosterOwner(overrides?: CallOverrides): Promise<[string]>;
+    boosterOwner(overrides?: CallOverrides): Promise<[string]>
 
-    busd(overrides?: CallOverrides): Promise<[string]>;
+    busd(overrides?: CallOverrides): Promise<[string]>
 
     buy(
       booster: string,
       _numberOfBoosters: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    epicBooster(overrides?: CallOverrides): Promise<[string]>;
+    epicBooster(overrides?: CallOverrides): Promise<[string]>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    pause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    paused(overrides?: CallOverrides): Promise<[boolean]>;
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
-    prices(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    prices(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
-    rareBooster(overrides?: CallOverrides): Promise<[string]>;
+    rareBooster(overrides?: CallOverrides): Promise<[string]>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setWhitelist(
       _buyers: string[],
       epicAllowances: BigNumberish[],
       rareAllowances: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    whitelist(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-  };
+    whitelist(arg0: string, arg1: string, overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
-  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-  OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
+  OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>
 
-  boosterOwner(overrides?: CallOverrides): Promise<string>;
+  boosterOwner(overrides?: CallOverrides): Promise<string>
 
-  busd(overrides?: CallOverrides): Promise<string>;
+  busd(overrides?: CallOverrides): Promise<string>
 
   buy(
     booster: string,
     _numberOfBoosters: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  epicBooster(overrides?: CallOverrides): Promise<string>;
+  epicBooster(overrides?: CallOverrides): Promise<string>
 
-  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
   grantRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  hasRole(
-    role: BytesLike,
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
-  pause(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  paused(overrides?: CallOverrides): Promise<boolean>;
+  paused(overrides?: CallOverrides): Promise<boolean>
 
-  prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-  rareBooster(overrides?: CallOverrides): Promise<string>;
+  rareBooster(overrides?: CallOverrides): Promise<string>
 
   renounceRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   revokeRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setWhitelist(
     _buyers: string[],
     epicAllowances: BigNumberish[],
     rareAllowances: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  supportsInterface(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
 
-  unpause(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  unpause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  whitelist(
-    arg0: string,
-    arg1: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  whitelist(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>
 
-    boosterOwner(overrides?: CallOverrides): Promise<string>;
+    boosterOwner(overrides?: CallOverrides): Promise<string>
 
-    busd(overrides?: CallOverrides): Promise<string>;
+    busd(overrides?: CallOverrides): Promise<string>
 
-    buy(
-      booster: string,
-      _numberOfBoosters: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    buy(booster: string, _numberOfBoosters: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    epicBooster(overrides?: CallOverrides): Promise<string>;
+    epicBooster(overrides?: CallOverrides): Promise<string>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
-    grantRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    grantRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
-    pause(overrides?: CallOverrides): Promise<void>;
+    pause(overrides?: CallOverrides): Promise<void>
 
-    paused(overrides?: CallOverrides): Promise<boolean>;
+    paused(overrides?: CallOverrides): Promise<boolean>
 
-    prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    rareBooster(overrides?: CallOverrides): Promise<string>;
+    rareBooster(overrides?: CallOverrides): Promise<string>
 
-    renounceRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    renounceRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    revokeRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
     setWhitelist(
       _buyers: string[],
       epicAllowances: BigNumberish[],
       rareAllowances: BigNumberish[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
 
-    unpause(overrides?: CallOverrides): Promise<void>;
+    unpause(overrides?: CallOverrides): Promise<void>
 
-    whitelist(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    whitelist(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   filters: {
-    "Paused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Paused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+    Paused(account?: null): TypedEventFilter<[string], { account: string }>
 
-    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+    'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
       previousAdminRole?: BytesLike | null,
       newAdminRole?: BytesLike | null
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
     RoleAdminChanged(
       role?: BytesLike | null,
@@ -474,211 +351,167 @@ export class BoosterSale3 extends BaseContract {
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
-    "RoleGranted(bytes32,address,address)"(
+    'RoleGranted(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleGranted(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "RoleRevoked(bytes32,address,address)"(
+    'RoleRevoked(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleRevoked(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "Unpaused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Unpaused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>;
-  };
+    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>
+  }
 
   estimateGas: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    boosterOwner(overrides?: CallOverrides): Promise<BigNumber>;
+    boosterOwner(overrides?: CallOverrides): Promise<BigNumber>
 
-    busd(overrides?: CallOverrides): Promise<BigNumber>;
+    busd(overrides?: CallOverrides): Promise<BigNumber>
 
     buy(
       booster: string,
       _numberOfBoosters: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    epicBooster(overrides?: CallOverrides): Promise<BigNumber>;
+    epicBooster(overrides?: CallOverrides): Promise<BigNumber>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    pause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    paused(overrides?: CallOverrides): Promise<BigNumber>;
+    paused(overrides?: CallOverrides): Promise<BigNumber>
 
-    prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    prices(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    rareBooster(overrides?: CallOverrides): Promise<BigNumber>;
+    rareBooster(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setWhitelist(
       _buyers: string[],
       epicAllowances: BigNumberish[],
       rareAllowances: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
 
-    unpause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    unpause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    whitelist(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    whitelist(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    DEFAULT_ADMIN_ROLE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    boosterOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    boosterOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    busd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    busd(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     buy(
       booster: string,
       _numberOfBoosters: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    epicBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    epicBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hasRole(
       role: BytesLike,
       account: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    prices(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    prices(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    rareBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    rareBooster(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setWhitelist(
       _buyers: string[],
       epicAllowances: BigNumberish[],
       rareAllowances: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    whitelist(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    whitelist(arg0: string, arg1: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

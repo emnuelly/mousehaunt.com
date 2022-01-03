@@ -1,33 +1,32 @@
-import type { NextPage } from 'next';
-import Career from '../../components/career/Career';
-import Header from '../../components/common/Header';
-import Ruler from '../../components/common/Ruler';
-import Footer from '../../components/common/Footer';
-import Sections from '../../components/common/Sections';
-import { Link } from '../../components/common/Link';
-import Logo from '../../components/common/Logo';
-import { Container } from '../../styles/Home';
-import Menu from '../../components/common/BurgerMenu';
+import type { NextPage } from 'next'
 
-const CareerPage: NextPage = () => {
-  return (
-    <>
-      <Container>
-        <Header>
-          <Logo />
-          <Sections />
-          <Menu>
-            <div>
-              <Link href="/store">PRIVATE SALE</Link>
-            </div>
-          </Menu>
-        </Header>
-        <Career />
-        <Ruler />
-        <Footer />
-      </Container>
-    </>
-  );
-};
+import Career from '../../components/career/Career'
+import Menu from '../../components/common/BurgerMenu'
+import Footer from '../../components/common/Footer'
+import Header from '../../components/common/Header'
+import { Link } from '../../components/common/Link'
+import Logo from '../../components/common/Logo'
+import Ruler from '../../components/common/Ruler'
+import Sections from '../../components/common/Sections'
+import { Container } from '../../styles/Home'
 
-export default CareerPage;
+const CareerPage: NextPage = () => (
+  <>
+    <Container>
+      <Header>
+        <Logo />
+        <Sections />
+        <Menu>
+          <div>
+            <Link href='/store'>PRIVATE SALE</Link>
+          </div>
+        </Menu>
+      </Header>
+      <Career />
+      <Ruler />
+      <Footer />
+    </Container>
+  </>
+)
+
+export default CareerPage

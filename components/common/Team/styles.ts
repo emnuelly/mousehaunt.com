@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.section`
   margin-top: calc(80px - 518.86px);
@@ -11,7 +11,7 @@ export const Container = styled.section`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-`;
+`
 
 export const Title = styled.h1`
   margin-bottom: 64px;
@@ -36,7 +36,7 @@ export const Title = styled.h1`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Members = styled.div`
   display: grid;
@@ -55,7 +55,7 @@ export const Members = styled.div`
     /* grid-auto-columns: minmax(160px, 1fr); */
     overflow-x: auto;
   }
-`;
+`
 
 export const Social = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ export const Social = styled.div`
     width: 16px;
     height: 16px;
   }
-`;
+`
 
 export const Member = styled.div`
   display: flex;
@@ -145,7 +145,7 @@ export const Member = styled.div`
       font-size: 12px !important;
     }
   }
-`;
+`
 
 export const Photo = styled.div`
   width: 180px;
@@ -172,7 +172,7 @@ export const Photo = styled.div`
     filter: grayscale(1) !important;
   }
   align-self: center;
-`;
+`
 
 export const MemberButtons = styled.div`
   @media only screen and (min-width: 600px) {
@@ -201,4 +201,4 @@ export const MemberButtons = styled.div`
       transform: rotate(180deg);
     }
   }
-`;
+`

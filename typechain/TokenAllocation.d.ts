@@ -12,238 +12,198 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+  CallOverrides
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface TokenAllocationInterface extends ethers.utils.Interface {
   functions: {
-    "THIRTY_DAYS_IN_SECONDS()": FunctionFragment;
-    "addressToUserInfo(address)": FunctionFragment;
-    "claim()": FunctionFragment;
-    "cliffMonths()": FunctionFragment;
-    "igoTimestamp()": FunctionFragment;
-    "mht()": FunctionFragment;
-    "mhtOwner()": FunctionFragment;
-    "unlockAtIGOPercent()": FunctionFragment;
-    "vestingPeriodMonths()": FunctionFragment;
-  };
+    'THIRTY_DAYS_IN_SECONDS()': FunctionFragment
+    'addressToUserInfo(address)': FunctionFragment
+    'claim()': FunctionFragment
+    'cliffMonths()': FunctionFragment
+    'igoTimestamp()': FunctionFragment
+    'mht()': FunctionFragment
+    'mhtOwner()': FunctionFragment
+    'unlockAtIGOPercent()': FunctionFragment
+    'vestingPeriodMonths()': FunctionFragment
+  }
 
-  encodeFunctionData(
-    functionFragment: "THIRTY_DAYS_IN_SECONDS",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addressToUserInfo",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "claim", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "cliffMonths",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "igoTimestamp",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "mht", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mhtOwner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "unlockAtIGOPercent",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "vestingPeriodMonths",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'THIRTY_DAYS_IN_SECONDS', values?: undefined): string
+  encodeFunctionData(functionFragment: 'addressToUserInfo', values: [string]): string
+  encodeFunctionData(functionFragment: 'claim', values?: undefined): string
+  encodeFunctionData(functionFragment: 'cliffMonths', values?: undefined): string
+  encodeFunctionData(functionFragment: 'igoTimestamp', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mht', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mhtOwner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'unlockAtIGOPercent', values?: undefined): string
+  encodeFunctionData(functionFragment: 'vestingPeriodMonths', values?: undefined): string
 
-  decodeFunctionResult(
-    functionFragment: "THIRTY_DAYS_IN_SECONDS",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addressToUserInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "cliffMonths",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "igoTimestamp",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mht", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mhtOwner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "unlockAtIGOPercent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "vestingPeriodMonths",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'THIRTY_DAYS_IN_SECONDS', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addressToUserInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'claim', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'cliffMonths', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'igoTimestamp', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mht', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mhtOwner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unlockAtIGOPercent', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'vestingPeriodMonths', data: BytesLike): Result
 
   events: {
-    "Claimed(address,uint256,uint256)": EventFragment;
-  };
+    'Claimed(address,uint256,uint256)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "Claimed"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Claimed'): EventFragment
 }
 
 export type ClaimedEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-    wallet: string;
-    monthIndex: BigNumber;
-    value: BigNumber;
+    wallet: string
+    monthIndex: BigNumber
+    value: BigNumber
   }
->;
+>
 
 export class TokenAllocation extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: TokenAllocationInterface;
+  interface: TokenAllocationInterface
 
   functions: {
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<[BigNumber]>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<[BigNumber]>
 
     addressToUserInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        totalTokens: BigNumber;
-        remainingTokens: BigNumber;
-        lastClaimMonthIndex: BigNumber;
+        totalTokens: BigNumber
+        remainingTokens: BigNumber
+        lastClaimMonthIndex: BigNumber
       }
-    >;
+    >
 
-    claim(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    cliffMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
+    cliffMonths(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+    igoTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    mht(overrides?: CallOverrides): Promise<[string]>;
+    mht(overrides?: CallOverrides): Promise<[string]>
 
-    mhtOwner(overrides?: CallOverrides): Promise<[string]>;
+    mhtOwner(overrides?: CallOverrides): Promise<[string]>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
-  THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+  THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
   addressToUserInfo(
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
-      totalTokens: BigNumber;
-      remainingTokens: BigNumber;
-      lastClaimMonthIndex: BigNumber;
+      totalTokens: BigNumber
+      remainingTokens: BigNumber
+      lastClaimMonthIndex: BigNumber
     }
-  >;
+  >
 
-  claim(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+  cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-  igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+  igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-  mht(overrides?: CallOverrides): Promise<string>;
+  mht(overrides?: CallOverrides): Promise<string>
 
-  mhtOwner(overrides?: CallOverrides): Promise<string>;
+  mhtOwner(overrides?: CallOverrides): Promise<string>
 
-  unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+  unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-  vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
+  vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
     addressToUserInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        totalTokens: BigNumber;
-        remainingTokens: BigNumber;
-        lastClaimMonthIndex: BigNumber;
+        totalTokens: BigNumber
+        remainingTokens: BigNumber
+        lastClaimMonthIndex: BigNumber
       }
-    >;
+    >
 
-    claim(overrides?: CallOverrides): Promise<void>;
+    claim(overrides?: CallOverrides): Promise<void>
 
-    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<string>;
+    mht(overrides?: CallOverrides): Promise<string>
 
-    mhtOwner(overrides?: CallOverrides): Promise<string>;
+    mhtOwner(overrides?: CallOverrides): Promise<string>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   filters: {
-    "Claimed(address,uint256,uint256)"(
+    'Claimed(address,uint256,uint256)'(
       wallet?: string | null,
       monthIndex?: BigNumberish | null,
       value?: BigNumberish | null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { wallet: string; monthIndex: BigNumber; value: BigNumber }
-    >;
+    >
 
     Claimed(
       wallet?: string | null,
@@ -252,62 +212,48 @@ export class TokenAllocation extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { wallet: string; monthIndex: BigNumber; value: BigNumber }
-    >;
-  };
+    >
+  }
 
   estimateGas: {
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
-    addressToUserInfo(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    addressToUserInfo(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    claim(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<BigNumber>;
+    mht(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtOwner(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtOwner(overrides?: CallOverrides): Promise<BigNumber>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    THIRTY_DAYS_IN_SECONDS(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    addressToUserInfo(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    addressToUserInfo(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     claim(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    cliffMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    cliffMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    igoTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mhtOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mhtOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    unlockAtIGOPercent(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    vestingPeriodMonths(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

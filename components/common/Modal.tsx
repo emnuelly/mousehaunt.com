@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.div`
   position: absolute;
@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const ModalContainer = styled.div`
   width: 420px;
@@ -19,14 +19,15 @@ export const ModalContainer = styled.div`
   border: 1px solid #29274b;
   box-sizing: border-box;
   border-radius: 12px;
-`;
+`
 
 const Modal = () => (
   <Container>
     <ModalContainer>
-      <h1></h1>
+      {/* eslint-disable-next-line jsx-a11y/heading-has-content */}
+      <h1 />
     </ModalContainer>
   </Container>
-);
+)
 
-export default Modal;
+export default Modal

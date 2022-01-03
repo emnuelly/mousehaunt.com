@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.section`
   width: 100%;
   height: 100px;
   overflow: hidden;
-  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
+  background: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
   display: flex;
   align-items: center;
   animation: fadein 2s;
@@ -25,14 +25,14 @@ export const Container = styled.section`
     text-align: center;
     display: none;
   }
-`;
+`
 
-export const ImageStack = styled.div``;
+export const ImageStack = styled.div``
 
 export const FirstImage = styled.span`
   position: relative;
   z-index: 2;
-`;
+`
 export const SecondImage = styled.span`
   position: relative;
   right: 50px;
@@ -41,7 +41,7 @@ export const SecondImage = styled.span`
   img {
     transform: scaleX(-1);
   }
-`;
+`
 export const ThirdImage = styled.span`
   position: relative;
   right: 105px;
@@ -49,7 +49,7 @@ export const ThirdImage = styled.span`
   img {
     transform: scaleX(-1);
   }
-`;
+`
 
 export const SecondContainer = styled.div`
   border-radius: 8px;
@@ -71,7 +71,7 @@ export const SecondContainer = styled.div`
       margin-right: 15px;
     }
   }
-`;
+`
 
 export const ThirdContainer = styled.div`
   position: relative;
@@ -83,7 +83,7 @@ export const ThirdContainer = styled.div`
     cursor: pointer;
     transition: all 0.1s ease-in;
   }
-`;
+`
 
 export const PhishingTitle = styled.span`
   font-family: Bebas Neue Pro;
@@ -93,7 +93,7 @@ export const PhishingTitle = styled.span`
   line-height: 40px;
 
   color: #ffffff;
-`;
+`
 
 export const PhishingParagraph = styled.span`
   font-family: SF Pro Display;
@@ -110,4 +110,4 @@ export const PhishingParagraph = styled.span`
     font-weight: 800;
     font-size: 14px;
   }
-`;
+`

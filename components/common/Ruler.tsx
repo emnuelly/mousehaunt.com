@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const Ruler = styled.hr`
+const Ruler = styled.hr`
   width: 100%;
   /* margin-left: -120px;
   margin-right: -120px; */
@@ -23,6 +23,6 @@ export const Ruler = styled.hr`
     margin-left: unset;
     margin-right: unset;
   } */
-`;
+`
 
 export default Ruler

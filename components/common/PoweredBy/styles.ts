@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: flex;
@@ -6,7 +6,7 @@ export const Container = styled.section`
   justify-content: center;
   text-align: center;
   height: 604px;
-`;
+`
 
 export const Background = styled.div`
   opacity: 5%;
@@ -20,13 +20,13 @@ export const Background = styled.div`
       height: 604px;
     }
   }
-`;
+`
 
 export const Title = styled.h1`
   margin-bottom: 70px;
   z-index: 1;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -34,7 +34,7 @@ export const Title = styled.h1`
   flex: none;
   flex-grow: 0;
   order: 0;
-`;
+`
 
 export const Content = styled.div`
   display: grid;
@@ -47,7 +47,7 @@ export const Content = styled.div`
     display: flex;
     flex-direction: column;
   }
-`;
+`
 
 export const Logos = styled.div`
   display: flex;
@@ -59,4 +59,4 @@ export const Logos = styled.div`
     width: 350px;
     margin: auto;
   }
-`;
+`

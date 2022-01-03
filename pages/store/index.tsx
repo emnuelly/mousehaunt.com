@@ -1,12 +1,11 @@
-import type { NextPage } from "next";
-import StorePage from "../../components/store";
+import type { NextPage } from 'next'
 
-const StoreHome: NextPage = () => {
-  return (
-    <>
-      <StorePage />
-    </>
-  );
-};
+import StorePage from '../../components/store'
 
-export default StoreHome;
+const StoreHome: NextPage = () => (
+  <>
+    <StorePage />
+  </>
+)
+
+export default StoreHome

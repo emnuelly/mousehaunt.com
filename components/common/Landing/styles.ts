@@ -1,22 +1,18 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   top: 0px;
   left: 0px;
   height: 100vh;
 
-  background: radial-gradient(
-      50% 50% at 50% 50%,
-      rgba(19, 21, 36, 0.3) 0%,
-      #131524 100%
-    ),
-    url("/images/game-related/fireplace.webp");
+  background: radial-gradient(50% 50% at 50% 50%, rgba(19, 21, 36, 0.3) 0%, #131524 100%),
+    url('/images/game-related/fireplace.webp');
   background-size: cover;
 
   @media only screen and (max-width: 600px) {
     width: 100vw;
   }
-`;
+`
 
 export const Body = styled.div`
   display: flex;
@@ -29,7 +25,7 @@ export const Body = styled.div`
     text-align: center;
     align-items: center;
   }
-`;
+`
 
 export const BodyContent = styled.div`
   display: flex;
@@ -44,10 +40,10 @@ export const BodyContent = styled.div`
   small {
     font-size: 110%;
   }
-`;
+`
 
 export const Title = styled.div`
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 144px;
   line-height: 120px;
@@ -69,14 +65,14 @@ export const Title = styled.div`
     font-size: 80px;
     line-height: 72px;
   }
-`;
+`
 
 export const Subtitle = styled.div`
   margin-top: 16px;
   margin-bottom: 40px;
 
   width: 522px;
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-size: 18px;
   line-height: 29px;
 
@@ -88,7 +84,7 @@ export const Subtitle = styled.div`
     font-size: 16px;
     line-height: 20px;
   }
-`;
+`
 
 export const Stores = styled.div`
   display: flex;
@@ -112,7 +108,7 @@ export const Stores = styled.div`
       align-self: center;
     }
   }
-`;
+`
 
 export const Left = styled.div`
   @media only screen and (max-width: 600px) {
@@ -120,11 +116,11 @@ export const Left = styled.div`
     flex-direction: column;
     align-items: center;
   }
-`;
+`
 
 export const Right = styled.div`
   filter: drop-shadow(5px 21px 46px rgba(0, 0, 0, 0.7));
-`;
+`
 
 export const ButtonRightAbsolute = styled.div`
   position: absolute;
@@ -135,22 +131,22 @@ export const ButtonRightAbsolute = styled.div`
   @media only screen and (max-width: 800px) {
     left: 80%;
   }
-`;
+`
 
 export const Phone = styled.div`
   width: 600px;
   height: 293px;
 
   filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
-  background-image: url("/images/phone-frames/iphone-600.png");
+  background-image: url('/images/phone-frames/iphone-600.png');
   background-repeat: no-repeat;
 
   @media only screen and (max-width: 600px) {
-    background-image: url("/images/phone-frames/iphone-320.png");
+    background-image: url('/images/phone-frames/iphone-320.png');
     width: 320px;
     height: 156px;
   }
-`;
+`
 
 export const Video = styled.div`
   margin-top: 40px;
@@ -187,7 +183,7 @@ export const Video = styled.div`
       margin-left: unset;
     }
   }
-`;
+`
 
 export const DiscordButton = styled.div`
   display: flex;
@@ -206,4 +202,4 @@ export const DiscordButton = styled.div`
     width: inherit;
   }
 }
-`;
+`
