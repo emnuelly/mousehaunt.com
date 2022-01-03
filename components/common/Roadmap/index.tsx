@@ -47,6 +47,7 @@ const Roadmap: NextPage = () => {
                 <br />
                 Legendary Ghost NFT pre-sale
                 <br />
+                Marketplace
               </Text>
               <Subtitle>2022 Q1</Subtitle>
             </Plan>
@@ -82,7 +83,6 @@ const Roadmap: NextPage = () => {
                 <br />
                 Mouse Heroes Booster Sale
                 <br />
-                Marketplace
                 <br />
               </Text>
             </Plan>
