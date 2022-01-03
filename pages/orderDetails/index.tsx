@@ -18,7 +18,7 @@ import Logo from "../../components/common/Logo";
 import Sections from "../../components/common/Sections";
 import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
 import ButtonSale from "../../components/common/ButtonSale";
@@ -26,9 +26,11 @@ import TableOrderDetails from "../../components/common/TableOrderDetails";
 import RemainConnected from "../../components/common/RemainConnected";
 import PopularCollection from "../../components/common/PopularCollection";
 import TrendingProduct from "../../components/common/TrendingProduct";
+import { OrdersContext } from "../../contexts/OrdersContext";
 
 const OrderDetails: NextPage = () => {
 
+    const { selectedOrder, mhtPrice } = useContext(OrdersContext);
 
     return (
         <Container>
@@ -71,8 +73,8 @@ const OrderDetails: NextPage = () => {
                                 <ContentMiddle>
                                 <LabelMiddle>Highest offer</LabelMiddle>
                                 <ContentValue>
-                                    <ValueNFT>0,2 $MHT</ValueNFT>
-                                    <ValueDollar>(870,23 USD)</ValueDollar>
+                                    <ValueNFT> {selectedOrder ? selectedOrder.priceInWei: '' } $MHT</ValueNFT>
+                                    <ValueDollar>( {selectedOrder ? ((parseFloat(selectedOrder.priceInWei) * mhtPrice).toFixed(5)) : ''} USD)</ValueDollar>
                                 </ContentValue>
                                 <ButtonSale/>
                                 </ContentMiddle>

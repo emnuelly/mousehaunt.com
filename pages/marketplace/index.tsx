@@ -19,18 +19,31 @@ import Logo from "../../components/common/Logo";
 import Sections from "../../components/common/Sections";
 import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
-import CardSearchHeroes from "../../components/common/CardsSearch/CardSearchTemplate";
-import CardSearchTemplate from "../../components/common/CardsSearch/CardSearchTemplate";
+import CardSearchHeroes from "../../components/common/CardsSearch/CheckBoxFilter";
+import CardSearchTemplate from "../../components/common/CardsSearch/CheckBoxFilter";
 import SliderFilter from "../../components/common/SliderFilter";
 import RemainConnected from "../../components/common/RemainConnected";
 import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
 import Modal from "../../components/common/Modal";
+import { OrdersContext } from "../../contexts/OrdersContext";
 
 const Marketplace: NextPage = () => {
     const [showMe, setShowMe] = useState(false);
+    const pageLimit = 10;
+    const { orders, getOrders, page, setPage } = useContext(OrdersContext)
+
+    function loadMore() {
+        console.log('passei no load more')
+        setPage(page + 1)
+    }
+
+    useEffect(() => {
+        console.log("passei no use effect")
+        getOrders()
+    },[page])
 
     function toggle() {
         setShowMe(true);
@@ -63,27 +76,16 @@ const Marketplace: NextPage = () => {
                     <FilterDefault/>
                     <Cards>
                         <AlignCards>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
-                            <CardSpace>
-                                <CardShop/>
-                            </CardSpace>
+                            {orders.map((current) => {
+                                return (
+                                <CardSpace key={current.id}>
+                                    <CardShop order={current} />
+                                </CardSpace>
+                                )
+                            })}
                         </AlignCards>
                         <ButtonMore>
-                        <Link>LOAD MORE</Link>
+                        <Link onClick={loadMore}>LOAD MORE</Link>
                         </ButtonMore>
                     </Cards>
                 </Body>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import {
   Container,
@@ -20,9 +20,16 @@ import Sections from "../Sections";
 import Menu from "../BurgerMenu";
 import { Link as LinkButton } from "../Link";
 import CardShop from "../CardShop";
+import { OrdersContext } from "../../../contexts/OrdersContext";
 
 
-const Landing: React.FC = () => (
+const Landing: React.FC = () => { 
+  
+  const { heroOrders } = useContext(OrdersContext);
+
+  console.log(heroOrders);
+
+  return (
     <Container id="About">
       <Header>
         <Logo />
@@ -49,21 +56,17 @@ const Landing: React.FC = () => (
             </ContainerButton>
           </Left>
           <Right>
-            <CardStyle>
-               <CardShop/>
-            </CardStyle>
-            <CardStyle>
-              <CardShop/>
-            </CardStyle>
-            <CardStyle>
-              <CardShop/>
-            </CardStyle>
-            <CardStyle>
-              <CardShop/>
-            </CardStyle>
+            {heroOrders.map((current) => {
+              return (
+                <CardStyle key={current.id}>
+                  <CardShop order={current}/>
+                </CardStyle>
+              )
+            })}
           </Right>
         </BodyContent>
       </Body>
     </Container>
-);
+  )
+};
 export default Landing;

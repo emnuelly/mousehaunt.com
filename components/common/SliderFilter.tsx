@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import React from "react";
-import PropTypes from "prop-types";
-import CardSearchTemplate from "./CardsSearch/CardSearchTemplate";
-import CheckBoxDefault from "./CheckboxDefault";
 
 const Filter = styled.div`
     width: 100%;
@@ -99,13 +96,22 @@ const BodySearch = styled.div`
 `;
 
 
-SliderFilter.propTypes = {
-    title: PropTypes.string,
-    id: PropTypes.string,
-};
+interface SliderFilterProps {
+    title: string,
+    id: string,
+    min: number,
+    max: number,
+    step: number,
+    value: number
+    filterChange: (value:number) => void
+}
 
-function SliderFilter(props: any) {
-    const {id, title} = props;
+function SliderFilter(props: SliderFilterProps) {
+    const {id, title, min, max, step, value} = props;
+
+    function filterChange(newValue:string) {
+        props.filterChange(parseFloat(newValue));
+    }
 
     return (
         <CardSearch>
@@ -115,8 +121,9 @@ function SliderFilter(props: any) {
             </HeaderSearch>
             <BodySearch>
                 <Filter>
-                    <input type="range" min="1" max="8" id={id}/>
+                    <input onChange={(event) => filterChange(event.target.value)}type="range" min={min} max={max} step={step} id={id} />
                 </Filter>
+                <p>{value}</p>
             </BodySearch>
         </CardSearch>
 

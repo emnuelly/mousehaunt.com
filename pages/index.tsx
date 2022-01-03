@@ -8,8 +8,11 @@ import PhishingBanner from '../components/common/PhishingBanner'
 import PopularCollection from "../components/common/PopularCollection";
 import TrendingProduct from "../components/common/TrendingProduct";
 import RemainConnected from "../components/common/RemainConnected";
+import { useContext } from "react";
+import { StoreContext } from "../contexts/StoreContext";
 
 const Home: NextPage = () => {
+
   return (
     <Container>
       <Head>

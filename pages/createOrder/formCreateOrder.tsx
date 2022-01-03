@@ -29,9 +29,34 @@ import Link from "../../components/common/Link";
 import ButtonNFT from "../../components/common/ButtonNFT";
 import SelectPrices from "../../components/common/SelectPrices";
 import Checkbox from "../../components/common/Checkbox";
+import OrdersManager from "../../services/OrdersManager";
 
 const FormCreateOrder = () => {
 
+
+    function approve() {
+        OrdersManager.Approve({
+            id: '123',
+            assetId: '5',
+            seller: '0x12312312',
+            amount: '5',
+            nftAddress: '0x123123f1',
+            priceInWei: '10',
+            expiresAt: '12839123891',
+        });
+    }
+
+    function placeOrder() {
+        OrdersManager.executeOrder({
+            id: '123',
+            assetId: '5',
+            seller: '0x12312312',
+            amount: '5',
+            nftAddress: '0x123123f1',
+            priceInWei: '10',
+            expiresAt: '12839123891',
+        });
+    }
     return (
         <FormContent>
             <TitleForm>List item for sale</TitleForm>
@@ -54,7 +79,8 @@ const FormCreateOrder = () => {
             </Expiration>
             <Checkbox/>
             <ButtonPlace>
-                <Link href={"/success"}>PLACE ORDER</Link>
+                <Link onClick={approve}>APPROVE</Link>
+                <Link onClick={placeOrder}>PLACE ORDER</Link>
             </ButtonPlace>
         </FormContent>
     );

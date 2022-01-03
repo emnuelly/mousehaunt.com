@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 
 import {
     Filter,
@@ -10,28 +9,26 @@ import {
     FormFilter,
 } from "./styles";
 
-import React, {useState} from "react";
-import CardSearchTemplate from "../CardsSearch/CardSearchTemplate";
-import SliderFilter from "../SliderFilter";
+import React, {ReactNode, useState} from "react";
+import CardSearchTemplate from "../CardsSearch/CheckBoxFilter";
+import FilterManager from "../../../services/FilterManager";
 
 
 const FilterDefault: NextPage = () => {
+    const [filters, setFilters] = useState<ReactNode[]>(FilterManager.getActiveFilters());
+
+    function clear() {
+        window.location.reload()
+    }
 
     return (
         <Filter>
                         <HeaderTitle>
                             <FilterText>FILTERS</FilterText>
-                            <ClearText>Clear All</ClearText>
+                            <ClearText onClick={clear}>Clear All</ClearText>
                         </HeaderTitle>
                         <FormFilter>
-                            <InputSearch id={"search"} placeholder={"Search"}/>
-                            <CardSearchTemplate title={"Heroes"} textsCheckbox={"Custom"}/>
-                            <CardSearchTemplate title={"Rarity"} textsCheckbox={"Custom"}/>
-                            <CardSearchTemplate title={"Skin Rarity"} textsCheckbox={"Custom"}/>
-                            <SliderFilter title={"Level"} id={"level"} />
-                            <CardSearchTemplate title={"Trophy Class"} textsCheckbox={"Custom"}/>
-                            <SliderFilter title={"Price range (WBNB)"} id={"price-range"}/>
-
+                            {filters}
                         </FormFilter>
                     </Filter>
     );

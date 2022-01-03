@@ -83,14 +83,13 @@ const CheckboxContainer = styled.div`
       flex-direction: row;
 `;
 
+interface CheckBoxFilterProps {
+    title: string,
+    options: string[]
+}
 
-CardSearchTemplate.propTypes = {
-    title: PropTypes.string,
-    textsCheckbox: PropTypes.string
-};
-
-function CardSearchTemplate(props: any) {
-    const {title, textsCheckbox} = props;
+function CheckBoxFilter(props: CheckBoxFilterProps) {
+    const {title, options} = props;
 
     return (
         <CardSearch>
@@ -99,7 +98,10 @@ function CardSearchTemplate(props: any) {
                 <IconDown/>
             </HeaderSearch>
             <BodySearch>
-                    <CheckBoxDefault option={textsCheckbox}/>
+                    {options.map((current: string) => {
+                        return (<CheckBoxDefault option={current}/>)
+                    })}
+                    
             </BodySearch>
         </CardSearch>
     );
@@ -113,4 +115,4 @@ const NoResults = () => (
     </BodySearch>
 )
 
-export default CardSearchTemplate;
+export default CheckBoxFilter;

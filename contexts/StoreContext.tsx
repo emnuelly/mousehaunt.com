@@ -224,6 +224,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
   const [network, setNetwork] = useState<Network>("bsc");
 
   useEffect(() => {
+    console.log(window.location.hostname);
     if (window) {
       const n =
         window.location.hostname.includes("vercel.app") ||
@@ -260,7 +261,8 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
                   signer
                 ) as WhitelistSale
             );
-
+          console.log("sales");
+          console.log(sales);
           const participatingSales: WhitelistSaleDetailed[] = [];
           for await (const sale of whitelistSales) {
             const details = sales.find((s) => s.address === sale.address);
@@ -415,6 +417,7 @@ export const StoreProvider: React.FC<Props> = ({ children }: Props) => {
 
       const accounts = await w.eth.getAccounts();
       const account = accounts[0];
+      setAccount(account);
       return account;
     } catch (err) {
       console.error(err, "Error trying to updateUserInfo");

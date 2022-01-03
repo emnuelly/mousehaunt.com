@@ -12,12 +12,26 @@ import {
 } from "./styles";
 import Link from "../Link";
 import Value from "../../../public/images/value.png";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
+import { Order, OrdersContext } from "../../../contexts/OrdersContext";
+import { Props } from "react-select";
+import Router from 'next/router'
 
-const CardShop: NextPage = () => {
+interface OrderProps {
+    order: Order
+}
+const CardShop: NextPage = ({order}:OrderProps) => {
+
+    const { mhtPrice, setSelectedOrder } = useContext(OrdersContext);
+
+    function selectOrder() {
+        setSelectedOrder(order);
+        Router.push('/orderDetails')
+    }
+
     return (
-        <Card>
+        <Card onClick={selectOrder}>
             <Imagem/>
             <InfoContainer>
                 <InfoContainerUp>
@@ -30,21 +44,15 @@ const CardShop: NextPage = () => {
                         </InfoSubtitle>
                     </InfoContainerTitle>
                     <InfoBadgeImage>
-                        <Image
-                            alt="value"
-                            src={Value}
-                            width={"40px"}
-                            height={"10px"}
-                        ></Image>
-                        <InfoBadgeValue>1</InfoBadgeValue>
+                        <InfoBadgeValue>{order ? '#'+order.id: '-'}</InfoBadgeValue>
                     </InfoBadgeImage>
                 </InfoContainerUp>
                 <InfoContainerValue>
                     <InfoValue>
-                        0,45 $MHT
+                        {order ? order.priceInWei: '' } $MHT
                     </InfoValue>
                     <InfoDollar>
-                        8,324 USD
+                        {order ? ((parseFloat(order.priceInWei) * mhtPrice).toFixed(5)) : ''} USD
                     </InfoDollar>
                 </InfoContainerValue>
             </InfoContainer>

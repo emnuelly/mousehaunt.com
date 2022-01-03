@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import FilterDefault from "./FilterMarketplace/FilterDefault";
-import CardSearchTemplate from "./CardsSearch/CardSearchTemplate";
+import CardSearchTemplate from "./CardsSearch/CheckBoxFilter";
 import SliderFilter from "./SliderFilter";
 import React, {useState} from "react";
 import Link from "./Link";
@@ -117,12 +117,13 @@ export const Close = styled.a`
 
 export const InputSearch = styled.input`
     background: url("/images/lupa.png") no-repeat 7px 7px;
-    background-position: left;
-  
+    background-position: 16px;
+    text-indent: 20px;
     min-width: 282px;
     height: 48px;
     padding-left: 30px;
-
+    display: inline-block;
+    margin-top:16px;
  
     font-family: SF Pro Display;
     font-style: normal;
@@ -169,13 +170,7 @@ function Modal(props: any) {
                     <ClearText>Clear All</ClearText>
                 </HeaderTitle>
                 <FormFilter>
-                    <InputSearch id={"search"} placeholder={"Search"}/>
-                    <CardSearchTemplate title={"Heroes"} textsCheckbox={"Custom"}/>
-                    <CardSearchTemplate title={"Rarity"} textsCheckbox={"Custom"}/>
-                    <CardSearchTemplate title={"Skin Rarity"} textsCheckbox={"Custom"}/>
-                    <SliderFilter title={"Level"} id={"level"}/>
-                    <CardSearchTemplate title={"Trophy Class"} textsCheckbox={"Custom"}/>
-                    <SliderFilter title={"Price range (WBNB)"} id={"price-range"}/>
+            
                 </FormFilter>
                 <SizeButton><Link>Apply</Link></SizeButton>
             </Filter>

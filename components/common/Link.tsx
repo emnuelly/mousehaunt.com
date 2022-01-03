@@ -6,6 +6,7 @@ export const Link = styled.a`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-right:10px;
 
   height: 48px;
   background: linear-gradient(96.82deg, #f2089f 0%, #1fc6ec 100%);
