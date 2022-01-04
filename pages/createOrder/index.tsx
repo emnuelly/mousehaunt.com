@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Container, Content, ImageBackground, Body, Title, Left, Right, Web, Mobile} from "./styles";
 import Footer from "../../components/common/Footer";
 import React, {useState} from "react";
-import CardCreateOrder from "../../components/common/CardCreateOrder";
+import CardCreateOrder from "../../components/common/CreateOrder/CardCreateOrder";
 import FormCreateOrder from "./formCreateOrder";
 import HeaderDefault from "../../components/common/HeaderDefault/HeaderDefault";
 

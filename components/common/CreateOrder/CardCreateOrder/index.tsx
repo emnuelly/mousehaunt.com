@@ -10,8 +10,8 @@ import {
     InfoSubtitle,
     InfoBadgeImage, InfoBadgeValue, InfoContainerValue, InfoValue, InfoDollar,
 } from "./styles";
-import Link from "../Link";
-import Value from "../../../public/images/value.png";
+import Link from "../../Link";
+import Value from "../../../../public/images/value.png";
 import React from "react";
 import Image from "next/image";
 

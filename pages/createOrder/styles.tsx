@@ -173,14 +173,10 @@ export const TitleForm = styled.div`
     font-weight: 800;
     font-size: 48px;
     line-height: 56px;
-    /* identical to box height, or 117% */
     
     display: flex;
     align-items: center;
-    padding 40px 40px;
-    
-    /* Primary/White */
-    
+
     color: #FFFFFF;
 
 `;

@@ -24,15 +24,16 @@ import {
     LabelForm,
     IconForm
 } from "./styles";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Link from "../../components/common/Link";
 import ButtonNFT from "../../components/common/ButtonNFT/ButtonNFT";
 import SelectPrices from "../../components/common/SelectPrices";
 import Checkbox from "../../components/common/Checkbox";
 import OrdersManager from "../../services/OrdersManager";
+import DatePicker from "../../components/common/CreateOrder/DatePicker";
+import BoosterTypes from "../../components/common/CreateOrder/BoosterTypes";
 
 const FormCreateOrder = () => {
-
 
     function approve() {
         OrdersManager.Approve({
@@ -57,25 +58,22 @@ const FormCreateOrder = () => {
             expiresAt: '12839123891',
         });
     }
+
     return (
         <FormContent>
             <TitleForm>List item for sale</TitleForm>
             <LabelFormContent><LabelForm>Type</LabelForm><IconForm/></LabelFormContent>
             <ContainerButtons>
-                <ButtonNFT option={"Legendary Booster"}/>
-                <ButtonNFT option={"Epic Booster"}/>
-                <ButtonNFT option={"Rare Booster"}/>
-                <ButtonNFT option={"Genesis Booster"}/>
+                <BoosterTypes/>
             </ContainerButtons>
             <LabelFormContent><LabelForm>Price</LabelForm><IconForm/></LabelFormContent>
             <FormInputs>
                 <SelectPrices/>
-                <Input placeholder="Amount" type="text"/>
+                <Input placeholder="Amount" type="number"/>
             </FormInputs>
             <LabelFormContent><LabelForm>Expiration time</LabelForm></LabelFormContent>
             <Expiration>
-                <CalendarIcon/>
-                <LabelDate>6 months</LabelDate>
+                <DatePicker/>
             </Expiration>
             <Checkbox/>
             <ButtonPlace>
