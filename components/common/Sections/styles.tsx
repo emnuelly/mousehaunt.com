@@ -16,6 +16,7 @@ export const Navs = styled.div<ContainerProps>`
 `;
 export const Container = styled.div<ContainerProps>`
   display: flex;
+  justify-content: space-between;
   flex-direction: ${(props) => (props.mobile ? "column" : "row")};
   justify-content: ${(props) => (props.mobile ? "space-around" : "")};
   height: ${(props) => (props.mobile ? "100%" : "")};

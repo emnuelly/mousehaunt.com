@@ -10,12 +10,8 @@ import {
     InfoSubtitle,
     InfoBadgeImage, InfoBadgeValue, InfoContainerValue, InfoValue, InfoDollar, Like
 } from "./styles";
-import Link from "../Link";
-import Value from "../../../public/images/value.png";
 import React, { useContext } from "react";
-import Image from "next/image";
 import { Order, OrdersContext } from "../../../contexts/OrdersContext";
-import { Props } from "react-select";
 import Router from 'next/router'
 
 interface OrderProps {

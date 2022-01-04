@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100%;
+  height: auto;
   width: 100%;
 
   @media only screen and (max-width: 1280px) {
@@ -13,59 +13,43 @@ export const Container = styled.div`
     padding-right: 20px;
   }
   @media only screen and (max-width: 600px) {
-    padding-left: unset;
+    padding-left: unset; 
     padding-right: unset;
+    width: 600px;
+
+  
   }
 `;
 
 export const Content = styled.section`
+  width: 100%;
   margin: auto;
   display: inline-block;
   
-  @media only screen and (max-width: 600px) {
-     margin-left: auto;
-       width: 100%;
-
-    margin-right: auto;
-    display: inline-block;
-    text-align: center;
-  }
+     @media only screen and (max-width: 600px) {
+      margin: unset;
+       align-items: center;
+     text-align: center;
+   }
 `;
 
-
-export const EllipseBlue = styled.div`
-  position: absolute;
-  width: 855.05px;
-  height: 855.05px;
-  left: 0px;
-  z-index: 2;
- 
-
-  background: linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
-    opacity: 0.35;
-  filter: blur(235px);
-
-  @media only screen and (max-width: 1280px) {
-    transform: scale(0.5);
+export const Body = styled.div`
+  border-radius: 24px;
+  align-items: center;
+  text-align: center;
+  height: auto;
+  margin: auto;
+  width: 100%;
+  margin-top: 40px;
+  background-color: none;
+  
+  @media only screen and (min-width: 700px) {
+      display: flex;
+       width: 1200px;
+       background-color: #131524;
+      flex-direction: column;
   }
-`;
 
-export const EllipsePink = styled.div`
-  position: absolute;
-  width: 1217.93px;
-  height: 1217.93px;
-  right: 0px;
-  z-index: 1;
-
-
-  background:  linear-gradient(96.82deg, #F2089F 0%, #1FC6EC 100%);
-    opacity: 0.35;
-    filter: blur(235px);
-
-  @media only screen and (max-width: 1280px) {
-    transform: scale(0.5);
-        display: contents;
-  }
 `;
 
 export const ImageBackground = styled.div`

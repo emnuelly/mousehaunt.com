@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Career from '../../components/career/Career';
-import Header from '../../components/common/Header';
+import Header from '../../components/common/HeaderDefault/HeaderDefault';
 import Ruler from '../../components/common/Ruler';
 import Footer from '../../components/common/Footer';
 import Sections from '../../components/common/Sections/Sections';

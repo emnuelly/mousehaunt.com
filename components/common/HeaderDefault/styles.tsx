@@ -42,5 +42,3 @@ export const Header = styled.header`
     display: flex;
   }
 `;
-
-export default Header;

@@ -1,34 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-
 import {
-    Container,
-    Content,
-    ImageBackground,
-    Body,
-    Title,
-    Subtitle,
-    Cards,
-    AlignCards,
-    ButtonMore,
-    CardSpace,ContentResponsive, TitleResponsive, SizeButton
+    Container, Content, ImageBackground, Body, Title, Subtitle,
+    Cards, AlignCards, ButtonMore, CardSpace,ContentResponsive, TitleResponsive, SizeButton
 } from "./styles";
 import Footer from "../../components/common/Footer";
-import {Ellipse1} from "../../components/common/Landing/styles";
-import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections/Sections";
-import Menu from "../../components/common/BurgerMenu";
-import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useContext, useEffect, useState} from "react";
 import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
-import CardSearchHeroes from "../../components/common/CardsSearch/CheckBoxFilter";
-import CardSearchTemplate from "../../components/common/CardsSearch/CheckBoxFilter";
-import SliderFilter from "../../components/common/SliderFilter/SliderFilter";
 import RemainConnected from "../../components/common/RemainConnected";
-import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
 import Modal from "../../components/common/ModalFilter/Modal";
 import { OrdersContext } from "../../contexts/OrdersContext";
+import HeaderDefault from "../../components/common/HeaderDefault/HeaderDefault";
+import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
 
 const Marketplace: NextPage = () => {
     const [showMe, setShowMe] = useState(false);
@@ -36,12 +20,10 @@ const Marketplace: NextPage = () => {
     const { orders, getOrders, page, setPage } = useContext(OrdersContext)
 
     function loadMore() {
-        console.log('passei no load more')
         setPage(page + 1)
     }
 
     useEffect(() => {
-        console.log("passei no use effect")
         getOrders()
     },[page])
 
@@ -50,30 +32,23 @@ const Marketplace: NextPage = () => {
     }
 
     return (
-        <Container>
+        <Container id={"Marketplace"}>
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Ellipse1/>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
+            <HeaderDefault/>
             <Content>
                 <Title>NFT MARKETPLACE</Title>
                 <ContentResponsive>
                     <TitleResponsive>NFT MARKETPLACE</TitleResponsive>
                     <SizeButton><Link onClick={toggle}>FILTERS</Link></SizeButton>
                 </ContentResponsive>
-                    <Modal show={showMe}/>
+                <Modal show={showMe}/>
                 <Subtitle>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
                 </Subtitle>
                 <Body>
-                    <FilterDefault/>
+                    {/*<FilterDefault/>*/}
                     <Cards>
                         <AlignCards>
                             {orders.map((current) => {
@@ -85,13 +60,11 @@ const Marketplace: NextPage = () => {
                             })}
                         </AlignCards>
                         <ButtonMore>
-                        <Link onClick={loadMore}>LOAD MORE</Link>
+                            <Link onClick={loadMore}>LOAD MORE</Link>
                         </ButtonMore>
                     </Cards>
                 </Body>
-
                 <RemainConnected/>
-
                 <Footer />
                 <ImageBackground/>
             </Content>

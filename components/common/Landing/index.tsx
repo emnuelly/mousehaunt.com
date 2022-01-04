@@ -14,7 +14,7 @@ import {
     EllipseCenter,
     CardStyle
 } from "./styles";
-import Header from "../Header";
+import Header from "../HeaderDefault/HeaderDefault";
 import Logo from "../Logo";
 import Sections from "../Sections/Sections";
 import Menu from "../BurgerMenu";
@@ -31,12 +31,6 @@ const Landing: React.FC = () => {
 
   return (
     <Container id="About">
-      <Header>
-        <Logo />
-        <Sections />
-        <Menu />
-      </Header>
-
       <Body>
         <BodyContent>
           <Left>

@@ -52,7 +52,6 @@ export const Body = styled.div`
 
 `;
 
-
 export const ImageBackground = styled.div`
   height: 475px;
   width: 100%;
@@ -64,8 +63,6 @@ export const ImageBackground = styled.div`
   mix-blend-mode: multiply; 
   margin-top: -410px;
 `;
-
-
 
 export const Title = styled.div`
     font-family: Bebas Neue Pro;

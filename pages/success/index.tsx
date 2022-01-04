@@ -1,35 +1,21 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Container, Content, EllipseBlue, EllipsePink, ImageBackground, Body, Title } from "./styles";
-import Landing from "../../components/common/Landing";
+import { Container, Content, ImageBackground, Body, Title } from "./styles";
 import Footer from "../../components/common/Footer";
-import {Ellipse1} from "../../components/common/Landing/styles";
-import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections/Sections";
-import Menu from "../../components/common/BurgerMenu";
-import Header, {ContainerHeader} from "../../components/common/Header";
 import React from "react";
 import CardSuccess from "../../components/common/CardSuccess";
+import HeaderDefault from "../../components/common/HeaderDefault/HeaderDefault";
 
 const Success: NextPage = () => {
     return (
-        <Container>
+        <Container id={"Success"}>
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Ellipse1/>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
-
+            <HeaderDefault/>
             <Content>
-                <Title>Your order was created!
-                </Title>
+                <Title>Your order was created!</Title>
                 <Body>
                     <CardSuccess/>
                 </Body>

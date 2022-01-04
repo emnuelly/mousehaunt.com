@@ -7,7 +7,7 @@ import {
   StoreInventoryContainer,
   StorePageSub,
 } from "./styles/styles";
-import Header from "../common/Header";
+import Header from "../common/HeaderDefault/HeaderDefault";
 import Logo from "../common/Logo";
 import Sections from "../common/Sections/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";

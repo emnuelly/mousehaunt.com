@@ -10,7 +10,6 @@ import {
 } from "./styles";
 
 import React, {ReactNode, useState} from "react";
-import CardSearchTemplate from "../CardsSearch/CheckBoxFilter";
 import FilterManager from "../../../services/FilterManager";
 
 
@@ -23,14 +22,14 @@ const FilterDefault: NextPage = () => {
 
     return (
         <Filter>
-                        <HeaderTitle>
-                            <FilterText>FILTERS</FilterText>
-                            <ClearText onClick={clear}>Clear All</ClearText>
-                        </HeaderTitle>
-                        <FormFilter>
-                            {filters}
-                        </FormFilter>
-                    </Filter>
+            <HeaderTitle>
+                 <FilterText>FILTERS</FilterText>
+                 <ClearText onClick={clear}>Clear All</ClearText>
+            </HeaderTitle>
+            <FormFilter>
+                {filters}
+            </FormFilter>
+        </Filter>
     );
 };
 

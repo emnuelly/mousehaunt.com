@@ -3,28 +3,19 @@ import Head from "next/head";
 
 import { Container, Content, ImageBackground, Body, Title, Left, Right, Web, Mobile} from "./styles";
 import Footer from "../../components/common/Footer";
-import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections/Sections";
-import Menu from "../../components/common/BurgerMenu";
-import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useState} from "react";
 import CardCreateOrder from "../../components/common/CardCreateOrder";
 import FormCreateOrder from "./formCreateOrder";
+import HeaderDefault from "../../components/common/HeaderDefault/HeaderDefault";
 
 const CreateOrder: NextPage = () => {
 
     return (
-        <Container>
+        <Container id={"CreateOrder"}>
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
+            <HeaderDefault/>
             <Content>
                 <Title>Create Order</Title>
                 <Body>
