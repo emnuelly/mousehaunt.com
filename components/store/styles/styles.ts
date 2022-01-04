@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const Container = styled.div`
   height: 100%;
@@ -19,7 +19,7 @@ export const Container = styled.div`
     padding-left: unset;
     padding-right: unset;
   }
-`;
+`
 
 export const Content = styled.section`
   width: 1200px;
@@ -28,7 +28,7 @@ export const Content = styled.section`
     width: unset;
     margin: unset;
   }
-`;
+`
 
 export const StoreContainer = styled.div`
   top: 0px;
@@ -36,11 +36,7 @@ export const StoreContainer = styled.div`
   height: 70vh;
   width: 100%;
 
-  background: radial-gradient(
-      100% 100% at 50% 100%,
-      rgba(19, 21, 36, 0%) 100%,
-      #131524 100%
-    ),
+  background: radial-gradient(100% 100% at 50% 100%, rgba(19, 21, 36, 0%) 100%, #131524 100%),
     url('/images/game-related/coffins.png');
   background-size: cover;
 
@@ -53,7 +49,7 @@ export const StoreContainer = styled.div`
       margin-left: 32px;
     }
   }
-`;
+`
 
 export const StoreSuccessContainer = styled.div`
   top: 0px;
@@ -101,7 +97,6 @@ export const StoreSuccessContainer = styled.div`
   }
 
   a {
-
     b {
       order: 1;
       background-image: linear-gradient(96.82deg, #0882f2 0%, #1fc6ec 100%);
@@ -113,7 +108,7 @@ export const StoreSuccessContainer = styled.div`
       -moz-text-fill-color: transparent;
     }
   }
-`;
+`
 
 export const StoreInventoryContainer = styled.div`
   top: 0px;
@@ -144,7 +139,7 @@ export const StoreInventoryContainer = styled.div`
 
     b {
       order: 1;
-    background-image: linear-gradient(96.82deg, #cb61e4 0%, #be42d7 100%);
+      background-image: linear-gradient(96.82deg, #cb61e4 0%, #be42d7 100%);
 
       background-size: 100%;
       -webkit-background-clip: text;
@@ -159,7 +154,7 @@ export const StoreInventoryContainer = styled.div`
     line-height: 32px;
     margin-top: 0px;
   }
-`;
+`
 
 export const StoreSuccessBody = styled.div`
   display: flex;
@@ -168,14 +163,14 @@ export const StoreSuccessBody = styled.div`
   align-items: center;
   height: calc(100% - 128px);
   width: 100%;
-`;
+`
 
 export const StoreInventoryBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const SuccessCard = styled.div`
   display: flex;
@@ -199,7 +194,7 @@ export const SuccessCard = styled.div`
     width: 180px;
     align-self: center;
   }
-`;
+`
 
 export const SuccessCardImage = styled.div`
   align-self: center;
@@ -209,7 +204,7 @@ export const SuccessCardImage = styled.div`
 
   height: 336px;
   width: 300px;
-`;
+`
 
 export const StorePageSub = styled.div`
   margin: 0 auto;
@@ -231,9 +226,9 @@ export const StorePageSub = styled.div`
   }
   a {
     width: 180px;
-    margin:auto;
+    margin: auto;
   }
-`;
+`
 
 export const StoreTitle = styled.div`
   font-family: 'Bebas Neue Pro';
@@ -260,7 +255,7 @@ export const StoreTitle = styled.div`
     font-size: 80px;
     line-height: 72px;
   }
-`;
+`
 
 export const StoreInventory = styled.div`
   font-family: 'Bebas Neue Pro';
@@ -290,12 +285,12 @@ export const StoreInventory = styled.div`
     font-size: 80px;
     line-height: 72px;
   }
-`;
+`
 export const StoreSuccessDescription = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding:20px;
+  padding: 20px;
 
   div {
     display: flex;
@@ -306,27 +301,4 @@ export const StoreSuccessDescription = styled.div`
       color: #848484;
     }
   }
-`
-
-export const CountdownContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  ul {
-    padding-left: 0px;
-  }
-  li {
-    display: inline-block;
-    font-size: 1em;
-    list-style-type: none;
-    padding: 0.5em;
-    text-transform: uppercase;
-  }
-  li span {
-    display: block;
-    font-size: 48px;
-    text-align: center;
-  }
-
 `

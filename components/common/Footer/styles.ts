@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   margin-top: 80px;
@@ -10,19 +10,19 @@ export const Container = styled.section`
   img {
     width: 808px;
   }
-`;
+`
 
 export const Title = styled.div`
   padding-bottom: 36px;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
 
   flex: none;
   flex-grow: 0;
-`;
+`
 
 export const Logo = styled.div`
   width: 144px;
@@ -31,7 +31,7 @@ export const Logo = styled.div`
   margin: 12px 0px;
 
   align-self: center;
-`;
+`
 
 export const Social = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ export const Social = styled.div`
     width: 36px;
     height: 36px;
   }
-`;
+`
 
 export const Ellipse1 = styled.div`
   position: absolute;
@@ -61,7 +61,7 @@ export const Ellipse1 = styled.div`
   @media only screen and (max-width: 1280px) {
     transform: scale(0.5);
   }
-`;
+`
 
 export const Ellipse2 = styled.div`
   position: absolute;
@@ -77,4 +77,4 @@ export const Ellipse2 = styled.div`
   @media only screen and (max-width: 1280px) {
     transform: scale(0.5);
   }
-`;
+`

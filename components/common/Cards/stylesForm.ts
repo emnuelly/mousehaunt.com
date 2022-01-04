@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const ContentForm = styled.div`
   position: relative;
@@ -18,12 +18,12 @@ export const ContentForm = styled.div`
     cursor: pointer;
     outline: inherit;
   }
-`;
+`
 
 export const IconStyle = styled.section`
   position: relative;
   top: 22px;
-`;
+`
 
 export const FormDisplay = styled.section`
   label {
@@ -64,11 +64,10 @@ export const FormDisplay = styled.section`
   input[type='number'] {
     -moz-appearance: textfield;
   }
-`;
+`
 
 export const FormIncremental = styled.section`
   margin: 0 auto;
-  margin-top: -15px;
   label {
     font-family: 'SF Pro Display';
     font-size: 13px;
@@ -93,12 +92,12 @@ export const FormIncremental = styled.section`
     text-align: center;
     color: white;
   }
-`;
+`
 
 export const FormMainSection = styled.section`
   display: flex;
   text-align: center;
-`;
+`
 
 export const ButtonFormat = styled.section`
   display: flex;
@@ -113,11 +112,11 @@ export const ButtonFormat = styled.section`
     margin-left: 10px;
     margin-right: 10px;
   }
-`;
+`
 
-export const Warning = styled.div `
+export const Warning = styled.div`
   color: red;
   text-align: center;
   margin-top: -19px;
   min-height: 40px;
-`;
+`

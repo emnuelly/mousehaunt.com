@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: flex;
@@ -9,13 +9,13 @@ export const Container = styled.section`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-`;
+`
 
 export const Title = styled.div`
   margin-top: -45px;
   z-index: 1;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -34,7 +34,7 @@ export const Title = styled.div`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Subtitle = styled.div`
   padding-top: 16px;
@@ -43,7 +43,7 @@ export const Subtitle = styled.div`
   width: 784px;
   align-self: center;
 
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -55,7 +55,7 @@ export const Subtitle = styled.div`
   @media only screen and (max-width: 600px) {
     width: 360px;
   }
-`;
+`
 
 export const Mice = styled.div`
   align-self: center;
@@ -64,22 +64,22 @@ export const Mice = styled.div`
   height: 239.62px;
 
   transform: rotate(-3.03deg);
-`;
+`
 
 export const Phone = styled.div`
   width: 851px;
   height: 416px;
 
   filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
-  background-image: url("/images/phone-frames/iphone.png");
+  background-image: url('/images/phone-frames/iphone.png');
   background-repeat: no-repeat;
 
   @media only screen and (max-width: 600px) {
-    background-image: url("/images/phone-frames/iphone-320.png");
+    background-image: url('/images/phone-frames/iphone-320.png');
     width: 320px;
     height: 156px;
   }
-`;
+`
 
 export const Video = styled.div`
   width: 851px;
@@ -112,7 +112,7 @@ export const Video = styled.div`
       margin-left: unset;
     }
   }
-`;
+`
 
 export const Ellipse1 = styled.div`
   position: relative;
@@ -128,7 +128,7 @@ export const Ellipse1 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`
 
 export const Ellipse2 = styled.div`
   position: relative;
@@ -149,4 +149,4 @@ export const Ellipse2 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`

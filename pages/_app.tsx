@@ -1,8 +1,10 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import React, { useEffect } from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { StoreProvider } from "../contexts/StoreContext";
+import '../styles/globals.css'
+import React from 'react'
+
+import type { AppProps } from 'next/app'
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
+
+import { StoreProvider } from '../contexts/StoreContext'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -28,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
       font-display: swap;
     }
   }
-`;
+`
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -38,6 +40,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </StoreProvider>
     </ThemeProvider>
-  );
+  )
 }
-export default MyApp;
+export default MyApp

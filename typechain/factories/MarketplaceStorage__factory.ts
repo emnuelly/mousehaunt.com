@@ -2,12 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
-import { Provider, TransactionRequest } from "@ethersproject/providers";
-import type {
-  MarketplaceStorage,
-  MarketplaceStorageInterface,
-} from "../MarketplaceStorage";
+import { Signer, utils, Contract, ContractFactory, Overrides } from 'ethers'
+import { Provider, TransactionRequest } from '@ethersproject/providers'
+import type { MarketplaceStorage, MarketplaceStorageInterface } from '../MarketplaceStorage'
 
 const _abi = [
   {
@@ -15,315 +12,313 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "ownerCutPerMillion",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: 'ownerCutPerMillion',
+        type: 'uint256'
+      }
     ],
-    name: "ChangedOwnerCutPerMillion",
-    type: "event",
+    name: 'ChangedOwnerCutPerMillion',
+    type: 'event'
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "publicationFee",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: 'publicationFee',
+        type: 'uint256'
+      }
     ],
-    name: "ChangedPublicationFee",
-    type: "event",
+    name: 'ChangedPublicationFee',
+    type: 'event'
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "assetId",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'assetId',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
+        internalType: 'address',
+        name: 'seller',
+        type: 'address'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "nftAddress",
-        type: "address",
-      },
+        internalType: 'address',
+        name: 'nftAddress',
+        type: 'address'
+      }
     ],
-    name: "OrderCancelled",
-    type: "event",
+    name: 'OrderCancelled',
+    type: 'event'
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "assetId",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'assetId',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
+        internalType: 'address',
+        name: 'seller',
+        type: 'address'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "nftAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'nftAddress',
+        type: 'address'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "priceInWei",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'priceInWei',
+        type: 'uint256'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "expiresAt",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: 'expiresAt',
+        type: 'uint256'
+      }
     ],
-    name: "OrderCreated",
-    type: "event",
+    name: 'OrderCreated',
+    type: 'event'
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "assetId",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'assetId',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
+        internalType: 'address',
+        name: 'seller',
+        type: 'address'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "nftAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'nftAddress',
+        type: 'address'
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "totalPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'totalPrice',
+        type: 'uint256'
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
+        internalType: 'address',
+        name: 'buyer',
+        type: 'address'
+      }
     ],
-    name: "OrderExecuted",
-    type: "event",
+    name: 'OrderExecuted',
+    type: 'event'
   },
   {
     inputs: [],
-    name: "acceptedToken",
+    name: 'acceptedToken',
     outputs: [
       {
-        internalType: "contract IERC20",
-        name: "",
-        type: "address",
-      },
+        internalType: 'contract IERC20',
+        name: '',
+        type: 'address'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function'
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
     ],
-    name: "nfts",
+    name: 'nfts',
     outputs: [
       {
-        internalType: "address",
-        name: "addr",
-        type: "address",
+        internalType: 'address',
+        name: 'addr',
+        type: 'address'
       },
       {
-        internalType: "enum MarketplaceStorage.AssetType",
-        name: "tokenType",
-        type: "uint8",
-      },
+        internalType: 'enum MarketplaceStorage.AssetType',
+        name: 'tokenType',
+        type: 'uint8'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function'
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
     ],
-    name: "orders",
+    name: 'orders',
     outputs: [
       {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256'
       },
       {
-        internalType: "address",
-        name: "seller",
-        type: "address",
+        internalType: 'address',
+        name: 'seller',
+        type: 'address'
       },
       {
-        internalType: "address",
-        name: "nftAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'nftAddress',
+        type: 'address'
       },
       {
-        internalType: "uint256",
-        name: "assetId",
-        type: "uint256",
+        internalType: 'enum MarketplaceStorage.AssetType',
+        name: 'tokenType',
+        type: 'uint8'
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'assetId',
+        type: 'uint256'
       },
       {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256'
       },
       {
-        internalType: "uint256",
-        name: "expiresAt",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256'
       },
+      {
+        internalType: 'uint256',
+        name: 'expiresAt',
+        type: 'uint256'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function'
   },
   {
     inputs: [],
-    name: "ownerCutPerMillion",
+    name: 'ownerCutPerMillion',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function'
   },
   {
     inputs: [],
-    name: "publicationFeeInWei",
+    name: 'publicationFeeInWei',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-];
+    stateMutability: 'view',
+    type: 'function'
+  }
+]
 
 const _bytecode =
-  "0x608060405234801561001057600080fd5b506104ce806100206000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063265aa6211461005c578063451c3d801461008d578063a01f79d4146100ab578063a85c38ef146100c9578063ae4f1198146100ff575b600080fd5b61007660048036038101906100719190610277565b61011d565b60405161008492919061035c565b60405180910390f35b61009561017a565b6040516100a291906103e4565b60405180910390f35b6100b361019e565b6040516100c0919061040e565b60405180910390f35b6100e360048036038101906100de9190610277565b6101a4565b6040516100f69796959493929190610429565b60405180910390f35b610107610236565b604051610114919061040e565b60405180910390f35b6003818154811061012d57600080fd5b906000526020600020016000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060000160149054906101000a900460ff16905082565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60045481565b600181815481106101b457600080fd5b90600052602060002090600702016000915090508060000154908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060030154908060040154908060050154908060060154905087565b60055481565b600080fd5b6000819050919050565b61025481610241565b811461025f57600080fd5b50565b6000813590506102718161024b565b92915050565b60006020828403121561028d5761028c61023c565b5b600061029b84828501610262565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006102cf826102a4565b9050919050565b6102df816102c4565b82525050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b60038110610325576103246102e5565b5b50565b600081905061033682610314565b919050565b600061034682610328565b9050919050565b6103568161033b565b82525050565b600060408201905061037160008301856102d6565b61037e602083018461034d565b9392505050565b6000819050919050565b60006103aa6103a56103a0846102a4565b610385565b6102a4565b9050919050565b60006103bc8261038f565b9050919050565b60006103ce826103b1565b9050919050565b6103de816103c3565b82525050565b60006020820190506103f960008301846103d5565b92915050565b61040881610241565b82525050565b600060208201905061042360008301846103ff565b92915050565b600060e08201905061043e600083018a6103ff565b61044b60208301896102d6565b61045860408301886102d6565b61046560608301876103ff565b61047260808301866103ff565b61047f60a08301856103ff565b61048c60c08301846103ff565b9897505050505050505056fea2646970667358221220d063a48dbe645496aa2883539380a114002629655c157d956b3f5086be68a8e464736f6c63430008090033";
+  '0x608060405234801561001057600080fd5b506104f1806100206000396000f3fe608060405234801561001057600080fd5b50600436106100575760003560e01c8063265aa6211461005c578063451c3d801461008d578063a01f79d4146100ab578063a85c38ef146100c9578063ae4f119814610100575b600080fd5b6100766004803603810190610071919061028b565b61011e565b604051610084929190610370565b60405180910390f35b61009561017b565b6040516100a291906103f8565b60405180910390f35b6100b361019f565b6040516100c09190610422565b60405180910390f35b6100e360048036038101906100de919061028b565b6101a5565b6040516100f798979695949392919061043d565b60405180910390f35b61010861024a565b6040516101159190610422565b60405180910390f35b6003818154811061012e57600080fd5b906000526020600020016000915090508060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060000160149054906101000a900460ff16905082565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60045481565b600181815481106101b557600080fd5b90600052602060002090600702016000915090508060000154908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020160149054906101000a900460ff16908060030154908060040154908060050154908060060154905088565b60055481565b600080fd5b6000819050919050565b61026881610255565b811461027357600080fd5b50565b6000813590506102858161025f565b92915050565b6000602082840312156102a1576102a0610250565b5b60006102af84828501610276565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006102e3826102b8565b9050919050565b6102f3816102d8565b82525050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b60038110610339576103386102f9565b5b50565b600081905061034a82610328565b919050565b600061035a8261033c565b9050919050565b61036a8161034f565b82525050565b600060408201905061038560008301856102ea565b6103926020830184610361565b9392505050565b6000819050919050565b60006103be6103b96103b4846102b8565b610399565b6102b8565b9050919050565b60006103d0826103a3565b9050919050565b60006103e2826103c5565b9050919050565b6103f2816103d7565b82525050565b600060208201905061040d60008301846103e9565b92915050565b61041c81610255565b82525050565b60006020820190506104376000830184610413565b92915050565b600061010082019050610453600083018b610413565b610460602083018a6102ea565b61046d60408301896102ea565b61047a6060830188610361565b6104876080830187610413565b61049460a0830186610413565b6104a160c0830185610413565b6104ae60e0830184610413565b999850505050505050505056fea264697066735822122051bd8c24ed542bd294ba52d05ac6e33cd220b5684ad59a5b83d2699b4888008a64736f6c63430008090033'
 
 export class MarketplaceStorage__factory extends ContractFactory {
-  constructor(
-    ...args: [signer: Signer] | ConstructorParameters<typeof ContractFactory>
-  ) {
+  constructor(...args: [signer: Signer] | ConstructorParameters<typeof ContractFactory>) {
     if (args.length === 1) {
-      super(_abi, _bytecode, args[0]);
+      super(_abi, _bytecode, args[0])
     } else {
-      super(...args);
+      super(...args)
     }
   }
 
-  deploy(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<MarketplaceStorage> {
-    return super.deploy(overrides || {}) as Promise<MarketplaceStorage>;
+  deploy(overrides?: Overrides & { from?: string | Promise<string> }): Promise<MarketplaceStorage> {
+    return super.deploy(overrides || {}) as Promise<MarketplaceStorage>
   }
   getDeployTransaction(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): TransactionRequest {
-    return super.getDeployTransaction(overrides || {});
+    return super.getDeployTransaction(overrides || {})
   }
   attach(address: string): MarketplaceStorage {
-    return super.attach(address) as MarketplaceStorage;
+    return super.attach(address) as MarketplaceStorage
   }
   connect(signer: Signer): MarketplaceStorage__factory {
-    return super.connect(signer) as MarketplaceStorage__factory;
+    return super.connect(signer) as MarketplaceStorage__factory
   }
-  static readonly bytecode = _bytecode;
-  static readonly abi = _abi;
+  static readonly bytecode = _bytecode
+  static readonly abi = _abi
   static createInterface(): MarketplaceStorageInterface {
-    return new utils.Interface(_abi) as MarketplaceStorageInterface;
+    return new utils.Interface(_abi) as MarketplaceStorageInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): MarketplaceStorage {
-    return new Contract(address, _abi, signerOrProvider) as MarketplaceStorage;
+  static connect(address: string, signerOrProvider: Signer | Provider): MarketplaceStorage {
+    return new Contract(address, _abi, signerOrProvider) as MarketplaceStorage
   }
 }

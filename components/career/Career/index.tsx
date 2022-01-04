@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
-import { BiRightArrowAlt } from 'react-icons/bi';
-import { RiMapPinLine } from 'react-icons/ri';
-import { FiBriefcase } from 'react-icons/fi';
+import { useEffect, useState } from 'react'
+
+import { BiRightArrowAlt } from 'react-icons/bi'
+import { FiBriefcase } from 'react-icons/fi'
+import { RiMapPinLine } from 'react-icons/ri'
+
+import JobDescription from './JobDescription'
 import {
   Content,
   CareerContainer,
@@ -15,47 +18,43 @@ import {
   CardsTitle,
   CardsButton,
   IconStyle,
-  IconButton,
-} from './styles/styles';
-import JobDescription from './JobDescription';
-import { jobListings } from './utils/jobListings.functions';
+  IconButton
+} from './styles/styles'
+import { jobListings } from './utils/jobListings.functions'
 
 const CareerPage: React.FC = () => {
-  const [jobObject, setJobObject] = useState<any>({});
-  const [displayJobSection, setDisplayJobSection] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [jobObject, setJobObject] = useState<any>({})
+  const [displayJobSection, setDisplayJobSection] = useState(true)
 
-  const returnToCareerPage = () => {
-    return setDisplayJobSection(true);
-  };
+  const returnToCareerPage = () => setDisplayJobSection(true)
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [displayJobSection]);
+    window.scrollTo(0, 0)
+  }, [displayJobSection])
 
-  const displayJobPostings = () => {
-    return (
-      <CareerContainer>
-        <CareerTitle>Careers</CareerTitle>
-        <CareerPageSub>
-          <CareerPageSubText>
-            Our team is filled with people that are humans and are very good at
-            being humans. We do all sorts of things that human do, like eating,
-            walking in the park.
-          </CareerPageSubText>
-          <div style={{ marginBottom: '-20px' }}></div>
-          <CareerPageSubText>
-            We are looking for humans that also are, in fact, humans, and also
-            do humans stuff. If you feel that you are really a human and want to
-            be a part of our team, check ot our positions below!
-          </CareerPageSubText>
-        </CareerPageSub>
-      </CareerContainer>
-    );
-  };
+  const displayJobPostings = () => (
+    <CareerContainer>
+      <CareerTitle>Careers</CareerTitle>
+      <CareerPageSub>
+        <CareerPageSubText>
+          Our team is filled with people that are humans and are very good at being humans. We do
+          all sorts of things that human do, like eating, walking in the park.
+        </CareerPageSubText>
+        <div style={{ marginBottom: '-20px' }} />
+        <CareerPageSubText>
+          We are looking for humans that also are, in fact, humans, and also do humans stuff. If you
+          feel that you are really a human and want to be a part of our team, check ot our positions
+          below!
+        </CareerPageSubText>
+      </CareerPageSub>
+    </CareerContainer>
+  )
 
   const displayPostings = () => {
-    const styleTitles = { color: 'white', padding: '3px' };
+    const styleTitles = { color: 'white', padding: '3px' }
     return jobListings.map((event, key) => (
+      // eslint-disable-next-line react/no-array-index-key
       <Cards key={key}>
         <CardsTitle>{event.jobRole.role}</CardsTitle>
         <CardsBody>
@@ -75,8 +74,8 @@ const CareerPage: React.FC = () => {
 
         <CardsButton
           onClick={() => {
-            setJobObject(event);
-            setDisplayJobSection(false);
+            setJobObject(event)
+            setDisplayJobSection(false)
           }}
         >
           <IconButton>
@@ -85,8 +84,8 @@ const CareerPage: React.FC = () => {
           </IconButton>
         </CardsButton>
       </Cards>
-    ));
-  };
+    ))
+  }
 
   return (
     <>
@@ -101,7 +100,7 @@ const CareerPage: React.FC = () => {
         )}
       </Content>
     </>
-  );
-};
+  )
+}
 
-export default CareerPage;
+export default CareerPage

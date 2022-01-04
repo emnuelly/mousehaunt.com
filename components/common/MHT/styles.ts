@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   margin-top: -200px;
@@ -13,14 +13,14 @@ export const Container = styled.section`
     flex-direction: column;
     text-align: center;
   }
-`;
+`
 
 export const Left = styled.div`
   justify-content: center;
   display: flex;
   flex-direction: row;
   align-items: center;
-`;
+`
 
 export const Right = styled.div`
   display: flex;
@@ -56,14 +56,14 @@ export const Right = styled.div`
       align-self: center;
     }
   }
-`;
+`
 
 export const Chest = styled.div`
   position: relative;
-`;
+`
 
 export const Title = styled.div`
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-style: normal;
   font-weight: 800;
   font-size: 48px;
@@ -71,13 +71,13 @@ export const Title = styled.div`
 
   flex: none;
   flex-grow: 0;
-`;
+`
 
 export const Subtitle = styled.div`
   padding-top: 16px;
   padding-bottom: 40px;
 
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -85,7 +85,7 @@ export const Subtitle = styled.div`
   flex: none;
   flex-grow: 0;
   margin: 16px 0px;
-`;
+`
 
 export const Ellipse = styled.div`
   position: relative;
@@ -105,4 +105,4 @@ export const Ellipse = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`

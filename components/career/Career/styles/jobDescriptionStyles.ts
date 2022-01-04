@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const JobTitle = styled.div`
   font-family: 'Bebas Neue Pro';
@@ -27,7 +27,7 @@ export const JobTitle = styled.div`
     font-size: 80px;
     line-height: 72px;
   }
-`;
+`
 
 export const JobDescriptionHeader = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ export const JobDescriptionHeader = styled.div`
   margin-top: 40px;
   border-radius: 10px;
   background-color: #29274b;
-`;
+`
 
 export const JobDescriptionText = styled.div`
   font-family: 'SF Pro Display';
@@ -46,19 +46,19 @@ export const JobDescriptionText = styled.div`
   line-height: 24px;
   text-align: center;
   color: #ffffff;
-`;
+`
 
 export const IconStyle = styled.div`
   display: flex;
   color: white;
   margin-bottom: -10px;
   align-items: center;
-`;
+`
 
 export const IconPadding = styled.div`
   margin: 5px;
   text-transform: capitalize;
-`;
+`
 
 export const IconTextSub = styled.div`
   font-size: 28px;
@@ -71,7 +71,7 @@ export const IconTextSub = styled.div`
   margin-bottom: 30px;
   margin-right: 10%;
   letter-spacing: 1px;
-`;
+`
 
 export const SectionTitle = styled.h1`
   font-weight: 800;
@@ -79,7 +79,7 @@ export const SectionTitle = styled.h1`
   font-family: 'Bebas Neue Pro';
   font-size: 48px;
   font-color: #ffffff;
-`;
+`
 
 export const SectionParagraph = styled.p`
   font-weight: 400;
@@ -88,7 +88,7 @@ export const SectionParagraph = styled.p`
   font-size: 18px;
   line-height: 24px;
   font-color: #ffffff;
-`;
+`
 
 export const SectionBullet = styled.li`
   font-weight: 400;
@@ -98,7 +98,7 @@ export const SectionBullet = styled.li`
   margin-top: 10px;
   line-height: 24px;
   font-color: #ffffff;
-`;
+`
 
 export const ButtonStyle = styled.div`
   font-weight: 700;
@@ -115,7 +115,7 @@ export const ButtonStyle = styled.div`
   &:hover {
     cursor: pointer;
   }
-`;
+`
 
 export const DisplayButtons = styled.div`
   display: flex;
@@ -123,4 +123,4 @@ export const DisplayButtons = styled.div`
   justify-content: space-around;
   margin-top: 90px;
   margin-bottom: 20%;
-`;
+`

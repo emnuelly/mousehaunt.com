@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
-export const Header = styled.header`
+const Header = styled.header`
   padding-top: 32px;
   display: flex;
   flex-direction: row;
@@ -20,6 +20,6 @@ export const Header = styled.header`
   button {
     margin-left: auto;
   }
-`;
+`
 
-export default Header;
+export default Header

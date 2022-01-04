@@ -1,8 +1,7 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const BurgerContainer = styled.div`
   display: none;
-
 
   .bm-burger-button {
     position: fixed;
@@ -51,7 +50,7 @@ export const BurgerContainer = styled.div`
       transition: color 0.5s ease;
     }
   }
-  .bm-cross{
+  .bm-cross {
     width: 3px !important;
     height: 30px !important;
   }
@@ -71,4 +70,4 @@ export const BurgerContainer = styled.div`
   @media only screen and (max-width: 600px) {
     display: block;
   }
-`;
+`

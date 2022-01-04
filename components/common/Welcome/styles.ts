@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-`;
+`
 
 export const Title = styled.div`
   padding-top: 72px;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -33,7 +33,7 @@ export const Title = styled.div`
     width: 250px;
     align-self: center;
   }
-`;
+`
 
 export const Subtitle = styled.div`
   padding-top: 16px;
@@ -42,7 +42,7 @@ export const Subtitle = styled.div`
   width: 784px;
   align-self: center;
 
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -54,7 +54,7 @@ export const Subtitle = styled.div`
   @media only screen and (max-width: 600px) {
     width: 343px;
   }
-`;
+`
 
 export const Video = styled.div`
   width: 816px;
@@ -75,7 +75,7 @@ export const Video = styled.div`
       height: 183.57px;
     }
   }
-`;
+`
 
 export const Logo = styled.div`
   position: absolute;
@@ -98,7 +98,7 @@ export const Logo = styled.div`
 
     transform: rotate(-15deg);
   }
-`;
+`
 
 export const Ellipse1 = styled.div`
   position: absolute;
@@ -119,7 +119,7 @@ export const Ellipse1 = styled.div`
     left: calc(50% + 350px / 2 - 350px / 2);
     top: calc(100vh + 72px + 16px + 85px);
   }
-`;
+`
 
 export const Ellipse2 = styled.div`
   position: absolute;
@@ -140,4 +140,4 @@ export const Ellipse2 = styled.div`
     height: 123px;
     top: calc(100vh + 72px + 16px + 85px + 123px);
   }
-`;
+`

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Link = styled.a`
   color: white;
@@ -12,7 +12,7 @@ export const Link = styled.a`
   border: none;
   border-radius: 10px;
 
-  font-family: "Bebas Neue Pro Bold";
+  font-family: 'Bebas Neue Pro Bold';
   font-size: 20px;
   line-height: 24px;
 
@@ -31,6 +31,6 @@ export const Link = styled.a`
     margin: 0px 10px;
     padding: unset;
   }
-`;
+`
 
-export default Link;
+export default Link

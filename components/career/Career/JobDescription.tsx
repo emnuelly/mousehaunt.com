@@ -1,21 +1,22 @@
+import { useEffect } from 'react'
+
+import { Link } from '../../common/Link'
+import DisplayJobDescription from './DisplayJobDescription'
+import HeaderJobInfo from './HeaderJobInfo'
 import {
   JobTitle,
   JobDescriptionHeader,
   SectionTitle,
   SectionParagraph,
   ButtonStyle,
-  DisplayButtons,
-} from './styles/jobDescriptionStyles';
-import { useEffect } from 'react';
-import { Link } from '../../common/Link';
-import { Props } from './utils/jobListings.functions';
-import HeaderJobInfo from './HeaderJobInfo';
-import DisplayJobDescription from './DisplayJobDescription';
+  DisplayButtons
+} from './styles/jobDescriptionStyles'
+import { Props } from './utils/jobListings.functions'
 
 const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
@@ -28,22 +29,15 @@ const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
 
       <SectionTitle>Job Description</SectionTitle>
       <SectionParagraph>
-        <DisplayJobDescription
-          paragraphs={job.jobDescription.paragraphs}
-          needBreakLine
-        />
+        <DisplayJobDescription paragraphs={job.jobDescription.paragraphs} needBreakLine />
       </SectionParagraph>
 
       <SectionTitle>Responsibilities</SectionTitle>
       <SectionParagraph>
-        <DisplayJobDescription
-          paragraphs={job.jobResponsibilities.responsibilities}
-        />
+        <DisplayJobDescription paragraphs={job.jobResponsibilities.responsibilities} />
       </SectionParagraph>
       <ul>
-        <DisplayJobDescription
-          bulletPoints={job.jobResponsibilities.bulletPoints}
-        />
+        <DisplayJobDescription bulletPoints={job.jobResponsibilities.bulletPoints} />
       </ul>
 
       <SectionTitle>Job Requirements</SectionTitle>
@@ -51,19 +45,18 @@ const JobDescription: React.FC<Props> = ({ job, goBack }: Props) => {
         <DisplayJobDescription paragraphs={job.jobRequirements.paragraphs} />
       </SectionParagraph>
       <ul>
-        <DisplayJobDescription
-          bulletPoints={job.jobRequirements.bulletPoints}
-        />
+        <DisplayJobDescription bulletPoints={job.jobRequirements.bulletPoints} />
       </ul>
 
       <DisplayButtons>
-        <a href={job.link} target="_blank" rel="noreferrer">
+        <a href={job.link} target='_blank' rel='noreferrer'>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <Link>APPLY NOW</Link>
         </a>
         <ButtonStyle onClick={() => goBack()}>GO BACK</ButtonStyle>
       </DisplayButtons>
     </>
-  );
-};
+  )
+}
 
-export default JobDescription;
+export default JobDescription

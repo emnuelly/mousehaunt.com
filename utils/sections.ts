@@ -1,13 +1,13 @@
 export const storeSections = [
   { to: '/store', title: 'Store' },
-  { to: '/store/inventory', title: 'Inventory' },
-];
+  { to: '/store/inventory', title: 'Inventory' }
+]
 
-export const sections = [
+const sections = [
   { to: '/#about', title: 'About' },
   {
     to: 'https://whitepaper.mousehaunt.com',
-    title: 'White Paper',
+    title: 'White Paper'
   },
   { to: '/store', title: 'Store' },
   { to: '/#Gameplay', title: 'Gameplay' },
@@ -15,7 +15,7 @@ export const sections = [
   { to: '/#Token', title: 'Token' },
   { to: '/#Team', title: 'Team' },
   { to: '/#Roadmap', title: 'Roadmap' },
-  { to: '/careers', title: 'Careers' },
-];
+  { to: '/careers', title: 'Careers' }
+]
 
-export default sections;
+export default sections

@@ -1,23 +1,22 @@
-import pedro from '../../../../public/images/people/pedro.jpeg';
-import matheus from '../../../../public/images/people/matheus.jpeg';
-import lan from '../../../../public/images/people/lan.png';
-import petri from '../../../../public/images/people/petri.png';
-import luis from '../../../../public/images/people/luis.png';
-import sinan from '../../../../public/images/people/sinan.png';
-import hiring from '../../../../public/images/other/hiring.png';
-import andres from '../../../../public/images/people/andres.jpeg';
-import daniel from '../../../../public/images/people/daniel.png';
-import caio from '../../../../public/images/people/caio.jpeg';
-import antonio from '../../../../public/images/people/antonio.jpeg';
-import breno from '../../../../public/images/people/breno.jpeg';
-import thomas from '../../../../public/images/people/thomas.jpg';
-import rafael from '../../../../public/images/people/rafael.jpeg';
-import gabriel from '../../../../public/images/people/gabriel.jpeg';
-import marina from '../../../../public/images/people/marina.jpeg';
-import rohit from '../../../../public/images/people/rohit.jpeg';
-import ian from '../../../../public/images/people/ian.jpeg';
-import arthur from '../../../../public/images/people/arthur.jpeg';
-import daniel_cantor from '../../../../public/images/people/daniel.jpeg';
+import hiring from '../../../../public/images/other/hiring.png'
+import andres from '../../../../public/images/people/andres.jpeg'
+import antonio from '../../../../public/images/people/antonio.jpeg'
+import arthur from '../../../../public/images/people/arthur.jpeg'
+import breno from '../../../../public/images/people/breno.jpeg'
+import caio from '../../../../public/images/people/caio.jpeg'
+import daniel from '../../../../public/images/people/daniel.png'
+import gabriel from '../../../../public/images/people/gabriel.jpeg'
+import ian from '../../../../public/images/people/ian.jpeg'
+import lan from '../../../../public/images/people/lan.png'
+import luis from '../../../../public/images/people/luis.png'
+import marina from '../../../../public/images/people/marina.jpeg'
+import matheus from '../../../../public/images/people/matheus.jpeg'
+import pedro from '../../../../public/images/people/pedro.jpeg'
+import petri from '../../../../public/images/people/petri.png'
+import rafael from '../../../../public/images/people/rafael.jpeg'
+import rohit from '../../../../public/images/people/rohit.jpeg'
+import sinan from '../../../../public/images/people/sinan.png'
+import thomas from '../../../../public/images/people/thomas.jpg'
 
 export const members = [
   {
@@ -28,8 +27,8 @@ export const members = [
       'Pedro started his career at Bandai Namco, working on titles like Tekken and moved on to AAA gaming. Worked as a designer on titles such as Halo Infinite and Gears of War 5',
     src: pedro,
     social: {
-      linkedin: 'https://www.linkedin.com/in/pedrocamachodandrea/',
-    },
+      linkedin: 'https://www.linkedin.com/in/pedrocamachodandrea/'
+    }
   },
   {
     name: 'Daniel Portugal',
@@ -39,8 +38,8 @@ export const members = [
       'Dani started his career as a Game Developer back in 2006. Since then he has had a multitude of experiences - Software Engineer, IT Lead and advertising Project Manager. Lately Dani has been working as a Senior Solidity Engineer, doing Ethereum, Solidity and multi-blockchain as well as being a Learning Facilitator at MIT for the Blockchain: Disruptive Technology course',
     src: daniel,
     social: {
-      linkedin: 'https://www.linkedin.com/in/danielportugal/',
-    },
+      linkedin: 'https://www.linkedin.com/in/danielportugal/'
+    }
   },
   {
     name: 'Matheus Vilano',
@@ -50,8 +49,8 @@ export const members = [
       'Matheus started as a musician and audio experience designer. But his project management skills and deep understanding of game development allowed him to become a Game Dev Instructor and Mentor',
     src: matheus,
     social: {
-      linkedin: 'https://www.linkedin.com/in/matheusvilano/',
-    },
+      linkedin: 'https://www.linkedin.com/in/matheusvilano/'
+    }
   },
   {
     name: 'Thomas Francis',
@@ -61,8 +60,8 @@ export const members = [
       'Thomas is Visual Effects Artist and Tech artist experienced in creating high quality AAA visual effects for mobile and PC platforms, delivering amazing VFX for AAA games',
     src: thomas,
     social: {
-      artstation: 'https://www.artstation.com/thomasfrancis',
-    },
+      artstation: 'https://www.artstation.com/thomasfrancis'
+    }
   },
   {
     name: 'Arthur Larsen',
@@ -72,8 +71,8 @@ export const members = [
     src: arthur,
     team: 'Marketing',
     social: {
-      linkedin: 'https://www.linkedin.com/in/arthurmachado23/',
-    },
+      linkedin: 'https://www.linkedin.com/in/arthurmachado23/'
+    }
   },
   {
     name: 'Rohit Mukherjee',
@@ -82,8 +81,8 @@ export const members = [
     src: rohit,
     team: 'Game Development',
     social: {
-      linkedin: 'https://www.linkedin.com/in/rohit-mukherjee-5986a4a6/',
-    },
+      linkedin: 'https://www.linkedin.com/in/rohit-mukherjee-5986a4a6/'
+    }
   },
   {
     name: 'Lan Tong',
@@ -92,8 +91,8 @@ export const members = [
       'Lan Tong is a UI/2D artist working in the industry since 2014. He moved to Vancouver and is also an original creator of Mouse Haunt',
     src: lan,
     social: {
-      artstation: 'https://www.artstation.com/lantong',
-    },
+      artstation: 'https://www.artstation.com/lantong'
+    }
   },
   {
     name: 'Petri Kauritsalo',
@@ -102,8 +101,8 @@ export const members = [
       'Senior Level Designer also working in AAA gaming industry. An original creator of Mouse Haunt',
     src: petri,
     social: {
-      linkedin: 'https://www.linkedin.com/in/petri-kauritsalo/',
-    },
+      linkedin: 'https://www.linkedin.com/in/petri-kauritsalo/'
+    }
   },
   {
     name: 'Luis Matamoros',
@@ -113,8 +112,8 @@ export const members = [
       'Luis Matamoros is a 3D artist and texturer that worked in Far Cry 6. An original creator of Mouse Haunt.',
     src: luis,
     social: {
-      linkedin: 'https://www.linkedin.com/in/luis-matamoros-1a854715a/',
-    },
+      linkedin: 'https://www.linkedin.com/in/luis-matamoros-1a854715a/'
+    }
   },
   {
     name: 'Sinan Ozer',
@@ -124,20 +123,19 @@ export const members = [
       'Sinan Ozer has a track record of working as Project Management and as Graphic Designer. Has also worked at EA games. An original creator of Mouse Haunt',
     src: sinan,
     social: {
-      linkedin: 'https://www.linkedin.com/in/sinanozer7/',
-    },
+      linkedin: 'https://www.linkedin.com/in/sinanozer7/'
+    }
   },
 
   {
     name: 'Rafael Dabrowski',
     role: 'Audio Designer',
-    description:
-      'Makes wonderful audio, knows technical audio and in-engine implementation.',
+    description: 'Makes wonderful audio, knows technical audio and in-engine implementation.',
     src: rafael,
     team: 'Game Development',
     social: {
-      linkedin: 'https://www.linkedin.com/in/rafael-dabrowski-565340133/',
-    },
+      linkedin: 'https://www.linkedin.com/in/rafael-dabrowski-565340133/'
+    }
   },
   {
     name: 'Marina Lucio',
@@ -147,8 +145,8 @@ export const members = [
     src: marina,
     team: 'Game Development',
     social: {
-      linkedin: 'https://www.linkedin.com/in/marinalucio/',
-    },
+      linkedin: 'https://www.linkedin.com/in/marinalucio/'
+    }
   },
 
   {
@@ -158,8 +156,8 @@ export const members = [
     src: ian,
     team: 'Game Development',
     social: {
-      linkedin: 'https://www.linkedin.com/in/ian-pellon-185498166/',
-    },
+      linkedin: 'https://www.linkedin.com/in/ian-pellon-185498166/'
+    }
   },
   {
     name: 'Gabriel Barreto',
@@ -169,8 +167,8 @@ export const members = [
     src: gabriel,
     team: 'Web Development',
     social: {
-      linkedin: 'https://www.linkedin.com/in/ghbarreto/',
-    },
+      linkedin: 'https://www.linkedin.com/in/ghbarreto/'
+    }
   },
   {
     name: 'Breno Mazza',
@@ -180,8 +178,8 @@ export const members = [
     role: 'Community Manager',
     team: 'Marketing',
     social: {
-      linkedin: 'https://www.linkedin.com/in/breno-mazza-966823111/',
-    },
+      linkedin: 'https://www.linkedin.com/in/breno-mazza-966823111/'
+    }
   },
 
   {
@@ -190,9 +188,9 @@ export const members = [
     description:
       'Mouse Haunt is contantly explanding its team with talented people! Send us a message and join our team!',
     src: hiring,
-    social: {},
-  },
-];
+    social: {}
+  }
+]
 export const advisors = [
   {
     name: 'Andres Bilbao',
@@ -201,8 +199,8 @@ export const advisors = [
     src: andres,
     team: 'Seed Investor',
     social: {
-      linkedin: 'https://www.linkedin.com/in/ahbilbao/',
-    },
+      linkedin: 'https://www.linkedin.com/in/ahbilbao/'
+    }
   },
   {
     name: 'Caio Jahara',
@@ -210,20 +208,19 @@ export const advisors = [
     src: caio,
     team: 'Blockchain/Marketing',
     social: {
-      linkedin: 'https://www.linkedin.com/in/caio-jahara-1b471680/',
-    },
+      linkedin: 'https://www.linkedin.com/in/caio-jahara-1b471680/'
+    }
   },
   {
     name: 'Antonio Viggiano',
-    description:
-      'Bitcoin enthusiast since 2013\nCofounded and coded 2 crypto exchanges himself',
+    description: 'Bitcoin enthusiast since 2013\nCofounded and coded 2 crypto exchanges himself',
     src: antonio,
     team: 'Blockchain',
     social: {
       linkedin: 'https://www.linkedin.com/in/aviggiano/',
-      twitter: 'https://twitter.com/agfviggiano',
-    },
-  },
+      twitter: 'https://twitter.com/agfviggiano'
+    }
+  }
   // {
   //   name: 'Gustavo',
   //   description:
@@ -234,4 +231,4 @@ export const advisors = [
   //       'https://www.linkedin.com/in/gustavo-sabino-975145114/ https://twitter.com/GuhS_NFT',
   //   },
   // },
-];
+]

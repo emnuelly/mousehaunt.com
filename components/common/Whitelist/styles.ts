@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   height: 100vh;
@@ -7,10 +7,14 @@ export const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-`;
+
+  @media only screen and (max-width: 600px) {
+    // margin-top: -160px;
+  }
+`
 
 export const Title = styled.div`
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-style: normal;
   font-weight: 800;
   font-size: 48px;
@@ -32,7 +36,7 @@ export const Title = styled.div`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Box = styled.div`
   align-self: center;
@@ -48,8 +52,10 @@ export const Box = styled.div`
 
   @media only screen and (max-width: 600px) {
     width: 85vw;
+    height: 460px;
+    margin-top: -40px;
   }
-`;
+`
 
 export const BoxContent = styled.div`
   margin-left: 8px;
@@ -74,12 +80,12 @@ export const BoxContent = styled.div`
   @media only screen and (max-width: 600px) {
     width: calc(85vw - 16px);
   }
-`;
+`
 
 export const Subtitle = styled.div`
   padding-top: 35px;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-style: normal;
   font-weight: 800;
   font-size: 32px;
@@ -99,17 +105,17 @@ export const Subtitle = styled.div`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Text = styled.div`
   position: static;
-  width: 351px;
+  width: 370px;
 
   font-family: SF Pro Display;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
-  line-height: 24px;
+  line-height: 20px;
 
   text-align: center;
 
@@ -118,13 +124,13 @@ export const Text = styled.div`
   margin-top: 16px;
 
   @media only screen and (max-width: 600px) {
-    width: 180px;
+    width: 240px;
 
     .second {
       display: none;
     }
   }
-`;
+`
 
 export const Mice = styled.div`
   @media only screen and (max-width: 600px) {
@@ -133,7 +139,7 @@ export const Mice = styled.div`
     flex-direction: row;
     justify-content: space-between;
   }
-`;
+`
 
 export const Mouse1 = styled.div`
   position: relative;
@@ -152,7 +158,7 @@ export const Mouse1 = styled.div`
     left: unset;
     transform: matrix(-1, 0, 0, 1, 0, 0) scale(1);
   }
-`;
+`
 
 export const Mouse2 = styled.div`
   position: relative;
@@ -171,7 +177,7 @@ export const Mouse2 = styled.div`
     top: unset;
     right: unset;
   }
-`;
+`
 
 export const Ellipse1 = styled.div`
   position: relative;
@@ -187,7 +193,7 @@ export const Ellipse1 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`
 
 export const Ellipse2 = styled.div`
   position: relative;
@@ -203,4 +209,4 @@ export const Ellipse2 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`

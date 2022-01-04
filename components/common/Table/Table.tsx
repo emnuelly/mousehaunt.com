@@ -1,142 +1,222 @@
-import React, { useContext, useEffect, useState } from "react";
-import Image from "next/image";
-import mht from "../../../public/images/other/MHT.png";
-import legendary from "../../../public/images/other/legendary.png";
-import epic from "../../../public/images/other/epic.png";
-import rare from "../../../public/images/other/rare.png";
+/* eslint-disable no-alert */
+import React, { useContext, useState } from 'react'
 
-import { Styles, StatusBadge } from "./styles";
-import { StoreContext } from "../../../contexts/StoreContext";
-import { ethers } from "ethers";
-import config from "../../../utils/config";
-import { truncate } from "../../../utils/blockchain";
-import { format, add } from "date-fns";
+import { add } from 'date-fns'
+import { format, utcToZonedTime } from 'date-fns-tz'
+import { ethers } from 'ethers'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+
+import Loading from '../../../assets/svg/loading.svg'
+import { StoreContext } from '../../../contexts/StoreContext'
+import epic from '../../../public/images/other/epic.png'
+import genesis from '../../../public/images/other/genesis.png'
+import legendary from '../../../public/images/other/legendary.png'
+import mht from '../../../public/images/other/MHT.png'
+import rare from '../../../public/images/other/rare.png'
+import {
+  addToWallet,
+  isTransactionMined,
+  NETWORK_TIMEOUT,
+  truncate
+} from '../../../utils/blockchain'
+import config from '../../../utils/config'
+import waitFor from '../../../utils/waitFor'
+import { Styles, Status, LoadingContainer } from './styles'
+
+const formatInTimeZone = (date: Date, fmt: string, tz: string) =>
+  format(utcToZonedTime(date, tz), fmt, { timeZone: tz })
 
 const Table: React.FC = () => {
-  const { userInfoDetailed, contracts, network } = useContext(StoreContext);
-  const [igoAmount, setIgoAmount] = useState("");
-  const [monthlyAmount, setMonthlyAmount] = useState("");
+  const { userInfoDetailed, contracts, network, provider, account, refresh, setRefresh } =
+    useContext(StoreContext)
+  const [loadingIndex, setLoadingIndex] = useState(-1)
+  const igoDate = new Date(Number(config[network].WhitelistSale.igoTimestamp) * 1000)
+  const router = useRouter()
 
-  const date = (i: number) =>
-    format(add(new Date("2021-12-21"), { months: i }), "MMM yyyy");
+  const mhts = Array.from(Array(13).keys()).map((month) => {
+    const claimDate = add(igoDate, { days: 30 * month })
+    const date = `${formatInTimeZone(claimDate, 'PPP HH:mm', 'UTC')} UTC`
+    const canClaim = userInfoDetailed?.claimsPerMonth && userInfoDetailed?.claimsPerMonth > 0
+    const times =
+      canClaim && userInfoDetailed?.claimsPerMonth > 1
+        ? ` (${Math.trunc(userInfoDetailed.claimsPerMonth)}x)`
+        : ''
+    const claimed =
+      userInfoDetailed &&
+      userInfoDetailed.lastClaimMonthIndex >= month &&
+      !userInfoDetailed.hasBoughtWhitelistButNotClaimed
 
-  const mhts = Array.from(Array(12).keys()).map((i) => ({
-    item: "$MHT",
-    itemSub: "Mouse Haunt Token",
-    type: monthlyAmount,
-    typeSub: `Claimable ${i + 1} month${!i ? "" : "s"} after IDO (${date(
-      i + 1
-    )})`,
-    image: mht,
-    status: "LOCKED",
-  }));
-
-  useEffect(() => {
-    (async () => {
-      const unlockAtIGOPercent =
-        config[network].WhitelistSale.PrivateSale2.unlockAtIGOPercent;
-      const vestingPeriodMonths =
-        config[network].WhitelistSale.PrivateSale2.vestingPeriodMonths;
-      const igo =
-        unlockAtIGOPercent && userInfoDetailed?.totalTokens
-          ? ethers.utils.formatEther(
-              ethers.utils
-                .parseEther(userInfoDetailed.totalTokens)
-                .mul(unlockAtIGOPercent)
-                .div(100)
-                .toString()
-            )
-          : "";
-      const amount =
-        unlockAtIGOPercent &&
-        userInfoDetailed?.totalTokens &&
-        vestingPeriodMonths
-          ? ethers.utils.formatEther(
-              ethers.utils
-                .parseEther(userInfoDetailed.totalTokens)
-                .mul(100 - Number(unlockAtIGOPercent))
-                .div(100)
-                .div(vestingPeriodMonths)
-                .toString()
-            )
-          : "";
-      setIgoAmount(truncate(igo));
-      setMonthlyAmount(truncate(amount));
-    })();
-  }, [contracts, userInfoDetailed, network]);
+    const status = !account
+      ? ''
+      : claimed
+      ? 'CLAIMED'
+      : claimDate.getTime() < new Date().getTime() &&
+        userInfoDetailed &&
+        canClaim &&
+        !ethers.utils.parseEther(userInfoDetailed.remainingTokens).isZero()
+      ? `CLAIM${times}`
+      : 'LOCKED'
+    const mhtAmount = !account
+      ? ''
+      : !month
+      ? userInfoDetailed?.igoAmount
+      : userInfoDetailed?.monthlyAmount
+    const amount = mhtAmount ? truncate(mhtAmount) : ''
+    return {
+      item: '$MHT',
+      itemSub: 'Mouse Haunt Token',
+      type: amount,
+      typeSub: `Claimable on ${date}`,
+      image: mht,
+      status,
+      title: status === 'LOCKED' ? 'Locked' : 'Claim $MHT',
+      amount
+    }
+  })
 
   const data = [
     {
-      item: "BMHTL",
-      itemSub: "Mouse Haunt Booster LEGENDARY",
-      type: userInfoDetailed?.boosters.legendary,
-      typeSub: "Available on wallet",
+      item: 'BMHTL',
+      itemSub: 'Mouse Haunt Booster LEGENDARY',
+      type: account ? userInfoDetailed?.boosters.legendary : '',
+      typeSub: 'Available on wallet',
       image: legendary,
-      status: "AVAILABLE",
+      status: account ? 'AVAILABLE' : '',
+      title: 'Add to wallet'
     },
     {
-      item: "BMHTE",
-      itemSub: "Mouse Haunt Booster EPIC",
-      type: userInfoDetailed?.boosters.epic,
-      typeSub: "Available on wallet",
+      item: 'BMHTE',
+      itemSub: 'Mouse Haunt Booster EPIC',
+      type: account ? userInfoDetailed?.boosters.epic : '',
+      typeSub: 'Available on wallet',
       image: epic,
-      status: "AVAILABLE",
+      status: account ? 'AVAILABLE' : '',
+      title: 'Add to wallet'
     },
     {
-      item: "BMHTR",
-      itemSub: "Mouse Haunt Booster RARE",
-      type: userInfoDetailed?.boosters.rare,
-      typeSub: "Available on wallet",
+      item: 'BMHTR',
+      itemSub: 'Mouse Haunt Booster RARE',
+      type: account ? userInfoDetailed?.boosters.rare : '',
+      typeSub: 'Available on wallet',
       image: rare,
-      status: "AVAILABLE",
+      status: account ? 'AVAILABLE' : '',
+      title: 'Add to wallet'
     },
     {
-      item: "$MHT",
-      itemSub: "Mouse Haunt Token",
-      type: igoAmount,
-      typeSub: "Claimable on IDO (December 21th 2021)",
-      image: mht,
-      status: "LOCKED",
+      item: 'BMHTG',
+      itemSub: 'Mouse Haunt Booster GENESIS',
+      type: account ? userInfoDetailed?.boosters.genesis : '',
+      typeSub: 'Available on wallet',
+      image: genesis,
+      status: account ? 'AVAILABLE' : '',
+      title: 'Add to wallet'
     },
-    ...mhts,
-  ];
+    ...mhts
+  ]
+
+  const onClick = async (row: { status: string; amount?: string }, index: number) => {
+    switch (row.status) {
+      case 'CLAIMED':
+      case 'LOCKED': {
+        return
+      }
+      case 'AVAILABLE': {
+        await addToWallet(network)
+        return
+      }
+      default: {
+        try {
+          if (!contracts?.participatingSales.length) return
+
+          setLoadingIndex(index)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const ethersProvider = new ethers.providers.Web3Provider(provider as any)
+
+          const txs = []
+          // eslint-disable-next-line no-restricted-syntax
+          for await (const { sale } of contracts?.participatingSales) {
+            const userInfo = await sale.addressToUserInfo(account)
+            // eslint-disable-next-line no-continue
+            if (userInfo.remainingTokens.isZero()) continue
+
+            const claim = await sale.claim()
+            const tx = await waitFor(
+              () => isTransactionMined(ethersProvider, claim?.hash),
+              NETWORK_TIMEOUT
+            )
+            txs.push(tx)
+          }
+          setRefresh(!refresh)
+          router.push({
+            pathname: '/store/success',
+            query: {
+              type: 'MHT',
+              amount: row.amount,
+              // TODO forward all CLAIM transactions to success page
+              tx: txs[txs.length - 1],
+              text: 'CLAIM'
+            }
+          })
+          setLoadingIndex(-1)
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+          setLoadingIndex(-1)
+          const message = err.data ? err.data.message : err.message
+          alert(message)
+        }
+      }
+    }
+  }
 
   return (
     <Styles>
       <table>
         <tr>
           <th>Item</th>
-          <th></th>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+          <th />
           <th>Amount</th>
           <th>Status</th>
         </tr>
-        {data.map((e, index) => (
+        {data.map((row, index) => (
+          // eslint-disable-next-line react/no-array-index-key
           <tr key={index}>
             <td>
-              <Image alt="MHT" width="100" height="100" src={e.image} />
+              <Image alt='MHT' width='100' height='100' src={row.image} />
             </td>
             <td>
-              <div>{e.item}</div>
+              <div>{row.item}</div>
               <div>
-                <b>{e.itemSub}</b>
+                <b>{row.itemSub}</b>
               </div>
             </td>
             <td>
-              <div>{e.type}</div>
+              <div>{row.type ? row.type : '‌‌'}</div>
               <div>
-                <b> {e.typeSub}</b>
+                <b> {row.typeSub}</b>
               </div>
             </td>
             <td>
-              <StatusBadge status={e.status}>
-                <div>{e.status}</div>
-              </StatusBadge>
+              <Status
+                disabled={loadingIndex === index}
+                title={row.title}
+                status={row.status}
+                onClick={() => onClick(row, index)}
+              >
+                {row.status}
+              </Status>
+              {loadingIndex === index && (
+                <LoadingContainer>
+                  <Loading />
+                </LoadingContainer>
+              )}
             </td>
           </tr>
         ))}
       </table>
     </Styles>
-  );
-};
+  )
+}
 
-export default Table;
+export default Table

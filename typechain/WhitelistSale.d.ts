@@ -12,661 +12,492 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+  CallOverrides
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface WhitelistSaleInterface extends ethers.utils.Interface {
   functions: {
-    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
-    "OPERATIONS_ROLE()": FunctionFragment;
-    "THIRTY_DAYS_IN_SECONDS()": FunctionFragment;
-    "addToWhitelist(address[])": FunctionFragment;
-    "addressToUserInfo(address)": FunctionFragment;
-    "busd()": FunctionFragment;
-    "buy(uint256)": FunctionFragment;
-    "claim()": FunctionFragment;
-    "cliffMonths()": FunctionFragment;
-    "getRoleAdmin(bytes32)": FunctionFragment;
-    "grantRole(bytes32,address)": FunctionFragment;
-    "hasRole(bytes32,address)": FunctionFragment;
-    "igoTimestamp()": FunctionFragment;
-    "isWhitelisted(address)": FunctionFragment;
-    "maxMhtAmount()": FunctionFragment;
-    "mht()": FunctionFragment;
-    "mhtOnSale()": FunctionFragment;
-    "mhtOwner()": FunctionFragment;
-    "mhtSold()": FunctionFragment;
-    "mhtToBusd()": FunctionFragment;
-    "minMhtAmount()": FunctionFragment;
-    "pause()": FunctionFragment;
-    "paused()": FunctionFragment;
-    "removeFromWhitelist(address[])": FunctionFragment;
-    "renounceRole(bytes32,address)": FunctionFragment;
-    "revokeRole(bytes32,address)": FunctionFragment;
-    "setIgoTimestamp(uint256)": FunctionFragment;
-    "supportsInterface(bytes4)": FunctionFragment;
-    "unlockAtIGOPercent()": FunctionFragment;
-    "unpause()": FunctionFragment;
-    "vestingPeriodMonths()": FunctionFragment;
-  };
+    'DEFAULT_ADMIN_ROLE()': FunctionFragment
+    'OPERATIONS_ROLE()': FunctionFragment
+    'THIRTY_DAYS_IN_SECONDS()': FunctionFragment
+    'addToWhitelist(address[])': FunctionFragment
+    'addressToUserInfo(address)': FunctionFragment
+    'busd()': FunctionFragment
+    'buy(uint256)': FunctionFragment
+    'claim()': FunctionFragment
+    'cliffMonths()': FunctionFragment
+    'getRoleAdmin(bytes32)': FunctionFragment
+    'grantRole(bytes32,address)': FunctionFragment
+    'hasRole(bytes32,address)': FunctionFragment
+    'igoTimestamp()': FunctionFragment
+    'isWhitelisted(address)': FunctionFragment
+    'maxMhtAmount()': FunctionFragment
+    'mht()': FunctionFragment
+    'mhtOnSale()': FunctionFragment
+    'mhtOwner()': FunctionFragment
+    'mhtSold()': FunctionFragment
+    'mhtToBusd()': FunctionFragment
+    'minMhtAmount()': FunctionFragment
+    'pause()': FunctionFragment
+    'paused()': FunctionFragment
+    'removeFromWhitelist(address[])': FunctionFragment
+    'renounceRole(bytes32,address)': FunctionFragment
+    'revokeRole(bytes32,address)': FunctionFragment
+    'setIgoTimestamp(uint256)': FunctionFragment
+    'supportsInterface(bytes4)': FunctionFragment
+    'unlockAtIGOPercent()': FunctionFragment
+    'unpause()': FunctionFragment
+    'vestingPeriodMonths()': FunctionFragment
+  }
 
-  encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "OPERATIONS_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "THIRTY_DAYS_IN_SECONDS",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addToWhitelist",
-    values: [string[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addressToUserInfo",
-    values: [string]
-  ): string;
-  encodeFunctionData(functionFragment: "busd", values?: undefined): string;
-  encodeFunctionData(functionFragment: "buy", values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: "claim", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "cliffMonths",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "igoTimestamp",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isWhitelisted",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "maxMhtAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "mht", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mhtOnSale", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mhtOwner", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mhtSold", values?: undefined): string;
-  encodeFunctionData(functionFragment: "mhtToBusd", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "minMhtAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "pause", values?: undefined): string;
-  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "removeFromWhitelist",
-    values: [string[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setIgoTimestamp",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "unlockAtIGOPercent",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "unpause", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "vestingPeriodMonths",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'OPERATIONS_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'THIRTY_DAYS_IN_SECONDS', values?: undefined): string
+  encodeFunctionData(functionFragment: 'addToWhitelist', values: [string[]]): string
+  encodeFunctionData(functionFragment: 'addressToUserInfo', values: [string]): string
+  encodeFunctionData(functionFragment: 'busd', values?: undefined): string
+  encodeFunctionData(functionFragment: 'buy', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'claim', values?: undefined): string
+  encodeFunctionData(functionFragment: 'cliffMonths', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'igoTimestamp', values?: undefined): string
+  encodeFunctionData(functionFragment: 'isWhitelisted', values: [string]): string
+  encodeFunctionData(functionFragment: 'maxMhtAmount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mht', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mhtOnSale', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mhtOwner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mhtSold', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mhtToBusd', values?: undefined): string
+  encodeFunctionData(functionFragment: 'minMhtAmount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'pause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'removeFromWhitelist', values: [string[]]): string
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'setIgoTimestamp', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'unlockAtIGOPercent', values?: undefined): string
+  encodeFunctionData(functionFragment: 'unpause', values?: undefined): string
+  encodeFunctionData(functionFragment: 'vestingPeriodMonths', values?: undefined): string
 
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "OPERATIONS_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "THIRTY_DAYS_IN_SECONDS",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addToWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addressToUserInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "busd", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "buy", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "cliffMonths",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "igoTimestamp",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isWhitelisted",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "maxMhtAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mht", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mhtOnSale", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mhtOwner", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mhtSold", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "mhtToBusd", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "minMhtAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "pause", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "removeFromWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceRole",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setIgoTimestamp",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "unlockAtIGOPercent",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "unpause", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "vestingPeriodMonths",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'OPERATIONS_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'THIRTY_DAYS_IN_SECONDS', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addToWhitelist', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addressToUserInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'busd', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'buy', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'claim', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'cliffMonths', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'igoTimestamp', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isWhitelisted', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'maxMhtAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mht', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mhtOnSale', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mhtOwner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mhtSold', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mhtToBusd', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'minMhtAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'removeFromWhitelist', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setIgoTimestamp', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unlockAtIGOPercent', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'unpause', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'vestingPeriodMonths', data: BytesLike): Result
 
   events: {
-    "AddedToWhitelist(address)": EventFragment;
-    "Claimed(address,uint256,uint256)": EventFragment;
-    "IGO(uint256)": EventFragment;
-    "Paused(address)": EventFragment;
-    "RemovedFromWhitelist(address)": EventFragment;
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
-    "RoleGranted(bytes32,address,address)": EventFragment;
-    "RoleRevoked(bytes32,address,address)": EventFragment;
-    "Unpaused(address)": EventFragment;
-  };
+    'AddedToWhitelist(address)': EventFragment
+    'Claimed(address,uint256,uint256)': EventFragment
+    'IGO(uint256)': EventFragment
+    'Paused(address)': EventFragment
+    'RemovedFromWhitelist(address)': EventFragment
+    'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment
+    'RoleGranted(bytes32,address,address)': EventFragment
+    'RoleRevoked(bytes32,address,address)': EventFragment
+    'Unpaused(address)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "AddedToWhitelist"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Claimed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "IGO"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RemovedFromWhitelist"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AddedToWhitelist'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Claimed'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'IGO'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RemovedFromWhitelist'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
 }
 
-export type AddedToWhitelistEvent = TypedEvent<[string] & { wallet: string }>;
+export type AddedToWhitelistEvent = TypedEvent<[string] & { wallet: string }>
 
 export type ClaimedEvent = TypedEvent<
   [string, BigNumber, BigNumber] & {
-    wallet: string;
-    monthIndex: BigNumber;
-    value: BigNumber;
+    wallet: string
+    monthIndex: BigNumber
+    value: BigNumber
   }
->;
+>
 
-export type IGOEvent = TypedEvent<[BigNumber] & { timestamp: BigNumber }>;
+export type IGOEvent = TypedEvent<[BigNumber] & { timestamp: BigNumber }>
 
-export type PausedEvent = TypedEvent<[string] & { account: string }>;
+export type PausedEvent = TypedEvent<[string] & { account: string }>
 
-export type RemovedFromWhitelistEvent = TypedEvent<
-  [string] & { wallet: string }
->;
+export type RemovedFromWhitelistEvent = TypedEvent<[string] & { wallet: string }>
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string] & {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    role: string
+    previousAdminRole: string
+    newAdminRole: string
   }
->;
+>
 
 export type RoleGrantedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
 export type RoleRevokedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
-export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
+export type UnpausedEvent = TypedEvent<[string] & { account: string }>
 
 export class WhitelistSale extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: WhitelistSaleInterface;
+  interface: WhitelistSaleInterface
 
   functions: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<[BigNumber]>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<[BigNumber]>
 
     addToWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     addressToUserInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        totalTokens: BigNumber;
-        remainingTokens: BigNumber;
-        lastClaimMonthIndex: BigNumber;
+        totalTokens: BigNumber
+        remainingTokens: BigNumber
+        lastClaimMonthIndex: BigNumber
       }
-    >;
+    >
 
-    busd(overrides?: CallOverrides): Promise<[string]>;
+    busd(overrides?: CallOverrides): Promise<[string]>
 
     buy(
       _mhtAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    claim(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    cliffMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
+    cliffMonths(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+    igoTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    isWhitelisted(
-      wallet: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<[boolean]>
 
-    maxMhtAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    maxMhtAmount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    mht(overrides?: CallOverrides): Promise<[string]>;
+    mht(overrides?: CallOverrides): Promise<[string]>
 
-    mhtOnSale(overrides?: CallOverrides): Promise<[BigNumber]>;
+    mhtOnSale(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    mhtOwner(overrides?: CallOverrides): Promise<[string]>;
+    mhtOwner(overrides?: CallOverrides): Promise<[string]>
 
-    mhtSold(overrides?: CallOverrides): Promise<[BigNumber]>;
+    mhtSold(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    mhtToBusd(overrides?: CallOverrides): Promise<[BigNumber]>;
+    mhtToBusd(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    minMhtAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    minMhtAmount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    pause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    paused(overrides?: CallOverrides): Promise<[boolean]>;
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
     removeFromWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setIgoTimestamp(
       _igoTimestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<[BigNumber]>
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<[BigNumber]>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
-  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-  OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+  OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>
 
-  THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+  THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
   addToWhitelist(
     _buyers: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   addressToUserInfo(
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
-      totalTokens: BigNumber;
-      remainingTokens: BigNumber;
-      lastClaimMonthIndex: BigNumber;
+      totalTokens: BigNumber
+      remainingTokens: BigNumber
+      lastClaimMonthIndex: BigNumber
     }
-  >;
+  >
 
-  busd(overrides?: CallOverrides): Promise<string>;
+  busd(overrides?: CallOverrides): Promise<string>
 
   buy(
     _mhtAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  claim(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+  cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
   grantRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  hasRole(
-    role: BytesLike,
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
-  igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+  igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-  isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>;
+  isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>
 
-  maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+  maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-  mht(overrides?: CallOverrides): Promise<string>;
+  mht(overrides?: CallOverrides): Promise<string>
 
-  mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+  mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>
 
-  mhtOwner(overrides?: CallOverrides): Promise<string>;
+  mhtOwner(overrides?: CallOverrides): Promise<string>
 
-  mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
+  mhtSold(overrides?: CallOverrides): Promise<BigNumber>
 
-  mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
+  mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>
 
-  minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+  minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-  pause(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  paused(overrides?: CallOverrides): Promise<boolean>;
+  paused(overrides?: CallOverrides): Promise<boolean>
 
   removeFromWhitelist(
     _buyers: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   renounceRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   revokeRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setIgoTimestamp(
     _igoTimestamp: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  supportsInterface(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
 
-  unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+  unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-  unpause(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  unpause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
+  vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>;
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<string>
 
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
-    addToWhitelist(_buyers: string[], overrides?: CallOverrides): Promise<void>;
+    addToWhitelist(_buyers: string[], overrides?: CallOverrides): Promise<void>
 
     addressToUserInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        totalTokens: BigNumber;
-        remainingTokens: BigNumber;
-        lastClaimMonthIndex: BigNumber;
+        totalTokens: BigNumber
+        remainingTokens: BigNumber
+        lastClaimMonthIndex: BigNumber
       }
-    >;
+    >
 
-    busd(overrides?: CallOverrides): Promise<string>;
+    busd(overrides?: CallOverrides): Promise<string>
 
-    buy(_mhtAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    buy(_mhtAmount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    claim(overrides?: CallOverrides): Promise<void>;
+    claim(overrides?: CallOverrides): Promise<void>
 
-    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
-    grantRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    grantRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-    isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>;
+    isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<boolean>
 
-    maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<string>;
+    mht(overrides?: CallOverrides): Promise<string>
 
-    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtOwner(overrides?: CallOverrides): Promise<string>;
+    mhtOwner(overrides?: CallOverrides): Promise<string>
 
-    mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtSold(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>
 
-    minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    pause(overrides?: CallOverrides): Promise<void>;
+    pause(overrides?: CallOverrides): Promise<void>
 
-    paused(overrides?: CallOverrides): Promise<boolean>;
+    paused(overrides?: CallOverrides): Promise<boolean>
 
-    removeFromWhitelist(
-      _buyers: string[],
-      overrides?: CallOverrides
-    ): Promise<void>;
+    removeFromWhitelist(_buyers: string[], overrides?: CallOverrides): Promise<void>
 
-    renounceRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    renounceRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    revokeRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    setIgoTimestamp(
-      _igoTimestamp: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setIgoTimestamp(_igoTimestamp: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-    unpause(overrides?: CallOverrides): Promise<void>;
+    unpause(overrides?: CallOverrides): Promise<void>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   filters: {
-    "AddedToWhitelist(address)"(
-      wallet?: null
-    ): TypedEventFilter<[string], { wallet: string }>;
+    'AddedToWhitelist(address)'(wallet?: null): TypedEventFilter<[string], { wallet: string }>
 
-    AddedToWhitelist(
-      wallet?: null
-    ): TypedEventFilter<[string], { wallet: string }>;
+    AddedToWhitelist(wallet?: null): TypedEventFilter<[string], { wallet: string }>
 
-    "Claimed(address,uint256,uint256)"(
+    'Claimed(address,uint256,uint256)'(
       wallet?: string | null,
       monthIndex?: BigNumberish | null,
       value?: BigNumberish | null
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { wallet: string; monthIndex: BigNumber; value: BigNumber }
-    >;
+    >
 
     Claimed(
       wallet?: string | null,
@@ -675,38 +506,30 @@ export class WhitelistSale extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber, BigNumber],
       { wallet: string; monthIndex: BigNumber; value: BigNumber }
-    >;
+    >
 
-    "IGO(uint256)"(
+    'IGO(uint256)'(
       timestamp?: BigNumberish | null
-    ): TypedEventFilter<[BigNumber], { timestamp: BigNumber }>;
+    ): TypedEventFilter<[BigNumber], { timestamp: BigNumber }>
 
-    IGO(
-      timestamp?: BigNumberish | null
-    ): TypedEventFilter<[BigNumber], { timestamp: BigNumber }>;
+    IGO(timestamp?: BigNumberish | null): TypedEventFilter<[BigNumber], { timestamp: BigNumber }>
 
-    "Paused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Paused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+    Paused(account?: null): TypedEventFilter<[string], { account: string }>
 
-    "RemovedFromWhitelist(address)"(
-      wallet?: null
-    ): TypedEventFilter<[string], { wallet: string }>;
+    'RemovedFromWhitelist(address)'(wallet?: null): TypedEventFilter<[string], { wallet: string }>
 
-    RemovedFromWhitelist(
-      wallet?: null
-    ): TypedEventFilter<[string], { wallet: string }>;
+    RemovedFromWhitelist(wallet?: null): TypedEventFilter<[string], { wallet: string }>
 
-    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+    'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
       previousAdminRole?: BytesLike | null,
       newAdminRole?: BytesLike | null
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
     RoleAdminChanged(
       role?: BytesLike | null,
@@ -715,276 +538,223 @@ export class WhitelistSale extends BaseContract {
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
-    "RoleGranted(bytes32,address,address)"(
+    'RoleGranted(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleGranted(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "RoleRevoked(bytes32,address,address)"(
+    'RoleRevoked(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleRevoked(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "Unpaused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Unpaused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>;
-  };
+    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>
+  }
 
   estimateGas: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<BigNumber>
 
     addToWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    addressToUserInfo(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    addressToUserInfo(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    busd(overrides?: CallOverrides): Promise<BigNumber>;
+    busd(overrides?: CallOverrides): Promise<BigNumber>
 
     buy(
       _mhtAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    claim(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    claim(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>;
+    cliffMonths(overrides?: CallOverrides): Promise<BigNumber>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    igoTimestamp(overrides?: CallOverrides): Promise<BigNumber>
 
-    isWhitelisted(
-      wallet: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    maxMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<BigNumber>;
+    mht(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtOnSale(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtOwner(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtOwner(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtSold(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtSold(overrides?: CallOverrides): Promise<BigNumber>
 
-    mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>;
+    mhtToBusd(overrides?: CallOverrides): Promise<BigNumber>
 
-    minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>;
+    minMhtAmount(overrides?: CallOverrides): Promise<BigNumber>
 
-    pause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    pause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    paused(overrides?: CallOverrides): Promise<BigNumber>;
+    paused(overrides?: CallOverrides): Promise<BigNumber>
 
     removeFromWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setIgoTimestamp(
       _igoTimestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
 
-    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<BigNumber>
 
-    unpause(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    unpause(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    DEFAULT_ADMIN_ROLE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    OPERATIONS_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    THIRTY_DAYS_IN_SECONDS(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    THIRTY_DAYS_IN_SECONDS(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     addToWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    addressToUserInfo(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    addressToUserInfo(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    busd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    busd(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     buy(
       _mhtAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     claim(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    cliffMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    cliffMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hasRole(
       role: BytesLike,
       account: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    igoTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    igoTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    isWhitelisted(
-      wallet: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isWhitelisted(wallet: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    maxMhtAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    maxMhtAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mhtOnSale(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mhtOnSale(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mhtOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mhtOwner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mhtSold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mhtSold(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mhtToBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mhtToBusd(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    minMhtAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    minMhtAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     pause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     removeFromWhitelist(
       _buyers: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setIgoTimestamp(
       _igoTimestamp: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    unlockAtIGOPercent(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    unlockAtIGOPercent(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     unpause(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    vestingPeriodMonths(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    vestingPeriodMonths(overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

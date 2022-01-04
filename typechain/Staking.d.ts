@@ -12,599 +12,474 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+  CallOverrides
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface StakingInterface extends ethers.utils.Interface {
   functions: {
-    "MULTIPLIER()": FunctionFragment;
-    "TEN_THOUSAND()": FunctionFragment;
-    "addressList(uint256)": FunctionFragment;
-    "bonusEndBlock()": FunctionFragment;
-    "depositFee()": FunctionFragment;
-    "firstWithdrawFeePeriod()": FunctionFragment;
-    "lastPendingReward()": FunctionFragment;
-    "mht()": FunctionFragment;
-    "paused()": FunctionFragment;
-    "pendingReward(address)": FunctionFragment;
-    "performanceFee()": FunctionFragment;
-    "poolInfo()": FunctionFragment;
-    "rewardPerBlock()": FunctionFragment;
-    "secondWithdrawFeePeriod()": FunctionFragment;
-    "stake(uint256)": FunctionFragment;
-    "startBlock()": FunctionFragment;
-    "treasury()": FunctionFragment;
-    "updatePool()": FunctionFragment;
-    "userInfo(address)": FunctionFragment;
-    "withdraw(uint256)": FunctionFragment;
-    "withdrawFee()": FunctionFragment;
-  };
+    'MULTIPLIER()': FunctionFragment
+    'TEN_THOUSAND()': FunctionFragment
+    'addressList(uint256)': FunctionFragment
+    'bonusEndBlock()': FunctionFragment
+    'depositFee()': FunctionFragment
+    'firstWithdrawFeePeriod()': FunctionFragment
+    'lastPendingReward()': FunctionFragment
+    'mht()': FunctionFragment
+    'paused()': FunctionFragment
+    'pendingReward(address)': FunctionFragment
+    'performanceFee()': FunctionFragment
+    'poolInfo()': FunctionFragment
+    'rewardPerBlock()': FunctionFragment
+    'secondWithdrawFeePeriod()': FunctionFragment
+    'stake(uint256)': FunctionFragment
+    'startBlock()': FunctionFragment
+    'treasury()': FunctionFragment
+    'updatePool()': FunctionFragment
+    'userInfo(address)': FunctionFragment
+    'withdraw(uint256)': FunctionFragment
+    'withdrawFee()': FunctionFragment
+  }
 
-  encodeFunctionData(
-    functionFragment: "MULTIPLIER",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "TEN_THOUSAND",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "addressList",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "bonusEndBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "depositFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "firstWithdrawFeePeriod",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "lastPendingReward",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "mht", values?: undefined): string;
-  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "pendingReward",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "performanceFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "poolInfo", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "rewardPerBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "secondWithdrawFeePeriod",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "stake", values: [BigNumberish]): string;
-  encodeFunctionData(
-    functionFragment: "startBlock",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "treasury", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "updatePool",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "userInfo", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "withdraw",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawFee",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'MULTIPLIER', values?: undefined): string
+  encodeFunctionData(functionFragment: 'TEN_THOUSAND', values?: undefined): string
+  encodeFunctionData(functionFragment: 'addressList', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'bonusEndBlock', values?: undefined): string
+  encodeFunctionData(functionFragment: 'depositFee', values?: undefined): string
+  encodeFunctionData(functionFragment: 'firstWithdrawFeePeriod', values?: undefined): string
+  encodeFunctionData(functionFragment: 'lastPendingReward', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mht', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'pendingReward', values: [string]): string
+  encodeFunctionData(functionFragment: 'performanceFee', values?: undefined): string
+  encodeFunctionData(functionFragment: 'poolInfo', values?: undefined): string
+  encodeFunctionData(functionFragment: 'rewardPerBlock', values?: undefined): string
+  encodeFunctionData(functionFragment: 'secondWithdrawFeePeriod', values?: undefined): string
+  encodeFunctionData(functionFragment: 'stake', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'startBlock', values?: undefined): string
+  encodeFunctionData(functionFragment: 'treasury', values?: undefined): string
+  encodeFunctionData(functionFragment: 'updatePool', values?: undefined): string
+  encodeFunctionData(functionFragment: 'userInfo', values: [string]): string
+  encodeFunctionData(functionFragment: 'withdraw', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'withdrawFee', values?: undefined): string
 
-  decodeFunctionResult(functionFragment: "MULTIPLIER", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "TEN_THOUSAND",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addressList",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "bonusEndBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "depositFee", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "firstWithdrawFeePeriod",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "lastPendingReward",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mht", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "pendingReward",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "performanceFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "poolInfo", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "rewardPerBlock",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "secondWithdrawFeePeriod",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "startBlock", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "treasury", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "updatePool", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "userInfo", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawFee",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'MULTIPLIER', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'TEN_THOUSAND', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addressList', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'bonusEndBlock', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'depositFee', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'firstWithdrawFeePeriod', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'lastPendingReward', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mht', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'pendingReward', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'performanceFee', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'poolInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'rewardPerBlock', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'secondWithdrawFeePeriod', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'stake', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'startBlock', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'treasury', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'updatePool', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'userInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdraw', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'withdrawFee', data: BytesLike): Result
 
   events: {
-    "Paused(address)": EventFragment;
-    "Recompound()": EventFragment;
-    "Stake(address,uint256)": EventFragment;
-    "Unpaused(address)": EventFragment;
-    "Withdraw(address,uint256)": EventFragment;
-  };
+    'Paused(address)': EventFragment
+    'Recompound()': EventFragment
+    'Stake(address,uint256)': EventFragment
+    'Unpaused(address)': EventFragment
+    'Withdraw(address,uint256)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Recompound"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Stake"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Withdraw"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Recompound'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Stake'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Withdraw'): EventFragment
 }
 
-export type PausedEvent = TypedEvent<[string] & { account: string }>;
+export type PausedEvent = TypedEvent<[string] & { account: string }>
 
-export type RecompoundEvent = TypedEvent<[] & {}>;
+export type RecompoundEvent = TypedEvent<[] & {}>
 
-export type StakeEvent = TypedEvent<
-  [string, BigNumber] & { user: string; amount: BigNumber }
->;
+export type StakeEvent = TypedEvent<[string, BigNumber] & { user: string; amount: BigNumber }>
 
-export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
+export type UnpausedEvent = TypedEvent<[string] & { account: string }>
 
-export type WithdrawEvent = TypedEvent<
-  [string, BigNumber] & { user: string; amount: BigNumber }
->;
+export type WithdrawEvent = TypedEvent<[string, BigNumber] & { user: string; amount: BigNumber }>
 
 export class Staking extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: StakingInterface;
+  interface: StakingInterface
 
   functions: {
-    MULTIPLIER(overrides?: CallOverrides): Promise<[BigNumber]>;
+    MULTIPLIER(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    TEN_THOUSAND(overrides?: CallOverrides): Promise<[BigNumber]>;
+    TEN_THOUSAND(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    addressList(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>
 
-    bonusEndBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
+    bonusEndBlock(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    depositFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+    depositFee(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
+    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    lastPendingReward(overrides?: CallOverrides): Promise<[BigNumber]>;
+    lastPendingReward(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    mht(overrides?: CallOverrides): Promise<[string]>;
+    mht(overrides?: CallOverrides): Promise<[string]>
 
-    paused(overrides?: CallOverrides): Promise<[boolean]>;
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
-    pendingReward(
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    pendingReward(_user: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
-    performanceFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+    performanceFee(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    poolInfo(
-      overrides?: CallOverrides
-    ): Promise<
+    poolInfo(overrides?: CallOverrides): Promise<
       [BigNumber, BigNumber] & {
-        lastRewardBlock: BigNumber;
-        accRewardPerShare: BigNumber;
+        lastRewardBlock: BigNumber
+        accRewardPerShare: BigNumber
       }
-    >;
+    >
 
-    rewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
+    rewardPerBlock(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<[BigNumber]>;
+    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<[BigNumber]>
 
     stake(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    startBlock(overrides?: CallOverrides): Promise<[BigNumber]>;
+    startBlock(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    treasury(overrides?: CallOverrides): Promise<[string]>;
+    treasury(overrides?: CallOverrides): Promise<[string]>
 
     updatePool(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     userInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
-        amount: BigNumber;
-        rewardDebt: BigNumber;
-        rewardPending: BigNumber;
-        lastDepositedTime: BigNumber;
+        amount: BigNumber
+        rewardDebt: BigNumber
+        rewardPending: BigNumber
+        lastDepositedTime: BigNumber
       }
-    >;
+    >
 
     withdraw(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    withdrawFee(overrides?: CallOverrides): Promise<[BigNumber]>;
-  };
+    withdrawFee(overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
-  MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+  MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>
 
-  TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>;
+  TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>
 
-  addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-  bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
+  bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-  depositFee(overrides?: CallOverrides): Promise<BigNumber>;
+  depositFee(overrides?: CallOverrides): Promise<BigNumber>
 
-  firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+  firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
-  lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>;
+  lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>
 
-  mht(overrides?: CallOverrides): Promise<string>;
+  mht(overrides?: CallOverrides): Promise<string>
 
-  paused(overrides?: CallOverrides): Promise<boolean>;
+  paused(overrides?: CallOverrides): Promise<boolean>
 
-  pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+  pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>
 
-  performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+  performanceFee(overrides?: CallOverrides): Promise<BigNumber>
 
-  poolInfo(
-    overrides?: CallOverrides
-  ): Promise<
+  poolInfo(overrides?: CallOverrides): Promise<
     [BigNumber, BigNumber] & {
-      lastRewardBlock: BigNumber;
-      accRewardPerShare: BigNumber;
+      lastRewardBlock: BigNumber
+      accRewardPerShare: BigNumber
     }
-  >;
+  >
 
-  rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+  rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-  secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+  secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
   stake(
     _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  startBlock(overrides?: CallOverrides): Promise<BigNumber>;
+  startBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-  treasury(overrides?: CallOverrides): Promise<string>;
+  treasury(overrides?: CallOverrides): Promise<string>
 
   updatePool(
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   userInfo(
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber] & {
-      amount: BigNumber;
-      rewardDebt: BigNumber;
-      rewardPending: BigNumber;
-      lastDepositedTime: BigNumber;
+      amount: BigNumber
+      rewardDebt: BigNumber
+      rewardPending: BigNumber
+      lastDepositedTime: BigNumber
     }
-  >;
+  >
 
   withdraw(
     _amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  withdrawFee(overrides?: CallOverrides): Promise<BigNumber>;
+  withdrawFee(overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
-    MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+    MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>
 
-    TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>;
+    TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>
 
-    addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>
 
-    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    depositFee(overrides?: CallOverrides): Promise<BigNumber>;
+    depositFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
-    lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>;
+    lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<string>;
+    mht(overrides?: CallOverrides): Promise<string>
 
-    paused(overrides?: CallOverrides): Promise<boolean>;
+    paused(overrides?: CallOverrides): Promise<boolean>
 
-    pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    poolInfo(
-      overrides?: CallOverrides
-    ): Promise<
+    poolInfo(overrides?: CallOverrides): Promise<
       [BigNumber, BigNumber] & {
-        lastRewardBlock: BigNumber;
-        accRewardPerShare: BigNumber;
+        lastRewardBlock: BigNumber
+        accRewardPerShare: BigNumber
       }
-    >;
+    >
 
-    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
-    stake(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    stake(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    startBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    startBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    treasury(overrides?: CallOverrides): Promise<string>;
+    treasury(overrides?: CallOverrides): Promise<string>
 
-    updatePool(overrides?: CallOverrides): Promise<void>;
+    updatePool(overrides?: CallOverrides): Promise<void>
 
     userInfo(
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber] & {
-        amount: BigNumber;
-        rewardDebt: BigNumber;
-        rewardPending: BigNumber;
-        lastDepositedTime: BigNumber;
+        amount: BigNumber
+        rewardDebt: BigNumber
+        rewardPending: BigNumber
+        lastDepositedTime: BigNumber
       }
-    >;
+    >
 
-    withdraw(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    withdraw(_amount: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    withdrawFee(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    withdrawFee(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   filters: {
-    "Paused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Paused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+    Paused(account?: null): TypedEventFilter<[string], { account: string }>
 
-    "Recompound()"(): TypedEventFilter<[], {}>;
+    'Recompound()'(): TypedEventFilter<[], {}>
 
-    Recompound(): TypedEventFilter<[], {}>;
+    Recompound(): TypedEventFilter<[], {}>
 
-    "Stake(address,uint256)"(
+    'Stake(address,uint256)'(
       user?: string | null,
       amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { user: string; amount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber], { user: string; amount: BigNumber }>
 
     Stake(
       user?: string | null,
       amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { user: string; amount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber], { user: string; amount: BigNumber }>
 
-    "Unpaused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Unpaused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>;
+    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>
 
-    "Withdraw(address,uint256)"(
+    'Withdraw(address,uint256)'(
       user?: string | null,
       amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { user: string; amount: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber], { user: string; amount: BigNumber }>
 
     Withdraw(
       user?: string | null,
       amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { user: string; amount: BigNumber }
-    >;
-  };
+    ): TypedEventFilter<[string, BigNumber], { user: string; amount: BigNumber }>
+  }
 
   estimateGas: {
-    MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>;
+    MULTIPLIER(overrides?: CallOverrides): Promise<BigNumber>
 
-    TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>;
+    TEN_THOUSAND(overrides?: CallOverrides): Promise<BigNumber>
 
-    addressList(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    bonusEndBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    depositFee(overrides?: CallOverrides): Promise<BigNumber>;
+    depositFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
-    lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>;
+    lastPendingReward(overrides?: CallOverrides): Promise<BigNumber>
 
-    mht(overrides?: CallOverrides): Promise<BigNumber>;
+    mht(overrides?: CallOverrides): Promise<BigNumber>
 
-    paused(overrides?: CallOverrides): Promise<BigNumber>;
+    paused(overrides?: CallOverrides): Promise<BigNumber>
 
-    pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>;
+    pendingReward(_user: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    performanceFee(overrides?: CallOverrides): Promise<BigNumber>;
+    performanceFee(overrides?: CallOverrides): Promise<BigNumber>
 
-    poolInfo(overrides?: CallOverrides): Promise<BigNumber>;
+    poolInfo(overrides?: CallOverrides): Promise<BigNumber>
 
-    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    rewardPerBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>;
+    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<BigNumber>
 
     stake(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    startBlock(overrides?: CallOverrides): Promise<BigNumber>;
+    startBlock(overrides?: CallOverrides): Promise<BigNumber>
 
-    treasury(overrides?: CallOverrides): Promise<BigNumber>;
+    treasury(overrides?: CallOverrides): Promise<BigNumber>
 
-    updatePool(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    updatePool(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    userInfo(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    userInfo(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
     withdraw(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    withdrawFee(overrides?: CallOverrides): Promise<BigNumber>;
-  };
+    withdrawFee(overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    MULTIPLIER(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    MULTIPLIER(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    TEN_THOUSAND(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    TEN_THOUSAND(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    addressList(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    addressList(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    bonusEndBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    bonusEndBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    depositFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    depositFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    firstWithdrawFeePeriod(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    firstWithdrawFeePeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    lastPendingReward(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    lastPendingReward(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mht(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    pendingReward(
-      _user: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    pendingReward(_user: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    performanceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    performanceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    poolInfo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    poolInfo(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    rewardPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    rewardPerBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    secondWithdrawFeePeriod(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    secondWithdrawFeePeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     stake(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    startBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    startBlock(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    treasury(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    treasury(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     updatePool(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    userInfo(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    userInfo(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     withdraw(
       _amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    withdrawFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-  };
+    withdrawFee(overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

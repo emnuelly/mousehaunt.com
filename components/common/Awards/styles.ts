@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Container = styled.section`
   display: flex;
@@ -10,13 +10,14 @@ export const Container = styled.section`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-  
+
   background-color: rgba(0, 0, 0, 0);
   background-position-x: 0%, 0%;
   background-position-y: 100%, 100%;
   background-repeat: repeat, repeat;
   background-attachment: scroll, scroll;
-  background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%), url("/images/other/awards_bg.jpg");
+  background-image: radial-gradient(55% 55%, rgba(19, 21, 36, 0.3) 10%, rgb(19, 21, 36) 90%),
+    url('/images/other/awards_bg.jpg');
   background-size: auto, auto;
   background-origin: padding-box, padding-box;
   background-clip: border-box, border-box;
@@ -24,13 +25,13 @@ export const Container = styled.section`
   a {
     color: #cb61e4;
   }
-`;
+`
 
 export const Title = styled.div`
   margin-top: -45px;
   z-index: 1;
 
-  font-family: "Bebas Neue Pro";
+  font-family: 'Bebas Neue Pro';
   font-weight: 800;
   font-size: 48px;
   line-height: 56px;
@@ -49,7 +50,7 @@ export const Title = styled.div`
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
   }
-`;
+`
 
 export const Subtitle = styled.div`
   padding-top: 16px;
@@ -58,21 +59,20 @@ export const Subtitle = styled.div`
   width: 784px;
   align-self: center;
 
-  font-family: "SF Pro Display";
+  font-family: 'SF Pro Display';
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 24px;
   /* or 133% */
-  
-  text-align: center;
 
+  text-align: center;
 
   @media only screen and (max-width: 600px) {
     width: 360px;
     margin-bottom: -100px;
   }
-`;
+`
 
 export const Left = styled.div`
   display: flex;
@@ -85,7 +85,7 @@ export const Left = styled.div`
     width: 343px;
     padding: 10px;
   }
-`;
+`
 
 export const Right = styled.div`
   display: flex;
@@ -98,7 +98,7 @@ export const Right = styled.div`
     width: 343px;
     padding: 10px;
   }
-`;
+`
 
 export const Top = styled.div`
   display: flex;
@@ -109,7 +109,7 @@ export const Top = styled.div`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-`;
+`
 
 export const Bottom = styled.div`
   display: flex;
@@ -120,7 +120,7 @@ export const Bottom = styled.div`
   @media only screen and (max-width: 600px) {
     margin-top: 80px;
   }
-`;
+`
 
 export const Ellipse1 = styled.div`
   position: relative;
@@ -136,7 +136,7 @@ export const Ellipse1 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`
 
 export const Ellipse2 = styled.div`
   position: relative;
@@ -157,4 +157,4 @@ export const Ellipse2 = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
+`

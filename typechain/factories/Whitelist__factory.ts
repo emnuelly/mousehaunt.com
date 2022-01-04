@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { Whitelist, WhitelistInterface } from "../Whitelist";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { Whitelist, WhitelistInterface } from '../Whitelist'
 
 const _abi = [
   {
@@ -12,57 +12,54 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "wallet",
-        type: "address",
-      },
+        internalType: 'address',
+        name: 'wallet',
+        type: 'address'
+      }
     ],
-    name: "AddedToWhitelist",
-    type: "event",
+    name: 'AddedToWhitelist',
+    type: 'event'
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "wallet",
-        type: "address",
-      },
+        internalType: 'address',
+        name: 'wallet',
+        type: 'address'
+      }
     ],
-    name: "RemovedFromWhitelist",
-    type: "event",
+    name: 'RemovedFromWhitelist',
+    type: 'event'
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "wallet",
-        type: "address",
-      },
+        internalType: 'address',
+        name: 'wallet',
+        type: 'address'
+      }
     ],
-    name: "isWhitelisted",
+    name: 'isWhitelisted',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        internalType: 'bool',
+        name: '',
+        type: 'bool'
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-];
+    stateMutability: 'view',
+    type: 'function'
+  }
+]
 
 export class Whitelist__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): WhitelistInterface {
-    return new utils.Interface(_abi) as WhitelistInterface;
+    return new utils.Interface(_abi) as WhitelistInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): Whitelist {
-    return new Contract(address, _abi, signerOrProvider) as Whitelist;
+  static connect(address: string, signerOrProvider: Signer | Provider): Whitelist {
+    return new Contract(address, _abi, signerOrProvider) as Whitelist
   }
 }

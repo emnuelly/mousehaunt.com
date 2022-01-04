@@ -1,8 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
-import { StoreContext } from "../../contexts/StoreContext";
-import { changeNetwork, truncate } from "../../utils/blockchain";
-import { Button } from "./Button";
+import { useContext } from 'react'
+
+import styled from 'styled-components'
+
+import { StoreContext } from '../../contexts/StoreContext'
+import { truncate } from '../../utils/blockchain'
+import { Button } from './Button'
 
 const Container = styled.div`
   margin-left: auto;
@@ -10,7 +12,7 @@ const Container = styled.div`
   button {
     align-self: center;
   }
-`;
+`
 
 const WalletInfo = styled.div`
   display: flex;
@@ -34,89 +36,53 @@ const WalletInfo = styled.div`
   @media only screen and (max-width: 600px) {
     display: none;
   }
-`;
-
-const TESTERS: string[] = [
-  // "0x343BD4e802BaE35F89e043299B82067aab38dfd3",
-  // "0x087B58029f7251E7054153Bc8775e14A68490286",
-  // "0x7CDf072cb005fF3008E19E4F22f04c961023CF8c",
-  // "0x09dcF02C01849231Bb22CC76233c31f35Db6fAac",
-  // "0xA68933d4Da2C70e7dd1cE610Adcd7930055d7C48",
-  // "0x43F8475b378BEa3aB4A952dDC4503D5dd9F15C79",
-  // "0x8b6CC293ABf2FB7011bc2B599fFAc06C01261f8A",
-];
+`
 
 export const ConnectWalletButton = () => {
-  const {
-    account,
-    userInfoDetailed,
-    getAccount,
-    web3Modal,
-    setAccount,
-    network,
-    setNetwork,
-  } = useContext(StoreContext);
-  const [isTester, setIsTester] = useState(false);
+  const { account, userInfoDetailed, getAccount, web3Modal, setAccount } = useContext(StoreContext)
 
   const onClick = async () => {
     if (account) {
-      web3Modal?.clearCachedProvider();
-      setAccount("");
+      web3Modal?.clearCachedProvider()
+      setAccount('')
     } else {
-      setAccount(await getAccount());
+      setAccount(await getAccount())
     }
-  };
+  }
 
-  const toggleNetwork = () => {
-    const newNetwork = network === "bsc" ? "bscTestnet" : "bsc";
-    changeNetwork(newNetwork);
-    setNetwork(newNetwork);
-  };
-
-  useEffect(() => {
-    setIsTester(TESTERS.includes(account));
-  }, [account]);
-
-  const buttonText = account ? "DISCONNECT" : "CONNECT WALLET";
+  const buttonText = account ? 'DISCONNECT' : 'CONNECT WALLET'
   const whitelistedText =
-    account && userInfoDetailed
-      ? userInfoDetailed?.whitelisted
-        ? "WHITELISTED (#3)"
-        : "NOT WHITELISTED (#3)"
-      : "";
+    !account || !userInfoDetailed?.allowance.genesis
+      ? ''
+      : Number(userInfoDetailed?.allowance.genesis) > 0
+      ? ' WHITELISTED (GENESIS)'
+      : ' NOT WHITELISTED OR ABOVE CAP (GENESIS)'
   const mhtPurchasedText =
     account && userInfoDetailed?.totalTokens
-      ? truncate(userInfoDetailed?.totalTokens) + " $MHT PURCHASED"
-      : "";
-  const busdOnWalletText =
-    account && userInfoDetailed?.busdOnWallet
-      ? truncate(userInfoDetailed?.busdOnWallet) + " BUSD"
-      : "";
+      ? `${truncate(userInfoDetailed?.totalTokens)} $MHT PURCHASED ON PRESALE`
+      : ''
+  const mhtOnWalletText =
+    account && userInfoDetailed?.mhtOnWallet
+      ? `${truncate(userInfoDetailed?.mhtOnWallet)} $MHT ON WALLET`
+      : ''
+
+  const hasText = whitelistedText || mhtPurchasedText || mhtOnWalletText
 
   return (
     <Container>
       <WalletInfo>
         <pre>{account}</pre>
         <div>
-          {whitelistedText
-            ? [whitelistedText, mhtPurchasedText, busdOnWalletText]
+          {hasText
+            ? [whitelistedText, mhtPurchasedText, mhtOnWalletText]
                 .filter((x) => x)
                 .map((text) => <span key={text}>{text}</span>)
-                .reduce(
-                  (prev, curr, index) =>
-                    [prev, <span key={index}>|</span>, curr] as any
-                )
+                // eslint-disable-next-line
+                .reduce((prev, curr, index) => [prev, <span key={index}>|</span>, curr] as any)
             : null}
         </div>
       </WalletInfo>
       <Button onClick={onClick}>{buttonText}</Button>
-      {isTester ? (
-        <Button onClick={toggleNetwork} style={{ height: "96px" }}>
-          <span>CHANGE NETWORK</span>
-          <br />
-          <small>CURRENT: {network}</small>
-        </Button>
-      ) : null}
     </Container>
-  );
-};
+  )
+}

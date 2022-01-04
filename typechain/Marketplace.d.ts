@@ -12,338 +12,240 @@ import {
   BaseContract,
   ContractTransaction,
   Overrides,
-  CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
+  CallOverrides
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import type { TypedEventFilter, TypedEvent, TypedListener } from './common'
 
 interface MarketplaceInterface extends ethers.utils.Interface {
   functions: {
-    "DEFAULT_ADMIN_ROLE()": FunctionFragment;
-    "MILLION()": FunctionFragment;
-    "OPERATOR_ROLE()": FunctionFragment;
-    "acceptedToken()": FunctionFragment;
-    "approveNFTs(tuple[])": FunctionFragment;
-    "cancelOrder(uint256)": FunctionFragment;
-    "createOrder(address,uint256,uint256,uint256,uint256)": FunctionFragment;
-    "executeOrder(uint256)": FunctionFragment;
-    "getAssetType(address)": FunctionFragment;
-    "getRoleAdmin(bytes32)": FunctionFragment;
-    "grantRole(bytes32,address)": FunctionFragment;
-    "hasRole(bytes32,address)": FunctionFragment;
-    "nfts(uint256)": FunctionFragment;
-    "orders(uint256)": FunctionFragment;
-    "owner()": FunctionFragment;
-    "ownerCutPerMillion()": FunctionFragment;
-    "paused()": FunctionFragment;
-    "publicationFeeInWei()": FunctionFragment;
-    "renounceRole(bytes32,address)": FunctionFragment;
-    "revokeRole(bytes32,address)": FunctionFragment;
-    "setOwnerCutPerMillion(uint256)": FunctionFragment;
-    "setPublicationFee(uint256)": FunctionFragment;
-    "supportsInterface(bytes4)": FunctionFragment;
-  };
+    'DEFAULT_ADMIN_ROLE()': FunctionFragment
+    'MILLION()': FunctionFragment
+    'OPERATOR_ROLE()': FunctionFragment
+    'acceptedToken()': FunctionFragment
+    'approveNFTs(tuple[])': FunctionFragment
+    'cancelOrder(uint256)': FunctionFragment
+    'createOrder(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'executeOrder(uint256)': FunctionFragment
+    'getAssetType(address)': FunctionFragment
+    'getRoleAdmin(bytes32)': FunctionFragment
+    'grantRole(bytes32,address)': FunctionFragment
+    'hasRole(bytes32,address)': FunctionFragment
+    'nfts(uint256)': FunctionFragment
+    'orders(uint256)': FunctionFragment
+    'owner()': FunctionFragment
+    'ownerCutPerMillion()': FunctionFragment
+    'paused()': FunctionFragment
+    'publicationFeeInWei()': FunctionFragment
+    'renounceRole(bytes32,address)': FunctionFragment
+    'revokeRole(bytes32,address)': FunctionFragment
+    'setOwnerCutPerMillion(uint256)': FunctionFragment
+    'setPublicationFee(uint256)': FunctionFragment
+    'supportsInterface(bytes4)': FunctionFragment
+  }
 
+  encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'MILLION', values?: undefined): string
+  encodeFunctionData(functionFragment: 'OPERATOR_ROLE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'acceptedToken', values?: undefined): string
   encodeFunctionData(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "MILLION", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "OPERATOR_ROLE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "acceptedToken",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approveNFTs",
+    functionFragment: 'approveNFTs',
     values: [{ addr: string; tokenType: BigNumberish }[]]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'cancelOrder', values: [BigNumberish]): string
   encodeFunctionData(
-    functionFragment: "cancelOrder",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "createOrder",
+    functionFragment: 'createOrder',
     values: [string, BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "executeOrder",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAssetType",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getRoleAdmin",
-    values: [BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "grantRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hasRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(functionFragment: "nfts", values: [BigNumberish]): string;
-  encodeFunctionData(
-    functionFragment: "orders",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "ownerCutPerMillion",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "paused", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "publicationFeeInWei",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "revokeRole",
-    values: [BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setOwnerCutPerMillion",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setPublicationFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "supportsInterface",
-    values: [BytesLike]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'executeOrder', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'getAssetType', values: [string]): string
+  encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string
+  encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'nfts', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'orders', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string
+  encodeFunctionData(functionFragment: 'ownerCutPerMillion', values?: undefined): string
+  encodeFunctionData(functionFragment: 'paused', values?: undefined): string
+  encodeFunctionData(functionFragment: 'publicationFeeInWei', values?: undefined): string
+  encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string
+  encodeFunctionData(functionFragment: 'setOwnerCutPerMillion', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setPublicationFee', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string
 
-  decodeFunctionResult(
-    functionFragment: "DEFAULT_ADMIN_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "MILLION", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "OPERATOR_ROLE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "acceptedToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "approveNFTs",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "cancelOrder",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "createOrder",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "executeOrder",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAssetType",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getRoleAdmin",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "nfts", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "orders", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "ownerCutPerMillion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "paused", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "publicationFeeInWei",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceRole",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setOwnerCutPerMillion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPublicationFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "supportsInterface",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'MILLION', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'OPERATOR_ROLE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'acceptedToken', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'approveNFTs', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'cancelOrder', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'createOrder', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'executeOrder', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getAssetType', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nfts', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'orders', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'ownerCutPerMillion', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'paused', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'publicationFeeInWei', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setOwnerCutPerMillion', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setPublicationFee', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result
 
   events: {
-    "ChangedOwnerCutPerMillion(uint256)": EventFragment;
-    "ChangedPublicationFee(uint256)": EventFragment;
-    "OrderCancelled(uint256,uint256,address,uint256,address)": EventFragment;
-    "OrderCreated(uint256,uint256,address,uint256,address,uint256,uint256)": EventFragment;
-    "OrderExecuted(uint256,uint256,address,uint256,address,uint256,address)": EventFragment;
-    "Paused(address)": EventFragment;
-    "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
-    "RoleGranted(bytes32,address,address)": EventFragment;
-    "RoleRevoked(bytes32,address,address)": EventFragment;
-    "Unpaused(address)": EventFragment;
-  };
+    'ChangedOwnerCutPerMillion(uint256)': EventFragment
+    'ChangedPublicationFee(uint256)': EventFragment
+    'OrderCancelled(uint256,uint256,address,uint256,address)': EventFragment
+    'OrderCreated(uint256,uint256,address,uint256,address,uint256,uint256)': EventFragment
+    'OrderExecuted(uint256,uint256,address,uint256,address,uint256,address)': EventFragment
+    'Paused(address)': EventFragment
+    'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment
+    'RoleGranted(bytes32,address,address)': EventFragment
+    'RoleRevoked(bytes32,address,address)': EventFragment
+    'Unpaused(address)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "ChangedOwnerCutPerMillion"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ChangedPublicationFee"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OrderCancelled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OrderCreated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OrderExecuted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Paused"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleAdminChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Unpaused"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ChangedOwnerCutPerMillion'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ChangedPublicationFee'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OrderCancelled'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OrderCreated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'OrderExecuted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Paused'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Unpaused'): EventFragment
 }
 
 export type ChangedOwnerCutPerMillionEvent = TypedEvent<
   [BigNumber] & { ownerCutPerMillion: BigNumber }
->;
+>
 
-export type ChangedPublicationFeeEvent = TypedEvent<
-  [BigNumber] & { publicationFee: BigNumber }
->;
+export type ChangedPublicationFeeEvent = TypedEvent<[BigNumber] & { publicationFee: BigNumber }>
 
 export type OrderCancelledEvent = TypedEvent<
   [BigNumber, BigNumber, string, BigNumber, string] & {
-    id: BigNumber;
-    assetId: BigNumber;
-    seller: string;
-    amount: BigNumber;
-    nftAddress: string;
+    id: BigNumber
+    assetId: BigNumber
+    seller: string
+    amount: BigNumber
+    nftAddress: string
   }
->;
+>
 
 export type OrderCreatedEvent = TypedEvent<
   [BigNumber, BigNumber, string, BigNumber, string, BigNumber, BigNumber] & {
-    id: BigNumber;
-    assetId: BigNumber;
-    seller: string;
-    amount: BigNumber;
-    nftAddress: string;
-    priceInWei: BigNumber;
-    expiresAt: BigNumber;
+    id: BigNumber
+    assetId: BigNumber
+    seller: string
+    amount: BigNumber
+    nftAddress: string
+    priceInWei: BigNumber
+    expiresAt: BigNumber
   }
->;
+>
 
 export type OrderExecutedEvent = TypedEvent<
   [BigNumber, BigNumber, string, BigNumber, string, BigNumber, string] & {
-    id: BigNumber;
-    assetId: BigNumber;
-    seller: string;
-    amount: BigNumber;
-    nftAddress: string;
-    totalPrice: BigNumber;
-    buyer: string;
+    id: BigNumber
+    assetId: BigNumber
+    seller: string
+    amount: BigNumber
+    nftAddress: string
+    totalPrice: BigNumber
+    buyer: string
   }
->;
+>
 
-export type PausedEvent = TypedEvent<[string] & { account: string }>;
+export type PausedEvent = TypedEvent<[string] & { account: string }>
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string] & {
-    role: string;
-    previousAdminRole: string;
-    newAdminRole: string;
+    role: string
+    previousAdminRole: string
+    newAdminRole: string
   }
->;
+>
 
 export type RoleGrantedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
 export type RoleRevokedEvent = TypedEvent<
   [string, string, string] & { role: string; account: string; sender: string }
->;
+>
 
-export type UnpausedEvent = TypedEvent<[string] & { account: string }>;
+export type UnpausedEvent = TypedEvent<[string] & { account: string }>
 
 export class Marketplace extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: MarketplaceInterface;
+  interface: MarketplaceInterface
 
   functions: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    MILLION(overrides?: CallOverrides): Promise<[BigNumber]>;
+    MILLION(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<[string]>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<[string]>
 
-    acceptedToken(overrides?: CallOverrides): Promise<[string]>;
+    acceptedToken(overrides?: CallOverrides): Promise<[string]>
 
     approveNFTs(
       _nfts: { addr: string; tokenType: BigNumberish }[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     cancelOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     createOrder(
       nftAddress: string,
@@ -352,113 +254,96 @@ export class Marketplace extends BaseContract {
       priceInWei: BigNumberish,
       expiresAt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     executeOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    getAssetType(
-      nftAddress: string,
-      overrides?: CallOverrides
-    ): Promise<[number]>;
+    getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<[number]>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>
 
     nfts(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string, number] & { addr: string; tokenType: number }>;
+    ): Promise<[string, number] & { addr: string; tokenType: number }>
 
     orders(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        string,
-        string,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber
-      ] & {
-        id: BigNumber;
-        seller: string;
-        nftAddress: string;
-        assetId: BigNumber;
-        amount: BigNumber;
-        price: BigNumber;
-        expiresAt: BigNumber;
+      [BigNumber, string, string, number, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        id: BigNumber
+        seller: string
+        nftAddress: string
+        tokenType: number
+        assetId: BigNumber
+        amount: BigNumber
+        price: BigNumber
+        expiresAt: BigNumber
       }
-    >;
+    >
 
-    owner(overrides?: CallOverrides): Promise<[string]>;
+    owner(overrides?: CallOverrides): Promise<[string]>
 
-    ownerCutPerMillion(overrides?: CallOverrides): Promise<[BigNumber]>;
+    ownerCutPerMillion(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    paused(overrides?: CallOverrides): Promise<[boolean]>;
+    paused(overrides?: CallOverrides): Promise<[boolean]>
 
-    publicationFeeInWei(overrides?: CallOverrides): Promise<[BigNumber]>;
+    publicationFeeInWei(overrides?: CallOverrides): Promise<[BigNumber]>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setOwnerCutPerMillion(
       _ownerCutPerMillion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setPublicationFee(
       _publicationFeeInWei: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
-  };
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>
+  }
 
-  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+  DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-  MILLION(overrides?: CallOverrides): Promise<BigNumber>;
+  MILLION(overrides?: CallOverrides): Promise<BigNumber>
 
-  OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
+  OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>
 
-  acceptedToken(overrides?: CallOverrides): Promise<string>;
+  acceptedToken(overrides?: CallOverrides): Promise<string>
 
   approveNFTs(
     _nfts: { addr: string; tokenType: BigNumberish }[],
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   cancelOrder(
     orderId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   createOrder(
     nftAddress: string,
@@ -467,102 +352,93 @@ export class Marketplace extends BaseContract {
     priceInWei: BigNumberish,
     expiresAt: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   executeOrder(
     orderId: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<number>;
+  getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<number>
 
-  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+  getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
   grantRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  hasRole(
-    role: BytesLike,
-    account: string,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
   nfts(
     arg0: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<[string, number] & { addr: string; tokenType: number }>;
+  ): Promise<[string, number] & { addr: string; tokenType: number }>
 
   orders(
     arg0: BigNumberish,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, string, string, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      id: BigNumber;
-      seller: string;
-      nftAddress: string;
-      assetId: BigNumber;
-      amount: BigNumber;
-      price: BigNumber;
-      expiresAt: BigNumber;
+    [BigNumber, string, string, number, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      id: BigNumber
+      seller: string
+      nftAddress: string
+      tokenType: number
+      assetId: BigNumber
+      amount: BigNumber
+      price: BigNumber
+      expiresAt: BigNumber
     }
-  >;
+  >
 
-  owner(overrides?: CallOverrides): Promise<string>;
+  owner(overrides?: CallOverrides): Promise<string>
 
-  ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>;
+  ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>
 
-  paused(overrides?: CallOverrides): Promise<boolean>;
+  paused(overrides?: CallOverrides): Promise<boolean>
 
-  publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>;
+  publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>
 
   renounceRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   revokeRole(
     role: BytesLike,
     account: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setOwnerCutPerMillion(
     _ownerCutPerMillion: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setPublicationFee(
     _publicationFeeInWei: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  supportsInterface(
-    interfaceId: BytesLike,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
 
   callStatic: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>
 
-    MILLION(overrides?: CallOverrides): Promise<BigNumber>;
+    MILLION(overrides?: CallOverrides): Promise<BigNumber>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<string>
 
-    acceptedToken(overrides?: CallOverrides): Promise<string>;
+    acceptedToken(overrides?: CallOverrides): Promise<string>
 
     approveNFTs(
       _nfts: { addr: string; tokenType: BigNumberish }[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    cancelOrder(
-      orderId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    cancelOrder(orderId: BigNumberish, overrides?: CallOverrides): Promise<void>
 
     createOrder(
       nftAddress: string,
@@ -571,114 +447,79 @@ export class Marketplace extends BaseContract {
       priceInWei: BigNumberish,
       expiresAt: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    executeOrder(
-      orderId: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    executeOrder(orderId: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    getAssetType(
-      nftAddress: string,
-      overrides?: CallOverrides
-    ): Promise<number>;
+    getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<number>
 
-    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>
 
-    grantRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    grantRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>
 
     nfts(
       arg0: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string, number] & { addr: string; tokenType: number }>;
+    ): Promise<[string, number] & { addr: string; tokenType: number }>
 
     orders(
       arg0: BigNumberish,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        string,
-        string,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber
-      ] & {
-        id: BigNumber;
-        seller: string;
-        nftAddress: string;
-        assetId: BigNumber;
-        amount: BigNumber;
-        price: BigNumber;
-        expiresAt: BigNumber;
+      [BigNumber, string, string, number, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        id: BigNumber
+        seller: string
+        nftAddress: string
+        tokenType: number
+        assetId: BigNumber
+        amount: BigNumber
+        price: BigNumber
+        expiresAt: BigNumber
       }
-    >;
+    >
 
-    owner(overrides?: CallOverrides): Promise<string>;
+    owner(overrides?: CallOverrides): Promise<string>
 
-    ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>;
+    ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>
 
-    paused(overrides?: CallOverrides): Promise<boolean>;
+    paused(overrides?: CallOverrides): Promise<boolean>
 
-    publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>;
+    publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>
 
-    renounceRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    renounceRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
-    revokeRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>
 
     setOwnerCutPerMillion(
       _ownerCutPerMillion: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    setPublicationFee(
-      _publicationFeeInWei: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setPublicationFee(_publicationFeeInWei: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
-  };
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>
+  }
 
   filters: {
-    "ChangedOwnerCutPerMillion(uint256)"(
+    'ChangedOwnerCutPerMillion(uint256)'(
       ownerCutPerMillion?: null
-    ): TypedEventFilter<[BigNumber], { ownerCutPerMillion: BigNumber }>;
+    ): TypedEventFilter<[BigNumber], { ownerCutPerMillion: BigNumber }>
 
     ChangedOwnerCutPerMillion(
       ownerCutPerMillion?: null
-    ): TypedEventFilter<[BigNumber], { ownerCutPerMillion: BigNumber }>;
+    ): TypedEventFilter<[BigNumber], { ownerCutPerMillion: BigNumber }>
 
-    "ChangedPublicationFee(uint256)"(
+    'ChangedPublicationFee(uint256)'(
       publicationFee?: null
-    ): TypedEventFilter<[BigNumber], { publicationFee: BigNumber }>;
+    ): TypedEventFilter<[BigNumber], { publicationFee: BigNumber }>
 
     ChangedPublicationFee(
       publicationFee?: null
-    ): TypedEventFilter<[BigNumber], { publicationFee: BigNumber }>;
+    ): TypedEventFilter<[BigNumber], { publicationFee: BigNumber }>
 
-    "OrderCancelled(uint256,uint256,address,uint256,address)"(
+    'OrderCancelled(uint256,uint256,address,uint256,address)'(
       id?: null,
       assetId?: BigNumberish | null,
       seller?: string | null,
@@ -687,13 +528,13 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
       }
-    >;
+    >
 
     OrderCancelled(
       id?: null,
@@ -704,15 +545,15 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
       }
-    >;
+    >
 
-    "OrderCreated(uint256,uint256,address,uint256,address,uint256,uint256)"(
+    'OrderCreated(uint256,uint256,address,uint256,address,uint256,uint256)'(
       id?: null,
       assetId?: BigNumberish | null,
       seller?: string | null,
@@ -723,15 +564,15 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string, BigNumber, BigNumber],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
-        priceInWei: BigNumber;
-        expiresAt: BigNumber;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
+        priceInWei: BigNumber
+        expiresAt: BigNumber
       }
-    >;
+    >
 
     OrderCreated(
       id?: null,
@@ -744,17 +585,17 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string, BigNumber, BigNumber],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
-        priceInWei: BigNumber;
-        expiresAt: BigNumber;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
+        priceInWei: BigNumber
+        expiresAt: BigNumber
       }
-    >;
+    >
 
-    "OrderExecuted(uint256,uint256,address,uint256,address,uint256,address)"(
+    'OrderExecuted(uint256,uint256,address,uint256,address,uint256,address)'(
       id?: null,
       assetId?: BigNumberish | null,
       seller?: string | null,
@@ -765,15 +606,15 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string, BigNumber, string],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
-        totalPrice: BigNumber;
-        buyer: string;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
+        totalPrice: BigNumber
+        buyer: string
       }
-    >;
+    >
 
     OrderExecuted(
       id?: null,
@@ -786,30 +627,28 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [BigNumber, BigNumber, string, BigNumber, string, BigNumber, string],
       {
-        id: BigNumber;
-        assetId: BigNumber;
-        seller: string;
-        amount: BigNumber;
-        nftAddress: string;
-        totalPrice: BigNumber;
-        buyer: string;
+        id: BigNumber
+        assetId: BigNumber
+        seller: string
+        amount: BigNumber
+        nftAddress: string
+        totalPrice: BigNumber
+        buyer: string
       }
-    >;
+    >
 
-    "Paused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Paused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Paused(account?: null): TypedEventFilter<[string], { account: string }>;
+    Paused(account?: null): TypedEventFilter<[string], { account: string }>
 
-    "RoleAdminChanged(bytes32,bytes32,bytes32)"(
+    'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
       previousAdminRole?: BytesLike | null,
       newAdminRole?: BytesLike | null
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
     RoleAdminChanged(
       role?: BytesLike | null,
@@ -818,69 +657,55 @@ export class Marketplace extends BaseContract {
     ): TypedEventFilter<
       [string, string, string],
       { role: string; previousAdminRole: string; newAdminRole: string }
-    >;
+    >
 
-    "RoleGranted(bytes32,address,address)"(
+    'RoleGranted(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleGranted(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "RoleRevoked(bytes32,address,address)"(
+    'RoleRevoked(bytes32,address,address)'(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
     RoleRevoked(
       role?: BytesLike | null,
       account?: string | null,
       sender?: string | null
-    ): TypedEventFilter<
-      [string, string, string],
-      { role: string; account: string; sender: string }
-    >;
+    ): TypedEventFilter<[string, string, string], { role: string; account: string; sender: string }>
 
-    "Unpaused(address)"(
-      account?: null
-    ): TypedEventFilter<[string], { account: string }>;
+    'Unpaused(address)'(account?: null): TypedEventFilter<[string], { account: string }>
 
-    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>;
-  };
+    Unpaused(account?: null): TypedEventFilter<[string], { account: string }>
+  }
 
   estimateGas: {
-    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    MILLION(overrides?: CallOverrides): Promise<BigNumber>;
+    MILLION(overrides?: CallOverrides): Promise<BigNumber>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<BigNumber>
 
-    acceptedToken(overrides?: CallOverrides): Promise<BigNumber>;
+    acceptedToken(overrides?: CallOverrides): Promise<BigNumber>
 
     approveNFTs(
       _nfts: { addr: string; tokenType: BigNumberish }[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     cancelOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     createOrder(
       nftAddress: string,
@@ -889,95 +714,80 @@ export class Marketplace extends BaseContract {
       priceInWei: BigNumberish,
       expiresAt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     executeOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getAssetType(
-      nftAddress: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    hasRole(
-      role: BytesLike,
-      account: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    nfts(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    nfts(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    orders(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    orders(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    owner(overrides?: CallOverrides): Promise<BigNumber>;
+    owner(overrides?: CallOverrides): Promise<BigNumber>
 
-    ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>;
+    ownerCutPerMillion(overrides?: CallOverrides): Promise<BigNumber>
 
-    paused(overrides?: CallOverrides): Promise<BigNumber>;
+    paused(overrides?: CallOverrides): Promise<BigNumber>
 
-    publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>;
+    publicationFeeInWei(overrides?: CallOverrides): Promise<BigNumber>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setOwnerCutPerMillion(
       _ownerCutPerMillion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setPublicationFee(
       _publicationFeeInWei: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    supportsInterface(
-      interfaceId: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    DEFAULT_ADMIN_ROLE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    MILLION(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    MILLION(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    OPERATOR_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    OPERATOR_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    acceptedToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    acceptedToken(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     approveNFTs(
       _nfts: { addr: string; tokenType: BigNumberish }[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     cancelOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     createOrder(
       nftAddress: string,
@@ -986,82 +796,66 @@ export class Marketplace extends BaseContract {
       priceInWei: BigNumberish,
       expiresAt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     executeOrder(
       orderId: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getAssetType(
-      nftAddress: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getAssetType(nftAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getRoleAdmin(
-      role: BytesLike,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     grantRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hasRole(
       role: BytesLike,
       account: string,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    nfts(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    nfts(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    orders(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    orders(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    owner(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    ownerCutPerMillion(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ownerCutPerMillion(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    paused(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    publicationFeeInWei(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    publicationFeeInWei(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     renounceRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     revokeRole(
       role: BytesLike,
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setOwnerCutPerMillion(
       _ownerCutPerMillion: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setPublicationFee(
       _publicationFeeInWei: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     supportsInterface(
       interfaceId: BytesLike,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }
