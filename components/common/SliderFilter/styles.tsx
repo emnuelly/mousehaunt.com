@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import React from "react";
 
-const Filter = styled.div`
+export const Filter = styled.div`
     width: 100%;
     
     input{
@@ -39,7 +38,7 @@ const Filter = styled.div`
 
 `;
 
-const CardSearch = styled.div`
+export const CardSearch = styled.div`
     width: 282px;
     height: auto;
     left: 0px;
@@ -58,7 +57,7 @@ const CardSearch = styled.div`
 
 `;
 
-const HeaderSearch = styled.div`
+export const HeaderSearch = styled.div`
     display: flex;
     flex-direction: row;
      place-content: space-between;
@@ -66,7 +65,7 @@ const HeaderSearch = styled.div`
 `;
 
 
-const TitleSearch = styled.div`
+export const TitleSearch = styled.div`
     font-family: SF Pro Display;
     font-style: normal;
     font-weight: 600;
@@ -74,7 +73,7 @@ const TitleSearch = styled.div`
     line-height: 20px;
 `;
 
-const IconDown = styled.div`
+export const IconDown = styled.div`
     width: 25px;
     height: 20px;
     margin-right: 10px;
@@ -84,7 +83,7 @@ const IconDown = styled.div`
    
 `;
 
-const BodySearch = styled.div`
+export const BodySearch = styled.div`
     width: 100%;
     font-family: SF Pro Display;
     font-style: normal;
@@ -94,41 +93,3 @@ const BodySearch = styled.div`
     padding: 0px 20px 20px 20px;
   
 `;
-
-
-interface SliderFilterProps {
-    title: string,
-    id: string,
-    min: number,
-    max: number,
-    step: number,
-    value: number
-    filterChange: (value:number) => void
-}
-
-function SliderFilter(props: SliderFilterProps) {
-    const {id, title, min, max, step, value} = props;
-
-    function filterChange(newValue:string) {
-        props.filterChange(parseFloat(newValue));
-    }
-
-    return (
-        <CardSearch>
-            <HeaderSearch>
-                <TitleSearch>{title}</TitleSearch>
-                <IconDown/>
-            </HeaderSearch>
-            <BodySearch>
-                <Filter>
-                    <input onChange={(event) => filterChange(event.target.value)}type="range" min={min} max={max} step={step} id={id} />
-                </Filter>
-                <p>{value}</p>
-            </BodySearch>
-        </CardSearch>
-
-    );
-};
-
-
-export default SliderFilter;

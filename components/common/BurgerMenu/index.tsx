@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { slide as Menu } from "react-burger-menu";
 import { BurgerContainer } from "./styles";
 import React, { useState } from "react";
-import Sections from "../Sections";
+import Sections from "../Sections/Sections";
 import Link from "../Link";
 
 const BurgerButton: NextPage = (props: any) => {

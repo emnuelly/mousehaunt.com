@@ -4,8 +4,8 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import CheckBoxFilter from "../components/common/CardsSearch/CheckBoxFilter";
-import { InputSearch } from "../components/common/Modal";
-import SliderFilter from "../components/common/SliderFilter";
+import { InputSearch } from "../components/common/ModalFilter/Modal";
+import SliderFilter from "../components/common/SliderFilter/SliderFilter";
 import { Order, OrdersContext } from "../contexts/OrdersContext";
 import FilterInterface from "./FilterInterface";
 

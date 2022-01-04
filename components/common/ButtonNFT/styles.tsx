@@ -1,9 +1,6 @@
-
 import styled from "styled-components";
-import React from "react";
-import PropTypes from "prop-types";
 
-const CheckBox = styled.label`
+export const CheckBox = styled.label`
   color: white;
   text-align: center;
   display: flex;
@@ -76,22 +73,3 @@ const CheckBox = styled.label`
     }
 
 `;
-
-ButtonNFT.propTypes = {
-    option: PropTypes.string,
-};
-
-function ButtonNFT(props: any) {
-    const {option} = props;
-
-    return (
-        <CheckBox>
-            {option}
-            <input type="checkbox"/>
-            <span/>
-        </CheckBox>
-    );
-};
-
-
-export default ButtonNFT;

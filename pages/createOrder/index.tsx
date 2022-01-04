@@ -4,7 +4,7 @@ import Head from "next/head";
 import { Container, Content, ImageBackground, Body, Title, Left, Right, Web, Mobile} from "./styles";
 import Footer from "../../components/common/Footer";
 import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections";
+import Sections from "../../components/common/Sections/Sections";
 import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useState} from "react";

@@ -16,7 +16,7 @@ import {
 import Footer from "../../components/common/Footer";
 import {Ellipse1} from "../../components/common/Landing/styles";
 import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections";
+import Sections from "../../components/common/Sections/Sections";
 import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useContext, useEffect, useState} from "react";
@@ -24,10 +24,10 @@ import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
 import CardSearchHeroes from "../../components/common/CardsSearch/CheckBoxFilter";
 import CardSearchTemplate from "../../components/common/CardsSearch/CheckBoxFilter";
-import SliderFilter from "../../components/common/SliderFilter";
+import SliderFilter from "../../components/common/SliderFilter/SliderFilter";
 import RemainConnected from "../../components/common/RemainConnected";
 import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
-import Modal from "../../components/common/Modal";
+import Modal from "../../components/common/ModalFilter/Modal";
 import { OrdersContext } from "../../contexts/OrdersContext";
 
 const Marketplace: NextPage = () => {

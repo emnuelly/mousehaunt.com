@@ -13,7 +13,7 @@ import
 } from './styles';
 
 import check from "../../../public/images/check.png";
-import CheckBoxDefault from "../CheckboxDefault";
+import CheckBoxDefault from "../CheckboxDefault/CheckboxDefault";
 
 const Checkbox = () => {
     return (

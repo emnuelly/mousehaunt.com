@@ -26,7 +26,7 @@ import {
 } from "./styles";
 import React, {useState} from "react";
 import Link from "../../components/common/Link";
-import ButtonNFT from "../../components/common/ButtonNFT";
+import ButtonNFT from "../../components/common/ButtonNFT/ButtonNFT";
 import SelectPrices from "../../components/common/SelectPrices";
 import Checkbox from "../../components/common/Checkbox";
 import OrdersManager from "../../services/OrdersManager";

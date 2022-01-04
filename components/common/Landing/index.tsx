@@ -16,7 +16,7 @@ import {
 } from "./styles";
 import Header from "../Header";
 import Logo from "../Logo";
-import Sections from "../Sections";
+import Sections from "../Sections/Sections";
 import Menu from "../BurgerMenu";
 import { Link as LinkButton } from "../Link";
 import CardShop from "../CardShop";

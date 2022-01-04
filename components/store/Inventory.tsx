@@ -9,7 +9,7 @@ import {
 } from "./styles/styles";
 import Header from "../common/Header";
 import Logo from "../common/Logo";
-import Sections from "../common/Sections";
+import Sections from "../common/Sections/Sections";
 import { ConnectWalletButton } from "../common/ConnectWalletButton";
 import Footer from "../common/Footer";
 import Table from "../common/Table/Table";

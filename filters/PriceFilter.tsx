@@ -3,7 +3,7 @@ import React from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import SliderFilter from "../components/common/SliderFilter";
+import SliderFilter from "../components/common/SliderFilter/SliderFilter";
 import { Order, OrdersContext } from "../contexts/OrdersContext";
 import FilterInterface from "./FilterInterface";
 

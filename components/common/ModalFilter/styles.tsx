@@ -1,10 +1,4 @@
 import styled from "styled-components";
-import FilterDefault from "./FilterMarketplace/FilterDefault";
-import CardSearchTemplate from "./CardsSearch/CheckBoxFilter";
-import SliderFilter from "./SliderFilter";
-import React, {useState} from "react";
-import Link from "./Link";
-import PropTypes from "prop-types";
 
 export const Container = styled.div`
   position: absolute;
@@ -143,41 +137,3 @@ export const InputSearch = styled.input`
        display: inline-block;
     }
 `;
-
-Modal.propTypes = {
-    show: PropTypes.bool,
-};
-
-function Modal(props: any) {
-    const {show} = props;
-
-    const [showMe, setShowMe] = useState(false);
-
-    function toggle() {
-        setShowMe(!showMe);
-    }
-
-    return (
-        <div style={{
-            display: showMe? "none":"block"
-        }}>
-            <Container>
-        <ModalContainer>
-            <Close onClick={toggle}>X</Close>
-            <Filter>
-                <HeaderTitle>
-                    <FilterText>FILTERS</FilterText>
-                    <ClearText>Clear All</ClearText>
-                </HeaderTitle>
-                <FormFilter>
-            
-                </FormFilter>
-                <SizeButton><Link>Apply</Link></SizeButton>
-            </Filter>
-        </ModalContainer>
-    </Container>
-        </div>
-    )
-}
-
-export default Modal;

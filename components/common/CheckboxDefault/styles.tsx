@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import React from "react";
-import PropTypes from "prop-types";
 
-const CheckBox = styled.label`
+export const CheckBox = styled.label`
   display: block;
   position: relative;
   padding-left: 35px;
@@ -66,22 +64,3 @@ const CheckBox = styled.label`
     }
 
 `;
-
-CheckBoxDefault.propTypes = {
-    option: PropTypes.string,
-};
-
-function CheckBoxDefault(props: any) {
-    const {option} = props;
-
-    return (
-        <CheckBox>
-            {option}
-            <input type="checkbox"/>
-            <span/>
-        </CheckBox>
-    );
-};
-
-
-export default CheckBoxDefault;

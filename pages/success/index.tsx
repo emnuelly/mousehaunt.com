@@ -6,7 +6,7 @@ import Landing from "../../components/common/Landing";
 import Footer from "../../components/common/Footer";
 import {Ellipse1} from "../../components/common/Landing/styles";
 import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections";
+import Sections from "../../components/common/Sections/Sections";
 import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
 import React from "react";
