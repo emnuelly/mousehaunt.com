@@ -11,6 +11,7 @@ import Menu from "../../components/common/BurgerMenu";
 import Header, {ContainerHeader} from "../../components/common/Header";
 import React from "react";
 import CardSuccess from "../../components/common/CardSuccess";
+import HeaderDefault from "../../components/common/Header";
 
 const Success: NextPage = () => {
     return (
@@ -18,14 +19,7 @@ const Success: NextPage = () => {
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Ellipse1/>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
+            <HeaderDefault/>
 
             <Content>
                 <Title>Your order was created!

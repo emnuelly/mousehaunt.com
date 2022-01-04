@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import React from "react";
+import {Ellipse1} from "./Landing/styles";
+import Logo from "./Logo";
+import Sections from "./Sections";
+import Menu from "./BurgerMenu";
 
 export const ContainerHeader = styled.section`
   top: 0px;
@@ -43,4 +48,19 @@ export const Header = styled.header`
   }
 `;
 
-export default Header;
+function HeaderDefault(props: any) {
+    const {option} = props;
+
+    return (
+        <ContainerHeader>
+            <Header>
+                <Ellipse1/>
+                <Logo />
+                <Sections />
+                <Menu />
+            </Header>
+        </ContainerHeader>
+    );
+};
+
+export default HeaderDefault;

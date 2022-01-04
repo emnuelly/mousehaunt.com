@@ -10,23 +10,15 @@ import { Container,
     LabelAndIcon, LabelSecond, TitleSecond, IconArrow, IconDown, ContainerContent, Left, Right, ImageNFT,TextDescription,
     Top, Middle, Bottom, Description, CollecionText, TitleName, ContentSubtitle,
     IconAndText, IconHeart, IconView, TextIcon, Subtext, LabelMiddle, ContentValue, ValueNFT, ValueDollar, IconSale, ContentMiddle
-
 } from "./styles";
 import Footer from "../../components/common/Footer";
-import {Ellipse1} from "../../components/common/Landing/styles";
-import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections";
-import Menu from "../../components/common/BurgerMenu";
-import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useContext, useState} from "react";
-import CardShop from "../../components/common/CardShop";
-import Link from "../../components/common/Link";
 import ButtonSale from "../../components/common/ButtonSale";
 import TableOrderDetails from "../../components/common/TableOrderDetails";
 import RemainConnected from "../../components/common/RemainConnected";
-import PopularCollection from "../../components/common/PopularCollection";
 import TrendingProduct from "../../components/common/TrendingProduct";
 import { OrdersContext } from "../../contexts/OrdersContext";
+import HeaderDefault from "../../components/common/Header";
 
 const OrderDetails: NextPage = () => {
 
@@ -37,14 +29,7 @@ const OrderDetails: NextPage = () => {
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Ellipse1/>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
+            <HeaderDefault/>
 
             <Content>
                 <Title>ORDER DETAILS</Title>

@@ -14,21 +14,14 @@ import {
     CardSpace,ContentResponsive, TitleResponsive, SizeButton
 } from "./styles";
 import Footer from "../../components/common/Footer";
-import {Ellipse1} from "../../components/common/Landing/styles";
-import Logo from "../../components/common/Logo";
-import Sections from "../../components/common/Sections";
-import Menu from "../../components/common/BurgerMenu";
-import Header, {ContainerHeader} from "../../components/common/Header";
 import React, {useContext, useEffect, useState} from "react";
 import CardShop from "../../components/common/CardShop";
 import Link from "../../components/common/Link";
-import CardSearchHeroes from "../../components/common/CardsSearch/CheckBoxFilter";
-import CardSearchTemplate from "../../components/common/CardsSearch/CheckBoxFilter";
-import SliderFilter from "../../components/common/SliderFilter";
 import RemainConnected from "../../components/common/RemainConnected";
 import FilterDefault from "../../components/common/FilterMarketplace/FilterDefault";
 import Modal from "../../components/common/Modal";
 import { OrdersContext } from "../../contexts/OrdersContext";
+import HeaderDefault from "../../components/common/Header";
 
 const Marketplace: NextPage = () => {
     const [showMe, setShowMe] = useState(false);
@@ -54,14 +47,7 @@ const Marketplace: NextPage = () => {
             <Head>
                 <title>Mouse Haunt</title>
             </Head>
-            <ContainerHeader>
-                <Header>
-                    <Ellipse1/>
-                    <Logo />
-                    <Sections />
-                    <Menu />
-                </Header>
-            </ContainerHeader>
+            <HeaderDefault/>
             <Content>
                 <Title>NFT MARKETPLACE</Title>
                 <ContentResponsive>
