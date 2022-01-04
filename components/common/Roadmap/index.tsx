@@ -15,11 +15,10 @@ import {
   Downward
 } from './styles'
 
-
 const Roadmap: NextPage = () => {
-  const roadmapMobile = '/public/images/other/roadmap-mobile.png'
   const roadmapDesktop = '/public/images/other/roadmap.png'
-  
+  const roadmapMobile = '/public/images/other/roadmap-mobile.png'
+
   return (
     <Container id='Roadmap'>
       <Title>
@@ -28,7 +27,13 @@ const Roadmap: NextPage = () => {
       <Content>
         <RoadmapImage>
           <div className='mobile'>
-            <Image src={roadmapMobile} width='32px' height='660px' alt='Roadmap' placeholder='blur' />
+            <Image
+              src={roadmapMobile}
+              width='32px'
+              height='660px'
+              alt='Roadmap'
+              placeholder='blur'
+            />
           </div>
         </RoadmapImage>
         <Upward>
