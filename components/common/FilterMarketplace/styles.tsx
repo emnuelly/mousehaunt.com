@@ -45,6 +45,7 @@ export const Filter = styled.div`
 
     @media only screen and (max-width: 600px) {
         display: none;
+        width: 100%;
     }
 `;
 
@@ -123,3 +124,12 @@ export const InputSearch = styled.input`
     border: none;
 `;
 
+export const FilterResponsive = styled.div`
+  height: 100%;
+  padding: 20px;
+
+    @media only screen and (max-width: 600px) {
+        display: block;
+        width: 100%;
+    }
+`;

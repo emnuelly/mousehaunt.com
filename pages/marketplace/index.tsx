@@ -43,7 +43,7 @@ const Marketplace: NextPage = () => {
                     <TitleResponsive>NFT MARKETPLACE</TitleResponsive>
                     <SizeButton><Link onClick={toggle}>FILTERS</Link></SizeButton>
                 </ContentResponsive>
-                <Modal show={showMe}/>
+                <Modal/>
                 <Subtitle>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
                 </Subtitle>

@@ -1,13 +1,14 @@
-import {Container, ModalContainer, Close, Filter, HeaderTitle, FilterText, ClearText, FormFilter, SizeButton} from "./styles";
+import {Container, ModalContainer, Close, ButtonApply} from "./styles";
 import React, {useState} from "react";
 import Link from "../Link";
 import PropTypes from "prop-types";
+import FilterResponsiveDefault from "../FilterMarketplace/FilterResponsive";
 
 Modal.propTypes = {
     show: PropTypes.bool,
 };
 
-function Modal() {
+function Modal(props: any) {
 
     const [showMe, setShowMe] = useState(false);
 
@@ -16,19 +17,17 @@ function Modal() {
     }
 
     return (
-        <div style={{display: "block"}}>
+        <div style={{display: showMe? "none":"block"}}>
             <Container>
                 <ModalContainer>
                     <Close onClick={toggle}>X</Close>
-                    <Filter>
-                        <HeaderTitle>
-                            <FilterText>FILTERS</FilterText>
-                            <ClearText>Clear All</ClearText>
-                        </HeaderTitle>
-                        <SizeButton><Link>Apply</Link></SizeButton>
-                    </Filter>
+                    <FilterResponsiveDefault/>
+                    <ButtonApply>
+                        <Link onClick={toggle}>Apply</Link>
+                    </ButtonApply>
                 </ModalContainer>
             </Container>
+
         </div>
     )
 }

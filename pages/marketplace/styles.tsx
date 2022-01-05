@@ -38,14 +38,14 @@ export const Body = styled.div`
   height: auto;
   margin: auto;
   width: 100%;
-  margin-top: 40px;
+  margin-top: 0px;
   background-color: none;
   
   @media only screen and (min-width: 700px) {
       display: flex;
        width: 1200px;
        background-color: #131524;
-
+       margin-top: 40px;
   }
 
 `;
@@ -130,7 +130,7 @@ export const TitleResponsive = styled.div`
     align-items: center;
     text-align: left;
     text-transform: uppercase;
-    width: 207px;
+    width: 300px;
 
     
     color: #FFFFFF;
@@ -168,14 +168,15 @@ export const ContentResponsive = styled.div`
     position: relative;
 
   @media only screen and (max-width: 600px) {
-        display: block;
+        display: inline-flex;
+            height: 100%;
     }
 
 `;
 
 export const SizeButton = styled.div`
   display: none;
-  width: 93px;
+  align-self: end;
 
   @media only screen and (max-width: 600px) {
         display: block;

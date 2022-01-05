@@ -10,7 +10,7 @@ export const Container = styled.div`
   height: 100%;
   background: #0f0e23;
   padding-top: 20px;
-  margin-top: -380px;
+  margin-top: -330px;
   display: none;
 `;
 
@@ -87,16 +87,17 @@ export const FormFilter = styled.form`
    overflow: scroll;
 `;
 
-export const SizeButton = styled.div`
+export const ButtonApply = styled.div`
     width: 106px;
     display: inline-grid;
-    padding-top: 42px;
+    padding-top: 15px;
+    padding-bottom: 20px;
     align-items: center;
     text-align: center;
 `;
 
 export const Close = styled.a`
-    width: 106px;
+    width: 100%;
     display: inline-grid;
     align-items: center;
     padding-left: 20px;
