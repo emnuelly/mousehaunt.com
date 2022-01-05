@@ -40,8 +40,8 @@ export const FilterMarket = styled.button`
 
 export const Filter = styled.div`
   height: 100%;
-  width: 25%;
-  padding: 20px;
+  // width: 25%;
+  // padding: 20px;
 
     @media only screen and (max-width: 600px) {
         display: none;
