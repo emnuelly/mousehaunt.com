@@ -7,8 +7,7 @@ Modal.propTypes = {
     show: PropTypes.bool,
 };
 
-function Modal(props: any) {
-    const {show} = props;
+function Modal() {
 
     const [showMe, setShowMe] = useState(false);
 
@@ -17,7 +16,7 @@ function Modal(props: any) {
     }
 
     return (
-        <div style={{display: showMe? "none":"block"}}>
+        <div style={{display: "block"}}>
             <Container>
                 <ModalContainer>
                     <Close onClick={toggle}>X</Close>

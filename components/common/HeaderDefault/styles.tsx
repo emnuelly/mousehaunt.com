@@ -28,7 +28,9 @@ export const Header = styled.header`
      width: 100%;
      position: fixed;
      z-index: 1;
-     place-content: space-between
+     place-content: space-between;
+     margin-left: 0px;
+
   }
 
   a,

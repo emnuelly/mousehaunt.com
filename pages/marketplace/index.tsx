@@ -48,7 +48,7 @@ const Marketplace: NextPage = () => {
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
                 </Subtitle>
                 <Body>
-                    {/*<FilterDefault/>*/}
+                    <FilterDefault/>
                     <Cards>
                         <AlignCards>
                             {orders.map((current) => {

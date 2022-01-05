@@ -25,29 +25,31 @@ export const Content = styled.section`
   margin: auto;
   display: inline-block;
   
-  @media only screen and (max-width: 600px) {
-    width: unset;
-    margin: unset;
-  }
+     @media only screen and (max-width: 600px) {
+      margin: unset;
+       align-items: center;
+     text-align: center;
+   }
 `;
 
 export const Body = styled.div`
+  border-radius: 24px;
+  text-align: center;
   height: auto;
   margin: auto;
-  width: 1200px;
- 
-  min-height: 800px;
+  width: 100%;
   margin-top: 40px;
-  flex-direction: column;
-  display:-webkit-box;
+  background-color: none;
   
-  @media only screen and (max-width: 600px) {
-          width: 100%;
-            margin: auto;
+  @media only screen and (min-width: 700px) {
+      display: flex;
+       width: 1200px;
+       background-color: #131524;
 
-    }
+  }
 
 `;
+
 
 export const EllipseBlue = styled.div`
   position: absolute;

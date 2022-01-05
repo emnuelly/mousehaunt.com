@@ -3,10 +3,10 @@ import React from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { InputSearch } from "../components/common/ModalFilter/Modal";
 import SliderFilter from "../components/common/SliderFilter/SliderFilter";
 import { Order, OrdersContext } from "../contexts/OrdersContext";
 import FilterInterface from "./FilterInterface";
+import {InputSearch} from "../components/common/ModalFilter/styles";
 
 
 export const IdFilter = () =>  {
