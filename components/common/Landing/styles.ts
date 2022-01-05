@@ -7,11 +7,15 @@ export const Container = styled.section`
   height: 100vh;
   width: 90%;
   margin: auto;
+
   
-    @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
     height: calc(100vh - 60px);
     text-align: center;
     align-items: center;
+    z-index: 0;
+    position: relative;
+
   }
   
 `;
@@ -122,6 +126,7 @@ export const Right = styled.div`
     text-align: center;
     justify-content: space-between;
     margin-left: 160px;
+    
     
    @media only screen and (max-width: 1280px) {
         display: none;

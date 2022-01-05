@@ -204,7 +204,7 @@ export const CardSpace = styled.div`
 export const ButtonMore = styled.div`
     display: inline-grid;
     padding-top: 42px;
-    width: 142px;
+    width: 180px;
     align-items: center;
     text-align: center;
 `;

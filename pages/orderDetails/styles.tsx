@@ -291,6 +291,11 @@ export const ContentMiddle = styled.div`
     border: 1px solid #29274B;
     box-sizing: border-box;
     border-radius: 12px;
+    
+    @media only screen and (max-width: 600px) {
+        width: 542px;
+     }
+    
 `;
 
 
@@ -330,6 +335,10 @@ export const Description = styled.div`
       background:  linear-gradient(96.82deg, #EE0CA1 0%, #D742B6 100%);  
       border-radius: 20px;
     }
+    
+     @media only screen and (max-width: 600px) {
+        width: 540px;
+     }
 `;
 
 

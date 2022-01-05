@@ -12,7 +12,7 @@ export const BurgerContainer = styled.div`
     width: 36px;
     height: 30px;
     left: 85%;
-    top: 4%;
+    top: 3%;
     z-index: 3000 !important;
   }
 
@@ -70,8 +70,15 @@ export const BurgerContainer = styled.div`
     top: 0px;
     left: 0px;
   }
+ 
 
   @media only screen and (max-width: 600px) {
     display: block;
   }
+`;
+
+export const ButtonStarted = styled.div`
+    @media only screen and (min-width: 600px) {
+        display: none;
+      }
 `;

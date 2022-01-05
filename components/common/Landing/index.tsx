@@ -10,14 +10,8 @@ import {
   Right,
   ButtonDark,
   ContainerButton,
-    Ellipse1,
-    EllipseCenter,
     CardStyle
 } from "./styles";
-import Header from "../HeaderDefault/HeaderDefault";
-import Logo from "../Logo";
-import Sections from "../Sections/Sections";
-import Menu from "../BurgerMenu";
 import { Link as LinkButton } from "../Link";
 import CardShop from "../CardShop";
 import { OrdersContext } from "../../../contexts/OrdersContext";
@@ -26,8 +20,6 @@ import { OrdersContext } from "../../../contexts/OrdersContext";
 const Landing: React.FC = () => { 
   
   const { heroOrders } = useContext(OrdersContext);
-
-  console.log(heroOrders);
 
   return (
     <Container id="About">
@@ -50,13 +42,13 @@ const Landing: React.FC = () => {
             </ContainerButton>
           </Left>
           <Right>
-            {heroOrders.map((current) => {
-              return (
-                <CardStyle key={current.id}>
-                  <CardShop order={current}/>
-                </CardStyle>
-              )
-            })}
+              {heroOrders.map((current) => {
+                return (
+                  <CardStyle key={current.id}>
+                    <CardShop order={current}/>
+                  </CardStyle>
+                )
+              })}
           </Right>
         </BodyContent>
       </Body>

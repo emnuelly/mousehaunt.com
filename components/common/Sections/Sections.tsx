@@ -26,7 +26,7 @@ const Sections: React.FC<Props> = ({ mobile }: Props) => {
       ))}
       </Navs>
       {isStorePath ? null : (
-        <LinkButton className="right" href="/marketplace">
+        <LinkButton href="/marketplace">
           MARKETPLACE
         </LinkButton>
       )}

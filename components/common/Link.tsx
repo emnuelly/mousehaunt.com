@@ -20,17 +20,15 @@ export const Link = styled.a`
   flex: none;
   order: 0;
   flex-grow: 0;
-  padding: 12px 32px;
+  padding: 26px 32px;
 
   cursor: pointer;
 
   z-index: 1;
 
   @media only screen and (max-width: 600px) {
-    min-width: 180px;
     min-height: 48px;
-    margin: 0px 10px;
-    padding: unset;
+    padding: 20px;
   }
 `;
 

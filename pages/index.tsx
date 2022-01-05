@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { Container, Content, ImageBackground} from "../styles/Home";
+import { Container, Content, ImageBackground, Body} from "../styles/Home";
 import Landing from "../components/common/Landing";
 import Footer from "../components/common/Footer";
 import PhishingBanner from '../components/common/PhishingBanner'
@@ -20,10 +20,12 @@ const Home: NextPage = () => {
         {/*<PhishingBanner />*/}
       <HeaderDefault/>
       <Content>
-        <Landing />
-        <PopularCollection />
-        <TrendingProduct/>
-        <TrendingProduct/>
+          <Body>
+            <Landing />
+            <PopularCollection />
+            <TrendingProduct/>
+            <TrendingProduct/>
+          </Body>
         <RemainConnected/>
         <Footer />
         <ImageBackground/>

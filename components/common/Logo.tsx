@@ -3,11 +3,11 @@ import Image from "next/image";
 import logo from "../../public/images/other/logo.png";
 
 export const Container = styled.div`
-  margin-right: 42px;
-
   @media only screen and (max-width: 600px) {
     width: 42px;
     height: 42px;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 `;
 

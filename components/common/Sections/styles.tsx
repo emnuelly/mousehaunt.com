@@ -8,8 +8,10 @@ interface ContainerProps {
 
 export const Navs = styled.div<ContainerProps>`
   display: flex;
+  margin-left: 20px;
    @media only screen and (max-width: 600px) {
       display: block;
+        margin-left: 0px;
         width: ${(props) => props.width};
 
   }

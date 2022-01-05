@@ -32,8 +32,14 @@ import Checkbox from "../../components/common/Checkbox";
 import OrdersManager from "../../services/OrdersManager";
 import DatePicker from "../../components/common/CreateOrder/DatePicker";
 import BoosterTypes from "../../components/common/CreateOrder/BoosterTypes";
+import {OrdersContext} from "../../contexts/OrdersContext";
+import Router from "next/router";
+
 
 const FormCreateOrder = () => {
+
+    const { mhtPrice, setSelectedOrder } = useContext(OrdersContext);
+
 
     function approve() {
         OrdersManager.Approve({
@@ -45,6 +51,7 @@ const FormCreateOrder = () => {
             priceInWei: '10',
             expiresAt: '12839123891',
         });
+        Router.push('/success')
     }
 
     function placeOrder() {

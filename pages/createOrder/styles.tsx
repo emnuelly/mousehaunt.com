@@ -178,6 +178,11 @@ export const TitleForm = styled.div`
     align-items: center;
 
     color: #FFFFFF;
+    
+    @media only screen and (max-width: 600px) {
+        padding: 40px 0px;
+    }
+  
 
 `;
 export const FormContent = styled.form`
@@ -207,6 +212,8 @@ export const ContainerButtons = styled.div`
     @media only screen and (max-width: 600px) {
         width: unset;
         margin: unset;
+        margin-top: 25px;
+
   }
 
 `;

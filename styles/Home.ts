@@ -42,15 +42,18 @@ export const Body = styled.div`
   width: 100%;
   margin-top: 40px;
   background-color: none;
+  padding-left: 20px;
+  padding-right: 20px;
   
   @media only screen and (min-width: 700px) {
       display: flex;
        width: 1200px;
        background-color: #131524;
-      flex-direction: column;
+       flex-direction: column;
   }
 
 `;
+
 
 export const ImageBackground = styled.div`
   height: 475px;

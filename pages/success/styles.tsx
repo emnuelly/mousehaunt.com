@@ -36,6 +36,15 @@ export const Body = styled.div`
   position: relative;
   z-index: 2;
   margin-top: 40px;
+  
+      @media only screen and (max-width: 600px) {
+   
+    padding-left: unset;
+    padding-right: unset;
+    z-index: 0;
+
+
+  }
 
 `;
 
