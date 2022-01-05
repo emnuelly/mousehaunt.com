@@ -247,7 +247,11 @@ export const Left = styled.div`
 export const Right = styled.div`
   height: 100%;
   width: 50%;
-    padding-left: 30px;
+    
+   @media only screen and (max-width: 600px) {
+       padding-left: 30px;
+
+   }
 
 `;
 

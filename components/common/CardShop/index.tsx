@@ -28,6 +28,7 @@ const CardShop: NextPage = ({order}:OrderProps) => {
 
     return (
         <Card onClick={selectOrder}>
+            <Like/>
             <Imagem/>
             <InfoContainer>
                 <InfoContainerUp>
