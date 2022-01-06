@@ -17,7 +17,10 @@ export const Card = styled.div`
   border: none;
   
   @media only screen and (max-width: 600px) {
-        margin-right: 5px;
+        width: 100%;
+         height: 100%;
+         
+         
     }
 
 `;
@@ -36,12 +39,19 @@ export const Like = styled.div`
 `;
 
 export const Imagem = styled.div`
-    width: 383px;
-    height: 373px;
+    width: 100%;
+    height: 100%;
     border-radius: 12px;
     
     background-image: url("/images/mouse.jpeg");
     background-repeat: no-repeat;
+    background-size: cover;    
+      @media only screen and (max-width: 600px) {
+        width: 100%;
+         height: 398px;
+  
+         
+    }
 `;
 
 
@@ -61,6 +71,11 @@ export const InfoContainer = styled.div`
   order: 1;
   align-self: stretch;
   flex-grow: 1;
+  
+    @media only screen and (max-width: 600px) {
+        width: 100%;         
+         
+    }
 `;
 export const InfoContainerUp = styled.div`
     display: flex;
@@ -84,7 +99,6 @@ export const InfoTitle = styled.div`
     font-style: normal;
     font-weight: 800;
     font-size: 18px;
-    line-height: 20px;
     
     display: flex;
     align-items: center;
@@ -95,6 +109,13 @@ export const InfoTitle = styled.div`
     order: 0;
     flex-grow: 0;
     margin: 0px 0px;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: 25px;            
+        width: 100%;
+        margin-top: 10px;
+
+    }
 `;
 
 export const InfoSubtitle = styled.div`
@@ -114,6 +135,13 @@ export const InfoSubtitle = styled.div`
     align-items: center;
         
     color: #848484;
+    
+    @media only screen and (max-width: 600px) {
+        font-size: 20px;            
+        width: 100%;
+        margin-top: 10px;
+
+    }
         
 `;
 

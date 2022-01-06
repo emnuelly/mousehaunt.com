@@ -113,7 +113,7 @@ export const Title = styled.div`
     
     color: #FFFFFF;
     
-         @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 600px) {
         display: none;
     }
 
@@ -123,18 +123,20 @@ export const TitleResponsive = styled.div`
     font-family: Bebas Neue Pro;
     font-style: normal;
     font-weight: 800;
-    font-size: 56px;
-    line-height: 64px; 
-     margin-top: 160px;
-    display: block;
+    font-size: 55px;
+    display: none;
     align-items: center;
     text-align: left;
     text-transform: uppercase;
-    width: 300px;
 
-    
+        
     color: #FFFFFF;
     
+    @media only screen and (max-width: 600px) {
+      font-size: 40px;
+    display: block;
+
+    }
 
 
 `;
@@ -166,20 +168,23 @@ export const ContentResponsive = styled.div`
     margin: auto;
     padding: 25px;
     position: relative;
-
+    justify-content: space-between;
+    display: -webkit-box;
+    
   @media only screen and (max-width: 600px) {
-        display: inline-flex;
-            height: 100%;
+        height: 100%;
+            margin-top: 150px;
+
     }
 
 `;
 
 export const SizeButton = styled.div`
   display: none;
-  align-self: end;
 
   @media only screen and (max-width: 600px) {
         display: block;
+        place-self: flex-end;
     }
 
 `;
@@ -190,6 +195,10 @@ export const Cards = styled.div`
   margin: auto;
   align-items: center;
   text-align: center;
+  
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+    }
 `;
 
 export const AlignCards = styled.div`
@@ -201,6 +210,12 @@ export const AlignCards = styled.div`
 export const CardSpace = styled.div`
     margin-left: 10px;
     margin-bottom: 10px;
+    
+    
+    @media only screen and (max-width: 600px) {
+        width: 100%;
+        padding-right: 20px;  
+    }
 
 `;
 

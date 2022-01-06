@@ -197,8 +197,6 @@ export const ThirdContent = styled.div`
    
     @media only screen and (max-width: 600px) {
       align-self: center;
-      width: 600px;
-
     }
 `;
 

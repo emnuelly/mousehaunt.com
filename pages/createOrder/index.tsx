@@ -10,6 +10,8 @@ import HeaderDefault from "../../components/common/HeaderDefault/HeaderDefault";
 
 const CreateOrder: NextPage = () => {
 
+    const [price, setPrice] = useState<number>(0);
+
     return (
         <Container id={"CreateOrder"}>
             <Head>
@@ -21,18 +23,18 @@ const CreateOrder: NextPage = () => {
                 <Body>
                     <Web>
                         <Left>
-                            <FormCreateOrder/>
+                            <FormCreateOrder setPrice={setPrice} price={price}/>
                         </Left>
                         <Right>
-                            <CardCreateOrder/>
+                            <CardCreateOrder price={price}/>
                         </Right>
                     </Web>
                     <Mobile>
                         <Right>
-                            <CardCreateOrder/>
+                            <CardCreateOrder price={price}/>
                         </Right>
                         <Left>
-                            <FormCreateOrder/>
+                            <FormCreateOrder  setPrice={setPrice} price={price}/>
                         </Left>
                     </Mobile>
                 </Body>

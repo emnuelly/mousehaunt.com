@@ -12,10 +12,17 @@ import {
 } from "./styles";
 import Link from "../../Link";
 import Value from "../../../../public/images/value.png";
-import React from "react";
+import React, {useContext} from "react";
 import Image from "next/image";
+import {OrdersContext} from "../../../../contexts/OrdersContext";
 
-const CardShop: NextPage = () => {
+interface CardShopProps {
+    price: number
+}
+const CardShop = ({price}: CardShopProps) => {
+
+    const { mhtPrice, setSelectedOrder } = useContext(OrdersContext);
+
     return (
         <Card>
             <Imagem/>
@@ -32,10 +39,10 @@ const CardShop: NextPage = () => {
                 </InfoContainerUp>
                 <InfoContainerValue>
                     <InfoValue>
-                        0,45 $MHT
+                        {price} $MHT
                     </InfoValue>
                     <InfoDollar>
-                        8,324 USD
+                        {(price * mhtPrice).toFixed(5)} USD
                     </InfoDollar>
                 </InfoContainerValue>
             </InfoContainer>

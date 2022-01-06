@@ -12,6 +12,7 @@ export const Container = styled.section`
   
   @media only screen and (max-width: 600px) {
       z-index: 0;
+      width: 100%;
   }
 `;
 
@@ -20,6 +21,12 @@ export const ContainerHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   text-align: left;
+  
+    
+  @media only screen and (max-width: 600px) {
+      padding-left: 20px;
+      padding-right: 10px;
+  }
 `;
 
 export const Title = styled.div`
@@ -57,4 +64,15 @@ export const FlexEnd = styled.div`
   @media only screen and (max-width: 600px) {
     align-self: flex-end;
   }
+`;
+
+export const CardSpace = styled.div`
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+    @media only screen and (max-width: 600px) {
+        width: 554px;
+        padding-right: 20px;  
+    }
+
 `;

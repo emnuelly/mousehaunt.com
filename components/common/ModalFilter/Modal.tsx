@@ -4,26 +4,16 @@ import Link from "../Link";
 import PropTypes from "prop-types";
 import FilterResponsiveDefault from "../FilterMarketplace/FilterResponsive";
 
-Modal.propTypes = {
-    show: PropTypes.bool,
-};
-
 function Modal(props: any) {
-
-    const [showMe, setShowMe] = useState(false);
-
-    function toggle() {
-        setShowMe(!showMe);
-    }
-
+    console.log(props);
     return (
-        <div style={{display: showMe? "none":"block"}}>
+        <div>
             <Container>
                 <ModalContainer>
-                    <Close onClick={toggle}>X</Close>
+                    <Close onClick={() => props.onClick()}>X</Close>
                     <FilterResponsiveDefault/>
                     <ButtonApply>
-                        <Link onClick={toggle}>Apply</Link>
+                        <Link onClick={() => props.onClick()}>Apply</Link>
                     </ButtonApply>
                 </ModalContainer>
             </Container>

@@ -4,7 +4,7 @@ import {
     Container,
     Title,
     ContainerHeader,
-    ContainerBody
+    ContainerBody, CardSpace
 } from "./styles";
 import Link from "../Link";
 import CardShop from "../CardShop";
@@ -22,10 +22,12 @@ const TrendingProduct: NextPage = () => {
                 </FlexEnd>
             </ContainerHeader>
             <ContainerBody>
-                <CardShop/>
-                <CardShop/>
-                <CardShop/>
-                <CardShop/>
+                <CardSpace>
+                    <CardShop/>
+                </CardSpace>
+                <CardSpace>
+                    <CardShop/>
+                </CardSpace>
             </ContainerBody>
         </Container>
     );

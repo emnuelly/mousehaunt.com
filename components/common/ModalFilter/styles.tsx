@@ -10,8 +10,7 @@ export const Container = styled.div`
   height: 100%;
   background: #0f0e23;
   padding-top: 20px;
-  margin-top: -330px;
-  display: none;
+  margin-top: -240px;
 `;
 
 export const ModalContainer = styled.div`
@@ -101,7 +100,7 @@ export const Close = styled.a`
     display: inline-grid;
     align-items: center;
     padding-left: 20px;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
     text-align: left;
     font-family: Bebas Neue Pro;
     font-style: bold;

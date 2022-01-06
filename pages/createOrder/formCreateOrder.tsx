@@ -34,21 +34,28 @@ import DatePicker from "../../components/common/CreateOrder/DatePicker";
 import BoosterTypes from "../../components/common/CreateOrder/BoosterTypes";
 import {OrdersContext} from "../../contexts/OrdersContext";
 import Router from "next/router";
+import SelectExpirationDate from "../../components/common/SelectExpirationDate";
 
+interface FormCreateOrderProps {
+    setPrice: (newPrice: number) => void,
+    price: number
+}
 
-const FormCreateOrder = () => {
+const FormCreateOrder = ({setPrice, price}: FormCreateOrderProps) => {
 
-    const { mhtPrice, setSelectedOrder } = useContext(OrdersContext);
-
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
     function approve() {
+        // é assim que pega o valor do estado e coloca nesse json
+        console.log(price);
+        console.log(selectedDate)
         OrdersManager.Approve({
             id: '123',
             assetId: '5',
             seller: '0x12312312',
-            amount: '5',
+            amount: '1',
             nftAddress: '0x123123f1',
-            priceInWei: '10',
+            priceInWei: price.toString(),
             expiresAt: '12839123891',
         });
         Router.push('/success')
@@ -76,11 +83,12 @@ const FormCreateOrder = () => {
             <LabelFormContent><LabelForm>Price</LabelForm><IconForm/></LabelFormContent>
             <FormInputs>
                 <SelectPrices/>
-                <Input placeholder="Amount" type="number"/>
+                <Input placeholder="Amount" type="number" value={price} onChange={(event) => setPrice(parseInt(event.target.value))}/>
             </FormInputs>
             <LabelFormContent><LabelForm>Expiration time</LabelForm></LabelFormContent>
             <Expiration>
-                <DatePicker/>
+                <SelectExpirationDate/>
+                {/*<DatePicker changeEvent={setSelectedDate}/>*/}
             </Expiration>
             <Checkbox/>
             <ButtonPlace>

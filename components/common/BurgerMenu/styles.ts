@@ -78,6 +78,8 @@ export const BurgerContainer = styled.div`
 `;
 
 export const ButtonStarted = styled.div`
+    margin-left: auto;
+    margin-right: 5rem;
     @media only screen and (min-width: 600px) {
         display: none;
       }

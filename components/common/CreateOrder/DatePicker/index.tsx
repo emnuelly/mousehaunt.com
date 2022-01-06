@@ -6,12 +6,17 @@ import {
 } from '@material-ui/pickers';
 import {DatePickerStyle} from "./styles";
 
-function DatePicker() {
+interface DatePickerProps {
+    changeEvent: (date: Date) => void
+}
+
+function DatePicker({changeEvent} :DatePickerProps) {
 
     const [selectedDate, setSelectedDate] = useState(new Date());
 
-    const handleDateChange = (date) => {
+    const handleDateChange = (date: any) => {
         setSelectedDate(date);
+        changeEvent(date)
     };
 
     return (

@@ -8,16 +8,17 @@ import {
     InfoContainerTitle,
     InfoTitle,
     InfoSubtitle,
-    InfoBadgeImage, InfoBadgeValue, InfoContainerValue, InfoValue, InfoDollar, Like
+    InfoBadgeImage, InfoBadgeValue, InfoContainerValue, InfoValue, InfoDollar,
 } from "./styles";
 import React, { useContext } from "react";
 import { Order, OrdersContext } from "../../../contexts/OrdersContext";
 import Router from 'next/router'
+import ButtonLiked from "../ButtonLiked/ButtonLiked";
 
 interface OrderProps {
     order: Order
 }
-const CardShop: NextPage = ({order}:OrderProps) => {
+const CardShop = ({order}:OrderProps) => {
 
     const { mhtPrice, setSelectedOrder } = useContext(OrdersContext);
 
@@ -28,7 +29,7 @@ const CardShop: NextPage = ({order}:OrderProps) => {
 
     return (
         <Card onClick={selectOrder}>
-            <Like/>
+            {/*<ButtonLiked/>*/}
             <Imagem/>
             <InfoContainer>
                 <InfoContainerUp>

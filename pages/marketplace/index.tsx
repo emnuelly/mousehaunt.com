@@ -16,7 +16,6 @@ import FilterDefault from "../../components/common/FilterMarketplace/FilterDefau
 
 const Marketplace: NextPage = () => {
     const [showMe, setShowMe] = useState(false);
-    const pageLimit = 10;
     const { orders, getOrders, page, setPage } = useContext(OrdersContext)
 
     function loadMore() {
@@ -28,7 +27,7 @@ const Marketplace: NextPage = () => {
     },[page])
 
     function toggle() {
-        setShowMe(true);
+        setShowMe(!showMe);
     }
 
     return (
@@ -43,7 +42,7 @@ const Marketplace: NextPage = () => {
                     <TitleResponsive>NFT MARKETPLACE</TitleResponsive>
                     <SizeButton><Link onClick={toggle}>FILTERS</Link></SizeButton>
                 </ContentResponsive>
-                <Modal/>
+                {showMe ? <Modal onClick={toggle}/> : null}
                 <Subtitle>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dis mauris in vitae, scelerisque. Neque adipiscing sed tortor eu nulla
                 </Subtitle>
