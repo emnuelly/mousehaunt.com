@@ -48,7 +48,7 @@ const FormCreateOrder = ({setPrice, price}: FormCreateOrderProps) => {
     function approve() {
         // é assim que pega o valor do estado e coloca nesse json
         console.log(price);
-        console.log(selectedDate)
+        console.log("hm", selectedDate)
         OrdersManager.Approve({
             id: '123',
             assetId: '5',
@@ -58,7 +58,6 @@ const FormCreateOrder = ({setPrice, price}: FormCreateOrderProps) => {
             priceInWei: price.toString(),
             expiresAt: '12839123891',
         });
-        Router.push('/success')
     }
 
     function placeOrder() {
@@ -87,8 +86,7 @@ const FormCreateOrder = ({setPrice, price}: FormCreateOrderProps) => {
             </FormInputs>
             <LabelFormContent><LabelForm>Expiration time</LabelForm></LabelFormContent>
             <Expiration>
-                <SelectExpirationDate/>
-                {/*<DatePicker changeEvent={setSelectedDate}/>*/}
+                <SelectExpirationDate onChange={selectedDate}/>
             </Expiration>
             <Checkbox/>
             <ButtonPlace>

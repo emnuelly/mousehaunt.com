@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-export const Select = styled.select`
+export const Select = styled.div`
+
+    select{
     width: 520px;
     height: 48px;
     background: #29274B;
@@ -11,5 +13,5 @@ export const Select = styled.select`
     flex-direction: row;
     display: flex;
     padding: 13px;
-    color: #fff;
+    color: #fff;}
 `;

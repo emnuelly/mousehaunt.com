@@ -1,7 +1,7 @@
 import {
     Select
 } from "./styles";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 
 interface DatePickerProps {
@@ -10,23 +10,35 @@ interface DatePickerProps {
 
 function SelectExpirationDate({changeEvent} :DatePickerProps) {
 
-    const [selectedDate, setSelectedDate] = useState("");
+    const initialValue = [
+        { id: 0, value: "Select" }];
 
-    const handleDateChange = (date: any) => {
-        setSelectedDate(date);
-        changeEvent(date)
-    };
+    const allowedState = [
+        { id: 1, value: "1 hour" },
+        { id: 2, value: "1 day" },
+        { id: 4, value: "1 week" },
+        { id: 5, value: "1 month" },
+        { id: 6, value: "3 month" }
+    ];
+
+    const [stateOptions, setStateValues] = useState(initialValue);
+
+    console.log(initialValue.length);
+
+    useEffect(() => {
+        setStateValues(allowedState);
+    }, []);
+
+    const handleAddTypeChange = (e: any) => {
+    }
 
     return (
         <Select>
-            <option value="" hidden>
-                Select
-            </option>
-            <option value="1-hour">1 hour</option>
-            <option value="1-day">1 day</option>
-            <option value="1-week">1 week</option>
-            <option value="1-month">1 month</option>
-            <option value="3-months">3 months</option>
+            <select onChange={handleAddTypeChange}>
+                {stateOptions.map((localState, index) => (
+                    <option key={localState.id}>{localState.value}</option>
+                ))}
+            </select>
         </Select>
 
 
